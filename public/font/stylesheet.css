@@ -1,0 +1,552 @@
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-Regular.eot');
+    src: local('Antonia H2 Regular'), local('AntoniaH2-Regular'),
+        url('AntoniaH2-Regular.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-Regular.woff2') format('woff2'),
+        url('AntoniaH2-Regular.woff') format('woff'),
+        url('AntoniaH2-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-RegularItalic.eot');
+    src: local('Antonia H1 Regular Italic'), local('AntoniaH1-RegularItalic'),
+        url('AntoniaH1-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-RegularItalic.woff2') format('woff2'),
+        url('AntoniaH1-RegularItalic.woff') format('woff'),
+        url('AntoniaH1-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-Regular.eot');
+    src: local('Antonia H3 Regular'), local('AntoniaH3-Regular'),
+        url('AntoniaH3-Regular.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-Regular.woff2') format('woff2'),
+        url('AntoniaH3-Regular.woff') format('woff'),
+        url('AntoniaH3-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-HeavyItalic.eot');
+    src: local('Antonia H2 Heavy Italic'), local('AntoniaH2-HeavyItalic'),
+        url('AntoniaH2-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-HeavyItalic.woff2') format('woff2'),
+        url('AntoniaH2-HeavyItalic.woff') format('woff'),
+        url('AntoniaH2-HeavyItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-SemiBold.eot');
+    src: local('Antonia Text SemiBold'), local('AntoniaText-SemiBold'),
+        url('AntoniaText-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-SemiBold.woff2') format('woff2'),
+        url('AntoniaText-SemiBold.woff') format('woff'),
+        url('AntoniaText-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-Bold.eot');
+    src: local('Antonia H2 Bold'), local('AntoniaH2-Bold'),
+        url('AntoniaH2-Bold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-Bold.woff2') format('woff2'),
+        url('AntoniaH2-Bold.woff') format('woff'),
+        url('AntoniaH2-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-SemiBoldItalic.eot');
+    src: local('Antonia Text SemiBold Italic'), local('AntoniaText-SemiBoldItalic'),
+        url('AntoniaText-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-SemiBoldItalic.woff2') format('woff2'),
+        url('AntoniaText-SemiBoldItalic.woff') format('woff'),
+        url('AntoniaText-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-LightItalic.eot');
+    src: local('Antonia H3 Light Italic'), local('AntoniaH3-LightItalic'),
+        url('AntoniaH3-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-LightItalic.woff2') format('woff2'),
+        url('AntoniaH3-LightItalic.woff') format('woff'),
+        url('AntoniaH3-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-Medium.eot');
+    src: local('Antonia H1 Medium'), local('AntoniaH1-Medium'),
+        url('AntoniaH1-Medium.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-Medium.woff2') format('woff2'),
+        url('AntoniaH1-Medium.woff') format('woff'),
+        url('AntoniaH1-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-MediumItalic.eot');
+    src: local('Antonia Text Medium Italic'), local('AntoniaText-MediumItalic'),
+        url('AntoniaText-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-MediumItalic.woff2') format('woff2'),
+        url('AntoniaText-MediumItalic.woff') format('woff'),
+        url('AntoniaText-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-BoldItalic.eot');
+    src: local('Antonia H2 Bold Italic'), local('AntoniaH2-BoldItalic'),
+        url('AntoniaH2-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-BoldItalic.woff2') format('woff2'),
+        url('AntoniaH2-BoldItalic.woff') format('woff'),
+        url('AntoniaH2-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-Medium.eot');
+    src: local('Antonia H2 Medium'), local('AntoniaH2-Medium'),
+        url('AntoniaH2-Medium.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-Medium.woff2') format('woff2'),
+        url('AntoniaH2-Medium.woff') format('woff'),
+        url('AntoniaH2-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-BoldItalic.eot');
+    src: local('Antonia H1 Bold Italic'), local('AntoniaH1-BoldItalic'),
+        url('AntoniaH1-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-BoldItalic.woff2') format('woff2'),
+        url('AntoniaH1-BoldItalic.woff') format('woff'),
+        url('AntoniaH1-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-Light.eot');
+    src: local('Antonia H3 Light'), local('AntoniaH3-Light'),
+        url('AntoniaH3-Light.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-Light.woff2') format('woff2'),
+        url('AntoniaH3-Light.woff') format('woff'),
+        url('AntoniaH3-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-Medium.eot');
+    src: local('Antonia Text Medium'), local('AntoniaText-Medium'),
+        url('AntoniaText-Medium.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-Medium.woff2') format('woff2'),
+        url('AntoniaText-Medium.woff') format('woff'),
+        url('AntoniaText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-Heavy.eot');
+    src: local('Antonia H2 Heavy'), local('AntoniaH2-Heavy'),
+        url('AntoniaH2-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-Heavy.woff2') format('woff2'),
+        url('AntoniaH2-Heavy.woff') format('woff'),
+        url('AntoniaH2-Heavy.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-Heavy.eot');
+    src: local('Antonia H1 Heavy'), local('AntoniaH1-Heavy'),
+        url('AntoniaH1-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-Heavy.woff2') format('woff2'),
+        url('AntoniaH1-Heavy.woff') format('woff'),
+        url('AntoniaH1-Heavy.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-Light.eot');
+    src: local('Antonia H2 Light'), local('AntoniaH2-Light'),
+        url('AntoniaH2-Light.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-Light.woff2') format('woff2'),
+        url('AntoniaH2-Light.woff') format('woff'),
+        url('AntoniaH2-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-SemiBold.eot');
+    src: local('Antonia H3 SemiBold'), local('AntoniaH3-SemiBold'),
+        url('AntoniaH3-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-SemiBold.woff2') format('woff2'),
+        url('AntoniaH3-SemiBold.woff') format('woff'),
+        url('AntoniaH3-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-BoldItalic.eot');
+    src: local('Antonia Text Bold Italic'), local('AntoniaText-BoldItalic'),
+        url('AntoniaText-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-BoldItalic.woff2') format('woff2'),
+        url('AntoniaText-BoldItalic.woff') format('woff'),
+        url('AntoniaText-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-MediumItalic.eot');
+    src: local('Antonia H3 Medium Italic'), local('AntoniaH3-MediumItalic'),
+        url('AntoniaH3-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-MediumItalic.woff2') format('woff2'),
+        url('AntoniaH3-MediumItalic.woff') format('woff'),
+        url('AntoniaH3-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-Regular.eot');
+    src: local('Antonia H1 Regular'), local('AntoniaH1-Regular'),
+        url('AntoniaH1-Regular.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-Regular.woff2') format('woff2'),
+        url('AntoniaH1-Regular.woff') format('woff'),
+        url('AntoniaH1-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-SemiBold.eot');
+    src: local('Antonia H2 SemiBold'), local('AntoniaH2-SemiBold'),
+        url('AntoniaH2-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-SemiBold.woff2') format('woff2'),
+        url('AntoniaH2-SemiBold.woff') format('woff'),
+        url('AntoniaH2-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-MediumItalic.eot');
+    src: local('Antonia H2 Medium Italic'), local('AntoniaH2-MediumItalic'),
+        url('AntoniaH2-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-MediumItalic.woff2') format('woff2'),
+        url('AntoniaH2-MediumItalic.woff') format('woff'),
+        url('AntoniaH2-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-RegularItalic.eot');
+    src: local('Antonia H3 Regular Italic'), local('AntoniaH3-RegularItalic'),
+        url('AntoniaH3-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-RegularItalic.woff2') format('woff2'),
+        url('AntoniaH3-RegularItalic.woff') format('woff'),
+        url('AntoniaH3-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-SemiBold.eot');
+    src: local('Antonia H1 SemiBold'), local('AntoniaH1-SemiBold'),
+        url('AntoniaH1-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-SemiBold.woff2') format('woff2'),
+        url('AntoniaH1-SemiBold.woff') format('woff'),
+        url('AntoniaH1-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-LightItalic.eot');
+    src: local('Antonia H1 Light Italic'), local('AntoniaH1-LightItalic'),
+        url('AntoniaH1-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-LightItalic.woff2') format('woff2'),
+        url('AntoniaH1-LightItalic.woff') format('woff'),
+        url('AntoniaH1-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-LightItalic.eot');
+    src: local('Antonia H2 Light Italic'), local('AntoniaH2-LightItalic'),
+        url('AntoniaH2-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-LightItalic.woff2') format('woff2'),
+        url('AntoniaH2-LightItalic.woff') format('woff'),
+        url('AntoniaH2-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-HeavyItalic.eot');
+    src: local('Antonia H1 Heavy Italic'), local('AntoniaH1-HeavyItalic'),
+        url('AntoniaH1-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-HeavyItalic.woff2') format('woff2'),
+        url('AntoniaH1-HeavyItalic.woff') format('woff'),
+        url('AntoniaH1-HeavyItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-Medium.eot');
+    src: local('Antonia H3 Medium'), local('AntoniaH3-Medium'),
+        url('AntoniaH3-Medium.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-Medium.woff2') format('woff2'),
+        url('AntoniaH3-Medium.woff') format('woff'),
+        url('AntoniaH3-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-Bold.eot');
+    src: local('Antonia Text Bold'), local('AntoniaText-Bold'),
+        url('AntoniaText-Bold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-Bold.woff2') format('woff2'),
+        url('AntoniaText-Bold.woff') format('woff'),
+        url('AntoniaText-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-RegularItalic.eot');
+    src: local('Antonia H2 Regular Italic'), local('AntoniaH2-RegularItalic'),
+        url('AntoniaH2-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-RegularItalic.woff2') format('woff2'),
+        url('AntoniaH2-RegularItalic.woff') format('woff'),
+        url('AntoniaH2-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H2';
+    src: url('AntoniaH2-SemiBoldItalic.eot');
+    src: local('Antonia H2 SemiBold Italic'), local('AntoniaH2-SemiBoldItalic'),
+        url('AntoniaH2-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH2-SemiBoldItalic.woff2') format('woff2'),
+        url('AntoniaH2-SemiBoldItalic.woff') format('woff'),
+        url('AntoniaH2-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-Bold.eot');
+    src: local('Antonia H3 Bold'), local('AntoniaH3-Bold'),
+        url('AntoniaH3-Bold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-Bold.woff2') format('woff2'),
+        url('AntoniaH3-Bold.woff') format('woff'),
+        url('AntoniaH3-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-Bold.eot');
+    src: local('Antonia H1 Bold'), local('AntoniaH1-Bold'),
+        url('AntoniaH1-Bold.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-Bold.woff2') format('woff2'),
+        url('AntoniaH1-Bold.woff') format('woff'),
+        url('AntoniaH1-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-Heavy.eot');
+    src: local('Antonia H3 Heavy'), local('AntoniaH3-Heavy'),
+        url('AntoniaH3-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-Heavy.woff2') format('woff2'),
+        url('AntoniaH3-Heavy.woff') format('woff'),
+        url('AntoniaH3-Heavy.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-BoldItalic.eot');
+    src: local('Antonia H3 Bold Italic'), local('AntoniaH3-BoldItalic'),
+        url('AntoniaH3-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-BoldItalic.woff2') format('woff2'),
+        url('AntoniaH3-BoldItalic.woff') format('woff'),
+        url('AntoniaH3-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-MediumItalic.eot');
+    src: local('Antonia H1 Medium Italic'), local('AntoniaH1-MediumItalic'),
+        url('AntoniaH1-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-MediumItalic.woff2') format('woff2'),
+        url('AntoniaH1-MediumItalic.woff') format('woff'),
+        url('AntoniaH1-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-Black.eot');
+    src: local('Antonia H1 Black'), local('AntoniaH1-Black'),
+        url('AntoniaH1-Black.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-Black.woff2') format('woff2'),
+        url('AntoniaH1-Black.woff') format('woff'),
+        url('AntoniaH1-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-BlackItalic.eot');
+    src: local('Antonia H1 Black Italic'), local('AntoniaH1-BlackItalic'),
+        url('AntoniaH1-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-BlackItalic.woff2') format('woff2'),
+        url('AntoniaH1-BlackItalic.woff') format('woff'),
+        url('AntoniaH1-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-Regular.eot');
+    src: local('Antonia Text Regular'), local('AntoniaText-Regular'),
+        url('AntoniaText-Regular.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-Regular.woff2') format('woff2'),
+        url('AntoniaText-Regular.woff') format('woff'),
+        url('AntoniaText-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-HeavyItalic.eot');
+    src: local('Antonia H3 Heavy Italic'), local('AntoniaH3-HeavyItalic'),
+        url('AntoniaH3-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-HeavyItalic.woff2') format('woff2'),
+        url('AntoniaH3-HeavyItalic.woff') format('woff'),
+        url('AntoniaH3-HeavyItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H3';
+    src: url('AntoniaH3-SemiBoldItalic.eot');
+    src: local('Antonia H3 SemiBold Italic'), local('AntoniaH3-SemiBoldItalic'),
+        url('AntoniaH3-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH3-SemiBoldItalic.woff2') format('woff2'),
+        url('AntoniaH3-SemiBoldItalic.woff') format('woff'),
+        url('AntoniaH3-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia Text';
+    src: url('AntoniaText-RegularItalic.eot');
+    src: local('Antonia Text Regular Italic'), local('AntoniaText-RegularItalic'),
+        url('AntoniaText-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaText-RegularItalic.woff2') format('woff2'),
+        url('AntoniaText-RegularItalic.woff') format('woff'),
+        url('AntoniaText-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-SemiBoldItalic.eot');
+    src: local('Antonia H1 SemiBold Italic'), local('AntoniaH1-SemiBoldItalic'),
+        url('AntoniaH1-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-SemiBoldItalic.woff2') format('woff2'),
+        url('AntoniaH1-SemiBoldItalic.woff') format('woff'),
+        url('AntoniaH1-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Antonia H1';
+    src: url('AntoniaH1-Light.eot');
+    src: local('Antonia H1 Light'), local('AntoniaH1-Light'),
+        url('AntoniaH1-Light.eot?#iefix') format('embedded-opentype'),
+        url('AntoniaH1-Light.woff2') format('woff2'),
+        url('AntoniaH1-Light.woff') format('woff'),
+        url('AntoniaH1-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+

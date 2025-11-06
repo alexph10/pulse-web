@@ -1,0 +1,112 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalContent {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  height: 600px;
+  background-color: #fffef7;
+  padding: 0;
+  animation: slideUp 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.modalContent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
+  z-index: 1;
+}
+
+.modalContent::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
+  z-index: 1;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.leftColumn {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.rightColumn {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.divider {
+  width: 1px;
+  background-color: #3d2817;
+  opacity: 0.3;
+}
+
+.divider {
+  width: 1px;
+  background-color: #3d2817;
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    height: 500px;
+    flex-direction: column;
+  }
+  
+  .divider {
+    width: 100%;
+    height: 1px;
+  }
+  
+  .leftColumn,
+  .rightColumn {
+    padding: 1.5rem;
+  }
+}
