@@ -16,7 +16,7 @@
 }
 
 .expanded {
-  width: 232px;
+  width: 180px;
 }
 
 /* Logo */
@@ -59,10 +59,11 @@
   transition: all 0.2s ease;
   cursor: pointer;
   position: relative;
+  border-radius: 24px;
+  margin: 0 12px;
 }
 
 .navItem:hover {
-  background-color: #f0f0f0;
   color: #000;
 }
 
@@ -70,16 +71,6 @@
   background-color: #fff;
   color: #000;
   font-weight: 600;
-}
-
-.navItem.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background-color: #000;
 }
 
 .icon {

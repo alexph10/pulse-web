@@ -48,11 +48,10 @@ export default function HeroOverlay() {
         <Scene3D />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-antonia italic text-center px-8"
+            className="text-4xl md:text-5xl lg:text-6xl text-center px-8"
             style={{ 
-              fontFamily: 'Antonia H1, serif', 
+              fontFamily: 'Manier, sans-serif', 
               fontWeight: 300,
-              fontStyle: 'italic',
               letterSpacing: '0.02em',
               color: '#FFFFE3'
             }}

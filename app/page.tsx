@@ -52,9 +52,23 @@ export default function Home() {
         className="w-full h-screen" 
         style={{ 
           opacity: scrollOpacity.section2,
-          transition: 'opacity 0.1s ease-out'
+          transition: 'opacity 0.1s ease-out',
+          position: 'relative',
+          padding: '20px'
         }}
       >
+        {/* Offset border frame */}
+        <div style={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          right: '20px',
+          bottom: '20px',
+          border: '1px solid white',
+          borderRadius: '4px',
+          pointerEvents: 'none',
+          zIndex: 10
+        }} />
         {/* Content will go here */}
       </div>
     </div>

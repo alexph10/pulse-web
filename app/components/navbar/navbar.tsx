@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import styles from './navbar.module.css';
 import Image from 'next/image';
 import { Inter, EB_Garamond } from 'next/font/google';
-import SignupModal from '../signup-modal/signup-modal';
 
 const inter = Inter({ subsets: ['latin'] });
 const ebGaramond = EB_Garamond({ subsets: ['latin'] });
@@ -21,48 +20,43 @@ const Navbar: React.FC = () => {
       { label: 'Products', href: '/products' },
    ]);
    const [activeItem, setActiveItem] = useState<string>('');
-   const [isModalOpen, setIsModalOpen] = useState(false);
    
    return (
-     <>
-       <nav className={styles.navbar}>
-         <div className={styles.navbarBackground}>
-           <div className={styles.container}>
-             {/* Logo */}
-             <Link href="/" className={styles.logo}>
-               <span className={styles.logoText}>Pulse</span>
-             </Link>
+     <nav className={styles.navbar}>
+       <div className={styles.navbarBackground}>
+         <div className={styles.container}>
+           {/* Logo */}
+           <Link href="/" className={styles.logo}>
+             <span className={styles.logoText}>Pulse</span>
+           </Link>
 
-             {/* Navigation Links */}
-             <div className={styles.navLinks}>
-               {navItems.map((item) => (
-                 <Link
-                   key={item.label}
-                   href={item.href}
-                   className={`${styles.navItem} ${
-                     activeItem === item.label ? styles.active : ''
-                   }`}
-                   onMouseEnter={() => setActiveItem(item.label)}
-                   onMouseLeave={() => setActiveItem('')}
-                 >
-                   {item.label}
-                 </Link>
-               ))}
-             </div>
-             
-             {/* CTA Link */}
-             <button 
-               onClick={() => setIsModalOpen(true)}
-               className={styles.ctaLink}
-             >
-               Sign up / Log in
-             </button>
+           {/* Navigation Links */}
+           <div className={styles.navLinks}>
+             {navItems.map((item) => (
+               <Link
+                 key={item.label}
+                 href={item.href}
+                 className={`${styles.navItem} ${
+                   activeItem === item.label ? styles.active : ''
+                 }`}
+                 onMouseEnter={() => setActiveItem(item.label)}
+                 onMouseLeave={() => setActiveItem('')}
+               >
+                 {item.label}
+               </Link>
+             ))}
            </div>
+           
+           {/* CTA Link */}
+           <Link 
+             href="/onboarding"
+             className={styles.ctaLink}
+           >
+             Sign up / Log in
+           </Link>
          </div>
-       </nav>
-       
-       <SignupModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-     </>
+       </div>
+     </nav>
    );
 };
 export default Navbar;

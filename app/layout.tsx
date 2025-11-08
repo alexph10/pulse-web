@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import './globals.css';
+import { AuthProvider } from './contexts/AuthContext';
 
 
 export const metadata: Metadata = {
-  title: "Pulse - Intelligence for Operations",
-  description: "Enterprise operations intelligence platform",
+  title: "Pulse - Mental Wellness & Organization",
+  description: "Privacy-first mental wellness platform with AI-assisted journaling",
 };
 
 export default function RootLayout({
@@ -15,8 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ fontFamily: 'Satoshi, sans-serif' }}>
-        {children}
-
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

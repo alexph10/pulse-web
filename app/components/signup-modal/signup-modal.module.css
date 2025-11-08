@@ -3,12 +3,11 @@
   inset: 0;
   z-index: 2000;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  align-items: flex-end;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.6);
   animation: fadeIn 0.3s ease;
+  padding: 32px;
 }
 
 @keyframes fadeIn {
@@ -22,38 +21,239 @@
 
 .modalContent {
   position: relative;
-  width: 90%;
-  max-width: 900px;
-  height: 600px;
-  background-color: #fffef7;
+  width: 480px;
+  height: 360px;
+  background: rgba(100, 80, 100, 0.4);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   padding: 0;
   animation: slideUp 0.3s ease;
   display: flex;
   flex-direction: row;
-  overflow: visible;
-  border: 2px solid rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .modalContent::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
-  z-index: 1;
+  display: none;
 }
 
-.modalContent::after {
-  content: '';
+/* Left Column - Form */
+.leftColumn {
+  flex: 1;
+  background-color: transparent;
+  padding: 28px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* Right Column - Gradient */
+.rightColumn {
+  display: none;
+}
+
+/* Gradient Layers */
+.gradientLayer1 {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%);
-  z-index: 1;
+  top: -50%;
+  left: -20%;
+  width: 96%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255, 150, 100, 0.6) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.gradientLayer2 {
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 80%;
+  height: 96%;
+  background: radial-gradient(circle, rgba(255, 200, 120, 0.5) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.gradientLayer3 {
+  position: absolute;
+  top: 20%;
+  right: -10%;
+  width: 88%;
+  height: 104%;
+  background: radial-gradient(circle, rgba(255, 80, 60, 0.55) 0%, transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.logo {
+  margin-bottom: 16px;
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  background-color: #333;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: white;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 5px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 20px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+.input {
+  width: 100%;
+  padding: 9px 14px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  color: white;
+  font-size: 11px;
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input:focus {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  margin-top: -5px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.checkbox input {
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+}
+
+.forgotPassword {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.forgotPassword:hover {
+  opacity: 0.7;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #ffb3a3 0%, #ffa08e 100%);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 5px;
+}
+
+.loginButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 179, 163, 0.4);
+}
+
+.divider {
+  display: none;
+}
+
+.googleButton {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: white;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.socialButtons {
+  display: flex;
+  gap: 9px;
+  margin-top: 14px;
+  justify-content: center;
+  width: 100%;
+}
+
+.googleButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.googleIcon {
+  font-weight: 700;
+  font-size: 18px;
 }
 
 @keyframes slideUp {
@@ -67,46 +267,19 @@
   }
 }
 
-.leftColumn {
-  flex: 1;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.rightColumn {
-  flex: 1;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.divider {
-  width: 1px;
-  background-color: #3d2817;
-  opacity: 0.3;
-}
-
-.divider {
-  width: 1px;
-  background-color: #3d2817;
-  opacity: 0.3;
-}
-
 @media (max-width: 768px) {
   .modalContent {
-    width: 95%;
-    height: 500px;
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
     flex-direction: column;
   }
   
-  .divider {
-    width: 100%;
-    height: 1px;
+  .leftColumn {
+    padding: 40px 32px;
   }
   
-  .leftColumn,
   .rightColumn {
-    padding: 1.5rem;
+    min-height: 200px;
   }
 }

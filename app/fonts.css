@@ -1,21 +1,57 @@
 /**
- * Custom Font Families - Satoshi & Switzer
+ * Custom Font Families - Satoshi, Switzer & Manier
  * 
  * Usage with inline styles:
  *   style={{ fontFamily: 'Satoshi' }}
  *   style={{ fontFamily: 'Switzer' }}
+ *   style={{ fontFamily: 'Manier' }}
  * 
  * Usage in CSS/CSS Modules:
  *   font-family: 'Satoshi', sans-serif;
  *   font-family: 'Switzer', sans-serif;
+ *   font-family: 'Manier', sans-serif;
  * 
  * Available weights:
  *   Satoshi: 300 (Light), 400 (Regular), 500 (Medium), 700 (Bold), 900 (Black)
  *   Switzer: 100 (Thin), 200 (Extralight), 300 (Light), 400 (Regular), 
  *            500 (Medium), 600 (Semibold), 700 (Bold), 800 (Extrabold), 900 (Black)
+ *   Manier: 100 (Thin), 300 (Light), 400 (Regular), 500 (Medium), 700 (Bold), 900 (Heavy)
  * 
  * Both fonts support variable font format for better performance
  */
+
+/* Manier Font Family */
+@font-face {
+  font-family: 'Manier';
+  src: url('/Manier/Manier-Light-Trial-BF650bbeaf2e95e.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manier';
+  src: url('/Manier/Manier-LightItalic-Trial-BF650bbeae96b2a.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Manier';
+  src: url('/Manier/Manier-Regular-Trial-BF650bbeaf2fb28.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manier';
+  src: url('/Manier/Manier-RegularItalic-Trial-BF650bbeaea2011.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
 
 /* Satoshi Font Family */
 @font-face {
