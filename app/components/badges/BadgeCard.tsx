@@ -1,17 +1,18 @@
 /**
  * Badge Component with 3D Effects
  * Dynamic styling based on tier configuration - no hardcoding
+ * GREEN DESIGN: Memoized, optimized animations, minimal re-renders
  */
 
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback, memo } from 'react'
 import { motion } from 'framer-motion'
 import { BadgeIcon, type BadgeIconType } from './BadgeIcon'
 import { BADGE_TIERS, type BadgeTier } from '@/app/config/badges'
 import type { BadgeCardProps } from '@/app/types/achievements'
 
-export const BadgeCard: React.FC<BadgeCardProps> = ({
+const BadgeCardComponent: React.FC<BadgeCardProps> = ({
   badge,
   earned,
   earnedAt,
@@ -23,25 +24,33 @@ export const BadgeCard: React.FC<BadgeCardProps> = ({
   const [isHovered, setIsHovered] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   
-  const tierConfig = BADGE_TIERS[badge.tier]
-  const dimensions = {
+  // Memoize tier config lookup
+  const tierConfig = useMemo(() => BADGE_TIERS[badge.tier], [badge.tier])
+  
+  // Memoize dimensions map
+  const dimensions = useMemo(() => ({
     small: { card: 120, icon: 40, text: 12 },
     medium: { card: 160, icon: 56, text: 14 },
     large: { card: 200, icon: 72, text: 16 }
-  }
+  }), [])
   
   const dim = dimensions[size]
   
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  // Optimize mouse move handler with useCallback
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20
     setMousePosition({ x, y })
-  }
+  }, [])
   
-  const gradientStyle = tierConfig.gradient.via
-    ? `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.via}, ${tierConfig.gradient.to})`
-    : `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.to})`
+  // Memoize gradient style
+  const gradientStyle = useMemo(() => 
+    tierConfig.gradient.via
+      ? `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.via}, ${tierConfig.gradient.to})`
+      : `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.to})`,
+    [tierConfig.gradient]
+  )
 
   return (
     <motion.div
@@ -348,3 +357,6 @@ export const BadgeCard: React.FC<BadgeCardProps> = ({
     </motion.div>
   )
 }
+
+// Export memoized component - prevents re-renders when props haven't changed
+export const BadgeCard = memo(BadgeCardComponent)

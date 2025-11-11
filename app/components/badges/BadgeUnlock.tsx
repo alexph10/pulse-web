@@ -1,18 +1,21 @@
 /**
  * Badge Unlock Animation
  * Celebration with confetti, scale animations, and dynamic effects
+ * GREEN DESIGN: Lazy-loaded confetti, memoized, optimized animations
  */
 
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, memo, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Confetti from 'react-confetti'
 import { BadgeIcon } from './BadgeIcon'
 import { BADGE_TIERS } from '@/app/config/badges'
 import type { BadgeUnlockProps } from '@/app/types/achievements'
 
-export const BadgeUnlock: React.FC<BadgeUnlockProps> = ({
+// Lazy load Confetti - only loads when badge is unlocked (saves ~50KB)
+const Confetti = lazy(() => import('react-confetti'))
+
+const BadgeUnlockComponent: React.FC<BadgeUnlockProps> = ({
   badge,
   onComplete,
   stats = []
@@ -21,7 +24,8 @@ export const BadgeUnlock: React.FC<BadgeUnlockProps> = ({
   const [showContent, setShowContent] = useState(false)
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 })
 
-  const tierConfig = BADGE_TIERS[badge.tier]
+  // Memoize tier config
+  const tierConfig = useMemo(() => BADGE_TIERS[badge.tier], [badge.tier])
 
   useEffect(() => {
     // Get window dimensions for confetti
@@ -46,19 +50,23 @@ export const BadgeUnlock: React.FC<BadgeUnlockProps> = ({
     }
   }, [onComplete])
 
-  const gradientStyle = tierConfig.gradient.via
-    ? `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.via}, ${tierConfig.gradient.to})`
-    : `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.to})`
+  // Memoize gradient style calculation
+  const gradientStyle = useMemo(() => 
+    tierConfig.gradient.via
+      ? `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.via}, ${tierConfig.gradient.to})`
+      : `linear-gradient(${tierConfig.gradient.angle}deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.to})`,
+    [tierConfig.gradient]
+  )
 
-  // Confetti colors based on tier
-  const confettiColors = [
+  // Memoize confetti colors array
+  const confettiColors = useMemo(() => [
     tierConfig.gradient.from,
     tierConfig.gradient.to,
     tierConfig.metallic.base,
     tierConfig.metallic.highlight,
     '#FFD700',
     '#FFF'
-  ]
+  ], [tierConfig.gradient, tierConfig.metallic])
 
   return (
     <AnimatePresence>
@@ -78,17 +86,19 @@ export const BadgeUnlock: React.FC<BadgeUnlockProps> = ({
         }}
         onClick={onComplete}
       >
-        {/* Confetti */}
+        {/* Confetti - Lazy loaded for performance */}
         {showConfetti && (
-          <Confetti
-            width={windowDimensions.width}
-            height={windowDimensions.height}
-            recycle={false}
-            numberOfPieces={300}
-            gravity={0.3}
-            colors={confettiColors}
-            tweenDuration={5000}
-          />
+          <Suspense fallback={null}>
+            <Confetti
+              width={windowDimensions.width}
+              height={windowDimensions.height}
+              recycle={false}
+              numberOfPieces={300}
+              gravity={0.3}
+              colors={confettiColors}
+              tweenDuration={5000}
+            />
+          </Suspense>
         )}
 
         {/* Content */}
@@ -354,3 +364,6 @@ export const BadgeUnlock: React.FC<BadgeUnlockProps> = ({
     </AnimatePresence>
   )
 }
+
+// Export memoized component - prevents unnecessary re-renders
+export const BadgeUnlock = memo(BadgeUnlockComponent)

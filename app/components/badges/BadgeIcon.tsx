@@ -1,9 +1,10 @@
 /**
  * Dynamic SVG Badge Icons
  * All icons generated programmatically - no emojis or hardcoded assets
+ * GREEN DESIGN: Memoized for optimal re-render performance
  */
 
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 
 export type BadgeIconType = 
   | 'sunrise' | 'magnifier' | 'phoenix' | 'scroll' | 'chain' | 'lighthouse' 
@@ -17,13 +18,14 @@ interface BadgeIconProps {
   className?: string
 }
 
-export const BadgeIcon: React.FC<BadgeIconProps> = ({ 
+const BadgeIconComponent: React.FC<BadgeIconProps> = ({ 
   type, 
   size = 48, 
   color = 'currentColor',
   className 
 }) => {
-  const icons: Record<BadgeIconType, React.ReactElement> = {
+  // Memoize icon map to prevent recreation on every render
+  const icons: Record<BadgeIconType, React.ReactElement> = useMemo(() => ({
     sunrise: (
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="70" r="20" fill={color} opacity="0.3" />
@@ -201,7 +203,7 @@ export const BadgeIcon: React.FC<BadgeIconProps> = ({
         <path d="M 25 80 L 30 85" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.4" />
       </svg>
     )
-  }
+  }), [color]) // Memoize based on color changes only
 
   return (
     <div style={{ width: size, height: size }} className={className}>
@@ -209,3 +211,6 @@ export const BadgeIcon: React.FC<BadgeIconProps> = ({
     </div>
   )
 }
+
+// Export memoized component for optimal re-render prevention
+export const BadgeIcon = memo(BadgeIconComponent)

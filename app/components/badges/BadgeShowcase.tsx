@@ -1,11 +1,12 @@
 /**
  * Badge Showcase Component
  * Displays earned badges, progress toward next badges, and engagement nudges
+ * GREEN DESIGN: Memoized calculations, useCallback handlers, optimized filters
  */
 
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, useCallback, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BadgeCard } from './BadgeCard'
 import { BadgeUnlock } from './BadgeUnlock'
@@ -22,7 +23,7 @@ interface BadgeShowcaseProps {
   compact?: boolean
 }
 
-export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({ 
+const BadgeShowcaseComponent: React.FC<BadgeShowcaseProps> = ({ 
   userId, 
   compact = false 
 }) => {
@@ -38,7 +39,7 @@ export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({
     }
   }, [userId])
 
-  const fetchUserBadges = async () => {
+  const fetchUserBadges = useCallback(async () => {
     try {
       setLoading(true)
       
@@ -57,28 +58,32 @@ export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({
     } finally {
       setLoading(false)
     }
-  }
+  }, [userId])
 
-  const getFilteredBadges = () => {
+  // Memoize filtered badges to avoid recalculating on every render
+  const getFilteredBadges = useMemo(() => {
     if (selectedCategory === 'all') {
       return BADGE_DEFINITIONS
     }
     return getBadgesByCategory(selectedCategory as BadgeCategory)
-  }
+  }, [selectedCategory])
 
-  const isBadgeEarned = (badgeId: string) => {
+  // Memoize badge earned check function
+  const isBadgeEarned = useCallback((badgeId: string) => {
     return userBadges.some(ub => ub.badge_id === badgeId)
-  }
+  }, [userBadges])
 
-  const getBadgeProgress = (badgeId: string) => {
+  // Memoize badge progress calculation
+  const getBadgeProgress = useCallback((badgeId: string) => {
     const progress = badgeProgress.find(bp => bp.badge_id === badgeId)
     if (!progress) return 0
     return Math.min(100, Math.round((progress.current_value / progress.target_value) * 100))
-  }
+  }, [badgeProgress])
 
-  const getInProgressBadges = () => {
+  // Memoize in-progress badges calculation
+  const getInProgressBadges = useMemo(() => {
     return badgeProgress
-      .filter(bp => !isBadgeEarned(bp.badge_id) && bp.current_value > 0)
+      .filter(bp => !userBadges.some(ub => ub.badge_id === bp.badge_id) && bp.current_value > 0)
       .sort((a, b) => {
         const progressA = a.current_value / a.target_value
         const progressB = b.current_value / b.target_value
@@ -90,10 +95,11 @@ export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({
         return { badge, progress: bp }
       })
       .filter(item => item.badge)
-  }
+  }, [badgeProgress, userBadges, compact])
 
-  const getSmartNudge = () => {
-    const inProgress = getInProgressBadges()
+  // Memoize smart nudge calculation
+  const getSmartNudge = useMemo(() => {
+    const inProgress = getInProgressBadges
     
     if (inProgress.length === 0) {
       return {
@@ -121,12 +127,12 @@ export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({
         cta: "Journal Now"
       }
     }
-  }
+  }, [getInProgressBadges])
 
-  const handleBadgeUnlockComplete = () => {
+  const handleBadgeUnlockComplete = useCallback(() => {
     setUnlockingBadge(null)
     fetchUserBadges() // Refresh badges after unlock
-  }
+  }, [fetchUserBadges])
 
   if (loading) {
     return (
@@ -141,11 +147,11 @@ export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({
     )
   }
 
-  const filteredBadges = getFilteredBadges()
+  const filteredBadges = getFilteredBadges
   const earnedCount = userBadges.length
   const totalCount = BADGE_DEFINITIONS.length
-  const inProgressBadges = getInProgressBadges()
-  const nudge = getSmartNudge()
+  const inProgressBadges = getInProgressBadges
+  const nudge = getSmartNudge
 
   if (compact) {
     return (
@@ -505,3 +511,6 @@ export const BadgeShowcase: React.FC<BadgeShowcaseProps> = ({
     </div>
   )
 }
+
+// Export memoized component - optimizes dashboard performance
+export const BadgeShowcase = memo(BadgeShowcaseComponent)
