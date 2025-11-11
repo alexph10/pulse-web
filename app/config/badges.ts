@@ -441,3 +441,32 @@ export function getVisibleBadges(): BadgeDefinition[] {
 export function getAllBadges(): BadgeDefinition[] {
   return [...BADGE_DEFINITIONS].sort((a, b) => a.order - b.order)
 }
+
+// Category Metadata
+export const BADGE_CATEGORY_INFO: Record<BadgeCategory, { name: string; description: string; color: string }> = {
+  journey: {
+    name: 'Journey',
+    description: 'Consistency and dedication badges',
+    color: '#8B2F2F'
+  },
+  resilience: {
+    name: 'Resilience',
+    description: 'Overcome challenges and setbacks',
+    color: '#2a4a3e'
+  },
+  insight: {
+    name: 'Insight',
+    description: 'Deep reflection and self-discovery',
+    color: '#FFD700'
+  },
+  connection: {
+    name: 'Connection',
+    description: 'Build meaningful relationships',
+    color: '#9EF4D0'
+  },
+  hidden: {
+    name: 'Hidden',
+    description: 'Secret achievements to discover',
+    color: '#A8A8A8'
+  }
+}
