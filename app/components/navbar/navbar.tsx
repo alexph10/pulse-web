@@ -20,14 +20,51 @@ const Navbar: React.FC = () => {
       { label: 'Products', href: '/products' },
    ]);
    const [activeItem, setActiveItem] = useState<string>('');
+   const [isLogoHovered, setIsLogoHovered] = useState(false);
+   const [logoClickCount, setLogoClickCount] = useState(0);
+   const [pulseAnimation, setPulseAnimation] = useState(false);
+
+   // Handle logo interactions
+   const handleLogoClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      setLogoClickCount(prev => prev + 1);
+      setPulseAnimation(true);
+      setTimeout(() => setPulseAnimation(false), 1000);
+      
+      // Navigate after animation
+      setTimeout(() => {
+         window.location.href = '/';
+      }, 300);
+   };
+
+   const handleLogoEnter = () => {
+      setIsLogoHovered(true);
+   };
+
+   const handleLogoLeave = () => {
+      setIsLogoHovered(false);
+   };
    
    return (
      <nav className={styles.navbar}>
        <div className={styles.navbarBackground}>
          <div className={styles.container}>
            {/* Logo */}
-           <Link href="/" className={styles.logo}>
-             <span className={styles.logoText}>Pulse</span>
+           <Link 
+             href="/" 
+             className={styles.logo}
+             onMouseEnter={handleLogoEnter}
+             onMouseLeave={handleLogoLeave}
+             onClick={handleLogoClick}
+           >
+             <div className={`${styles.logoContainer} ${pulseAnimation ? styles.pulseEffect : ''}`}>
+               <div className={`${styles.squareTopLeft} ${isLogoHovered ? styles.squareAnimated : ''} ${pulseAnimation ? styles.squarePulse : ''}`} />
+               <span className={`${styles.logoText} ${logoClickCount > 0 ? styles.logoGlow : ''}`}>Pulse</span>
+               <div className={`${styles.squareBottomRight} ${isLogoHovered ? styles.squareAnimated : ''} ${pulseAnimation ? styles.squarePulse : ''}`} />
+               {/* Orbital rings */}
+               <div className={`${styles.orbitalRing} ${isLogoHovered ? styles.orbitalActive : ''}`} />
+               <div className={`${styles.orbitalRing} ${styles.orbitalRingDelay} ${isLogoHovered ? styles.orbitalActive : ''}`} />
+             </div>
            </Link>
 
            {/* Navigation Links */}

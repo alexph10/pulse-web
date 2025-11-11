@@ -174,23 +174,23 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
       case 'success':
         return {
           background: 'linear-gradient(135deg, #10B981, #059669)',
-          icon: '✓'
+          icon: 'SUCCESS'
         }
       case 'error':
         return {
           background: 'linear-gradient(135deg, #EF4444, #DC2626)',
-          icon: '✕'
+          icon: 'ERROR'
         }
       case 'warning':
         return {
           background: 'linear-gradient(135deg, #F59E0B, #D97706)',
-          icon: '⚠'
+          icon: 'WARNING'
         }
       case 'info':
       default:
         return {
           background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
-          icon: 'ℹ'
+          icon: 'INFO'
         }
     }
   }

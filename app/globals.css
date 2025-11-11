@@ -13,33 +13,47 @@
 }
 
 :root {
-  /* Light Mode - Warmer, More Inviting Home Palette */
-  --background: #FAF6F0;
-  --background-secondary: #F5EFE5;
-  --surface: #FFFCF7;
+  /* Honey Theme - Light Mode (Replit Inspired) */
+  --background: #F7F4EF;
+  --background-secondary: #F5F1E8;
+  --surface: #FFFFFF;
   --surface-elevated: #FFFEF9;
   
-  /* Text Colors - Warmer tones */
-  --text-primary: #3E3530;
-  --text-secondary: #6A5F54;
-  --text-tertiary: #8C7F70;
+  /* Text Colors - Warm Browns */
+  --text-primary: #3B2A1A;
+  --text-secondary: #6B5644;
+  --text-tertiary: #8C7860;
   --text-disabled: #C5BDB2;
   
-  /* Borders & Dividers - Softer, warmer */
-  --border-subtle: #EBE3D5;
-  --border-emphasis: #DDD3C0;
+  /* Borders & Dividers - Warm Tan */
+  --border-subtle: #E8DCC8;
+  --border-emphasis: #D4C4B0;
   
-  /* Accent Colors - Richer, warmer browns */
-  --accent-primary: #A0522D;
-  --accent-primary-hover: #B8653A;
-  --accent-tertiary: #D97948;
-  --accent-muted: #C8A882;
+  /* Accent Colors - Honey Gold */
+  --accent-primary: #E8B86D;
+  --accent-primary-hover: #D4A256;
+  --accent-tertiary: #F5C77E;
+  --accent-muted: #EDE6D9;
   
-  /* Natural Accents - Golden warmth */
-  --success: #87A077;
-  --info: #9BA8C8;
-  --warning: #E5A862;
-  --highlight: #F9E8C8;
+  /* Semantic Colors */
+  --success: #10B981;
+  --info: #3B82F6;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --highlight: #FEF9F3;
+  
+  /* Badge System Colors (Keep Green - Separate from Honey Theme) */
+  --badge-bronze: #CD7F32;
+  --badge-silver: #C0C0C0;
+  --badge-gold: #FFD700;
+  --badge-platinum: #E5E4E2;
+  --badge-green-glow: rgba(16, 185, 129, 0.2);
+  
+  /* Shadows - Warm Glow */
+  --shadow-sm: 0 1px 3px rgba(59, 42, 26, 0.08);
+  --shadow-md: 0 4px 12px rgba(59, 42, 26, 0.1);
+  --shadow-lg: 0 8px 24px rgba(59, 42, 26, 0.12);
+  --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.2);
   
   /* Legacy */
   --color-background: var(--background);
@@ -49,8 +63,8 @@
 
 /* Dark mode via data attribute (manual toggle) */
 [data-theme='dark'] {
-  /* Dark Mode - Warmer Evening Glow */
-  --background: #1F1A16;
+  /* Honey Theme - Dark Mode */
+  --background: #1F1814;
   --background-secondary: #282320;
   --surface: #312B26;
   --surface-elevated: #3A342E;
@@ -65,17 +79,24 @@
   --border-subtle: #3F3832;
   --border-emphasis: #4D453C;
   
-  /* Accent Colors - Glowing warmth */
-  --accent-primary: #D9956F;
-  --accent-primary-hover: #E5A884;
-  --accent-tertiary: #B87A55;
+  /* Accent Colors - Honey Glow */
+  --accent-primary: #E8B86D;
+  --accent-primary-hover: #F5C77E;
+  --accent-tertiary: #D4A256;
   --accent-muted: #423529;
   
-  /* Natural Accents */
-  --success: #95B28A;
-  --info: #8698BD;
-  --warning: #DEB17C;
-  --highlight: #4F4429;
+  /* Semantic Colors */
+  --success: #10B981;
+  --info: #60A5FA;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --highlight: #3F3529;
+  
+  /* Shadows - Darker Glow */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.3);
   
   /* Legacy */
   --foreground: var(--text-primary);
@@ -84,8 +105,8 @@
 /* Fallback to system preference if no manual selection */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    /* Dark Mode - Warmer Evening Glow */
-    --background: #1F1A16;
+    /* Honey Theme - Dark Mode */
+    --background: #1F1814;
     --background-secondary: #282320;
     --surface: #312B26;
     --surface-elevated: #3A342E;
@@ -100,17 +121,24 @@
     --border-subtle: #3F3832;
     --border-emphasis: #4D453C;
     
-    /* Accent Colors - Glowing warmth */
-    --accent-primary: #D9956F;
-    --accent-primary-hover: #E5A884;
-    --accent-tertiary: #B87A55;
+    /* Accent Colors - Honey Glow */
+    --accent-primary: #E8B86D;
+    --accent-primary-hover: #F5C77E;
+    --accent-tertiary: #D4A256;
     --accent-muted: #423529;
     
-    /* Natural Accents */
-    --success: #95B28A;
-    --info: #8698BD;
-    --warning: #DEB17C;
-    --highlight: #4F4429;
+    /* Semantic Colors */
+    --success: #10B981;
+    --info: #60A5FA;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --highlight: #3F3529;
+    
+    /* Shadows - Darker Glow */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.3);
     
     /* Legacy */
     --foreground: var(--text-primary);

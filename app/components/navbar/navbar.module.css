@@ -21,10 +21,116 @@
   display: flex;
   align-items: center;
   transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .logo:hover {
-  opacity: 0.8;
+  opacity: 1;
+}
+
+.logoContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  transition: transform 0.3s ease;
+}
+
+.pulseEffect {
+  animation: logoShake 0.5s ease-in-out;
+}
+
+@keyframes logoShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px) rotate(-1deg); }
+  20%, 40%, 60%, 80% { transform: translateX(2px) rotate(1deg); }
+}
+
+.squareTopLeft,
+.squareBottomRight {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.squareTopLeft {
+  top: 0;
+  left: 0;
+}
+
+.squareBottomRight {
+  bottom: 0;
+  right: 0;
+}
+
+.squareTopLeft.squareAnimated {
+  transform: translate(-4px, -4px) rotate(180deg) scale(1.2);
+  background: rgba(232, 184, 109, 0.9);
+  box-shadow: 0 0 15px rgba(232, 184, 109, 0.6);
+}
+
+.squareBottomRight.squareAnimated {
+  transform: translate(4px, 4px) rotate(180deg) scale(1.2);
+  background: rgba(232, 184, 109, 0.9);
+  box-shadow: 0 0 15px rgba(232, 184, 109, 0.6);
+}
+
+.squarePulse {
+  animation: squarePulseAnim 1s ease-out;
+}
+
+@keyframes squarePulseAnim {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(2.5) rotate(360deg); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Orbital rings */
+.orbitalRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(232, 184, 109, 0);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.orbitalRingDelay {
+  width: 50px;
+  height: 50px;
+  transition-delay: 0.1s;
+}
+
+.orbitalActive {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(232, 184, 109, 0.4);
+  animation: orbitalSpin 3s linear infinite;
+}
+
+.orbitalRingDelay.orbitalActive {
+  width: 75px;
+  height: 75px;
+  border-color: rgba(232, 184, 109, 0.2);
+  animation: orbitalSpinReverse 4s linear infinite;
+}
+
+@keyframes orbitalSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes orbitalSpinReverse {
+  from { transform: translate(-50%, -50%) rotate(360deg); }
+  to { transform: translate(-50%, -50%) rotate(0deg); }
 }
 
 .logoText {
@@ -34,6 +140,31 @@
   font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   letter-spacing: -0.5px;
   font-style: italic;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.logoGlow {
+  text-shadow: 
+    0 0 10px rgba(232, 184, 109, 0.5),
+    0 0 20px rgba(232, 184, 109, 0.3),
+    0 0 30px rgba(232, 184, 109, 0.2);
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% { 
+    text-shadow: 
+      0 0 10px rgba(232, 184, 109, 0.5),
+      0 0 20px rgba(232, 184, 109, 0.3);
+  }
+  50% { 
+    text-shadow: 
+      0 0 20px rgba(232, 184, 109, 0.8),
+      0 0 30px rgba(232, 184, 109, 0.5),
+      0 0 40px rgba(232, 184, 109, 0.3);
+  }
 }
 
 /* Navigation Links Container */

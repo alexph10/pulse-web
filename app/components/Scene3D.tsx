@@ -2,9 +2,12 @@
 
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Center, shaderMaterial } from '@react-three/drei';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Suspense } from 'react';
 import * as THREE from 'three';
 import { AsciiEffect } from 'three-stdlib';
+
+// Preload the model immediately to start fetching
+useGLTF.preload('/Orange.glb');
 
 // Custom gradient shader material
 const GradientMaterial = shaderMaterial(
@@ -50,6 +53,16 @@ declare module '@react-three/fiber' {
   }
 }
 
+// Loading fallback component
+function LoadingFallback() {
+  return (
+    <mesh>
+      <sphereGeometry args={[1, 16, 16]} />
+      <meshStandardMaterial color="#E8B86D" wireframe />
+    </mesh>
+  );
+}
+
 function AnimatedGradientBackground() {
   const materialRef = useRef<any>(null);
 
@@ -69,6 +82,20 @@ function AnimatedGradientBackground() {
 
 function OrangeModel() {
   const { scene } = useGLTF('/Orange.glb');
+  
+  // Optimize model performance
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        // Enable frustum culling for better performance
+        child.frustumCulled = true;
+        // Cast shadows only if needed
+        child.castShadow = false;
+        child.receiveShadow = false;
+      }
+    });
+  }, [scene]);
+  
   return <primitive object={scene} />;
 }
 
@@ -132,7 +159,11 @@ export default function Scene3D() {
         zIndex: 10
       }}
     >
-      <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
+      <Canvas 
+        camera={{ position: [0, 0, 3], fov: 50 }}
+        dpr={[1, 1.5]} // Limit pixel ratio for better performance
+        performance={{ min: 0.5 }} // Allow frame rate to drop for smoother experience
+      >
         {/* Animated Gradient Background */}
         <AnimatedGradientBackground />
 
@@ -141,10 +172,12 @@ export default function Scene3D() {
         <directionalLight position={[5, 5, 5]} intensity={2} />
         <directionalLight position={[-5, -5, -5]} intensity={1} />
 
-        {/* Orange Model */}
-        <Center>
-          <OrangeModel />
-        </Center>
+        {/* Orange Model with Suspense for loading */}
+        <Suspense fallback={<LoadingFallback />}>
+          <Center>
+            <OrangeModel />
+          </Center>
+        </Suspense>
 
         {/* Controls */}
         <OrbitControls
