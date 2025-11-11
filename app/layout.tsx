@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import './globals.css';
 import { AuthProvider } from './contexts/AuthContext';
+import ErrorBoundary from './components/ErrorBoundary';
+import { ToastProvider } from './contexts/ToastContext';
 
 
 export const metadata: Metadata = {
@@ -16,9 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ fontFamily: 'Satoshi, sans-serif' }}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <ErrorBoundary>
+          <ToastProvider>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </ToastProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

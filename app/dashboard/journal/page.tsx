@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useVoiceRecorder } from '@/app/hooks/useVoiceRecorder'
 import { supabase } from '@/lib/supabase'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
+import { useToast } from '@/app/contexts/ToastContext'
 
 interface MoodAnalysis {
   primaryMood: string
@@ -35,6 +36,9 @@ export default function Journal() {
   const [entries, setEntries] = useState<JournalEntry[]>([])
   const [userId, setUserId] = useState<string | null>(null)
   const [view, setView] = useState<'record' | 'history'>('record')
+
+  // Toast hook for notifications
+  const { showToast } = useToast()
 
   const {
     isRecording,
@@ -95,9 +99,12 @@ export default function Journal() {
       if (data.success) {
         setTranscript(data.text)
         analyzeMood(data.text)
+      } else {
+        showToast('Transcription failed. Please try again.', 'error')
       }
     } catch (error) {
       console.error('Transcription failed:', error)
+      showToast('Failed to transcribe audio. Check your connection.', 'error')
     } finally {
       setIsTranscribing(false)
     }
@@ -156,6 +163,9 @@ export default function Journal() {
 
       const data = await response.json()
       if (data.success) {
+        // Success toast
+        showToast('Journal entry saved successfully!', 'success')
+        
         // Reset form
         setTranscript('')
         setMoodAnalysis(null)
@@ -164,9 +174,14 @@ export default function Journal() {
         fetchEntries(userId)
         // Show success briefly
         setTimeout(() => setView('history'), 500)
+      } else {
+        // Error from API
+        showToast(data.error || 'Failed to save entry', 'error')
       }
     } catch (error) {
       console.error('Failed to save entry:', error)
+      // Network or unexpected error
+      showToast('Failed to save entry. Please try again.', 'error')
     } finally {
       setIsSaving(false)
     }

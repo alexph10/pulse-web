@@ -1,6 +1,17 @@
 'use client'
 
 import { Settings, Bell, User, LogOut } from 'lucide-react';
+import { 
+  House, 
+  Note, 
+  BookOpen, 
+  Target, 
+  ChartLine, 
+  Trophy, 
+  CheckCircle, 
+  Lightbulb, 
+  TrendUp 
+} from '@phosphor-icons/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -18,15 +29,15 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
   const { user } = useAuth();
 
   const navItems = [
-    { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Notes', href: '/dashboard/notes' },
-    { label: 'Journal', href: '/dashboard/journal' },
-    { label: 'Goals', href: '/dashboard/goals' },
-    { label: 'Analytics', href: '/dashboard/analytics' },
-    { label: 'Achievements', href: '/dashboard/achievements' },
-    { label: 'Habits', href: '/dashboard/habits' },
-    { label: 'Reflections', href: '/dashboard/reflections' },
-    { label: 'Progress', href: '/dashboard/progress' },
+    { label: 'Dashboard', href: '/dashboard', icon: House },
+    { label: 'Notes', href: '/dashboard/notes', icon: Note },
+    { label: 'Journal', href: '/dashboard/journal', icon: BookOpen },
+    { label: 'Goals', href: '/dashboard/goals', icon: Target },
+    { label: 'Analytics', href: '/dashboard/analytics', icon: ChartLine },
+    { label: 'Achievements', href: '/dashboard/achievements', icon: Trophy },
+    { label: 'Habits', href: '/dashboard/habits', icon: CheckCircle },
+    { label: 'Reflections', href: '/dashboard/reflections', icon: Lightbulb },
+    { label: 'Progress', href: '/dashboard/progress', icon: TrendUp },
   ];
  
   // Initialize theme from localStorage or system preference
@@ -139,6 +150,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
         <nav className="flex items-center gap-2">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
+            const Icon = item.icon;
             return (
               <Link
                 key={item.href}
@@ -149,9 +161,12 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                   color: isActive ? '#ffffff' : 'var(--text-secondary)',
                   fontWeight: 500,
                   backgroundColor: isActive ? 'var(--accent-primary)' : 'transparent',
-                  padding: '8px 20px',
+                  padding: '8px 16px',
                   borderRadius: '6px',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
@@ -166,6 +181,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                   }
                 }}
               >
+                <Icon size={18} weight={isActive ? 'fill' : 'regular'} />
                 {item.label}
               </Link>
             );
