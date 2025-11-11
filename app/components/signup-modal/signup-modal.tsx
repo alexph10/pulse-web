@@ -53,7 +53,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
                 <span className={styles.googleIcon}>G</span>
               </button>
               <button type="button" className={styles.googleButton}>
-                <span className={styles.googleIcon}>🐙</span>
+                <span className={styles.googleIcon}>GH</span>
               </button>
               <button type="button" className={styles.googleButton}>
                 <span className={styles.googleIcon}>f</span>

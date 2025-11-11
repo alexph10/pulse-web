@@ -1,12 +1,13 @@
-import Sidebar from '../../components/sidebar/sidebar';
+'use client'
+
+import DashboardNavbar from '../../components/dashboard-navbar/dashboard-navbar';
 
 export default function Progress() {
   return (
-    <div className="min-h-screen bg-white flex">
-      <Sidebar />
-      <main style={{ flex: 1, padding: '40px', maxWidth: '100%', overflow: 'auto' }}>
-        {/* Progress content will go here */}
-      </main>
+    <div className="min-h-screen p-8" style={{
+      background: 'var(--background)'
+    }}>
+      <DashboardNavbar />
     </div>
   );
 }

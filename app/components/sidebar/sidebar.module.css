@@ -12,55 +12,55 @@
 }
 
 .collapsed {
-  width: 72px;
+  width: 60px;
 }
 
 .expanded {
-  width: 180px;
+  width: 160px;
 }
 
 /* Logo */
 .logo {
-  padding: 24px;
+  padding: 16px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
-  height: 72px;
+  height: 56px;
 }
 
 .logoIcon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 18px;
   color: #000;
 }
 
 /* Navigation */
 .nav {
   flex: 1;
-  padding: 16px 0;
+  padding: 12px 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   overflow-y: auto;
 }
 
 .navItem {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
+  padding: 10px 16px;
   text-decoration: none;
   color: #666;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
   position: relative;
-  border-radius: 24px;
-  margin: 0 12px;
+  border-radius: 20px;
+  margin: 0 8px;
 }
 
 .navItem:hover {
@@ -74,17 +74,17 @@
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .label {
-  margin-left: 12px;
+  margin-left: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -92,7 +92,7 @@
 
 /* Profile */
 .profile {
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: center;
@@ -110,10 +110,10 @@
 }
 
 .profileIcon {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
   border-radius: 50%;
   background-color: #d0d0d0;
   display: flex;

@@ -13,16 +13,107 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light Mode - Warmer, More Inviting Home Palette */
+  --background: #FAF6F0;
+  --background-secondary: #F5EFE5;
+  --surface: #FFFCF7;
+  --surface-elevated: #FFFEF9;
+  
+  /* Text Colors - Warmer tones */
+  --text-primary: #3E3530;
+  --text-secondary: #6A5F54;
+  --text-tertiary: #8C7F70;
+  --text-disabled: #C5BDB2;
+  
+  /* Borders & Dividers - Softer, warmer */
+  --border-subtle: #EBE3D5;
+  --border-emphasis: #DDD3C0;
+  
+  /* Accent Colors - Richer, warmer browns */
+  --accent-primary: #A0522D;
+  --accent-primary-hover: #B8653A;
+  --accent-tertiary: #D97948;
+  --accent-muted: #C8A882;
+  
+  /* Natural Accents - Golden warmth */
+  --success: #87A077;
+  --info: #9BA8C8;
+  --warning: #E5A862;
+  --highlight: #F9E8C8;
+  
+  /* Legacy */
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--text-primary);
+  --foreground: var(--text-primary);
 }
 
+/* Dark mode via data attribute (manual toggle) */
+[data-theme='dark'] {
+  /* Dark Mode - Warmer Evening Glow */
+  --background: #1F1A16;
+  --background-secondary: #282320;
+  --surface: #312B26;
+  --surface-elevated: #3A342E;
+  
+  /* Text Colors */
+  --text-primary: #F7F2EA;
+  --text-secondary: #D4C9BC;
+  --text-tertiary: #A1937F;
+  --text-disabled: #5E5650;
+  
+  /* Borders & Dividers */
+  --border-subtle: #3F3832;
+  --border-emphasis: #4D453C;
+  
+  /* Accent Colors - Glowing warmth */
+  --accent-primary: #D9956F;
+  --accent-primary-hover: #E5A884;
+  --accent-tertiary: #B87A55;
+  --accent-muted: #423529;
+  
+  /* Natural Accents */
+  --success: #95B28A;
+  --info: #8698BD;
+  --warning: #DEB17C;
+  --highlight: #4F4429;
+  
+  /* Legacy */
+  --foreground: var(--text-primary);
+}
+
+/* Fallback to system preference if no manual selection */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme]) {
+    /* Dark Mode - Warmer Evening Glow */
+    --background: #1F1A16;
+    --background-secondary: #282320;
+    --surface: #312B26;
+    --surface-elevated: #3A342E;
+    
+    /* Text Colors */
+    --text-primary: #F7F2EA;
+    --text-secondary: #D4C9BC;
+    --text-tertiary: #A1937F;
+    --text-disabled: #5E5650;
+    
+    /* Borders & Dividers */
+    --border-subtle: #3F3832;
+    --border-emphasis: #4D453C;
+    
+    /* Accent Colors - Glowing warmth */
+    --accent-primary: #D9956F;
+    --accent-primary-hover: #E5A884;
+    --accent-tertiary: #B87A55;
+    --accent-muted: #423529;
+    
+    /* Natural Accents */
+    --success: #95B28A;
+    --info: #8698BD;
+    --warning: #DEB17C;
+    --highlight: #4F4429;
+    
+    /* Legacy */
+    --foreground: var(--text-primary);
   }
 }
 

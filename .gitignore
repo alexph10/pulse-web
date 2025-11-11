@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large 3D model files
+public/recovering_oak_-_point_cloud_version.glb

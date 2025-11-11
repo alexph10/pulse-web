@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Sidebar from '../../components/sidebar/sidebar';
+import DashboardNavbar from '../../components/dashboard-navbar/dashboard-navbar';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { useVoiceRecorder } from '../../hooks/useVoiceRecorder';
@@ -12,7 +12,10 @@ import {
   StopIcon,
   PlayIcon,
   PauseIcon,
-  TrashIcon
+  TrashIcon,
+  Pencil1Icon,
+  StarIcon,
+  StarFilledIcon
 } from '@radix-ui/react-icons';
 
 export default function Notes() {
@@ -27,6 +30,11 @@ export default function Notes() {
   const [insightsLoading, setInsightsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showInsights, setShowInsights] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState('');
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   
   const {
     isRecording,
@@ -184,6 +192,82 @@ export default function Notes() {
     }
   };
 
+  // Delete entry
+  const handleDeleteEntry = async (entryId: string) => {
+    try {
+      const { error } = await supabase
+        .from('journal_entries')
+        .delete()
+        .eq('id', entryId);
+
+      if (error) throw error;
+
+      // Update local state
+      setEntries(entries.filter(entry => entry.id !== entryId));
+      setDeleteConfirmId(null);
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete entry');
+    }
+  };
+
+  // Toggle favorite
+  const handleToggleFavorite = async (entryId: string, currentFavorite: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('journal_entries')
+        .update({ is_favorite: !currentFavorite })
+        .eq('id', entryId);
+
+      if (error) throw error;
+
+      // Update local state
+      setEntries(entries.map(entry => 
+        entry.id === entryId 
+          ? { ...entry, is_favorite: !currentFavorite }
+          : entry
+      ));
+    } catch (err: any) {
+      setError(err.message || 'Failed to update favorite status');
+    }
+  };
+
+  // Start editing
+  const handleStartEdit = (entry: any) => {
+    setEditingId(entry.id);
+    setEditText(entry.transcript);
+  };
+
+  // Save edit
+  const handleSaveEdit = async (entryId: string) => {
+    if (!editText.trim()) return;
+
+    try {
+      const { error } = await supabase
+        .from('journal_entries')
+        .update({ transcript: editText.trim() })
+        .eq('id', entryId);
+
+      if (error) throw error;
+
+      // Update local state
+      setEntries(entries.map(entry => 
+        entry.id === entryId 
+          ? { ...entry, transcript: editText.trim() }
+          : entry
+      ));
+      setEditingId(null);
+      setEditText('');
+    } catch (err: any) {
+      setError(err.message || 'Failed to update entry');
+    }
+  };
+
+  // Cancel edit
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditText('');
+  };
+
   const handleGenerateInsights = async () => {
     if (!user || entries.length < 3) {
       setError('You need at least 3 journal entries to generate insights.');
@@ -218,29 +302,39 @@ export default function Notes() {
     }
   };
 
+  // Filter entries based on search query
+  const filteredEntries = searchQuery.trim() 
+    ? entries.filter(entry => 
+        entry.transcript?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : entries;
+
+  // Highlight matching text in search results
+  const highlightText = (text: string, query: string) => {
+    if (!query.trim()) return text;
+    
+    const parts = text.split(new RegExp(`(${query})`, 'gi'));
+    return parts.map((part, index) => 
+      part.toLowerCase() === query.toLowerCase() 
+        ? <mark key={index} style={{ 
+            background: '#9EF4D0', 
+            color: '#2D3A37',
+            padding: '2px 4px',
+            borderRadius: '2px'
+          }}>{part}</mark>
+        : part
+    );
+  };
+
   return (
-    <div className={styles.container}>
-      <Sidebar />
+    <div className="min-h-screen p-8" style={{
+      background: 'var(--background)'
+    }}>
+      <DashboardNavbar />
       
       <main className={styles.mainContent}>
         <div className={styles.centerContent}>
           {error && <div className={styles.error}>{error}</div>}
-
-          {/* Insights Button */}
-          <div className={styles.insightsHeader}>
-            <button 
-              onClick={handleGenerateInsights}
-              className={styles.insightsButton}
-              disabled={insightsLoading || entries.length < 3}
-            >
-              {insightsLoading ? 'Analyzing...' : 'Generate Insights'}
-            </button>
-            {entries.length < 3 && (
-              <span className={styles.insightsHint}>
-                Create {3 - entries.length} more {entries.length === 2 ? 'entry' : 'entries'} to unlock insights
-              </span>
-            )}
-          </div>
 
           {/* Insights Display */}
           {showInsights && insights && (
@@ -404,19 +498,66 @@ export default function Notes() {
           <form onSubmit={handleSubmit} className={styles.inputForm}>
             <div className={styles.inputContainer}>
               <div className={styles.leftActions}>
-                <button type="button" className={styles.iconButton} title="Search notes">
+                <button 
+                  type="button" 
+                  className={styles.iconButton} 
+                  title="Search notes"
+                  onClick={() => setShowSearch(!showSearch)}
+                  style={{
+                    background: showSearch ? 'var(--accent-primary)' : 'transparent',
+                    color: showSearch ? '#fff' : 'inherit'
+                  }}
+                >
                   <MagnifyingGlassIcon width={18} height={18} />
+                </button>
+                <button 
+                  type="button"
+                  onClick={handleGenerateInsights}
+                  className={styles.insightsButton}
+                  disabled={insightsLoading || entries.length < 3}
+                  title={entries.length < 3 ? `Create ${3 - entries.length} more entries to unlock insights` : 'Generate Insights'}
+                >
+                  {insightsLoading ? 'Analyzing...' : 'Generate Insights'}
                 </button>
               </div>
               
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="What's on your mind?"
-                className={styles.input}
-                disabled={isRecording || chatLoading}
-              />
+              {showSearch ? (
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px',
+                  flex: 1
+                }}>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search your notes..."
+                    className={styles.input}
+                    autoFocus
+                    style={{ flex: 1 }}
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className={styles.iconButton}
+                      title="Clear search"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Write your thoughts..."
+                  className={styles.input}
+                  disabled={isRecording || chatLoading}
+                />
+              )}
               
               <div className={styles.rightActions}>
                 <button 
@@ -424,7 +565,7 @@ export default function Notes() {
                   className={`${styles.iconButton} ${isRecording ? styles.recording : ''}`}
                   onClick={handleVoiceClick}
                   title="Voice note"
-                  disabled={audioBlob !== null}
+                  disabled={audioBlob !== null || showSearch}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 1a3 3 0 0 1 3 3v8a3 3 0 0 1-6 0V4a3 3 0 0 1 3-3z" fill="currentColor"/>
@@ -432,41 +573,241 @@ export default function Notes() {
                     <path d="M13 21h-2v-3h2v3z" fill="currentColor"/>
                   </svg>
                 </button>
-                <button type="submit" className={styles.submitButton} disabled={isRecording || chatLoading || !input.trim()}>
+                <button type="submit" className={styles.submitButton} disabled={isRecording || chatLoading || !input.trim() || showSearch}>
                   <span>↑</span>
                 </button>
               </div>
             </div>
           </form>
 
+          {/* Search Results Counter */}
+          {searchQuery && (
+            <div style={{
+              textAlign: 'center',
+              padding: '12px',
+              color: 'var(--text-primary)',
+              fontFamily: 'var(--font-family-switzer)',
+              fontSize: '14px'
+            }}>
+              {filteredEntries.length === 0 ? (
+                <span>No entries found for "{searchQuery}"</span>
+              ) : (
+                <span>
+                  Found {filteredEntries.length} {filteredEntries.length === 1 ? 'entry' : 'entries'}
+                </span>
+              )}
+            </div>
+          )}
+
           {/* Journal Entries */}
           <div className={styles.entriesList}>
-            {entries.map((entry) => (
-              <div key={entry.id} className={styles.entryCard}>
-                <div className={styles.entryHeader}>
-                  <span className={styles.entryDate}>
-                    {new Date(entry.created_at).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric',
-                      hour: 'numeric',
-                      minute: '2-digit'
-                    })}
-                  </span>
-                  {entry.duration_seconds && (
-                    <span className={styles.entryDuration}>
-                      {formatTime(entry.duration_seconds)}
+            {filteredEntries.length === 0 && !searchQuery ? (
+              <div style={{
+                textAlign: 'center',
+                padding: '60px 20px',
+                color: 'rgba(var(--text-primary-rgb, 0, 0, 0), 0.5)',
+                fontFamily: 'var(--font-family-switzer)',
+                fontSize: '16px'
+              }}>
+                <p style={{ marginBottom: '12px', fontSize: '18px' }}>No entries yet</p>
+                <p style={{ fontSize: '14px', opacity: 0.7 }}>Start writing or recording your first thought</p>
+              </div>
+            ) : filteredEntries.length === 0 && searchQuery ? (
+              <div style={{
+                textAlign: 'center',
+                padding: '60px 20px',
+                color: 'rgba(var(--text-primary-rgb, 0, 0, 0), 0.5)',
+                fontFamily: 'var(--font-family-switzer)',
+                fontSize: '16px'
+              }}>
+                <p style={{ marginBottom: '12px', fontSize: '18px' }}>No matches found</p>
+                <p style={{ fontSize: '14px', opacity: 0.7 }}>Try a different search term</p>
+              </div>
+            ) : (
+              filteredEntries.map((entry) => (
+                <div 
+                  key={entry.id} 
+                  className={styles.entryCard}
+                  data-favorite={entry.is_favorite || false}
+                >
+                  <div className={styles.entryHeader}>
+                    <span className={styles.entryDate}>
+                      {new Date(entry.created_at).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit'
+                      })}
                     </span>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      {entry.duration_seconds && (
+                        <span className={styles.entryDuration}>
+                          {formatTime(entry.duration_seconds)}
+                        </span>
+                      )}
+                      
+                      {/* Action Buttons */}
+                      <button
+                        onClick={() => handleToggleFavorite(entry.id, entry.is_favorite)}
+                        className={styles.iconButton}
+                        title={entry.is_favorite ? 'Remove from favorites' : 'Add to favorites'}
+                        style={{
+                          color: entry.is_favorite ? '#9EF4D0' : 'var(--text-secondary)',
+                          padding: '4px'
+                        }}
+                      >
+                        {entry.is_favorite ? (
+                          <StarFilledIcon width={16} height={16} />
+                        ) : (
+                          <StarIcon width={16} height={16} />
+                        )}
+                      </button>
+                      
+                      <button
+                        onClick={() => handleStartEdit(entry)}
+                        className={styles.iconButton}
+                        title="Edit entry"
+                        style={{ padding: '4px' }}
+                        disabled={editingId !== null}
+                      >
+                        <Pencil1Icon width={16} height={16} />
+                      </button>
+                      
+                      <button
+                        onClick={() => setDeleteConfirmId(entry.id)}
+                        className={styles.iconButton}
+                        title="Delete entry"
+                        style={{ 
+                          padding: '4px',
+                          color: deleteConfirmId === entry.id ? '#E091C5' : 'var(--text-secondary)'
+                        }}
+                      >
+                        <TrashIcon width={16} height={16} />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Delete Confirmation */}
+                  {deleteConfirmId === entry.id && (
+                    <div style={{
+                      padding: '12px',
+                      background: 'rgba(224, 145, 197, 0.1)',
+                      border: '1px solid rgba(224, 145, 197, 0.3)',
+                      borderRadius: '8px',
+                      marginBottom: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}>
+                      <span style={{
+                        fontSize: '14px',
+                        color: 'var(--text-primary)',
+                        fontFamily: 'var(--font-family-switzer)'
+                      }}>
+                        Delete this entry?
+                      </span>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <button
+                          onClick={() => handleDeleteEntry(entry.id)}
+                          style={{
+                            padding: '6px 16px',
+                            background: '#E091C5',
+                            color: '#2D3A37',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '13px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            fontFamily: 'var(--font-family-satoshi)'
+                          }}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          onClick={() => setDeleteConfirmId(null)}
+                          style={{
+                            padding: '6px 16px',
+                            background: 'transparent',
+                            color: 'var(--text-secondary)',
+                            border: '1px solid var(--border-subtle)',
+                            borderRadius: '6px',
+                            fontSize: '13px',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            fontFamily: 'var(--font-family-satoshi)'
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Entry Text - Editable or Display */}
+                  {editingId === entry.id ? (
+                    <div>
+                      <textarea
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                        className={styles.input}
+                        style={{
+                          width: '100%',
+                          minHeight: '100px',
+                          marginBottom: '12px',
+                          resize: 'vertical'
+                        }}
+                        autoFocus
+                      />
+                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                        <button
+                          onClick={() => handleSaveEdit(entry.id)}
+                          style={{
+                            padding: '8px 20px',
+                            background: '#9EF4D0',
+                            color: '#2D3A37',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            fontFamily: 'var(--font-family-satoshi)'
+                          }}
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleCancelEdit}
+                          style={{
+                            padding: '8px 20px',
+                            background: 'transparent',
+                            color: 'var(--text-secondary)',
+                            border: '1px solid var(--border-subtle)',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: 500,
+                            cursor: 'pointer',
+                            fontFamily: 'var(--font-family-satoshi)'
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className={styles.entryText}>
+                      {searchQuery ? highlightText(entry.transcript, searchQuery) : entry.transcript}
+                    </p>
+                  )}
+                  
+                  {entry.audio_url && (
+                    <audio controls className={styles.audioPlayer}>
+                      <source src={entry.audio_url} type="audio/webm" />
+                    </audio>
                   )}
                 </div>
-                <p className={styles.entryText}>{entry.transcript}</p>
-                {entry.audio_url && (
-                  <audio controls className={styles.audioPlayer}>
-                    <source src={entry.audio_url} type="audio/webm" />
-                  </audio>
-                )}
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </main>

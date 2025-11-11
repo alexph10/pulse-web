@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useAuth } from '../contexts/AuthContext';
-import styles from './verify-email.module.css';
+import { supabase } from '@/lib/supabase';
 
 export default function VerifyEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { verifyOtp, resendOtp } = useAuth();
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -30,11 +28,22 @@ export default function VerifyEmailPage() {
     setLoading(true);
 
     try {
-      await verifyOtp(email, code);
-      router.push('/dashboard/notes');
+      const { error: verifyError } = await supabase.auth.verifyOtp({
+        email,
+        token: code,
+        type: 'signup'
+      });
+
+      if (verifyError) {
+        setError(verifyError.message);
+        setLoading(false);
+        return;
+      }
+
+      // Success - redirect to dashboard
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Invalid verification code');
-    } finally {
       setLoading(false);
     }
   };
@@ -45,7 +54,17 @@ export default function VerifyEmailPage() {
     setResendLoading(true);
 
     try {
-      await resendOtp(email);
+      const { error: resendError } = await supabase.auth.resend({
+        type: 'signup',
+        email: email
+      });
+
+      if (resendError) {
+        setError(resendError.message);
+        setResendLoading(false);
+        return;
+      }
+
       setResendSuccess(true);
     } catch (err: any) {
       setError(err.message || 'Failed to resend code');
@@ -55,67 +74,170 @@ export default function VerifyEmailPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.leftSide}>
-        <div className={styles.formContainer}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Check your email</h1>
-            <p className={styles.subtitle}>
-              We sent a verification code to <strong>{email}</strong>
+    <div style={{
+      width: '100vw',
+      height: '100vh',
+      background: '#1a3a2e',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative'
+    }}>
+      {/* Verification Card */}
+      <div style={{
+        width: '500px',
+        background: 'white',
+        borderRadius: '32px',
+        padding: '56px 64px',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+      }}>
+        {/* Title */}
+        <h1 style={{
+          fontSize: '36px',
+          fontWeight: '600',
+          color: '#2D3748',
+          marginBottom: '6px',
+          letterSpacing: '-0.02em',
+          textAlign: 'center'
+        }}>
+          Check your email
+        </h1>
+        <p style={{
+          fontSize: '15px',
+          color: '#A0AEC0',
+          marginBottom: '32px',
+          textAlign: 'center'
+        }}>
+          We sent a verification code to <strong>{email}</strong>
+        </p>
+
+        <form onSubmit={handleSubmit} style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px'
+        }}>
+          {error && (
+            <div style={{
+              background: '#FED7D7',
+              border: '1px solid #FC8181',
+              borderRadius: '10px',
+              padding: '12px',
+              color: '#E53E3E',
+              fontSize: '13px',
+              textAlign: 'center'
+            }}>
+              {error}
+            </div>
+          )}
+
+          {resendSuccess && (
+            <div style={{
+              background: '#C6F6D5',
+              border: '1px solid #68D391',
+              borderRadius: '10px',
+              padding: '12px',
+              color: '#2F855A',
+              fontSize: '13px',
+              textAlign: 'center'
+            }}>
+              Code resent successfully!
+            </div>
+          )}
+
+          <div>
+            <label style={{
+              display: 'block',
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#2D3748',
+              marginBottom: '8px'
+            }}>
+              Verification code
+            </label>
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+              placeholder="000000"
+              maxLength={6}
+              required
+              autoFocus
+              style={{
+                width: '100%',
+                background: '#F7FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '10px',
+                padding: '13px 16px',
+                color: '#2D3748',
+                fontSize: '18px',
+                letterSpacing: '0.5em',
+                textAlign: 'center',
+                outline: 'none',
+                transition: 'all 0.3s ease-in-out',
+                boxSizing: 'border-box'
+              }}
+            />
+            <p style={{
+              fontSize: '12px',
+              color: '#A0AEC0',
+              marginTop: '6px',
+              textAlign: 'center'
+            }}>
+              Enter the 6-digit code from your email
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.form}>
-            {error && <div className={styles.error}>{error}</div>}
-            {resendSuccess && <div className={styles.success}>Code resent successfully!</div>}
+          <button
+            type="submit"
+            disabled={loading || code.length !== 6}
+            style={{
+              width: '100%',
+              background: (loading || code.length !== 6) ? '#A0AEC0' : '#8B2F2F',
+              border: 'none',
+              borderRadius: '10px',
+              padding: '13px',
+              color: '#ffffff',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: (loading || code.length !== 6) ? 'not-allowed' : 'pointer',
+              transition: 'all 0.3s ease-in-out',
+              boxSizing: 'border-box'
+            }}
+          >
+            {loading ? 'Verifying...' : 'Verify email'}
+          </button>
 
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>Verification code</label>
-              <input
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                className={styles.input}
-                placeholder="000000"
-                maxLength={6}
-                required
-                autoFocus
-              />
-              <p className={styles.hint}>Enter the 6-digit code from your email</p>
-            </div>
-
-            <button type="submit" className={styles.submitButton} disabled={loading || code.length !== 6}>
-              {loading ? 'Verifying...' : 'Verify email'}
+          <div style={{
+            textAlign: 'center',
+            marginTop: '12px'
+          }}>
+            <p style={{
+              fontSize: '13px',
+              color: '#A0AEC0',
+              marginBottom: '8px'
+            }}>
+              Didn't receive the code?
+            </p>
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={resendLoading}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#8B2F2F',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: resendLoading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.3s ease-in-out',
+                textDecoration: 'underline'
+              }}
+            >
+              {resendLoading ? 'Sending...' : 'Resend code'}
             </button>
-
-            <div className={styles.resendContainer}>
-              <p className={styles.resendText}>Didn&apos;t receive the code?</p>
-              <button 
-                type="button" 
-                onClick={handleResend} 
-                className={styles.resendButton}
-                disabled={resendLoading}
-              >
-                {resendLoading ? 'Sending...' : 'Resend code'}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div className={styles.rightSide}>
-        <div className={styles.testimonialContainer}>
-          <div className={styles.imagePlaceholder}>
-            <span className={styles.logoMark}>Pulse.</span>
           </div>
-          
-          <div className={styles.testimonial}>
-            <p className={styles.quote}>
-              &ldquo;It&apos;s really important that we have a platform like Pulse that encourages us to keep evolving, it&apos;s good for the team and it&apos;s good for the business.&rdquo;
-            </p>
-            <p className={styles.author}>Mental Wellness User</p>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );
