@@ -23,6 +23,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
     { label: 'Journal', href: '/dashboard/journal' },
     { label: 'Goals', href: '/dashboard/goals' },
     { label: 'Analytics', href: '/dashboard/analytics' },
+    { label: 'Achievements', href: '/dashboard/achievements' },
     { label: 'Habits', href: '/dashboard/habits' },
     { label: 'Reflections', href: '/dashboard/reflections' },
     { label: 'Progress', href: '/dashboard/progress' },
