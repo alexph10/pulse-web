@@ -156,67 +156,104 @@ const BadgeShowcaseComponent: React.FC<BadgeShowcaseProps> = ({
   if (compact) {
     return (
       <div style={{
-        background: 'var(--card-background, #ffffff)',
-        borderRadius: '16px',
-        padding: '24px',
-        border: '1px solid var(--border-color, #E2E8F0)'
+        background: 'linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%)',
+        borderRadius: '20px',
+        padding: '28px',
+        border: '1px solid rgba(0, 0, 0, 0.06)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06)'
       }}>
         {/* Header */}
-        <div style={{ marginBottom: '20px' }}>
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: 'var(--text-primary)',
-            marginBottom: '8px',
-            fontFamily: 'var(--font-family-satoshi)'
-          }}>
-            Achievements
-          </h3>
+        <div style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <h3 style={{
+              fontSize: '22px',
+              fontWeight: '700',
+              background: 'linear-gradient(135deg, #1F2937, #4B5563)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontFamily: 'var(--font-family-satoshi)',
+              letterSpacing: '-0.02em'
+            }}>
+              Achievements
+            </h3>
+            <div style={{
+              padding: '6px 14px',
+              background: 'linear-gradient(135deg, #8B2F2F, #B83A3A)',
+              borderRadius: '12px',
+              fontSize: '13px',
+              fontWeight: '700',
+              color: '#FFFFFF',
+              fontFamily: 'var(--font-family-satoshi)',
+              boxShadow: '0 2px 8px rgba(139, 47, 47, 0.3)'
+            }}>
+              {earnedCount}/{totalCount}
+            </div>
+          </div>
           <p style={{
             fontSize: '14px',
-            color: 'var(--text-secondary)',
-            fontFamily: 'var(--font-family-switzer)'
+            color: '#6B7280',
+            fontFamily: 'var(--font-family-switzer)',
+            fontWeight: '500'
           }}>
-            {earnedCount} of {totalCount} unlocked
+            Unlock badges by engaging with your mental wellness journey
           </p>
         </div>
 
         {/* Progress Bar */}
         <div style={{
           width: '100%',
-          height: '8px',
-          background: 'var(--progress-background, #E2E8F0)',
-          borderRadius: '4px',
+          height: '12px',
+          background: 'linear-gradient(to right, #F3F4F6, #E5E7EB)',
+          borderRadius: '8px',
           overflow: 'hidden',
-          marginBottom: '20px'
+          marginBottom: '24px',
+          boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.06)',
+          border: '1px solid rgba(0, 0, 0, 0.04)'
         }}>
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${(earnedCount / totalCount) * 100}%` }}
-            transition={{ duration: 1, ease: 'easeOut' }}
+            transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
             style={{
               height: '100%',
-              background: 'linear-gradient(90deg, #8B2F2F, #B83A3A)',
-              borderRadius: '4px'
+              background: 'linear-gradient(90deg, #8B2F2F, #B83A3A, #C94545)',
+              borderRadius: '8px',
+              position: 'relative',
+              boxShadow: '0 0 12px rgba(139, 47, 47, 0.4)'
             }}
-          />
+          >
+            <motion.div
+              animate={{ x: ['0%', '200%'] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '50%',
+                height: '100%',
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                transform: 'skewX(-20deg)'
+              }}
+            />
+          </motion.div>
         </div>
 
         {/* In Progress Badges */}
         {inProgressBadges.length > 0 && (
-          <div style={{ marginBottom: '20px' }}>
+          <div style={{ marginBottom: '24px' }}>
             <h4 style={{
-              fontSize: '14px',
-              fontWeight: '600',
-              color: 'var(--text-primary)',
-              marginBottom: '12px',
-              fontFamily: 'var(--font-family-satoshi)'
+              fontSize: '15px',
+              fontWeight: '700',
+              color: '#374151',
+              marginBottom: '14px',
+              fontFamily: 'var(--font-family-satoshi)',
+              letterSpacing: '-0.01em'
             }}>
               In Progress
             </h4>
             <div style={{
               display: 'flex',
-              gap: '12px',
+              gap: '14px',
               flexWrap: 'wrap'
             }}>
               {inProgressBadges.map(({ badge, progress }) => (
@@ -234,40 +271,45 @@ const BadgeShowcaseComponent: React.FC<BadgeShowcaseProps> = ({
 
         {/* Smart Nudge */}
         <div style={{
-          padding: '16px',
-          background: 'linear-gradient(135deg, rgba(139, 47, 47, 0.1), rgba(158, 244, 208, 0.1))',
-          borderRadius: '12px',
-          border: '1px solid rgba(139, 47, 47, 0.2)'
+          padding: '20px',
+          background: 'linear-gradient(135deg, rgba(139, 47, 47, 0.08), rgba(158, 244, 208, 0.08))',
+          borderRadius: '16px',
+          border: '1px solid rgba(139, 47, 47, 0.15)',
+          boxShadow: '0 2px 8px rgba(139, 47, 47, 0.06)'
         }}>
           <p style={{
-            fontSize: '13px',
-            color: 'var(--text-primary)',
-            marginBottom: '8px',
-            fontFamily: 'var(--font-family-switzer)'
+            fontSize: '14px',
+            color: '#374151',
+            marginBottom: '12px',
+            fontFamily: 'var(--font-family-switzer)',
+            lineHeight: '1.6',
+            fontWeight: '500'
           }}>
             {nudge.message}
           </p>
           <button
             onClick={() => window.location.href = '/dashboard/journal'}
             style={{
-              padding: '8px 16px',
-              background: '#8B2F2F',
+              padding: '12px 24px',
+              background: 'linear-gradient(135deg, #8B2F2F, #B83A3A)',
               color: '#ffffff',
               border: 'none',
-              borderRadius: '6px',
-              fontSize: '12px',
-              fontWeight: '600',
+              borderRadius: '10px',
+              fontSize: '14px',
+              fontWeight: '700',
               cursor: 'pointer',
               fontFamily: 'var(--font-family-satoshi)',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 4px 12px rgba(139, 47, 47, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1)',
+              letterSpacing: '-0.01em'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#A13838'
-              e.currentTarget.style.transform = 'translateY(-1px)'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 47, 47, 0.4), 0 3px 6px rgba(0, 0, 0, 0.15)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#8B2F2F'
               e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(139, 47, 47, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1)'
             }}
           >
             {nudge.cta}
@@ -295,43 +337,81 @@ const BadgeShowcaseComponent: React.FC<BadgeShowcaseProps> = ({
           background: 'linear-gradient(135deg, #8B2F2F, #B83A3A)',
           borderRadius: '16px',
           padding: '24px',
-          color: '#ffffff'
+          color: '#ffffff',
+          boxShadow: '0 8px 24px rgba(139, 47, 47, 0.3)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          overflow: 'hidden',
+          position: 'relative'
         }}>
           <div style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            marginBottom: '4px',
-            fontFamily: 'var(--font-family-satoshi)'
+            position: 'absolute',
+            top: -20,
+            right: -20,
+            width: 100,
+            height: 100,
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent)',
+            borderRadius: '50%'
+          }} />
+          <div style={{
+            fontSize: '42px',
+            fontWeight: '800',
+            marginBottom: '6px',
+            fontFamily: 'var(--font-family-satoshi)',
+            letterSpacing: '-0.02em',
+            position: 'relative',
+            zIndex: 1
           }}>
             {earnedCount}
           </div>
           <div style={{
-            fontSize: '14px',
-            opacity: 0.9,
-            fontFamily: 'var(--font-family-switzer)'
+            fontSize: '15px',
+            opacity: 0.95,
+            fontFamily: 'var(--font-family-switzer)',
+            fontWeight: '600',
+            position: 'relative',
+            zIndex: 1
           }}>
             Badges Earned
           </div>
         </div>
 
         <div style={{
-          background: 'linear-gradient(135deg, #1a3a2e, #2a4a3e)',
+          background: 'linear-gradient(135deg, #1F2937, #374151)',
           borderRadius: '16px',
           padding: '24px',
-          color: '#ffffff'
+          color: '#ffffff',
+          boxShadow: '0 8px 24px rgba(31, 41, 55, 0.3)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          overflow: 'hidden',
+          position: 'relative'
         }}>
           <div style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            marginBottom: '4px',
-            fontFamily: 'var(--font-family-satoshi)'
+            position: 'absolute',
+            bottom: -20,
+            left: -20,
+            width: 100,
+            height: 100,
+            background: 'radial-gradient(circle, rgba(158, 244, 208, 0.15), transparent)',
+            borderRadius: '50%'
+          }} />
+          <div style={{
+            fontSize: '42px',
+            fontWeight: '800',
+            marginBottom: '6px',
+            fontFamily: 'var(--font-family-satoshi)',
+            letterSpacing: '-0.02em',
+            position: 'relative',
+            zIndex: 1
           }}>
             {inProgressBadges.length}
           </div>
           <div style={{
-            fontSize: '14px',
-            opacity: 0.9,
-            fontFamily: 'var(--font-family-switzer)'
+            fontSize: '15px',
+            opacity: 0.95,
+            fontFamily: 'var(--font-family-switzer)',
+            fontWeight: '600',
+            position: 'relative',
+            zIndex: 1
           }}>
             In Progress
           </div>
@@ -341,20 +421,39 @@ const BadgeShowcaseComponent: React.FC<BadgeShowcaseProps> = ({
           background: 'linear-gradient(135deg, #9EF4D0, #7ed4b0)',
           borderRadius: '16px',
           padding: '24px',
-          color: '#1a3a2e'
+          color: '#1a3a2e',
+          boxShadow: '0 8px 24px rgba(158, 244, 208, 0.4)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+          overflow: 'hidden',
+          position: 'relative'
         }}>
           <div style={{
-            fontSize: '36px',
-            fontWeight: '700',
-            marginBottom: '4px',
-            fontFamily: 'var(--font-family-satoshi)'
+            position: 'absolute',
+            top: -30,
+            right: -30,
+            width: 120,
+            height: 120,
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent)',
+            borderRadius: '50%'
+          }} />
+          <div style={{
+            fontSize: '42px',
+            fontWeight: '800',
+            marginBottom: '6px',
+            fontFamily: 'var(--font-family-satoshi)',
+            letterSpacing: '-0.02em',
+            position: 'relative',
+            zIndex: 1
           }}>
             {Math.round((earnedCount / totalCount) * 100)}%
           </div>
           <div style={{
-            fontSize: '14px',
-            opacity: 0.9,
-            fontFamily: 'var(--font-family-switzer)'
+            fontSize: '15px',
+            opacity: 0.95,
+            fontFamily: 'var(--font-family-switzer)',
+            fontWeight: '600',
+            position: 'relative',
+            zIndex: 1
           }}>
             Complete
           </div>

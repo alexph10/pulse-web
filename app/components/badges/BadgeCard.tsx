@@ -78,14 +78,15 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
         style={{
           position: 'absolute',
           inset: 0,
-          background: earned ? gradientStyle : '#E2E8F0',
-          borderRadius: '20px',
+          background: earned ? gradientStyle : 'linear-gradient(135deg, #F5F5F5, #E8E8E8)',
+          borderRadius: '24px',
           boxShadow: earned
-            ? `0 10px 30px ${tierConfig.glowColor}, 0 4px 12px rgba(0, 0, 0, 0.1)`
-            : '0 4px 12px rgba(0, 0, 0, 0.08)',
+            ? `0 20px 40px ${tierConfig.glowColor}50, 0 8px 16px ${tierConfig.glowColor}30, inset 0 1px 0 rgba(255,255,255,0.3)`
+            : '0 8px 16px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06)',
           overflow: 'hidden',
-          opacity: earned ? 1 : 0.4,
-          transition: 'all 0.3s ease-in-out'
+          opacity: earned ? 1 : 0.5,
+          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          border: earned ? 'none' : '2px solid rgba(0, 0, 0, 0.06)'
         }}
       >
         {/* Metallic Shine Effect */}
@@ -189,18 +190,20 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
         <p
           style={{
             fontSize: dim.text,
-            fontWeight: '600',
-            color: earned ? tierConfig.textColor : '#718096',
+            fontWeight: '700',
+            color: earned ? tierConfig.textColor : '#6B7280',
             textAlign: 'center',
-            lineHeight: 1.2,
+            lineHeight: 1.3,
             maxWidth: '90%',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
-            textShadow: earned ? `0 1px 2px ${tierConfig.glowColor}` : 'none',
-            transition: 'all 0.3s ease-in-out'
+            textShadow: earned ? `0 2px 4px ${tierConfig.glowColor}40, 0 1px 2px ${tierConfig.glowColor}20` : 'none',
+            transition: 'all 0.3s ease-in-out',
+            letterSpacing: '-0.01em',
+            fontFamily: 'var(--font-family-satoshi)'
           }}
         >
           {badge.name}
@@ -210,13 +213,19 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
         <div
           style={{
             fontSize: dim.text - 2,
-            fontWeight: '500',
-            color: earned ? tierConfig.textColor : '#A0AEC0',
-            textTransform: 'capitalize',
-            opacity: 0.7,
-            padding: '2px 8px',
-            borderRadius: '6px',
-            background: earned ? `${tierConfig.metallic.base}20` : 'rgba(0, 0, 0, 0.05)'
+            fontWeight: '600',
+            color: earned ? tierConfig.textColor : '#9CA3AF',
+            textTransform: 'uppercase',
+            opacity: earned ? 0.9 : 0.6,
+            padding: '4px 10px',
+            borderRadius: '8px',
+            background: earned 
+              ? `linear-gradient(135deg, ${tierConfig.metallic.base}30, ${tierConfig.metallic.highlight}20)` 
+              : 'rgba(0, 0, 0, 0.04)',
+            backdropFilter: 'blur(8px)',
+            border: earned ? `1px solid ${tierConfig.metallic.base}40` : '1px solid rgba(0, 0, 0, 0.08)',
+            letterSpacing: '0.05em',
+            fontFamily: 'var(--font-family-satoshi)'
           }}
         >
           {badge.tier}
@@ -228,8 +237,10 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
             style={{
               fontSize: dim.text - 3,
               color: tierConfig.textColor,
-              opacity: 0.6,
-              marginTop: 4
+              opacity: 0.7,
+              marginTop: 4,
+              fontFamily: 'var(--font-family-switzer)',
+              fontWeight: '500'
             }}
           >
             {new Date(earnedAt).toLocaleDateString('en-US', { 
@@ -246,9 +257,9 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
         <div
           style={{
             position: 'absolute',
-            bottom: 12,
-            left: 12,
-            right: 12,
+            bottom: 14,
+            left: 14,
+            right: 14,
             zIndex: 1
           }}
         >
@@ -257,23 +268,26 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 4
+              marginBottom: 6
             }}
           >
             <span
               style={{
                 fontSize: dim.text - 3,
-                fontWeight: '500',
-                color: '#718096'
+                fontWeight: '600',
+                color: '#6B7280',
+                fontFamily: 'var(--font-family-satoshi)',
+                letterSpacing: '0.02em'
               }}
             >
               Progress
             </span>
             <span
               style={{
-                fontSize: dim.text - 3,
-                fontWeight: '600',
-                color: '#2D3748'
+                fontSize: dim.text - 2,
+                fontWeight: '700',
+                color: '#1F2937',
+                fontFamily: 'var(--font-family-satoshi)'
               }}
             >
               {progress}%
@@ -284,10 +298,11 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
           <div
             style={{
               width: '100%',
-              height: 6,
-              background: 'rgba(0, 0, 0, 0.1)',
-              borderRadius: 3,
+              height: 8,
+              background: 'linear-gradient(to right, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.04))',
+              borderRadius: 6,
               overflow: 'hidden',
+              boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.1)',
               position: 'relative'
             }}
           >
@@ -295,13 +310,14 @@ const BadgeCardComponent: React.FC<BadgeCardProps> = ({
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
               style={{
                 height: '100%',
-                background: `linear-gradient(90deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.to})`,
-                borderRadius: 3,
+                background: `linear-gradient(135deg, ${tierConfig.gradient.from}, ${tierConfig.gradient.to})`,
+                borderRadius: 6,
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                boxShadow: `0 0 8px ${tierConfig.glowColor}60`
               }}
             >
               {/* Animated shimmer */}
