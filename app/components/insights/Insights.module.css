@@ -1,0 +1,102 @@
+.insights {
+  margin-bottom: 32px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-family: var(--font-family-satoshi);
+}
+
+.title svg {
+  color: #f59e0b;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-family: var(--font-family-switzer);
+  background: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.insightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.insightCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  border-left-width: 3px;
+  border-left-style: solid;
+}
+
+.insightCard:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.iconWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.insightTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-family: var(--font-family-satoshi);
+}
+
+.insightDescription {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  font-family: var(--font-family-switzer);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .insightCard {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .iconWrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  .insightTitle {
+    font-size: 14px;
+  }
+
+  .insightDescription {
+    font-size: 12px;
+  }
+}

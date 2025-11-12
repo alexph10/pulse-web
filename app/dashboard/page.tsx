@@ -2,7 +2,8 @@
 
 import DashboardLayout from '../components/layouts/DashboardLayout';
 import QuickGoalsWidget from '../components/quick-goals-widget/quick-goals-widget';
-import { BadgeShowcase } from '../components/badges/BadgeShowcase';
+import Insights from '../components/insights/Insights';
+import QuickActions from '../components/quick-actions/QuickActions';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -550,17 +551,22 @@ export default function Dashboard() {
           </div>
         </div>
 
+      {/* Quick Actions */}
+      <div className="mt-8">
+        <QuickActions />
+      </div>
+
+      {/* Insights */}
+      {user && (
+        <div className="mt-8">
+          <Insights userId={user.id} />
+        </div>
+      )}
+
       {/* Quick Goals Widget */}
       <div className="mt-8">
         <QuickGoalsWidget />
       </div>
-
-      {/* Badge Showcase - Compact Mode */}
-      {user && (
-        <div className="mt-8">
-          <BadgeShowcase userId={user.id} compact={true} />
-        </div>
-      )}
     </DashboardLayout>
   );
 }
