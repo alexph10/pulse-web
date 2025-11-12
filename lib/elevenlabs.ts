@@ -19,12 +19,14 @@ export const elevenLabsConfig = {
  * This is a wrapper for the ElevenLabs API
  * Implement based on your specific needs
  */
-export async function textToSpeech(text: string, voiceId?: string) {
+export async function textToSpeech(text: string, voiceId?: string): Promise<AsyncIterable<Uint8Array>> {
   if (!elevenLabsConfig.apiKey) {
     throw new Error('ElevenLabs API key not configured');
   }
 
-  // Implement using @elevenlabs/client based on your needs
-  // See documentation: https://elevenlabs.io/docs
+  // Placeholder implementation - replace with actual ElevenLabs API call
+  // Example: const client = new ElevenLabs.ElevenLabsClient({ apiKey: elevenLabsConfig.apiKey });
+  // return await client.textToSpeech.convert(voiceId || 'default', { text });
+  
   throw new Error('Implement textToSpeech based on ElevenLabs API docs');
 }
