@@ -21,6 +21,81 @@
   width: 184px;
 }
 
+/* Logo */
+.logoLink {
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-subtle);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.logoLink:hover {
+  background: rgba(185, 28, 28, 0.05);
+}
+
+.logoContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 40px;
+  height: 40px;
+}
+
+.expanded .logoContainer {
+  width: auto;
+  padding: 0 8px;
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-family-satoshi);
+  letter-spacing: -0.02em;
+  transition: all 0.3s ease;
+  margin: 0 8px;
+}
+
+.squareTopLeft,
+.squareBottomRight {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #B91C1C;
+  border-radius: 1.5px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.3);
+}
+
+.squareTopLeft {
+  top: 8px;
+  left: 8px;
+}
+
+.squareBottomRight {
+  bottom: 8px;
+  right: 8px;
+}
+
+.logoLink:hover .squareTopLeft {
+  transform: translate(-3px, -3px) rotate(180deg) scale(1.1);
+  background: #991B1B;
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.5);
+}
+
+.logoLink:hover .squareBottomRight {
+  transform: translate(3px, 3px) rotate(180deg) scale(1.1);
+  background: #991B1B;
+  box-shadow: 0 4px 12px rgba(185, 28, 28, 0.5);
+}
+
 /* Toggle Button */
 .toggleButton {
   width: 100%;
@@ -38,8 +113,8 @@
 }
 
 .toggleButton:hover {
-  background: var(--accent-muted);
-  color: var(--text-primary);
+  background: rgba(185, 28, 28, 0.1);
+  color: #B91C1C;
 }
 
 .toggleIcon {
@@ -109,19 +184,19 @@
 }
 
 .navItem:hover {
-  background: var(--accent-muted);
-  color: var(--text-primary);
+  background: rgba(185, 28, 28, 0.1);
+  color: #B91C1C;
 }
 
 .navItem.active {
-  background: var(--accent-primary);
+  background: #B91C1C;
   color: #FFFFFF;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(232, 184, 109, 0.3);
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.3);
 }
 
 .navItem.active:hover {
-  background: var(--accent-primary-hover);
+  background: #991B1B;
 }
 
 .icon {
@@ -193,7 +268,7 @@
 }
 
 .profileButton:hover {
-  background: var(--accent-muted);
+  background: rgba(185, 28, 28, 0.1);
 }
 
 .profileAvatar {
@@ -202,7 +277,7 @@
   min-width: 32px;
   min-height: 32px;
   border-radius: 50%;
-  background: var(--accent-primary);
+  background: #B91C1C;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,7 +285,7 @@
   font-weight: 600;
   font-size: 14px;
   font-family: var(--font-family-satoshi);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.3);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -328,7 +403,7 @@
   min-width: 40px;
   min-height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,7 +461,8 @@
 }
 
 .profileMenuItem:hover {
-  background: var(--background);
+  background: rgba(185, 28, 28, 0.1);
+  color: #B91C1C;
 }
 
 .profileMenuDivider {
@@ -419,8 +495,8 @@
 }
 
 .signOutButton:hover {
-  background: var(--accent-muted);
-  color: var(--error);
+  background: rgba(185, 28, 28, 0.1);
+  color: #B91C1C;
 }
 
 .signOutButton .icon {

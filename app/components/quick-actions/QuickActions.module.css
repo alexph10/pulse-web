@@ -1,0 +1,159 @@
+.quickActions {
+  margin-bottom: 32px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-family: var(--font-family-satoshi);
+}
+
+.title svg {
+  color: #ef4444;
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.actionCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border-top-width: 2px;
+  border-top-style: solid;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.actionCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.actionCard:hover::before {
+  opacity: 1;
+}
+
+.actionCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.actionCard:active {
+  transform: translateY(-2px);
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.actionCard:hover .iconWrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.actionLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  font-family: var(--font-family-satoshi);
+  transition: color 0.2s ease;
+}
+
+.actionCard:hover .actionLabel {
+  color: var(--text-primary);
+}
+
+.actionDescription {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-family-switzer);
+  line-height: 1.4;
+}
+
+.arrow {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.actionCard:hover .arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .actionGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .actionCard {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .iconWrapper {
+    width: 44px;
+    height: 44px;
+  }
+
+  .actionLabel {
+    font-size: 14px;
+  }
+
+  .actionDescription {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .actionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .actionDescription {
+    display: none;
+  }
+}

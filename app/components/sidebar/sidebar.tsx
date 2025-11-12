@@ -80,6 +80,15 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
     <div 
       className={`${styles.sidebar} ${isExpanded ? styles.expanded : styles.collapsed}`}
     >
+      {/* Logo */}
+      <Link href="/dashboard" className={styles.logoLink}>
+        <div className={styles.logoContainer}>
+          <div className={styles.squareTopLeft} />
+          <div className={styles.squareBottomRight} />
+          {isExpanded && <span className={styles.logoText}>Pulse</span>}
+        </div>
+      </Link>
+
       {/* Toggle Button */}
       <button 
         className={styles.toggleButton}
