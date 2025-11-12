@@ -11,6 +11,7 @@ import {
   CheckSquare, 
   Lightbulb, 
   ChartLine,
+  ChartLineUp,
   User,
   SignOut,
   Lightning,
@@ -43,6 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
     { icon: BookOpen, label: 'Journal', href: '/dashboard/journal', section: 'main' },
     { icon: Target, label: 'Goals', href: '/dashboard/goals', section: 'main' },
     { icon: CheckSquare, label: 'Habits', href: '/dashboard/habits', section: 'main' },
+    { icon: ChartLineUp, label: 'Activity', href: '/dashboard/activity', section: 'insights' },
     { icon: Lightbulb, label: 'Reflections', href: '/dashboard/reflections', section: 'insights' },
     { icon: ChartLine, label: 'Progress', href: '/dashboard/progress', section: 'insights' },
   ];

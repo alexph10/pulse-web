@@ -6,7 +6,8 @@ import {
   Note, 
   BookOpen, 
   Target, 
-  ChartLine, 
+  ChartLine,
+  ChartLineUp, 
   CheckCircle, 
   Lightbulb, 
   TrendUp 
@@ -34,6 +35,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
     { label: 'Goals', href: '/dashboard/goals', icon: Target },
     { label: 'Analytics', href: '/dashboard/analytics', icon: ChartLine },
     { label: 'Habits', href: '/dashboard/habits', icon: CheckCircle },
+    { label: 'Activity', href: '/dashboard/activity', icon: ChartLineUp },
     { label: 'Reflections', href: '/dashboard/reflections', icon: Lightbulb },
     { label: 'Progress', href: '/dashboard/progress', icon: TrendUp },
   ];
