@@ -20,7 +20,7 @@ npx @elevenlabs/cli@latest components add [component-name]
 
 ### Available Components
 
-#### 🎵 Audio Components
+#### Audio Components
 
 1. **Audio Player** - Customizable audio player with progress controls
    ```bash
@@ -45,7 +45,7 @@ npx @elevenlabs/cli@latest components add [component-name]
    npx @elevenlabs/cli@latest components add scrub-bar
    ```
 
-#### 💬 Conversational UI
+#### Conversational UI
 
 5. **Conversation** - Scrolling chat container with auto-scroll
    ```bash
@@ -74,7 +74,7 @@ npx @elevenlabs/cli@latest components add [component-name]
    npx @elevenlabs/cli@latest components add transcript-viewer
    ```
 
-#### 🎙️ Voice & Recording
+#### Voice & Recording
 
 10. **Voice Button** - Voice recording/playback button
     ```bash
@@ -86,7 +86,7 @@ npx @elevenlabs/cli@latest components add [component-name]
     npx @elevenlabs/cli@latest components add mic-selector
     ```
 
-#### ✨ Visual Effects
+#### Visual Effects
 
 12. **Orb** - Animated orb visualization
     ```bash
@@ -185,7 +185,7 @@ npx shadcn@latest add @supabase/[block-name]
 
 ### Available Blocks
 
-#### 🔐 Authentication
+#### Authentication
 
 1. **Password-Based Auth** - Complete email/password authentication flow
    ```bash
@@ -201,7 +201,7 @@ npx shadcn@latest add @supabase/[block-name]
    ```
    - Providers: Google, GitHub, Twitter, Discord, etc.
 
-#### 📁 File Management
+#### File Management
 
 3. **Dropzone** - Drag-and-drop file upload
    ```bash
@@ -210,7 +210,7 @@ npx shadcn@latest add @supabase/[block-name]
    - Features: Multiple files, file size limits, file type validation
    - Integrates with Supabase Storage
 
-#### ⚡ Realtime Features
+#### Realtime Features
 
 4. **Realtime Cursor** - Show live cursor positions
    ```bash
@@ -227,14 +227,14 @@ npx shadcn@latest add @supabase/[block-name]
    npx shadcn@latest add @supabase/realtime-chat-nextjs
    ```
 
-#### 👤 User Components
+#### User Components
 
 7. **Current User Avatar** - Display logged-in user's avatar
    ```bash
    npx shadcn@latest add @supabase/current-user-avatar-nextjs
    ```
 
-#### 🔧 Data Hooks
+#### Data Hooks
 
 8. **Infinite Query Hook** (NEW) - Infinite scroll data fetching
    ```bash
