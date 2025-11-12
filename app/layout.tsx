@@ -3,7 +3,6 @@ import './globals.css';
 import { AuthProvider } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './contexts/ToastContext';
-import { Toaster } from '@/components/ui/sonner';
 
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export default function RootLayout({
           <ToastProvider>
             <AuthProvider>
               {children}
-              <Toaster />
             </AuthProvider>
           </ToastProvider>
         </ErrorBoundary>
