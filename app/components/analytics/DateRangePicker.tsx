@@ -63,27 +63,27 @@ export default function DateRangePicker({
             key={p.value}
             onClick={() => handlePresetClick(p.value)}
             style={{
-              background: preset === p.value ? '#1a3a2e' : 'transparent',
-              color: preset === p.value ? 'white' : '#2D3748',
-              border: '1px solid #E2E8F0',
+              background: preset === p.value ? 'var(--accent-primary)' : 'transparent',
+              color: preset === p.value ? '#FFFFFF' : 'var(--text-primary)',
+              border: `1px solid ${preset === p.value ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
               borderRadius: '10px',
               padding: '10px 20px',
               fontSize: '14px',
               fontWeight: '500',
               cursor: 'pointer',
-              transition: 'all 0.3s ease-in-out',
-              fontFamily: 'Satoshi, sans-serif'
+              transition: 'all 0.2s ease',
+              fontFamily: 'var(--font-family-satoshi)'
             }}
             onMouseEnter={(e) => {
               if (preset !== p.value) {
-                e.currentTarget.style.borderColor = '#1a3a2e'
-                e.currentTarget.style.color = '#1a3a2e'
+                e.currentTarget.style.background = 'var(--accent-muted)'
+                e.currentTarget.style.borderColor = 'var(--accent-primary)'
               }
             }}
             onMouseLeave={(e) => {
               if (preset !== p.value) {
-                e.currentTarget.style.borderColor = '#E2E8F0'
-                e.currentTarget.style.color = '#2D3748'
+                e.currentTarget.style.background = 'transparent'
+                e.currentTarget.style.borderColor = 'var(--border-subtle)'
               }
             }}
           >
@@ -94,30 +94,30 @@ export default function DateRangePicker({
         <button
           onClick={() => handlePresetClick('custom')}
           style={{
-            background: preset === 'custom' ? '#1a3a2e' : 'transparent',
-            color: preset === 'custom' ? 'white' : '#2D3748',
-            border: '1px solid #E2E8F0',
+            background: preset === 'custom' ? 'var(--accent-primary)' : 'transparent',
+            color: preset === 'custom' ? '#FFFFFF' : 'var(--text-primary)',
+            border: `1px solid ${preset === 'custom' ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
             borderRadius: '10px',
             padding: '10px 20px',
             fontSize: '14px',
             fontWeight: '500',
             cursor: 'pointer',
-            transition: 'all 0.3s ease-in-out',
-            fontFamily: 'Satoshi, sans-serif',
+            transition: 'all 0.2s ease',
+            fontFamily: 'var(--font-family-satoshi)',
             display: 'flex',
             alignItems: 'center',
             gap: '8px'
           }}
           onMouseEnter={(e) => {
             if (preset !== 'custom') {
-              e.currentTarget.style.borderColor = '#1a3a2e'
-              e.currentTarget.style.color = '#1a3a2e'
+              e.currentTarget.style.background = 'var(--accent-muted)'
+              e.currentTarget.style.borderColor = 'var(--accent-primary)'
             }
           }}
           onMouseLeave={(e) => {
             if (preset !== 'custom') {
-              e.currentTarget.style.borderColor = '#E2E8F0'
-              e.currentTarget.style.color = '#2D3748'
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.borderColor = 'var(--border-subtle)'
             }
           }}
         >

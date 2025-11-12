@@ -162,7 +162,11 @@ export default function AnalyticsPage() {
   return (
     <DashboardLayout isLoading={loading}>
       {/* Main Content */}
-      <div>
+      <div style={{
+        padding: isMobile ? '20px' : '32px',
+        maxWidth: '1400px',
+        margin: '0 auto'
+      }}>
         {/* Header */}
         <div style={{
           marginBottom: '32px',
@@ -174,7 +178,7 @@ export default function AnalyticsPage() {
         }}>
           <div>
             <h1 style={{
-              fontSize: isMobile ? '28px' : '32px',
+              fontSize: isMobile ? '28px' : '36px',
               fontWeight: '600',
               color: 'var(--text-primary)',
               fontFamily: 'var(--font-family-satoshi)',
@@ -267,10 +271,11 @@ export default function AnalyticsPage() {
             }}>
               {/* Mood Trend */}
               <div style={{
-                background: 'white',
+                background: 'var(--surface)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
-                padding: isMobile ? '20px' : '24px'
+                padding: isMobile ? '20px' : '24px',
+                boxShadow: 'var(--shadow-sm)'
               }}>
                 <h2 style={{
                   fontSize: isMobile ? '16px' : '18px',
@@ -293,10 +298,11 @@ export default function AnalyticsPage() {
 
               {/* Mood Distribution */}
               <div style={{
-                background: 'white',
+                background: 'var(--surface)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
-                padding: isMobile ? '20px' : '24px'
+                padding: isMobile ? '20px' : '24px',
+                boxShadow: 'var(--shadow-sm)'
               }}>
                 <h2 style={{
                   fontSize: isMobile ? '16px' : '18px',
@@ -312,10 +318,11 @@ export default function AnalyticsPage() {
 
               {/* Journal Streak Heatmap */}
               <div style={{
-                background: 'white',
+                background: 'var(--surface)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
-                padding: isMobile ? '20px' : '24px'
+                padding: isMobile ? '20px' : '24px',
+                boxShadow: 'var(--shadow-sm)'
               }}>
                 <h2 style={{
                   fontSize: isMobile ? '16px' : '18px',

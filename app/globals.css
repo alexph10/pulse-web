@@ -2,7 +2,8 @@
 @import "./fonts.css";
 @import "tailwindcss";
 
-@theme {
+:root {
+  /* Font Families */
   --font-family-satoshi: 'Satoshi', sans-serif;
   --font-family-switzer: 'Switzer', sans-serif;
   --font-family-manier: 'Manier', sans-serif;
@@ -10,9 +11,10 @@
   --font-family-garamond: 'EB Garamond', serif;
   --font-family-cormorant: 'Cormorant Garamond', serif;
   --font-family-antonia: 'Antonia H1', serif;
-}
-
-:root {
+  
+  /* UI Scale - 30% smaller (75% * 0.95 = 71.25%) */
+  font-size: 71.25%; /* 71.25% of default 16px = 11.4px base */
+  
   /* Honey Theme - Light Mode (Replit Inspired) */
   --background: #F7F4EF;
   --background-secondary: #F5F1E8;
@@ -29,11 +31,11 @@
   --border-subtle: #E8DCC8;
   --border-emphasis: #D4C4B0;
   
-  /* Accent Colors - Honey Gold */
-  --accent-primary: #E8B86D;
-  --accent-primary-hover: #D4A256;
-  --accent-tertiary: #F5C77E;
-  --accent-muted: #EDE6D9;
+  /* Accent Colors - Dark Red */
+  --accent-primary: #B91C1C;
+  --accent-primary-hover: #991B1B;
+  --accent-tertiary: #DC2626;
+  --accent-muted: #FEE2E2;
   
   /* Semantic Colors */
   --success: #10B981;
@@ -79,11 +81,11 @@
   --border-subtle: #3F3832;
   --border-emphasis: #4D453C;
   
-  /* Accent Colors - Honey Glow */
-  --accent-primary: #E8B86D;
-  --accent-primary-hover: #F5C77E;
-  --accent-tertiary: #D4A256;
-  --accent-muted: #423529;
+  /* Accent Colors - Dark Red */
+  --accent-primary: #DC2626;
+  --accent-primary-hover: #B91C1C;
+  --accent-tertiary: #EF4444;
+  --accent-muted: #3A2121;
   
   /* Semantic Colors */
   --success: #10B981;
@@ -121,11 +123,11 @@
     --border-subtle: #3F3832;
     --border-emphasis: #4D453C;
     
-    /* Accent Colors - Honey Glow */
-    --accent-primary: #E8B86D;
-    --accent-primary-hover: #F5C77E;
-    --accent-tertiary: #D4A256;
-    --accent-muted: #423529;
+    /* Accent Colors - Dark Red */
+    --accent-primary: #DC2626;
+    --accent-primary-hover: #B91C1C;
+    --accent-tertiary: #EF4444;
+    --accent-muted: #3A2121;
     
     /* Semantic Colors */
     --success: #10B981;

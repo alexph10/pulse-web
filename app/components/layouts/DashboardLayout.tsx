@@ -1,7 +1,5 @@
 'use client'
 
-import DashboardNavbar from '../dashboard-navbar/dashboard-navbar'
-
 interface DashboardLayoutProps {
   children: React.ReactNode
   isLoading?: boolean
@@ -12,8 +10,7 @@ export default function DashboardLayout({ children, isLoading = false }: Dashboa
     <div className="min-h-screen p-8" style={{
       background: 'var(--background)'
     }}>
-      <DashboardNavbar isLoading={isLoading} />
-      <div className="max-w-7xl mx-auto mt-16">
+      <div className="max-w-7xl mx-auto">
         {children}
       </div>
     </div>

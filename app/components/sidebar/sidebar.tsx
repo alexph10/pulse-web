@@ -1,60 +1,225 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { 
+  House, 
+  Notebook, 
+  BookOpen, 
+  Target, 
+  CheckSquare, 
+  Lightbulb, 
+  ChartLine,
+  Trophy,
+  User,
+  SignOut,
+  Lightning,
+  Bug,
+  ChatCircle
+} from '@phosphor-icons/react';
 import styles from './sidebar.module.css';
+import { useAuth } from '@/app/contexts/AuthContext';
 
 interface NavItem {
-  icon: string;
+  icon: any;
   label: string;
   href: string;
+  section?: 'main' | 'insights';
 }
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onToggle?: (isExpanded: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeItem, setActiveItem] = useState('Home');
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const { user, signOut } = useAuth();
 
   const navItems: NavItem[] = [
-    { icon: '', label: 'Home', href: '/dashboard' },
-    { icon: '', label: 'Notes', href: '/dashboard/notes' },
-    { icon: '', label: 'Journal', href: '/dashboard/journal' },
-    { icon: '', label: 'Goals', href: '/dashboard/goals' },
-    { icon: '', label: 'Habits', href: '/dashboard/habits' },
-    { icon: '', label: 'Reflections', href: '/dashboard/reflections' },
-    { icon: '', label: 'Progress', href: '/dashboard/progress' },
+    { icon: House, label: 'Home', href: '/dashboard', section: 'main' },
+    { icon: Notebook, label: 'Notes', href: '/dashboard/notes', section: 'main' },
+    { icon: BookOpen, label: 'Journal', href: '/dashboard/journal', section: 'main' },
+    { icon: Target, label: 'Goals', href: '/dashboard/goals', section: 'main' },
+    { icon: CheckSquare, label: 'Habits', href: '/dashboard/habits', section: 'main' },
+    { icon: Lightbulb, label: 'Reflections', href: '/dashboard/reflections', section: 'insights' },
+    { icon: ChartLine, label: 'Progress', href: '/dashboard/progress', section: 'insights' },
+    { icon: Trophy, label: 'Achievements', href: '/dashboard/achievements', section: 'insights' },
   ];
+
+  const mainItems = navItems.filter(item => item.section === 'main');
+  const insightItems = navItems.filter(item => item.section === 'insights');
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  const toggleSidebar = () => {
+    const newExpandedState = !isExpanded;
+    setIsExpanded(newExpandedState);
+    if (onToggle) {
+      onToggle(newExpandedState);
+    }
+  };
+
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  const getInitials = (email: string) => {
+    return email.charAt(0).toUpperCase();
+  };
 
   return (
     <div 
       className={`${styles.sidebar} ${isExpanded ? styles.expanded : styles.collapsed}`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
     >
-      {/* Logo */}
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>◇</div>
-      </div>
+      {/* Toggle Button */}
+      <button 
+        className={styles.toggleButton}
+        onClick={toggleSidebar}
+        aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
+      >
+        <span className={styles.toggleIcon}>☰</span>
+      </button>
 
       {/* Navigation Items */}
       <nav className={styles.nav}>
-        {navItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className={`${styles.navItem} ${activeItem === item.label ? styles.active : ''}`}
-            onClick={() => setActiveItem(item.label)}
-          >
-            <span className={styles.icon}>{item.icon}</span>
-            {isExpanded && <span className={styles.label}>{item.label}</span>}
-          </Link>
-        ))}
+        {/* Main Section */}
+        <div className={styles.navSection}>
+          {mainItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                title={!isExpanded ? item.label : undefined}
+              >
+                <Icon className={styles.icon} weight={isActive ? 'fill' : 'regular'} size={18} />
+                {isExpanded && <span className={styles.label}>{item.label}</span>}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Insights Section */}
+        <div className={styles.navSection}>
+          {insightItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                title={!isExpanded ? item.label : undefined}
+              >
+                <Icon className={styles.icon} weight={isActive ? 'fill' : 'regular'} size={18} />
+                {isExpanded && <span className={styles.label}>{item.label}</span>}
+              </Link>
+            );
+          })}
+        </div>
       </nav>
 
-      {/* Profile Icon at Bottom */}
-      <div className={styles.profile}>
-        <button className={styles.profileButton}>
-          <div className={styles.profileIcon}></div>
+      {/* Profile & Settings at Bottom */}
+      <div className={styles.footer}>
+        <button 
+          onClick={toggleProfileMenu}
+          className={styles.profileButton}
+          title={!isExpanded ? 'Profile' : undefined}
+        >
+          <div className={styles.profileAvatar}>
+            {user?.email ? getInitials(user.email) : 'U'}
+          </div>
+          {isExpanded && (
+            <div className={styles.profileInfo}>
+              <div className={styles.profileName}>
+                {user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}
+              </div>
+              <div className={styles.profileEmail}>
+                {user?.email || 'user@example.com'}
+              </div>
+            </div>
+          )}
         </button>
+
+        {/* Profile Menu Overlay */}
+        {isProfileMenuOpen && (
+          <>
+            <div className={styles.overlay} onClick={toggleProfileMenu} />
+            <div className={styles.profileMenu}>
+              {/* User Info Header */}
+              <div className={styles.profileMenuHeader}>
+                <div className={styles.profileHeaderContent}>
+                  <div className={styles.profileAvatarLarge}>
+                    {user?.email ? getInitials(user.email) : 'U'}
+                  </div>
+                  <div className={styles.profileHeaderInfo}>
+                    <div className={styles.profileMenuName}>
+                      {user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}
+                    </div>
+                    <div className={styles.profileMenuEmail}>
+                      {user?.email || 'user@example.com'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Menu Items */}
+              <div className={styles.profileMenuItems}>
+                <Link href="/dashboard/profile" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
+                  View profile
+                </Link>
+                <Link href="/dashboard/shortcuts" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
+                  Shortcuts
+                </Link>
+                <button 
+                  onClick={() => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    localStorage.setItem('theme', newTheme);
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                  }}
+                  className={styles.profileMenuItem}
+                >
+                  Switch to {document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'} mode
+                </button>
+                <button
+                  onClick={() => {
+                    toggleProfileMenu();
+                    handleSignOut();
+                  }}
+                  className={styles.profileMenuItem}
+                >
+                  Logout
+                </button>
+
+                <div className={styles.profileMenuDivider} />
+
+                <Link href="/report-bug" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
+                  Report a bug
+                </Link>
+                <Link href="/request-feature" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
+                  Request a feature
+                </Link>
+                <Link href="/contact" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
+                  Contact us
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import DashboardNavbar from '../../components/dashboard-navbar/dashboard-navbar';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 
@@ -196,8 +195,6 @@ export default function Reflections() {
         }
       `}</style>
       
-      <DashboardNavbar isLoading={saving} />
-
       <main style={{
         maxWidth: '680px',
         margin: '40px auto 0',

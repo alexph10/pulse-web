@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
-import DashboardNavbar from '../../components/dashboard-navbar/dashboard-navbar'
 
 interface JournalEntry {
   id: string
@@ -229,11 +228,6 @@ export default function Profile() {
       background: 'var(--background)',
       paddingBottom: '60px'
     }}>
-      {/* Navbar */}
-      <div style={{ padding: '32px 48px' }}>
-        <DashboardNavbar />
-      </div>
-
       {/* Profile Container */}
       <div style={{
         maxWidth: '1200px',

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardNavbar from '../../components/dashboard-navbar/dashboard-navbar';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { useVoiceRecorder } from '../../hooks/useVoiceRecorder';
@@ -330,7 +329,6 @@ export default function Notes() {
     <div className="min-h-screen p-8" style={{
       background: 'var(--background)'
     }}>
-      <DashboardNavbar />
       
       <main className={styles.mainContent}>
         <div className={styles.centerContent}>
