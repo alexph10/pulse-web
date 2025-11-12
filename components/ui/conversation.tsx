@@ -10,28 +10,30 @@ interface ConversationProps extends React.ComponentPropsWithoutRef<typeof StickT
 }
 
 const Conversation = React.forwardRef<
-  React.ElementRef<typeof StickToBottom>,
+  HTMLDivElement,
   ConversationProps
 >(({ className, initial = "smooth", resize = "smooth", ...props }, ref) => (
-  <StickToBottom
-    ref={ref}
-    className={cn("relative flex h-full flex-col overflow-hidden", className)}
-    initial={initial}
-    resize={resize}
-    {...props}
-  />
+  <div ref={ref}>
+    <StickToBottom
+      className={cn("relative flex h-full flex-col overflow-hidden", className)}
+      initial={initial}
+      resize={resize}
+      {...props}
+    />
+  </div>
 ))
 Conversation.displayName = "Conversation"
 
 const ConversationContent = React.forwardRef<
-  React.ElementRef<typeof StickToBottom.Content>,
+  HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof StickToBottom.Content>
 >(({ className, ...props }, ref) => (
-  <StickToBottom.Content
-    ref={ref}
-    className={cn("flex flex-col gap-4 overflow-y-auto p-4", className)}
-    {...props}
-  />
+  <div ref={ref}>
+    <StickToBottom.Content
+      className={cn("flex flex-col gap-4 overflow-y-auto p-4", className)}
+      {...props}
+    />
+  </div>
 ))
 ConversationContent.displayName = "ConversationContent"
 
@@ -77,7 +79,7 @@ const ConversationScrollButton = React.forwardRef<
   return (
     <button
       ref={ref}
-      onClick={scrollToBottom}
+      onClick={() => scrollToBottom()}
       className={cn(
         "absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all hover:scale-105 hover:shadow-xl",
         className

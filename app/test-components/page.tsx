@@ -124,10 +124,11 @@ export default function ComponentTestPage() {
             </Conversation>
             <ConversationBar
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={setInputValue}
               onSend={handleSend}
               isRecording={isRecording}
-              onRecordingChange={setIsRecording}
+              onVoiceStart={() => setIsRecording(true)}
+              onVoiceStop={() => setIsRecording(false)}
               placeholder="Type a message..."
             />
           </div>
