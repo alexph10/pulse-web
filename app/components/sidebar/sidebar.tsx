@@ -11,7 +11,6 @@ import {
   CheckSquare, 
   Lightbulb, 
   ChartLine,
-  Trophy,
   User,
   SignOut,
   Lightning,
@@ -46,7 +45,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
     { icon: CheckSquare, label: 'Habits', href: '/dashboard/habits', section: 'main' },
     { icon: Lightbulb, label: 'Reflections', href: '/dashboard/reflections', section: 'insights' },
     { icon: ChartLine, label: 'Progress', href: '/dashboard/progress', section: 'insights' },
-    { icon: Trophy, label: 'Achievements', href: '/dashboard/achievements', section: 'insights' },
   ];
 
   const mainItems = navItems.filter(item => item.section === 'main');

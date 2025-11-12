@@ -2,7 +2,6 @@
 
 import DashboardLayout from '../components/layouts/DashboardLayout';
 import QuickGoalsWidget from '../components/quick-goals-widget/quick-goals-widget';
-import { BadgeShowcase } from '../components/badges/BadgeShowcase';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -554,13 +553,6 @@ export default function Dashboard() {
       <div className="mt-8">
         <QuickGoalsWidget />
       </div>
-
-      {/* Badge Showcase - Compact Mode */}
-      {user && (
-        <div className="mt-8">
-          <BadgeShowcase userId={user.id} compact={true} />
-        </div>
-      )}
     </DashboardLayout>
   );
 }

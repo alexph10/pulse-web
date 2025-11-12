@@ -60,10 +60,6 @@ const submoduleConfig: SubmoduleConfig = {
     { label: 'Overview', href: '/dashboard/progress' },
     { label: 'Reports', href: '/dashboard/progress/reports' },
   ],
-  '/dashboard/achievements': [
-    { label: 'All', href: '/dashboard/achievements' },
-    { label: 'Recent', href: '/dashboard/achievements/recent' },
-  ],
 };
 
 interface SubmoduleNavProps {
