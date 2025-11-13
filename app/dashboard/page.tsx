@@ -7,6 +7,7 @@ import QuickActions from '../components/quick-actions/QuickActions';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { Skeleton } from '../components/ui';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -260,13 +261,13 @@ export default function Dashboard() {
               padding: '16px'
             }}>
               {loading ? (
-                <div style={{
-                  color: 'var(--text-tertiary)',
-                  fontFamily: 'var(--font-family-satoshi)',
-                  fontSize: 'var(--font-size-small)',
-                  textAlign: 'center'
-                }}>
-                  Loading...
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
+                  <Skeleton height="24px" width="60%" rounded />
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-lg)' }}>
+                    <Skeleton height="80px" rounded />
+                    <Skeleton height="80px" rounded />
+                  </div>
+                  <Skeleton height="120px" rounded />
                 </div>
               ) : (
                 <>
@@ -293,7 +294,7 @@ export default function Dashboard() {
                           <div style={{
                             fontSize: '36px',
                             fontWeight: 600,
-                            color: '#9EF4D0',
+                            color: 'var(--accent-primary)',
                             fontFamily: 'var(--font-family-satoshi)',
                             lineHeight: '1'
                           }}>
@@ -313,7 +314,7 @@ export default function Dashboard() {
                           <div style={{
                             fontSize: '36px',
                             fontWeight: 600,
-                            color: '#B8A8D8',
+                            color: 'var(--text-secondary)',
                             fontFamily: 'var(--font-family-satoshi)',
                             lineHeight: '1'
                           }}>
@@ -432,7 +433,7 @@ export default function Dashboard() {
                           <div style={{
                             fontSize: '36px',
                             fontWeight: 600,
-                            color: '#9EF4D0',
+                            color: 'var(--accent-primary)',
                             fontFamily: 'var(--font-family-satoshi)',
                             lineHeight: '1'
                           }}>
