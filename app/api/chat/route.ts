@@ -1,5 +1,8 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
+import { validateUserId, unauthorizedResponse } from '@/lib/auth';
+import { sanitizeString, VALIDATION_LIMITS } from '@/lib/validation';
+import { checkRateLimit, RATE_LIMITS, getRateLimitHeaders } from '@/lib/rateLimit';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
@@ -7,30 +10,72 @@ const anthropic = new Anthropic({
 
 export async function POST(req: NextRequest) {
   try {
-    const { message, conversationHistory = [], recentEntries = [] } = await req.json();
+    // Authenticate user
+    const auth = await validateUserId(req, null);
+    if (!auth) {
+      return unauthorizedResponse('Authentication required');
+    }
 
-    if (!message) {
+    // Rate limiting for AI endpoints
+    const rateLimit = checkRateLimit(auth.userId, RATE_LIMITS.AI_ENDPOINTS);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { 
+          status: 429,
+          headers: getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime),
+        }
+      );
+    }
+
+    const body = await req.json();
+    const { message, conversationHistory = [], recentEntries = [] } = body;
+
+    if (!message || typeof message !== 'string') {
       return NextResponse.json(
         { error: 'Message is required' },
         { status: 400 }
       );
     }
 
-    // Build context from recent journal entries
+    // Sanitize message
+    const sanitizedMessage = sanitizeString(message, VALIDATION_LIMITS.MAX_TEXT_LENGTH);
+    if (sanitizedMessage.length === 0) {
+      return NextResponse.json(
+        { error: 'Message cannot be empty' },
+        { status: 400 }
+      );
+    }
+
+    // Validate conversation history format
+    if (!Array.isArray(conversationHistory)) {
+      return NextResponse.json(
+        { error: 'Invalid conversation history format' },
+        { status: 400 }
+      );
+    }
+
+    // Limit conversation history size to prevent token explosion
+    const limitedHistory = conversationHistory.slice(-20); // Last 20 messages max
+
+    // Build context from recent journal entries (limit to prevent token explosion)
     let journalContext = '';
-    if (recentEntries.length > 0) {
+    if (Array.isArray(recentEntries) && recentEntries.length > 0) {
+      const limitedEntries = recentEntries.slice(0, 5); // Max 5 recent entries
       journalContext = '\n\nRecent journal entries from this user:\n' + 
-        recentEntries.map((entry: any, idx: number) => 
-          `${idx + 1}. ${new Date(entry.created_at).toLocaleDateString()}: "${entry.transcript}"`
-        ).join('\n');
+        limitedEntries.map((entry: any, idx: number) => {
+          const date = entry.created_at ? new Date(entry.created_at).toLocaleDateString() : 'Unknown date';
+          const transcript = sanitizeString(entry.transcript || '', 500); // Limit transcript length
+          return `${idx + 1}. ${date}: "${transcript}"`;
+        }).join('\n');
     }
 
     // Build messages array with conversation history
     const messages = [
-      ...conversationHistory,
+      ...limitedHistory,
       {
         role: 'user',
-        content: message,
+        content: sanitizedMessage,
       },
     ];
 
@@ -67,14 +112,19 @@ Tone: Empathetic, curious, grounded, never preachy${journalContext}`,
     });
 
     // Extract the text content from Claude's response
-    const assistantMessage = response.content[0].type === 'text' 
-      ? response.content[0].text 
+    const assistantMessage = response.content[0]?.type === 'text' 
+      ? sanitizeString(response.content[0].text) 
       : '';
 
-    return NextResponse.json({
-      message: assistantMessage,
-      usage: response.usage,
-    });
+    return NextResponse.json(
+      {
+        message: assistantMessage,
+        usage: response.usage,
+      },
+      {
+        headers: getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime),
+      }
+    );
   } catch (error) {
     console.error('Error calling Claude API:', error);
     return NextResponse.json(

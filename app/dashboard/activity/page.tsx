@@ -45,12 +45,14 @@ export default function Activity() {
     try {
       setLoading(true);
 
-      // Fetch all journal entries for the user
+      // Fetch journal entries with pagination (limit to last 1000 for performance)
+      // For stats calculation, we need a reasonable sample size
       const { data: entries, error } = await supabase
         .from('journal_entries')
-        .select('*')
+        .select('id, created_at, transcript, primary_mood, mood_score, emotions')
         .eq('user_id', user?.id)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(1000); // Limit to prevent memory issues
 
       if (error) throw error;
 
@@ -76,8 +78,10 @@ export default function Activity() {
     const longestStreak = calculateLongestStreak(entries);
     
     // Calculate average words per day
+    // Use transcript field instead of content
     const totalWords = entries.reduce((sum, entry) => {
-      return sum + (entry.content?.split(/\s+/).filter(w => w.length > 0).length || 0);
+      const text = (entry as any).transcript || entry.content || '';
+      return sum + (text.split(/\s+/).filter((w: string) => w.length > 0).length || 0);
     }, 0);
     const avgWordsPerDay = totalEntries > 0 ? Math.round(totalWords / totalEntries) : 0;
 
@@ -90,9 +94,10 @@ export default function Activity() {
     const mostActiveDay = Object.entries(dayCount).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A';
 
     // Find longest entry
-    const longestEntry = Math.max(...entries.map(e => 
-      e.content?.split(/\s+/).filter(w => w.length > 0).length || 0
-    ), 0);
+    const longestEntry = Math.max(...entries.map(e => {
+      const text = (e as any).transcript || e.content || '';
+      return text.split(/\s+/).filter((w: string) => w.length > 0).length || 0;
+    }), 0);
 
     // Find favorite time (hour with most entries)
     const hourCount: Record<number, number> = {};
