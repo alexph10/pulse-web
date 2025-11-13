@@ -183,8 +183,10 @@ export default function Dashboard() {
       {/* Main Feature Card with Toggle and Graph */}
       <div className="mt-8 rounded-2xl overflow-hidden"
         style={{
-          background: '#3D4A47',
-          width: '100%'
+          background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%)',
+          width: '100%',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-md)'
         }}
       >
           {/* Main Content Area */}
@@ -193,21 +195,21 @@ export default function Dashboard() {
             <div className="flex flex-col justify-between">
               <div>
                 <h2 style={{
-                  color: '#9EF4D0',
-                  fontSize: '36px',
-                  fontWeight: 500,
-                  lineHeight: '1.2',
-                  marginBottom: '8px',
+                  color: 'var(--text-primary)',
+                  fontSize: 'var(--font-size-h2)',
+                  fontWeight: 'var(--font-weight-semibold)',
+                  lineHeight: 'var(--line-height-tight)',
+                  marginBottom: 'var(--spacing-sm)',
                   fontFamily: 'var(--font-family-satoshi)'
                 }}>
                   {greeting}, {firstName}
                 </h2>
                 <p style={{
-                  color: dailyMessage.color,
-                  fontSize: '15px',
-                  lineHeight: '1.6',
+                  color: 'var(--text-secondary)',
+                  fontSize: 'var(--font-size-small)',
+                  lineHeight: 'var(--line-height-relaxed)',
                   fontFamily: 'var(--font-family-switzer)',
-                  transition: 'color 0.3s ease'
+                  transition: 'color var(--animation-timing-smooth) var(--animation-easing-easeOut)'
                 }}>
                   {dailyMessage.text}
                 </p>
@@ -218,16 +220,16 @@ export default function Dashboard() {
                 <button
                   onClick={() => setActiveView('today')}
                   style={{
-                    padding: '8px 18px',
-                    background: activeView === 'today' ? '#9EF4D0' : 'transparent',
-                    color: activeView === 'today' ? '#2D3A37' : 'rgba(255, 255, 255, 0.6)',
-                    border: activeView === 'today' ? '2px dashed #2D3A37' : '1px solid rgba(255, 255, 255, 0.3)',
-                    borderRadius: '6px',
+                    padding: 'var(--spacing-sm) var(--spacing-xl)',
+                    background: activeView === 'today' ? 'var(--accent-primary)' : 'transparent',
+                    color: activeView === 'today' ? '#FFFFFF' : 'var(--text-secondary)',
+                    border: activeView === 'today' ? 'var(--border-width-medium) solid var(--accent-primary)' : 'var(--border-width-thin) solid var(--border-subtle)',
+                    borderRadius: 'var(--border-radius-sm)',
                     fontFamily: 'var(--font-family-satoshi)',
-                    fontWeight: activeView === 'today' ? 600 : 500,
-                    fontSize: '13px',
+                    fontWeight: activeView === 'today' ? 'var(--font-weight-semibold)' : 'var(--font-weight-medium)',
+                    fontSize: 'var(--font-size-small)',
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease'
+                    transition: 'all var(--animation-timing-smooth) var(--animation-easing-easeOut)'
                   }}
                 >
                   Today
@@ -235,16 +237,16 @@ export default function Dashboard() {
                 <button
                   onClick={() => setActiveView('week')}
                   style={{
-                    padding: '8px 18px',
-                    background: activeView === 'week' ? '#9EF4D0' : 'transparent',
-                    color: activeView === 'week' ? '#2D3A37' : 'rgba(255, 255, 255, 0.6)',
-                    border: activeView === 'week' ? '2px dashed #2D3A37' : '1px solid rgba(255, 255, 255, 0.3)',
-                    borderRadius: '6px',
+                    padding: 'var(--spacing-sm) var(--spacing-xl)',
+                    background: activeView === 'week' ? 'var(--accent-primary)' : 'transparent',
+                    color: activeView === 'week' ? '#FFFFFF' : 'var(--text-secondary)',
+                    border: activeView === 'week' ? 'var(--border-width-medium) solid var(--accent-primary)' : 'var(--border-width-thin) solid var(--border-subtle)',
+                    borderRadius: 'var(--border-radius-sm)',
                     fontFamily: 'var(--font-family-satoshi)',
-                    fontWeight: activeView === 'week' ? 600 : 500,
-                    fontSize: '13px',
+                    fontWeight: activeView === 'week' ? 'var(--font-weight-semibold)' : 'var(--font-weight-medium)',
+                    fontSize: 'var(--font-size-small)',
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease'
+                    transition: 'all var(--animation-timing-smooth) var(--animation-easing-easeOut)'
                   }}
                 >
                   This Week
@@ -259,9 +261,9 @@ export default function Dashboard() {
             }}>
               {loading ? (
                 <div style={{
-                  color: 'rgba(255, 255, 255, 0.3)',
+                  color: 'var(--text-tertiary)',
                   fontFamily: 'var(--font-family-satoshi)',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-small)',
                   textAlign: 'center'
                 }}>
                   Loading...
@@ -271,10 +273,10 @@ export default function Dashboard() {
                   {activeView === 'today' ? (
                     <div>
                       <h3 style={{
-                        color: '#9EF4D0',
-                        fontSize: '20px',
-                        fontWeight: 500,
-                        marginBottom: '20px',
+                        color: 'var(--text-primary)',
+                        fontSize: 'var(--font-size-h4)',
+                        fontWeight: 'var(--font-weight-medium)',
+                        marginBottom: 'var(--spacing-xl)',
                         fontFamily: 'var(--font-family-satoshi)'
                       }}>
                         Today's Activity
@@ -410,9 +412,9 @@ export default function Dashboard() {
                   ) : (
                     <div>
                       <h3 style={{
-                        color: '#9EF4D0',
-                        fontSize: '20px',
-                        fontWeight: 500,
+                        color: 'var(--text-primary)',
+                        fontSize: 'var(--font-size-h4)',
+                        fontWeight: 'var(--font-weight-medium)',
                         marginBottom: '20px',
                         fontFamily: 'var(--font-family-satoshi)'
                       }}>

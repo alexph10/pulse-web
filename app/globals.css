@@ -14,8 +14,8 @@
   --font-family-cormorant: 'Cormorant Garamond', serif;
   --font-family-antonia: 'Antonia H1', serif;
 
-  /* UI Scale - 30% smaller (75% * 0.95 = 71.25%) */
-  font-size: 71.25%; /* 71.25% of default 16px = 11.4px base */
+  /* UI Scale - Fixed to 100% for accessibility (WCAG AA compliance) */
+  font-size: 100%; /* 100% of default 16px = 16px base */
 
   /* Honey Theme - Light Mode (Replit Inspired) */
   --background-secondary: #F5F1E8;
@@ -57,6 +57,61 @@
   --shadow-md: 0 4px 12px rgba(59, 42, 26, 0.1);
   --shadow-lg: 0 8px 24px rgba(59, 42, 26, 0.12);
   --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.2);
+  --shadow-none: none;
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.25);
+
+  /* Spacing Scale (8px base) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+  --spacing-5xl: 96px;
+
+  /* Typography Scale */
+  --font-size-h1: 48px;
+  --font-size-h2: 36px;
+  --font-size-h3: 24px;
+  --font-size-h4: 20px;
+  --font-size-body: 16px;
+  --font-size-small: 14px;
+  --font-size-tiny: 12px;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border Radius */
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
+
+  /* Border Width */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+
+  /* Animation Timing */
+  --animation-timing-micro: 150ms;
+  --animation-timing-standard: 200ms;
+  --animation-timing-smooth: 300ms;
+  --animation-timing-slow: 500ms;
+
+  /* Animation Easing */
+  --animation-easing-easeIn: cubic-bezier(0.4, 0, 1, 1);
+  --animation-easing-easeOut: cubic-bezier(0, 0, 0.2, 1);
+  --animation-easing-easeInOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   /* Legacy */
   --color-background: var(--background);
@@ -131,6 +186,8 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.3);
+  --shadow-none: none;
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
 
   /* Legacy */
   --foreground: var(--text-primary);
@@ -173,6 +230,8 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
     --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.3);
+    --shadow-none: none;
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
 
     /* Legacy */
     --foreground: var(--text-primary);
@@ -267,5 +326,17 @@ html {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Focus states for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+  }
+  
+  /* Smooth transitions for interactive elements */
+  button, a, input, textarea, select {
+    transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
   }
 }
