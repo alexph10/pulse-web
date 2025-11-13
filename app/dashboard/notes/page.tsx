@@ -316,7 +316,7 @@ export default function Notes() {
     return parts.map((part, index) => 
       part.toLowerCase() === query.toLowerCase() 
         ? <mark key={index} style={{ 
-            background: '#9EF4D0', 
+            background: 'var(--accent-primary)', 
             color: '#2D3A37',
             padding: '2px 4px',
             borderRadius: '2px'
@@ -762,7 +762,7 @@ export default function Notes() {
                           onClick={() => handleSaveEdit(entry.id)}
                           style={{
                             padding: '8px 20px',
-                            background: '#9EF4D0',
+                            background: 'var(--accent-primary)',
                             color: '#2D3A37',
                             border: 'none',
                             borderRadius: '6px',

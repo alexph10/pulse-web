@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebar/sidebar';
 import SubmoduleNav from '../components/submodule-nav/submodule-nav';
+import { MobileNav } from '../components/mobile/MobileNav';
 import '../globals.css';
 
 export default function DashboardLayout({
@@ -37,7 +38,9 @@ export default function DashboardLayout({
           transition: 'margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
           display: 'flex',
           flexDirection: 'column',
+          paddingBottom: '80px', /* Space for mobile nav */
         }}
+        className="main-content"
       >
         <SubmoduleNav />
         <div style={{
@@ -55,6 +58,7 @@ export default function DashboardLayout({
           </div>
         </div>
       </main>
+      <MobileNav />
     </div>
   );
 }

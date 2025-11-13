@@ -311,7 +311,9 @@ export default function Reflections() {
         {/* Reflection Form Card - Only show if no today reflection OR editing */}
         {(!todayReflection || isEditingToday) && (
         <div style={{
-          background: '#3D4A47',
+          background: 'var(--surface)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-md)',
           borderRadius: '20px',
           padding: '32px',
           boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
@@ -782,7 +784,9 @@ export default function Reflections() {
         {/* Energy Level Graph */}
         {reflections.length > 1 && (
           <div style={{
-            background: '#3D4A47',
+            background: 'var(--surface)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-md)',
             borderRadius: '24px',
             padding: '40px 48px',
             boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
@@ -895,7 +899,9 @@ export default function Reflections() {
                             fontSize: '10px',
                             color: 'rgba(255, 255, 255, 0.4)',
                             fontFamily: 'var(--font-family-switzer)',
-                            background: '#3D4A47',
+                            background: 'var(--surface)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-md)',
                             padding: '2px 6px',
                             borderRadius: '4px',
                             whiteSpace: 'nowrap'

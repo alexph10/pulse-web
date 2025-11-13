@@ -384,7 +384,7 @@
   left: 0;
   width: 3px;
   height: 100%;
-  background: linear-gradient(to bottom, #9EF4D0, #B8A8D8);
+  background: linear-gradient(to bottom, var(--accent-primary), var(--text-secondary));
   border-radius: 12px 0 0 12px;
 }
 

@@ -1,38 +1,43 @@
 import { useState, useEffect } from 'react'
 
-interface MediaQueryOptions {
-  minWidth?: number
-  maxWidth?: number
-}
-
-export function useMediaQuery(options: MediaQueryOptions): boolean {
+/**
+ * Hook to detect media query matches
+ * @param query - Media query string (e.g., '(max-width: 768px)')
+ * @returns boolean indicating if the media query matches
+ */
+export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false)
 
   useEffect(() => {
-    const queries: string[] = []
+    const media = window.matchMedia(query)
     
-    if (options.minWidth !== undefined) {
-      queries.push(`(min-width: ${options.minWidth}px)`)
-    }
-    
-    if (options.maxWidth !== undefined) {
-      queries.push(`(max-width: ${options.maxWidth}px)`)
+    // Set initial value
+    if (media.matches !== matches) {
+      setMatches(media.matches)
     }
 
-    const mediaQuery = window.matchMedia(queries.join(' and '))
-    
-    setMatches(mediaQuery.matches)
-
-    const handler = (event: MediaQueryListEvent) => {
+    // Create event listener
+    const listener = (event: MediaQueryListEvent) => {
       setMatches(event.matches)
     }
 
-    mediaQuery.addEventListener('change', handler)
-
-    return () => {
-      mediaQuery.removeEventListener('change', handler)
+    // Add listener
+    if (media.addEventListener) {
+      media.addEventListener('change', listener)
+    } else {
+      // Fallback for older browsers
+      media.addListener(listener)
     }
-  }, [options.minWidth, options.maxWidth])
+
+    // Cleanup
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener('change', listener)
+      } else {
+        media.removeListener(listener)
+      }
+    }
+  }, [matches, query])
 
   return matches
 }

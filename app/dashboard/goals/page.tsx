@@ -271,7 +271,9 @@ export default function Goals() {
         {/* New Goal Form */}
         {showNewGoalForm && (
           <div style={{
-            background: '#3D4A47',
+            background: 'var(--surface)',
+            border: '1px solid var(--border-subtle)',
+            boxShadow: 'var(--shadow-md)',
             borderRadius: '16px',
             padding: '32px',
             marginBottom: '32px',
@@ -445,12 +447,12 @@ export default function Goals() {
                         outline: 'none'
                       }}
                     >
-                      <option value="personal" style={{ background: '#3D4A47' }}>Personal</option>
-                      <option value="health" style={{ background: '#3D4A47' }}>Health</option>
-                      <option value="career" style={{ background: '#3D4A47' }}>Career</option>
-                      <option value="learning" style={{ background: '#3D4A47' }}>Learning</option>
-                      <option value="financial" style={{ background: '#3D4A47' }}>Financial</option>
-                      <option value="social" style={{ background: '#3D4A47' }}>Social</option>
+                      <option value="personal" style={{ background: 'var(--surface)' }}>Personal</option>
+                      <option value="health" style={{ background: 'var(--surface)' }}>Health</option>
+                      <option value="career" style={{ background: 'var(--surface)' }}>Career</option>
+                      <option value="learning" style={{ background: 'var(--surface)' }}>Learning</option>
+                      <option value="financial" style={{ background: 'var(--surface)' }}>Financial</option>
+                      <option value="social" style={{ background: 'var(--surface)' }}>Social</option>
                     </select>
                   </div>
                   <div>
@@ -512,10 +514,10 @@ export default function Goals() {
                         outline: 'none'
                       }}
                     >
-                      <option value="low" style={{ background: '#3D4A47' }}>Low</option>
-                      <option value="medium" style={{ background: '#3D4A47' }}>Medium</option>
-                      <option value="high" style={{ background: '#3D4A47' }}>High</option>
-                      <option value="urgent" style={{ background: '#3D4A47' }}>Urgent</option>
+                      <option value="low" style={{ background: 'var(--surface)' }}>Low</option>
+                      <option value="medium" style={{ background: 'var(--surface)' }}>Medium</option>
+                      <option value="high" style={{ background: 'var(--surface)' }}>High</option>
+                      <option value="urgent" style={{ background: 'var(--surface)' }}>Urgent</option>
                     </select>
                   </div>
                   <div>
@@ -555,7 +557,7 @@ export default function Goals() {
                   style={{
                     width: '100%',
                     padding: '14px',
-                    background: '#8B5A3C',
+                    background: 'var(--accent-primary)',
                     color: '#FFFFFF',
                     border: 'none',
                     borderRadius: '10px',
@@ -613,7 +615,7 @@ export default function Goals() {
                 onClick={() => setShowNewGoalForm(true)}
                 style={{
                   padding: '12px 24px',
-                  background: '#8B5A3C',
+                  background: 'var(--accent-primary)',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '10px',

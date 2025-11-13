@@ -339,4 +339,46 @@ html {
   button, a, input, textarea, select {
     transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
   }
+  
+  /* Micro-interactions for cards */
+  [class*="card"]:hover,
+  [class*="Card"]:hover {
+    transform: translateY(-2px);
+    transition: transform var(--animation-timing-smooth) var(--animation-easing-easeOut);
+  }
+  
+  /* Responsive breakpoints */
+  @media (max-width: 640px) {
+    /* Mobile styles */
+    :root {
+      --spacing-container: var(--spacing-lg);
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 1024px) {
+    /* Tablet styles */
+    :root {
+      --spacing-container: var(--spacing-xl);
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    /* Desktop styles */
+    :root {
+      --spacing-container: var(--spacing-2xl);
+    }
+    
+    /* Remove mobile nav padding on desktop */
+    .main-content {
+      padding-bottom: 0 !important;
+    }
+  }
+  
+  /* Mobile-specific adjustments */
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+  }
 }

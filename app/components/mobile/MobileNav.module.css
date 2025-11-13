@@ -1,0 +1,66 @@
+.mobileNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--surface);
+  border-top: var(--border-width-thin) solid var(--border-subtle);
+  padding: var(--spacing-sm) var(--spacing-xs);
+  z-index: 1000;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  color: var(--text-tertiary);
+  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
+  min-width: 60px;
+  position: relative;
+}
+
+.navItem:hover {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+.navItem.active {
+  color: var(--accent-primary);
+}
+
+.navItem.active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: var(--accent-primary);
+  border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+}
+
+.navLabel {
+  font-family: var(--font-family-satoshi);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+}
+
+/* Ensure content doesn't get hidden behind nav */
+@media (max-width: 768px) {
+  :global(body) {
+    padding-bottom: 80px;
+  }
+}
+

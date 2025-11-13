@@ -14,7 +14,7 @@
 }
 
 .title svg {
-  color: #ef4444;
+  color: var(--accent-primary);
 }
 
 .actionGrid {
