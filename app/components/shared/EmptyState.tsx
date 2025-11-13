@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
+import { Button } from '../ui/Button'
+import { Card } from '../ui/Card'
 
-type IllustrationType = 'noData' | 'noEntries' | 'loading'
+type IllustrationType = 'noData' | 'noEntries' | 'loading' | 'journal' | 'goals' | 'notes'
 
 interface EmptyStateAction {
   text: string
@@ -51,6 +53,42 @@ export default function EmptyState({
         </svg>
       )
     }
+
+    if (illustration === 'journal') {
+      return (
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="50" y="40" width="100" height="120" rx="8" stroke="var(--border-subtle)" strokeWidth="2" fill="var(--surface)"/>
+          <line x1="70" y1="70" x2="130" y2="70" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="70" y1="90" x2="130" y2="90" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="70" y1="110" x2="120" y2="110" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <circle cx="100" cy="140" r="20" fill="var(--accent-primary)" opacity="0.2"/>
+          <path d="M95 140L100 145L105 140" stroke="var(--accent-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        </svg>
+      )
+    }
+
+    if (illustration === 'goals') {
+      return (
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="80" r="30" stroke="var(--accent-primary)" strokeWidth="3" fill="none"/>
+          <path d="M85 80L95 90L115 70" stroke="var(--accent-primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+          <line x1="100" y1="110" x2="100" y2="150" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="70" y1="150" x2="130" y2="150" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      )
+    }
+
+    if (illustration === 'notes') {
+      return (
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="50" width="80" height="100" rx="4" stroke="var(--border-subtle)" strokeWidth="2" fill="var(--surface)"/>
+          <line x1="75" y1="75" x2="125" y2="75" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="75" y1="95" x2="125" y2="95" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="75" y1="115" x2="110" y2="115" stroke="var(--border-subtle)" strokeWidth="2" strokeLinecap="round"/>
+          <circle cx="100" cy="135" r="8" fill="var(--accent-primary)" opacity="0.3"/>
+        </svg>
+      )
+    }
     
     return (
       <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,15 +103,21 @@ export default function EmptyState({
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '80px 40px',
-      textAlign: 'center',
-      minHeight: '400px'
-    }}>
+    <Card
+      elevation={0}
+      className=""
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--spacing-5xl) var(--spacing-3xl)',
+        textAlign: 'center',
+        minHeight: '400px',
+        background: 'transparent',
+        border: 'none'
+      }}
+    >
       <div style={{
         marginBottom: '32px',
         opacity: 0.8,
@@ -105,33 +149,12 @@ export default function EmptyState({
       </p>
       
       {action && (
-        <button
+        <Button
+          variant="primary"
           onClick={action.onClick}
-          style={{
-            background: 'var(--accent-primary)',
-            color: '#FFFFFF',
-            border: 'none',
-            borderRadius: '10px',
-            padding: '12px 24px',
-            fontSize: '14px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            fontFamily: 'var(--font-family-satoshi)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--accent-primary-hover)'
-            e.currentTarget.style.transform = 'translateY(-2px)'
-            e.currentTarget.style.boxShadow = 'var(--shadow-md)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--accent-primary)'
-            e.currentTarget.style.transform = 'translateY(0)'
-            e.currentTarget.style.boxShadow = 'none'
-          }}
         >
           {action.text}
-        </button>
+        </Button>
       )}
       
       <style jsx>{`
@@ -146,6 +169,6 @@ export default function EmptyState({
           }
         }
       `}</style>
-    </div>
+    </Card>
   )
 }
