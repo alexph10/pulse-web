@@ -5,6 +5,10 @@ import { useVoiceRecorder } from '@/app/hooks/useVoiceRecorder'
 import { supabase } from '@/lib/supabase'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { useToast } from '@/app/contexts/ToastContext'
+import { MoodAnalysisPanel } from '../../components/journal/MoodAnalysisPanel'
+import { JournalHistory } from '../../components/journal/JournalHistory'
+import { useAutoSave } from '@/lib/hooks/useAutoSave'
+import { getDraft, clearDraft, hasRecentDraft } from '@/lib/storage/draftStorage'
 
 interface MoodAnalysis {
   primaryMood: string
@@ -52,15 +56,33 @@ export default function Journal() {
     clearRecording,
   } = useVoiceRecorder()
 
-  // Get user ID
+  // Get user ID and restore draft
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
         setUserId(user.id)
         fetchEntries(user.id)
+        
+        // Restore draft if exists
+        const draftKey = `journal_${user.id}`
+        if (hasRecentDraft(draftKey)) {
+          const draft = getDraft(draftKey)
+          if (draft && draft.content) {
+            setTranscript(draft.content)
+            // Optionally show a toast that draft was restored
+          }
+        }
       }
     })
   }, [])
+
+  // Auto-save transcript
+  useAutoSave({
+    key: userId ? `journal_${userId}` : 'journal_temp',
+    data: transcript,
+    enabled: !!userId && !!transcript && transcript.length > 0,
+    intervalMs: 30000, // 30 seconds
+  })
 
   // Fetch journal entries
   const fetchEntries = async (uid: string) => {
@@ -164,6 +186,11 @@ export default function Journal() {
       if (data.success) {
         // Success toast
         showToast('Journal entry saved successfully!', 'success')
+        
+        // Clear draft
+        if (userId) {
+          clearDraft(`journal_${userId}`)
+        }
         
         // Reset form
         setTranscript('')

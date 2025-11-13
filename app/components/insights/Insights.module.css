@@ -14,7 +14,7 @@
 }
 
 .title svg {
-  color: #f59e0b;
+  color: var(--accent-primary);
 }
 
 .loading,
@@ -36,19 +36,96 @@
 
 .insightCard {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 16px;
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  transition: all 0.2s ease;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--animation-timing-smooth) var(--animation-easing-easeOut);
   border-left-width: 3px;
   border-left-style: solid;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
 .insightCard:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.insightCard.expanded {
+  box-shadow: var(--shadow-lg);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.cardHeaderLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  flex: 1;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
+}
+
+.actionButton:hover {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+.expandedContent {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: var(--border-width-thin) solid var(--border-subtle);
+  animation: slideDown var(--animation-timing-standard) var(--animation-easing-easeOut);
+}
+
+.insightDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.detailText {
+  font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .iconWrapper {

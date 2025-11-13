@@ -30,6 +30,7 @@ export default function ActivityHeatmap({ entries }: ActivityHeatmapProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('count');
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
   const [hoveredDay, setHoveredDay] = useState<string | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
   // Generate heatmap data for the last 365 days
   const heatmapData = useMemo(() => {

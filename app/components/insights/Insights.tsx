@@ -1,6 +1,6 @@
 'use client'
 
-import { Lightbulb, TrendUp, Fire, Brain, Heart, Target } from '@phosphor-icons/react';
+import { Lightbulb, TrendUp, Fire, Brain, Heart, Target, CaretDown, CaretUp, Share, Copy } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import styles from './Insights.module.css';
@@ -22,6 +22,7 @@ interface Insight {
 export default function Insights({ userId }: InsightsProps) {
   const [insights, setInsights] = useState<Insight[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedInsight, setExpandedInsight] = useState<string | null>(null);
 
   useEffect(() => {
     if (userId) {
@@ -259,26 +260,59 @@ export default function Insights({ userId }: InsightsProps) {
           return (
             <div 
               key={insight.id} 
-              className={styles.insightCard}
+              className={`${styles.insightCard} ${expandedInsight === insight.id ? styles.expanded : ''}`}
               style={{ 
                 borderLeft: `3px solid ${insight.color}`
               }}
+              onClick={() => setExpandedInsight(expandedInsight === insight.id ? null : insight.id)}
             >
-              <div 
-                className={styles.iconWrapper}
-                style={{ 
-                  backgroundColor: insight.bgColor,
-                  color: insight.color 
-                }}
-              >
-                <Icon size={20} weight="duotone" />
+              <div className={styles.cardHeader}>
+                <div className={styles.cardHeaderLeft}>
+                  <div 
+                    className={styles.iconWrapper}
+                    style={{ 
+                      backgroundColor: insight.bgColor,
+                      color: insight.color 
+                    }}
+                  >
+                    <Icon size={20} weight="duotone" />
+                  </div>
+                  <div className={styles.content}>
+                    <h3 className={styles.insightTitle} style={{ color: insight.color }}>
+                      {insight.title}
+                    </h3>
+                    <p className={styles.insightDescription}>{insight.description}</p>
+                  </div>
+                </div>
+                <div className={styles.cardActions}>
+                  <button
+                    className={styles.actionButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigator.clipboard.writeText(`${insight.title}\n${insight.description}`);
+                      // You could add a toast here
+                    }}
+                    title="Copy insight"
+                  >
+                    <Copy size={16} weight="regular" />
+                  </button>
+                  {expandedInsight === insight.id ? (
+                    <CaretUp size={16} weight="regular" />
+                  ) : (
+                    <CaretDown size={16} weight="regular" />
+                  )}
+                </div>
               </div>
-              <div className={styles.content}>
-                <h3 className={styles.insightTitle} style={{ color: insight.color }}>
-                  {insight.title}
-                </h3>
-                <p className={styles.insightDescription}>{insight.description}</p>
-              </div>
+              {expandedInsight === insight.id && (
+                <div className={styles.expandedContent}>
+                  <div className={styles.insightDetails}>
+                    <p className={styles.detailText}>
+                      This insight is based on your recent journaling patterns. 
+                      Keep up the great work!
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
