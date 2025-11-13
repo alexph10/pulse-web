@@ -65,7 +65,7 @@ export default function Journal() {
   // Fetch journal entries
   const fetchEntries = async (uid: string) => {
     try {
-      const response = await fetch(`/api/journal?userId=${uid}&limit=20`)
+      const response = await fetch(`/api/journal?limit=20`)
       const data = await response.json()
       if (data.success) {
         setEntries(data.entries)
@@ -140,7 +140,7 @@ export default function Journal() {
   }
 
   const saveEntry = async () => {
-    if (!userId || !transcript || !moodAnalysis) return
+    if (!userId || !transcript || !moodAnalysis || isSaving) return
 
     setIsSaving(true)
 
@@ -149,7 +149,6 @@ export default function Journal() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId,
           transcript,
           mood: moodAnalysis.primaryMood,
           moodScore: moodAnalysis.moodScore,

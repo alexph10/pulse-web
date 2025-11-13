@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { supabase } from '@/lib/supabase';
+import { validateUserId, createAuthenticatedSupabaseClient, unauthorizedResponse } from '@/lib/auth';
+import { sanitizeString, VALIDATION_LIMITS } from '@/lib/validation';
+import { checkRateLimit, RATE_LIMITS, getRateLimitHeaders } from '@/lib/rateLimit';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
@@ -8,27 +10,48 @@ const anthropic = new Anthropic({
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId, days = 30 } = await req.json();
+    // Authenticate user
+    const auth = await validateUserId(req, null);
+    if (!auth) {
+      return unauthorizedResponse('Authentication required');
+    }
 
-    if (!userId) {
+    // Rate limiting for AI endpoints
+    const rateLimit = checkRateLimit(auth.userId, RATE_LIMITS.AI_ENDPOINTS);
+    if (!rateLimit.allowed) {
       return NextResponse.json(
-        { error: 'User ID is required' },
-        { status: 400 }
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { 
+          status: 429,
+          headers: getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime),
+        }
       );
     }
 
+    const body = await req.json();
+    const { days = 30 } = body;
+
+    // Validate days parameter
+    const daysNum = typeof days === 'number' ? Math.min(Math.max(1, days), VALIDATION_LIMITS.MAX_DAYS_RANGE) : 30;
+
     // Fetch journal entries from last X days
     const daysAgo = new Date();
-    daysAgo.setDate(daysAgo.getDate() - days);
+    daysAgo.setDate(daysAgo.getDate() - daysNum);
+
+    // Create authenticated Supabase client
+    const supabase = await createAuthenticatedSupabaseClient(req);
 
     const { data: entries, error: fetchError } = await supabase
       .from('journal_entries')
       .select('transcript, created_at')
-      .eq('user_id', userId)
+      .eq('user_id', auth.userId)
       .gte('created_at', daysAgo.toISOString())
       .order('created_at', { ascending: true });
 
-    if (fetchError) throw fetchError;
+    if (fetchError) {
+      console.error('Database error:', fetchError);
+      throw fetchError;
+    }
 
     if (!entries || entries.length === 0) {
       return NextResponse.json({
@@ -44,16 +67,17 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // Format entries for Claude
+    // Format entries for Claude (sanitize transcripts)
     const entriesText = entries.map((entry, idx) => {
-      const date = new Date(entry.created_at).toLocaleDateString('en-US', {
+      const date = entry.created_at ? new Date(entry.created_at).toLocaleDateString('en-US', {
         weekday: 'short',
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: '2-digit'
-      });
-      return `Entry ${idx + 1} (${date}):\n${entry.transcript}`;
+      }) : 'Unknown date';
+      const transcript = sanitizeString(entry.transcript || '', 2000); // Limit transcript length
+      return `Entry ${idx + 1} (${date}):\n${transcript}`;
     }).join('\n\n---\n\n');
 
     // Call Claude for pattern analysis
@@ -116,7 +140,7 @@ Requirements:
     });
 
     // Parse Claude's response
-    const analysisText = response.content[0].type === 'text' 
+    const analysisText = response.content[0]?.type === 'text' 
       ? response.content[0].text 
       : '';
 
@@ -126,28 +150,39 @@ Requirements:
       const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         analysis = JSON.parse(jsonMatch[0]);
-      } else {
+      } else if (analysisText.trim()) {
         analysis = JSON.parse(analysisText);
+      } else {
+        throw new Error('Empty response from AI');
       }
     } catch (parseError) {
-      console.error('Failed to parse Claude response:', analysisText);
-      throw new Error('Failed to parse analysis results');
+      console.error('Failed to parse Claude response:', parseError);
+      console.error('Response text:', analysisText.substring(0, 500)); // Log first 500 chars
+      return NextResponse.json(
+        { error: 'Failed to parse analysis results. Please try again.' },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({
-      analysis,
-      entryCount: entries.length,
-      dateRange: {
-        from: entries[0].created_at,
-        to: entries[entries.length - 1].created_at,
+    return NextResponse.json(
+      {
+        analysis,
+        entryCount: entries.length,
+        dateRange: {
+          from: entries[0]?.created_at || null,
+          to: entries[entries.length - 1]?.created_at || null,
+        },
+        generatedAt: new Date().toISOString(),
       },
-      generatedAt: new Date().toISOString(),
-    });
+      {
+        headers: getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime),
+      }
+    );
 
   } catch (error: any) {
     console.error('Error analyzing patterns:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to analyze patterns' },
+      { error: 'Failed to analyze patterns' },
       { status: 500 }
     );
   }
