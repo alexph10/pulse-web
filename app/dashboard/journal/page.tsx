@@ -461,168 +461,12 @@ export default function Journal() {
               </div>
             )}
 
-            {/* Mood Analysis */}
-            {moodAnalysis && (
-              <div style={{
-                marginBottom: '32px'
-              }}>
-                <h3 style={{
-                  fontSize: '18px',
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '16px',
-                  fontFamily: 'var(--font-family-satoshi)'
-                }}>
-                  Mood Analysis
-                </h3>
-
-                {/* Mood Display */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  marginBottom: '20px',
-                  padding: '20px',
-                  background: 'var(--background)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px'
-                }}>
-                  <div style={{
-                    fontSize: '48px'
-                  }}>
-                    {getMoodEmoji(moodAnalysis.primaryMood)}
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{
-                      fontSize: '20px',
-                      fontWeight: '600',
-                      color: getMoodColor(moodAnalysis.primaryMood),
-                      marginBottom: '4px',
-                      textTransform: 'capitalize',
-                      fontFamily: 'var(--font-family-satoshi)'
-                    }}>
-                      {moodAnalysis.primaryMood}
-                    </div>
-                    <div style={{
-                      fontSize: '14px',
-                      color: 'var(--text-secondary)',
-                      fontFamily: 'var(--font-family-satoshi)'
-                    }}>
-                      Score: {moodAnalysis.moodScore}/10
-                    </div>
-                  </div>
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    background: `conic-gradient(${getMoodColor(moodAnalysis.primaryMood)} ${moodAnalysis.moodScore * 10}%, var(--border-subtle) 0)`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative'
-                  }}>
-                    <div style={{
-                      width: '64px',
-                      height: '64px',
-                      borderRadius: '50%',
-                      background: 'var(--surface)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '18px',
-                      fontWeight: '600',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-family-satoshi)'
-                    }}>
-                      {moodAnalysis.moodScore}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Emotions */}
-                {moodAnalysis.emotions.length > 0 && (
-                  <div style={{ marginBottom: '20px' }}>
-                    <div style={{
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      color: 'var(--text-secondary)',
-                      marginBottom: '8px',
-                      fontFamily: 'var(--font-family-satoshi)'
-                    }}>
-                      Detected Emotions
-                    </div>
-                    <div style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '8px'
-                    }}>
-                      {moodAnalysis.emotions.map((emotion, idx) => (
-                        <span
-                          key={idx}
-                          style={{
-                            padding: '6px 12px',
-                            background: 'var(--background)',
-                            color: 'var(--text-primary)',
-                            border: '1px solid var(--border-subtle)',
-                            borderRadius: '20px',
-                            fontSize: '13px',
-                            fontWeight: '500',
-                            fontFamily: 'var(--font-family-satoshi)'
-                          }}
-                        >
-                          {emotion}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Insight */}
-                <div style={{
-                  padding: '16px',
-                  background: 'var(--background)',
-                  border: '1px solid var(--border-subtle)',
-                  borderLeft: '4px solid var(--accent-primary)',
-                  borderRadius: '8px',
-                  marginBottom: '16px'
-                }}>
-                  <div style={{
-                    fontSize: '14px',
-                    color: 'var(--text-primary)',
-                    lineHeight: '1.6',
-                    fontFamily: 'var(--font-family-satoshi)'
-                  }}>
-                    {moodAnalysis.insight}
-                  </div>
-                </div>
-
-                {/* Follow-up Question */}
-                <div style={{
-                  padding: '16px',
-                  background: 'var(--background)',
-                  border: '1px solid var(--border-subtle)',
-                  borderLeft: '4px solid #48BB78',
-                  borderRadius: '8px'
-                }}>
-                  <div style={{
-                    fontSize: '13px',
-                    fontWeight: '600',
-                    color: 'var(--text-secondary)',
-                    marginBottom: '4px',
-                    fontFamily: 'var(--font-family-satoshi)'
-                  }}>
-                    Reflection Question
-                  </div>
-                  <div style={{
-                    fontSize: '14px',
-                    color: 'var(--text-primary)',
-                    lineHeight: '1.6',
-                    fontFamily: 'var(--font-family-satoshi)'
-                  }}>
-                    {moodAnalysis.followUpQuestion}
-                  </div>
-                </div>
-              </div>
+            {/* Mood Analysis - Contextual UI (only shows after transcription) */}
+            {transcript && moodAnalysis && (
+              <MoodAnalysisPanel
+                moodAnalysis={moodAnalysis}
+                onDismiss={() => setMoodAnalysis(null)}
+              />
             )}
 
             {/* Save Button */}
@@ -649,48 +493,40 @@ export default function Journal() {
             )}
           </div>
         ) : (
-          /* History View */
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px'
-          }}>
-            {entries.length === 0 ? (
-              <div style={{
-                background: 'var(--surface)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '16px',
-                padding: '60px 40px',
-                textAlign: 'center',
-                boxShadow: 'var(--shadow-sm)'
-              }}>
-                <div style={{
-                  fontSize: '48px',
-                  marginBottom: '16px',
-                  fontWeight: '600',
-                  color: 'var(--text-secondary)'
-                }}>
-                  Journal
-                </div>
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '8px',
-                  fontFamily: 'var(--font-family-satoshi)'
-                }}>
-                  No entries yet
-                </h3>
-                <p style={{
-                  fontSize: '15px',
-                  color: 'var(--text-secondary)',
-                  fontFamily: 'var(--font-family-satoshi)'
-                }}>
-                  Start recording your first voice journal entry
-                </p>
-              </div>
-            ) : (
-              entries.map((entry) => (
+          <JournalHistory
+            entries={entries}
+            onEntryClick={(entry) => {
+              // Could open entry in a modal or navigate to detail view
+              console.log('Entry clicked:', entry)
+            }}
+            onDelete={async (entryId) => {
+              try {
+                const response = await fetch(`/api/journal?id=${entryId}`, {
+                  method: 'DELETE',
+                })
+                const data = await response.json()
+                if (data.success) {
+                  showToast('Entry deleted successfully', 'success')
+                  if (userId) fetchEntries(userId)
+                }
+              } catch (error) {
+                showToast('Failed to delete entry', 'error')
+              }
+            }}
+            onExport={() => {
+              // Export functionality
+              const dataStr = JSON.stringify(entries, null, 2)
+              const dataBlob = new Blob([dataStr], { type: 'application/json' })
+              const url = URL.createObjectURL(dataBlob)
+              const link = document.createElement('a')
+              link.href = url
+              link.download = `journal-entries-${new Date().toISOString().split('T')[0]}.json`
+              link.click()
+              URL.revokeObjectURL(url)
+              showToast('Entries exported successfully', 'success')
+            }}
+          />
+        )}
                 <div
                   key={entry.id}
                   style={{
