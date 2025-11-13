@@ -121,7 +121,7 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
       setSearch('')
       setSelectedIndex(0)
     }
-  })
+  }, { preventDefault: true })
 
   // Filter commands based on search
   const filteredCommands = commands.filter(cmd => {

@@ -16,12 +16,18 @@ interface KeyboardShortcutOptions {
  * @param options - Additional options for modifier keys
  */
 export function useKeyboardShortcut(
-  key: string,
+  key: string | undefined,
   callback: () => void,
   options: KeyboardShortcutOptions = {}
 ) {
   useEffect(() => {
+    // Don't set up listener if key is undefined
+    if (!key) return
+
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Safety check for e.key
+      if (!e.key || !key) return
+      
       const keyMatch = e.key.toLowerCase() === key.toLowerCase()
       const ctrlMatch = !options.ctrl || e.ctrlKey || e.metaKey
       const shiftMatch = !options.shift || e.shiftKey
@@ -41,6 +47,6 @@ export function useKeyboardShortcut(
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [key, callback, options])
+  }, [key, callback, options.ctrl, options.shift, options.alt, options.meta, options.preventDefault, options.stopPropagation])
 }
 
