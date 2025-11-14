@@ -30,13 +30,13 @@ export const typography = {
   },
   body: {
     fontSize: '16px',
-    lineHeight: '1.6',
+    lineHeight: '1.55', /* slightly reduced for compactness */
     fontWeight: '400',
     letterSpacing: '0',
   },
   small: {
     fontSize: '14px',
-    lineHeight: '1.5',
+    lineHeight: '1.45', /* slightly reduced for compactness */
     fontWeight: '400',
     letterSpacing: '0',
   },

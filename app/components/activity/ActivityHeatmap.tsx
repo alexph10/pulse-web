@@ -358,10 +358,10 @@ function getMoodColor(mood?: string): string {
     'Happy': '#10b981',
     'Excited': '#f59e0b',
     'Calm': '#3b82f6',
-    'Neutral': '#6b7280',
+    'Neutral': '#814837', // ironstone (replaces gray)
     'Stressed': '#ef4444',
     'Sad': '#6366f1',
     'Angry': '#dc2626'
   };
-  return mood ? moodColors[mood] || '#6b7280' : '#6b7280';
+  return mood ? moodColors[mood] || '#814837' : '#814837'; // ironstone default
 }

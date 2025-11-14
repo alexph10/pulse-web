@@ -1,7 +1,6 @@
 'use client'
 
-import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react'
-import { PhosphorIcon } from '@phosphor-icons/react'
+import { ButtonHTMLAttributes, ReactNode, forwardRef, ComponentType } from 'react'
 import { cn } from '@/lib/utils'
 import styles from './Button.module.css'
 
@@ -9,8 +8,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
-  leftIcon?: PhosphorIcon
-  rightIcon?: PhosphorIcon
+  leftIcon?: ComponentType<{ size?: number; weight?: 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone' }>
+  rightIcon?: ComponentType<{ size?: number; weight?: 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone' }>
   children: ReactNode
 }
 
@@ -76,9 +75,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             </circle>
           </svg>
         )}
-        {LeftIcon && !isLoading && <LeftIcon size={20} weight="regular" />}
+        {LeftIcon && !isLoading && <LeftIcon size={18} weight="regular" />}
         <span>{children}</span>
-        {RightIcon && !isLoading && <RightIcon size={20} weight="regular" />}
+        {RightIcon && !isLoading && <RightIcon size={18} weight="regular" />}
       </button>
     )
   }

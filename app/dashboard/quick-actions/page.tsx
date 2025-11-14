@@ -135,7 +135,7 @@ export default function QuickActionsPage() {
           label: 'Profile Settings',
           description: 'Manage your account',
           href: '/dashboard/profile',
-          color: '#64748b',
+          color: '#814837', // ironstone (replaces gray)
           bgColor: 'rgba(100, 116, 139, 0.1)',
           shortcut: '.'
         }

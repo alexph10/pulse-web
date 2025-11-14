@@ -6,6 +6,7 @@ import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
 import { Card } from '../ui/Card'
 import { MagnifyingGlass, Funnel, Export, Trash, Calendar, Tag } from '@phosphor-icons/react'
+import { ExportModal } from './ExportModal'
 import { useAuth } from '@/app/contexts/AuthContext'
 import styles from './JournalHistory.module.css'
 
@@ -28,6 +29,7 @@ export function JournalHistory({ entries, onEntryClick, onDelete, onExport }: Jo
   const { user } = useAuth()
   const [showFilters, setShowFilters] = useState(false)
   const [selectedEntries, setSelectedEntries] = useState<Set<string>>(new Set())
+  const [showExportModal, setShowExportModal] = useState(false)
 
   const {
     query,
@@ -77,7 +79,7 @@ export function JournalHistory({ entries, onEntryClick, onDelete, onExport }: Jo
       'frustrated': '#ef4444',
       'sad': '#6366f1',
       'excited': '#ec4899',
-      'neutral': '#6b7280',
+      'neutral': '#814837', // ironstone (replaces gray)
     }
     return mood ? moodColors[mood.toLowerCase()] || 'var(--accent-primary)' : 'var(--text-tertiary)'
   }
@@ -119,7 +121,7 @@ export function JournalHistory({ entries, onEntryClick, onDelete, onExport }: Jo
             </Button>
           )}
           <Button
-            onClick={onExport}
+            onClick={() => setShowExportModal(true)}
             variant="secondary"
             size="sm"
             leftIcon={Export}
@@ -238,6 +240,13 @@ export function JournalHistory({ entries, onEntryClick, onDelete, onExport }: Jo
           ))
         )}
       </div>
+
+      <ExportModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        entries={displayEntries}
+        selectedEntryIds={selectedEntries.size > 0 ? selectedEntries : undefined}
+      />
     </div>
   )
 }

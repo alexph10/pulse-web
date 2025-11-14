@@ -7,10 +7,13 @@ import QuickActions from '../components/quick-actions/QuickActions';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useContextualUI } from '@/lib/hooks/useContextualUI';
+import { PageTransition } from '../components/transitions/PageTransition';
 import { Skeleton } from '../components/ui';
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const contextualUI = useContextualUI();
   const [lastVisit, setLastVisit] = useState<string | null>(null);
   const [activeView, setActiveView] = useState<'today' | 'week'>('today');
   const [entries, setEntries] = useState<any[]>([]);
@@ -141,14 +144,8 @@ export default function Dashboard() {
     return 'there';
   };
 
-  // Time-based greeting
-  const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    if (hour < 22) return 'Good evening';
-    return 'Still up';
-  };
+  // Use contextual UI greeting
+  const greeting = contextualUI.greeting;
 
   // Daily message that changes every 24 hours (business day basis)
   const getDailyMessage = () => {
@@ -157,11 +154,11 @@ export default function Dashboard() {
     const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
     
     const messages = [
-      { text: 'Ready to make today count?', color: '#9EF4D0' },
-      { text: 'What will you create today?', color: '#B8A8D8' },
-      { text: 'Let\'s build on yesterday\'s momentum', color: '#E091C5' },
-      { text: 'Another chance to grow', color: '#9EF4D0' },
-      { text: 'What\'s calling your attention today?', color: '#B8A8D8' }
+      { text: 'Ready to make today count?', color: '#FB923C' },
+      { text: 'What will you create today?', color: '#EA580C' },
+      { text: 'Let\'s build on yesterday\'s momentum', color: '#F97316' },
+      { text: 'Another chance to grow', color: '#C2410C' },
+      { text: 'What\'s calling your attention today?', color: '#FB923C' }
     ];
     
     // Use modulo to cycle through messages based on day
@@ -176,7 +173,6 @@ export default function Dashboard() {
   }, []);
 
   const firstName = getFirstName();
-  const greeting = getGreeting();
   const dailyMessage = getDailyMessage();
 
   return (
@@ -203,17 +199,29 @@ export default function Dashboard() {
                   marginBottom: 'var(--spacing-sm)',
                   fontFamily: 'var(--font-family-satoshi)'
                 }}>
-                  {greeting}, {firstName}
+                  {contextualUI.greeting}, {firstName}
                 </h2>
                 <p style={{
                   color: 'var(--text-secondary)',
                   fontSize: 'var(--font-size-small)',
                   lineHeight: 'var(--line-height-relaxed)',
                   fontFamily: 'var(--font-family-switzer)',
-                  transition: 'color var(--animation-timing-smooth) var(--animation-easing-easeOut)'
+                  transition: 'color var(--animation-timing-smooth) var(--animation-easing-easeOut)',
+                  marginBottom: 'var(--spacing-md)'
                 }}>
                   {dailyMessage.text}
                 </p>
+                {getStats().totalCount === 0 && (
+                  <p style={{
+                    color: 'var(--text-tertiary)',
+                    fontSize: 'var(--font-size-small)',
+                    fontFamily: 'var(--font-family-switzer)',
+                    fontStyle: 'italic',
+                    marginTop: 'var(--spacing-sm)'
+                  }}>
+                    Start your wellness journey with your first journal entry
+                  </p>
+                )}
               </div>
 
               {/* Toggle Bar - Bottom Left */}
@@ -302,7 +310,7 @@ export default function Dashboard() {
                           </div>
                           <div style={{
                             fontSize: '12px',
-                            color: 'rgba(255, 255, 255, 0.6)',
+                            color: '#A1937F',
                             marginTop: '6px',
                             fontFamily: 'var(--font-family-switzer)'
                           }}>
@@ -322,7 +330,7 @@ export default function Dashboard() {
                           </div>
                           <div style={{
                             fontSize: '12px',
-                            color: 'rgba(255, 255, 255, 0.6)',
+                            color: '#A1937F',
                             marginTop: '6px',
                             fontFamily: 'var(--font-family-switzer)'
                           }}>
@@ -336,7 +344,7 @@ export default function Dashboard() {
                         <div style={{ marginTop: '20px' }}>
                           <div style={{
                             fontSize: '12px',
-                            color: 'rgba(255, 255, 255, 0.6)',
+                            color: '#A1937F',
                             marginBottom: '10px',
                             fontFamily: 'var(--font-family-switzer)'
                           }}>
@@ -368,7 +376,7 @@ export default function Dashboard() {
                                       style={{
                                         width: '100%',
                                         height: `${height}%`,
-                                        background: '#9EF4D0',
+                                        background: '#FB923C',
                                         borderRadius: '3px 3px 0 0',
                                         transition: 'all 0.3s ease'
                                       }}
@@ -376,7 +384,7 @@ export default function Dashboard() {
                                     />
                                     <span style={{
                                       fontSize: '9px',
-                                      color: 'rgba(255, 255, 255, 0.5)',
+                                      color: '#A1937F',
                                       fontFamily: 'var(--font-family-satoshi)'
                                     }}>
                                       {hour}h
@@ -441,7 +449,7 @@ export default function Dashboard() {
                           </div>
                           <div style={{
                             fontSize: '12px',
-                            color: 'rgba(255, 255, 255, 0.6)',
+                            color: '#A1937F',
                             marginTop: '6px',
                             fontFamily: 'var(--font-family-switzer)'
                           }}>
@@ -453,7 +461,7 @@ export default function Dashboard() {
                           <div style={{
                             fontSize: '36px',
                             fontWeight: 600,
-                            color: '#E091C5',
+                            color: '#F97316',
                             fontFamily: 'var(--font-family-satoshi)',
                             lineHeight: '1'
                           }}>
@@ -461,7 +469,7 @@ export default function Dashboard() {
                           </div>
                           <div style={{
                             fontSize: '12px',
-                            color: 'rgba(255, 255, 255, 0.6)',
+                            color: '#A1937F',
                             marginTop: '6px',
                             fontFamily: 'var(--font-family-switzer)'
                           }}>
@@ -474,7 +482,7 @@ export default function Dashboard() {
                       <div style={{ marginTop: '20px' }}>
                         <div style={{
                           fontSize: '12px',
-                          color: 'rgba(255, 255, 255, 0.6)',
+                          color: '#A1937F',
                           marginBottom: '10px',
                           fontFamily: 'var(--font-family-switzer)'
                         }}>
@@ -504,16 +512,16 @@ export default function Dashboard() {
                                   style={{
                                     width: '100%',
                                     height: `${height}%`,
-                                    background: isToday ? '#E091C5' : count > 0 ? '#9EF4D0' : 'rgba(255, 255, 255, 0.1)',
+                                    background: isToday ? '#F97316' : count > 0 ? '#FB923C' : '#2D1F14',
                                     borderRadius: '3px 3px 0 0',
                                     transition: 'all 0.3s ease',
-                                    border: isToday ? '2px solid #E091C5' : 'none'
+                                    border: isToday ? '2px solid #F97316' : '1px solid #3A2E24'
                                   }}
                                   title={`${day}: ${count} ${count === 1 ? 'entry' : 'entries'}`}
                                 />
                                 <span style={{
                                   fontSize: '10px',
-                                  color: isToday ? '#E091C5' : 'rgba(255, 255, 255, 0.5)',
+                                  color: isToday ? '#F97316' : '#A1937F',
                                   fontFamily: 'var(--font-family-satoshi)',
                                   fontWeight: isToday ? 600 : 400
                                 }}>

@@ -4,12 +4,12 @@
   justify-content: center;
   gap: var(--spacing-sm);
   border: none;
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius-lg);
   font-family: var(--font-family-satoshi);
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
-  min-height: 44px; /* Touch target for accessibility */
+  min-height: 36px; /* Compact but accessible */
   position: relative;
 }
 
@@ -27,16 +27,17 @@
   cursor: not-allowed;
 }
 
-/* Variants */
+/* Variants - Visionary Colors */
 .primary {
-  background: var(--accent-primary);
+  background: linear-gradient(135deg, #c2593f 0%, #8d503a 100%); /* crail to potters-clay */
   color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(194, 89, 63, 0.4);
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--accent-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #b46c41 0%, #c2593f 100%); /* brown-rust to crail */
+  transform: translateY(-1px); /* more subtle */
+  box-shadow: 0 6px 20px rgba(194, 89, 63, 0.5);
 }
 
 .secondary {
@@ -85,24 +86,24 @@
   box-shadow: var(--shadow-md);
 }
 
-/* Sizes */
+/* Sizes - Compact */
 .sm {
-  padding: var(--spacing-sm) var(--spacing-lg);
+  padding: 6px var(--spacing-lg);
   font-size: var(--font-size-small);
-  min-height: 36px;
+  min-height: 32px;
   gap: var(--spacing-xs);
 }
 
 .md {
-  padding: var(--spacing-md) var(--spacing-xl);
+  padding: 8px 20px;
   font-size: var(--font-size-body);
-  min-height: 44px;
+  min-height: 36px;
 }
 
 .lg {
-  padding: var(--spacing-lg) var(--spacing-2xl);
+  padding: 10px 24px;
   font-size: var(--font-size-h4);
-  min-height: 52px;
+  min-height: 40px;
   gap: var(--spacing-sm);
 }
 

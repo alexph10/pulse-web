@@ -1,9 +1,10 @@
 .card {
   background: var(--surface);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-md); /* more compact */
   border: var(--border-width-thin) solid var(--border-subtle);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-compact-2xl); /* 24px instead of 32px */
   transition: all var(--animation-timing-smooth) var(--animation-easing-easeOut);
+  box-shadow: 0 2px 8px rgba(93, 62, 57, 0.08); /* earth tone shadow */
 }
 
 .elevation-0 {
@@ -23,9 +24,9 @@
 }
 
 .hoverable:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-emphasis);
+  transform: translateY(-1px); /* more subtle */
+  box-shadow: 0 8px 24px rgba(194, 89, 63, 0.15); /* earth tone shadow */
+  border-color: var(--accent-primary);
 }
 
 .clickable {
@@ -42,14 +43,14 @@
 }
 
 .header {
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-compact-md); /* 9px */
+  padding-bottom: var(--spacing-compact-md);
   border-bottom: var(--border-width-thin) solid var(--border-subtle);
 }
 
 .footer {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-lg);
+  margin-top: var(--spacing-compact-md);
+  padding-top: var(--spacing-compact-md);
   border-top: var(--border-width-thin) solid var(--border-subtle);
 }
 

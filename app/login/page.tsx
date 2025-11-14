@@ -1,16 +1,48 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
 import styles from './login.module.css';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn, signUp, signInWithGoogle } = useAuth();
+  const [mode, setMode] = useState<'login' | 'signup'>('login');
+
+  // Handle OAuth callback with tokens in URL hash (fallback)
+  useEffect(() => {
+    const handleOAuthCallback = async () => {
+      // Check if we have OAuth tokens in the URL hash
+      if (window.location.hash) {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = hashParams.get('access_token');
+        const refreshToken = hashParams.get('refresh_token');
+
+        if (accessToken || refreshToken) {
+          // Supabase client should automatically process these tokens
+          // Wait a moment for it to process
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Check if we have a session now
+          const { data: { session } } = await supabase.auth.getSession();
+
+          if (session) {
+            // Success! Clear the hash and redirect to dashboard
+            window.history.replaceState(null, '', '/dashboard');
+            router.push('/dashboard');
+          }
+        }
+      }
+    };
+
+    handleOAuthCallback();
+  }, [router]);
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,10 +53,30 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await signIn(formData.email, formData.password);
-      router.push('/dashboard/notes');
+      if (mode === 'signup') {
+        // Validate passwords match
+        if (formData.password !== formData.confirmPassword) {
+          setError('Passwords do not match');
+          setLoading(false);
+          return;
+        }
+
+        // Validate password length
+        if (formData.password.length < 6) {
+          setError('Password must be at least 6 characters');
+          setLoading(false);
+          return;
+        }
+
+        await signUp(formData.email, formData.password);
+        // After signup, redirect to verify email page or dashboard
+        router.push('/verify-email?email=' + encodeURIComponent(formData.email));
+      } else {
+        await signIn(formData.email, formData.password);
+        router.push('/dashboard');
+      }
     } catch (err: any) {
-      setError(err.message || 'Failed to log in');
+      setError(err.message || (mode === 'signup' ? 'Failed to sign up' : 'Failed to log in'));
     } finally {
       setLoading(false);
     }
@@ -47,6 +99,33 @@ export default function LoginPage() {
       {/* Left Side - Form */}
       <div className={styles.leftSide}>
         <div className={styles.formContainer}>
+          {/* Tab Toggle */}
+          <div className={styles.tabContainer}>
+            <button
+              type="button"
+              className={`${styles.tab} ${mode === 'login' ? styles.tabActive : ''}`}
+              onClick={() => {
+                setMode('login');
+                setError('');
+                setFormData({ email: '', password: '', confirmPassword: '' });
+              }}
+            >
+              Log In
+            </button>
+            <button
+              type="button"
+              className={`${styles.tab} ${mode === 'signup' ? styles.tabActive : ''}`}
+              onClick={() => {
+                setMode('signup');
+                setError('');
+                setFormData({ email: '', password: '', confirmPassword: '' });
+              }}
+            >
+              Sign Up
+            </button>
+            <div className={`${styles.tabIndicator} ${mode === 'signup' ? styles.tabIndicatorRight : ''}`} />
+          </div>
+
           <form onSubmit={handleSubmit} className={styles.form}>
             {error && <div className={styles.error}>{error}</div>}
             
@@ -65,19 +144,45 @@ export default function LoginPage() {
 
             {/* Password */}
             <div className={styles.inputGroup}>
-              <label className={styles.label}>Password</label>
+              <div className={styles.labelRow}>
+                <label className={styles.label}>Password</label>
+                {mode === 'login' && (
+                  <a href="/forgot-password" className={styles.forgotLink}>
+                    Forgot password?
+                  </a>
+                )}
+              </div>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className={styles.input}
+                placeholder={mode === 'signup' ? 'At least 6 characters' : ''}
                 required
               />
             </div>
 
+            {/* Confirm Password (only for signup) */}
+            {mode === 'signup' && (
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Confirm Password</label>
+                <input
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  className={styles.input}
+                  placeholder="Re-enter your password"
+                  required
+                />
+              </div>
+            )}
+
             {/* Submit Button */}
             <button type="submit" className={styles.submitButton} disabled={loading}>
-              {loading ? 'Logging in...' : 'Log in'}
+              {loading 
+                ? (mode === 'signup' ? 'Signing up...' : 'Logging in...') 
+                : (mode === 'signup' ? 'Sign up' : 'Log in')
+              }
             </button>
 
             {/* Divider */}

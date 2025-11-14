@@ -1,6 +1,5 @@
 'use client'
 
-import { Notebook, Fire, PenNib, Calendar, Article, Clock } from '@phosphor-icons/react';
 import styles from './MetricsCards.module.css';
 
 interface Stats {
@@ -20,64 +19,48 @@ interface MetricsCardsProps {
 export default function MetricsCards({ stats }: MetricsCardsProps) {
   const metrics = [
     {
-      icon: Notebook,
       label: 'Total Entries',
       value: stats.totalEntries.toLocaleString(),
-      color: '#3b82f6',
-      bgColor: 'rgba(59, 130, 246, 0.1)'
+      color: '#c2593f', // crail
+      bgColor: '#623e33' // quincy
     },
     {
-      icon: Fire,
       label: 'Current Streak',
       value: `${stats.currentStreak} ${stats.currentStreak === 1 ? 'day' : 'days'}`,
-      color: '#ef4444',
-      bgColor: 'rgba(239, 68, 68, 0.1)'
+      color: '#b46c41', // brown-rust
+      bgColor: '#623e33' // quincy
     },
     {
-      icon: PenNib,
       label: 'Avg Words/Day',
       value: stats.avgWordsPerDay.toLocaleString(),
-      color: '#10b981',
-      bgColor: 'rgba(16, 185, 129, 0.1)'
+      color: '#c67b22', // ochre
+      bgColor: '#5d3e39' // congo-brown
     },
     {
-      icon: Calendar,
       label: 'Most Active Day',
       value: stats.mostActiveDay,
-      color: '#f59e0b',
-      bgColor: 'rgba(245, 158, 11, 0.1)'
+      color: '#8d503a', // potters-clay
+      bgColor: '#5d3e39' // congo-brown
     },
     {
-      icon: Article,
       label: 'Longest Entry',
       value: `${stats.longestEntry.toLocaleString()} words`,
-      color: '#6366f1',
-      bgColor: 'rgba(99, 102, 241, 0.1)'
+      color: '#814837', // ironstone
+      bgColor: '#623e33' // quincy
     },
     {
-      icon: Clock,
       label: 'Favorite Time',
       value: stats.favoriteTime,
-      color: '#ec4899',
-      bgColor: 'rgba(236, 72, 153, 0.1)'
+      color: '#c2593f', // crail
+      bgColor: '#5d3e39' // congo-brown
     }
   ];
 
   return (
     <div className={styles.metricsGrid}>
       {metrics.map((metric, index) => {
-        const Icon = metric.icon;
         return (
-          <div key={index} className={styles.metricCard}>
-            <div 
-              className={styles.iconWrapper}
-              style={{ 
-                backgroundColor: metric.bgColor,
-                color: metric.color 
-              }}
-            >
-              <Icon size={24} weight="duotone" />
-            </div>
+          <div key={index} className={styles.metricCard} style={{ backgroundColor: metric.bgColor }}>
             <div className={styles.metricContent}>
               <p className={styles.metricLabel}>{metric.label}</p>
               <p className={styles.metricValue} style={{ color: metric.color }}>

@@ -17,50 +17,59 @@
   /* UI Scale - Fixed to 100% for accessibility (WCAG AA compliance) */
   font-size: 100%; /* 100% of default 16px = 16px base */
 
-  /* Honey Theme - Light Mode (Replit Inspired) */
-  --background-secondary: #F5F1E8;
-  --surface: #FFFFFF;
-  --surface-elevated: #FFFEF9;
+  /* Visionary Earth Tone Theme - No Gray */
+  --background: #363d49; /* bright-gray */
+  --background-secondary: #3f373c; /* thunder */
+  --surface: #623e33; /* quincy */
+  --surface-elevated: #5d3e39; /* congo-brown */
 
-  /* Text Colors - Warm Browns */
-  --text-primary: #3B2A1A;
-  --text-secondary: #6B5644;
-  --text-tertiary: #8C7860;
-  --text-disabled: #C5BDB2;
+  /* Text Colors - Warm Earth Tones */
+  --text-primary: #ffedc1; /* egg-white */
+  --text-secondary: #fdedc1; /* beeswax */
+  --text-tertiary: #c67b22; /* ochre */
+  --text-disabled: #814837; /* ironstone */
 
-  /* Borders & Dividers - Warm Tan */
-  --border-subtle: #E8DCC8;
-  --border-emphasis: #D4C4B0;
+  /* Borders & Dividers - Earth Tones */
+  --border-subtle: #5d3e39; /* congo-brown */
+  --border-emphasis: #814837; /* ironstone */
+  --border-strong: #8d503a; /* potters-clay */
 
-  /* Accent Colors - Dark Red */
-  --accent-primary: #B91C1C;
-  --accent-primary-hover: #991B1B;
-  --accent-tertiary: #DC2626;
-  --accent-muted: #FEE2E2;
+  /* Accent Colors - Visionary Palette */
+  --accent-primary: #c2593f; /* crail */
+  --accent-primary-hover: #b46c41; /* brown-rust */
+  --accent-primary-active: #8d503a; /* potters-clay */
+  --accent-secondary: #c67b22; /* ochre */
+  --accent-tertiary: #b46c41; /* brown-rust */
+  --accent-muted: #814837; /* ironstone */
+  --accent-subtle: #5d3e39; /* congo-brown */
 
-  /* Semantic Colors */
-  --success: #10B981;
-  --info: #3B82F6;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --highlight: #FEF9F3;
+  /* Semantic Colors - Earth Tones, No Gray */
+  --success: #16A34A; /* green (keep for success) */
+  --success-dark: #15803D;
+  --info: #814837; /* ironstone */
+  --info-dark: #6a3829;
+  --warning: #c67b22; /* ochre */
+  --warning-dark: #a6691a;
+  --error: #c2593f; /* crail */
+  --error-dark: #8d503a; /* potters-clay */
+  --highlight: #5d3e39; /* congo-brown */
 
-  /* Badge System Colors (Keep Green - Separate from Honey Theme) */
-  --badge-bronze: #CD7F32;
-  --badge-silver: #C0C0C0;
-  --badge-gold: #FFD700;
-  --badge-platinum: #E5E4E2;
-  --badge-green-glow: rgba(16, 185, 129, 0.2);
+  /* Badge System Colors - Earth Tones */
+  --badge-bronze: #8d503a; /* potters-clay */
+  --badge-silver: #814837; /* ironstone */
+  --badge-gold: #c67b22; /* ochre */
+  --badge-platinum: #b46c41; /* brown-rust */
+  --badge-green-glow: rgba(22, 163, 74, 0.3);
 
-  /* Shadows - Warm Glow */
-  --shadow-sm: 0 1px 3px rgba(59, 42, 26, 0.08);
-  --shadow-md: 0 4px 12px rgba(59, 42, 26, 0.1);
-  --shadow-lg: 0 8px 24px rgba(59, 42, 26, 0.12);
-  --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.2);
+  /* Shadows - Earth Tone Tinted */
+  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.15); /* congo-brown */
+  --shadow-md: 0 4px 12px rgba(194, 89, 63, 0.2); /* crail */
+  --shadow-lg: 0 8px 24px rgba(194, 89, 63, 0.25); /* crail */
+  --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.3); /* ochre */
   --shadow-none: none;
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.25);
+  --shadow-xl: 0 16px 48px rgba(194, 89, 63, 0.4); /* crail */
 
-  /* Spacing Scale (8px base) */
+  /* Spacing Scale (8px base) - Enhanced */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 12px;
@@ -70,30 +79,41 @@
   --spacing-3xl: 48px;
   --spacing-4xl: 64px;
   --spacing-5xl: 96px;
+  /* Compact Spacing Scale (0.75x multiplier) */
+  --spacing-compact-xs: 3px;
+  --spacing-compact-sm: 6px;
+  --spacing-compact-md: 9px;
+  --spacing-compact-lg: 12px;
+  --spacing-compact-xl: 18px;
+  --spacing-compact-2xl: 24px;
+  
+  --section-gap: 36px; /* reduced from 48px */
+  --card-gap: 18px; /* reduced from 24px */
 
-  /* Typography Scale */
-  --font-size-h1: 48px;
-  --font-size-h2: 36px;
-  --font-size-h3: 24px;
+  /* Typography Scale - Enhanced Hierarchy */
+  --font-size-h1: 56px;
+  --font-size-h2: 40px;
+  --font-size-h3: 28px;
   --font-size-h4: 20px;
   --font-size-body: 16px;
   --font-size-small: 14px;
   --font-size-tiny: 12px;
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.4;
-  --line-height-relaxed: 1.6;
-  --letter-spacing-tight: -0.02em;
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.55; /* slightly reduced from 1.5 */
+  --line-height-relaxed: 1.65; /* slightly reduced from 1.7 */
+  --letter-spacing-tight: -0.03em;
+  --letter-spacing-heading: -0.03em;
   --letter-spacing-normal: 0;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  /* Border Radius */
-  --border-radius-sm: 6px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 12px;
-  --border-radius-xl: 16px;
+  /* Border Radius - Contextual Reductions */
+  --border-radius-sm: 5px; /* small components */
+  --border-radius-md: 6px; /* medium components */
+  --border-radius-lg: 8px; /* large cards */
+  --border-radius-xl: 10px; /* major containers */
   --border-radius-full: 9999px;
 
   /* Border Width */
@@ -152,42 +172,46 @@
 
 /* Dark mode via data attribute (manual toggle) */
 [data-theme='dark'] {
-  /* Honey Theme - Dark Mode */
-  --background: #1F1814;
-  --background-secondary: #282320;
-  --surface: #312B26;
-  --surface-elevated: #3A342E;
+  /* Visionary Theme - Even Darker */
+  --background: #2a1f2e; /* darker version of bright-gray */
+  --background-secondary: #1f1a26;
+  --surface: #3f2e2a; /* darker quincy */
+  --surface-elevated: #4a3530; /* darker congo-brown */
 
-  /* Text Colors */
-  --text-primary: #F7F2EA;
-  --text-secondary: #D4C9BC;
-  --text-tertiary: #A1937F;
-  --text-disabled: #5E5650;
+  /* Text Colors - High Contrast */
+  --text-primary: #ffedc1; /* egg-white */
+  --text-secondary: #fdedc1; /* beeswax */
+  --text-tertiary: #c67b22; /* ochre */
+  --text-disabled: #814837; /* ironstone */
 
-  /* Borders & Dividers */
-  --border-subtle: #3F3832;
-  --border-emphasis: #4D453C;
+  /* Borders & Dividers - Earth Tones */
+  --border-subtle: #4a3530;
+  --border-emphasis: #5a4035;
+  --border-strong: #6a4a40;
 
-  /* Accent Colors - Dark Red */
-  --accent-primary: #DC2626;
-  --accent-primary-hover: #B91C1C;
-  --accent-tertiary: #EF4444;
-  --accent-muted: #3A2121;
+  /* Accent Colors - Visionary Palette */
+  --accent-primary: #c2593f; /* crail */
+  --accent-primary-hover: #b46c41; /* brown-rust */
+  --accent-primary-active: #8d503a; /* potters-clay */
+  --accent-secondary: #c67b22; /* ochre */
+  --accent-tertiary: #b46c41; /* brown-rust */
+  --accent-muted: #814837; /* ironstone */
+  --accent-subtle: #5d3e39; /* congo-brown */
 
-  /* Semantic Colors */
-  --success: #10B981;
-  --info: #60A5FA;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --highlight: #3F3529;
+  /* Semantic Colors - Earth Tones */
+  --success: #16A34A; /* green (keep) */
+  --info: #814837; /* ironstone */
+  --warning: #c67b22; /* ochre */
+  --error: #c2593f; /* crail */
+  --highlight: #5d3e39; /* congo-brown */
 
-  /* Shadows - Darker Glow */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.3);
+  /* Shadows - Earth Tone Tinted */
+  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.2);
+  --shadow-md: 0 4px 12px rgba(194, 89, 63, 0.25);
+  --shadow-lg: 0 8px 24px rgba(194, 89, 63, 0.3);
+  --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.35);
   --shadow-none: none;
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 16px 48px rgba(194, 89, 63, 0.4);
 
   /* Legacy */
   --foreground: var(--text-primary);
@@ -196,42 +220,46 @@
 /* Fallback to system preference if no manual selection */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    /* Honey Theme - Dark Mode */
-    --background: #1F1814;
-    --background-secondary: #282320;
-    --surface: #312B26;
-    --surface-elevated: #3A342E;
+    /* Visionary Theme - Even Darker */
+    --background: #2a1f2e; /* darker version of bright-gray */
+    --background-secondary: #1f1a26;
+    --surface: #3f2e2a; /* darker quincy */
+    --surface-elevated: #4a3530; /* darker congo-brown */
 
-    /* Text Colors */
-    --text-primary: #F7F2EA;
-    --text-secondary: #D4C9BC;
-    --text-tertiary: #A1937F;
-    --text-disabled: #5E5650;
+    /* Text Colors - High Contrast */
+    --text-primary: #ffedc1; /* egg-white */
+    --text-secondary: #fdedc1; /* beeswax */
+    --text-tertiary: #c67b22; /* ochre */
+    --text-disabled: #814837; /* ironstone */
 
-    /* Borders & Dividers */
-    --border-subtle: #3F3832;
-    --border-emphasis: #4D453C;
+    /* Borders & Dividers - Earth Tones */
+    --border-subtle: #4a3530;
+    --border-emphasis: #5a4035;
+    --border-strong: #6a4a40;
 
-    /* Accent Colors - Dark Red */
-    --accent-primary: #DC2626;
-    --accent-primary-hover: #B91C1C;
-    --accent-tertiary: #EF4444;
-    --accent-muted: #3A2121;
+    /* Accent Colors - Visionary Palette */
+    --accent-primary: #c2593f; /* crail */
+    --accent-primary-hover: #b46c41; /* brown-rust */
+    --accent-primary-active: #8d503a; /* potters-clay */
+    --accent-secondary: #c67b22; /* ochre */
+    --accent-tertiary: #b46c41; /* brown-rust */
+    --accent-muted: #814837; /* ironstone */
+    --accent-subtle: #5d3e39; /* congo-brown */
 
-    /* Semantic Colors */
-    --success: #10B981;
-    --info: #60A5FA;
-    --warning: #F59E0B;
-    --error: #EF4444;
-    --highlight: #3F3529;
+    /* Semantic Colors - Earth Tones */
+    --success: #16A34A; /* green (keep) */
+    --info: #814837; /* ironstone */
+    --warning: #c67b22; /* ochre */
+    --error: #c2593f; /* crail */
+    --highlight: #5d3e39; /* congo-brown */
 
-    /* Shadows - Darker Glow */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 4px 16px rgba(232, 184, 109, 0.3);
+    /* Shadows - Earth Tone Tinted */
+    --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.2);
+    --shadow-md: 0 4px 12px rgba(194, 89, 63, 0.25);
+    --shadow-lg: 0 8px 24px rgba(194, 89, 63, 0.3);
+    --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.35);
     --shadow-none: none;
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 16px 48px rgba(194, 89, 63, 0.4);
 
     /* Legacy */
     --foreground: var(--text-primary);
@@ -345,6 +373,45 @@ html {
   [class*="Card"]:hover {
     transform: translateY(-2px);
     transition: transform var(--animation-timing-smooth) var(--animation-easing-easeOut);
+  }
+  
+  /* Button micro-interactions */
+  button:not(:disabled):active {
+    transform: scale(0.98);
+  }
+  
+  button:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+  
+  /* Link micro-interactions */
+  a:not([class*="navItem"]):hover {
+    opacity: 0.8;
+  }
+  
+  /* Input focus micro-interactions */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    transform: scale(1.01);
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+  }
+  
+  /* Smooth scale on interactive elements */
+  [role="button"]:hover,
+  [tabindex]:hover {
+    cursor: pointer;
+  }
+  
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
   
   /* Responsive breakpoints */

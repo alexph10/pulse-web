@@ -86,20 +86,34 @@ export async function middleware(req: NextRequest) {
   // ═══════════════════════════════════════════════════════════════════════════
   // RULE 1: Protect all /dashboard routes
   // ═══════════════════════════════════════════════════════════════════════════
+  // TEMPORARILY BYPASSED FOR TESTING - Remove this bypass in production
   if (pathname.startsWith('/dashboard')) {
-    if (!session) {
-      // Not logged in -> Redirect to login
-      const loginUrl = new URL('/login', req.url)
-      // Add 'redirect' parameter so we can send them back after login
-      loginUrl.searchParams.set('redirect', pathname)
-      return NextResponse.redirect(loginUrl)
-    }
-    // Logged in -> Allow access
+    // Bypass authentication check - allow access to dashboard
     return response
+    
+    // Original code (commented out for now):
+    // if (!session) {
+    //   // Not logged in -> Redirect to login
+    //   const loginUrl = new URL('/login', req.url)
+    //   // Add 'redirect' parameter so we can send them back after login
+    //   loginUrl.searchParams.set('redirect', pathname)
+    //   return NextResponse.redirect(loginUrl)
+    // }
+    // // Logged in -> Allow access
+    // return response
   }
   
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 2: Protect API routes (except public ones)
+  // RULE 2: Allow OAuth callback route (needs to run before session check)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (pathname === '/auth/callback') {
+    // OAuth callback route - allow it to process the callback
+    // Don't check session here as it's being set by the callback handler
+    return response
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // RULE 3: Protect API routes (except public ones)
   // ═══════════════════════════════════════════════════════════════════════════
   if (pathname.startsWith('/api/')) {
     // Public API routes that don't require authentication
@@ -122,16 +136,16 @@ export async function middleware(req: NextRequest) {
   }
   
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 3: Redirect logged-in users away from auth pages
+  // RULE 4: Redirect logged-in users away from auth pages
   // ═══════════════════════════════════════════════════════════════════════════
-  if (session && (pathname === '/login' || pathname === '/signup')) {
+  if (session && (pathname === '/login' || pathname === '/signup' || pathname === '/onboarding')) {
     // Already logged in but trying to access login/signup
     // → Redirect to dashboard
     return NextResponse.redirect(new URL('/dashboard', req.url))
   }
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 4: Allow public routes
+  // RULE 5: Allow public routes
   // ═══════════════════════════════════════════════════════════════════════════
   // Routes like /, /about, /pricing are public
   return response

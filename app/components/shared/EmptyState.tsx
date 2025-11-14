@@ -120,8 +120,9 @@ export default function EmptyState({
     >
       <div style={{
         marginBottom: '32px',
-        opacity: 0.8,
-        animation: 'fadeIn 0.6s ease-in-out'
+        opacity: 0.9,
+        animation: 'fadeInUp 0.6s ease-out',
+        filter: 'drop-shadow(0 4px 12px rgba(234, 88, 12, 0.15))'
       }}>
         {renderIllustration()}
       </div>
@@ -158,15 +159,32 @@ export default function EmptyState({
       )}
       
       <style jsx>{`
-        @keyframes fadeIn {
+        @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(20px) scale(0.95);
           }
           to {
-            opacity: 0.8;
-            transform: translateY(0);
+            opacity: 0.9;
+            transform: translateY(0) scale(1);
           }
+        }
+        
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 0.9;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+        
+        svg {
+          animation: fadeInUp 0.6s ease-out;
+        }
+        
+        svg circle[fill*="accent"] {
+          animation: pulse 2s ease-in-out infinite;
         }
       `}</style>
     </Card>

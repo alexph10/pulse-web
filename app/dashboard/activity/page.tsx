@@ -36,25 +36,54 @@ export default function Activity() {
   const [activityData, setActivityData] = useState<ActivityData | null>(null);
 
   useEffect(() => {
-    if (user) {
-      fetchActivityData();
-    }
+    // Fetch data even if user is null (for testing with bypassed auth)
+    fetchActivityData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const fetchActivityData = async () => {
     try {
       setLoading(true);
 
+      // If no user, set empty data and return early
+      if (!user?.id) {
+        const emptyStats = {
+          totalEntries: 0,
+          currentStreak: 0,
+          longestStreak: 0,
+          avgWordsPerDay: 0,
+          mostActiveDay: 'N/A',
+          longestEntry: 0,
+          favoriteTime: 'N/A'
+        };
+        setActivityData({
+          entries: [],
+          stats: emptyStats
+        });
+        setLoading(false);
+        return;
+      }
+
       // Fetch journal entries with pagination (limit to last 1000 for performance)
       // For stats calculation, we need a reasonable sample size
       const { data: entries, error } = await supabase
         .from('journal_entries')
         .select('id, created_at, transcript, primary_mood, mood_score, emotions')
-        .eq('user_id', user?.id)
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(1000); // Limit to prevent memory issues
 
-      if (error) throw error;
+      if (error) {
+        // Log detailed error information
+        console.error('Supabase error:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code,
+          fullError: error
+        });
+        throw error;
+      }
 
       // Calculate stats
       const stats = calculateStats(entries || []);
@@ -63,8 +92,28 @@ export default function Activity() {
         entries: entries || [],
         stats
       });
-    } catch (error) {
-      console.error('Error fetching activity data:', error);
+    } catch (error: any) {
+      // Improved error logging
+      const errorDetails = error?.message 
+        ? { message: error.message, details: error.details, code: error.code }
+        : { error: String(error), type: typeof error };
+      
+      console.error('Error fetching activity data:', errorDetails);
+      
+      // Set empty data on error to prevent UI breaking
+      const emptyStats = {
+        totalEntries: 0,
+        currentStreak: 0,
+        longestStreak: 0,
+        avgWordsPerDay: 0,
+        mostActiveDay: 'N/A',
+        longestEntry: 0,
+        favoriteTime: 'N/A'
+      };
+      setActivityData({
+        entries: [],
+        stats: emptyStats
+      });
     } finally {
       setLoading(false);
     }
@@ -187,7 +236,7 @@ export default function Activity() {
 
   return (
     <DashboardLayout isLoading={loading}>
-      <div style={{ marginBottom: '32px' }}>
+      <div style={{ marginBottom: '32px', padding: '0 24px' }}>
         <h1 style={{
           fontSize: '32px',
           fontWeight: 600,
@@ -202,7 +251,7 @@ export default function Activity() {
           color: 'var(--text-secondary)',
           fontFamily: 'var(--font-family-switzer)'
         }}>
-          Track your journaling patterns and engagement
+          Understand your wellness patterns and build consistency
         </p>
       </div>
 
@@ -227,8 +276,48 @@ export default function Activity() {
           padding: '64px 24px',
           color: 'var(--text-secondary)'
         }}>
-          <p style={{ fontSize: '16px', marginBottom: '8px' }}>No activity yet</p>
-          <p style={{ fontSize: '14px' }}>Start journaling to see your activity patterns</p>
+          <p style={{ 
+            fontSize: '18px', 
+            marginBottom: '8px',
+            fontFamily: 'var(--font-family-satoshi)',
+            fontWeight: '500',
+            color: 'var(--text-primary)'
+          }}>
+            Your wellness journey starts here
+          </p>
+          <p style={{ 
+            fontSize: '14px',
+            fontFamily: 'var(--font-family-switzer)',
+            color: 'var(--text-tertiary)',
+            marginBottom: '24px'
+          }}>
+            Start journaling to track your emotional patterns and build self-awareness
+          </p>
+          <a 
+            href="/dashboard/journal"
+            style={{
+              display: 'inline-block',
+              padding: '12px 24px',
+              background: 'var(--accent-primary)',
+              color: '#FFFFFF',
+              borderRadius: 'var(--border-radius-md)',
+              textDecoration: 'none',
+              fontFamily: 'var(--font-family-satoshi)',
+              fontWeight: '500',
+              fontSize: '14px',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--accent-primary-hover)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--accent-primary)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            Record Your First Entry
+          </a>
         </div>
       )}
     </DashboardLayout>

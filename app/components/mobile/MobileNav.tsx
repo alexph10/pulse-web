@@ -1,7 +1,7 @@
 'use client'
 
 import { useMediaQuery } from '@/app/hooks/useMediaQuery'
-import { Home, BookOpen, ChartLine, User, Target, Lightbulb } from '@phosphor-icons/react'
+import { House, BookOpen, ChartLine, User, Target, Lightbulb } from '@phosphor-icons/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styles from './MobileNav.module.css'
@@ -13,7 +13,7 @@ export function MobileNav() {
   if (!isMobile) return null
 
   const navItems = [
-    { href: '/dashboard', icon: Home, label: 'Home' },
+    { href: '/dashboard', icon: House, label: 'Home' },
     { href: '/dashboard/journal', icon: BookOpen, label: 'Journal' },
     { href: '/dashboard/activity', icon: ChartLine, label: 'Activity' },
     { href: '/dashboard/goals', icon: Target, label: 'Goals' },

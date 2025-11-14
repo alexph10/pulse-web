@@ -7,8 +7,11 @@ import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { useToast } from '@/app/contexts/ToastContext'
 import { MoodAnalysisPanel } from '../../components/journal/MoodAnalysisPanel'
 import { JournalHistory } from '../../components/journal/JournalHistory'
+import { ContextualPrompts } from '../../components/journal/ContextualPrompts'
+import { EntryTemplates } from '../../components/journal/EntryTemplates'
 import { useAutoSave } from '@/lib/hooks/useAutoSave'
 import { getDraft, clearDraft, hasRecentDraft } from '@/lib/storage/draftStorage'
+import { transcribeAudio, analyzeMood } from '@/lib/api/ai-client'
 
 interface MoodAnalysis {
   primaryMood: string
@@ -100,49 +103,40 @@ export default function Journal() {
   // Transcribe audio when recording stops
   useEffect(() => {
     if (audioBlob && !isRecording) {
-      transcribeAudio()
+      transcribeAudioHandler()
     }
   }, [audioBlob, isRecording])
 
-  const transcribeAudio = async () => {
+  const transcribeAudioHandler = async () => {
     if (!audioBlob) return
 
     setIsTranscribing(true)
-    const formData = new FormData()
-    formData.append('audio', audioBlob, 'recording.webm')
 
     try {
-      const response = await fetch('/api/transcribe', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
+      const audioFile = new File([audioBlob], 'recording.webm', { type: 'audio/webm' })
+      const response = await transcribeAudio(audioFile)
+      const data = response.data
+      
       if (data.success) {
         setTranscript(data.text)
-        analyzeMood(data.text)
+        analyzeMoodHandler(data.text)
       } else {
         showToast('Transcription failed. Please try again.', 'error')
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Transcription failed:', error)
-      showToast('Failed to transcribe audio. Check your connection.', 'error')
+      showToast(error.message || 'Failed to transcribe audio. Check your connection.', 'error')
     } finally {
       setIsTranscribing(false)
     }
   }
 
-  const analyzeMood = async (text: string) => {
+  const analyzeMoodHandler = async (text: string) => {
     setIsAnalyzing(true)
 
     try {
-      const response = await fetch('/api/analyze-mood', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
-      })
-
-      const data = await response.json()
+      const response = await analyzeMood(text)
+      const data = response.data
       if (data.success) {
         setMoodAnalysis({
           primaryMood: data.primaryMood,
@@ -154,8 +148,9 @@ export default function Journal() {
           followUpQuestion: data.followUpQuestion,
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Mood analysis failed:', error)
+      showToast(error.message || 'Mood analysis failed', 'error')
     } finally {
       setIsAnalyzing(false)
     }
@@ -221,18 +216,18 @@ export default function Journal() {
 
   const getMoodColor = (mood: string) => {
     const colors: Record<string, string> = {
-      joyful: '#48BB78',
-      content: '#68D391',
-      calm: '#4FD1C5',
-      neutral: '#A0AEC0',
-      anxious: '#F6AD55',
-      sad: '#90CDF4',
-      frustrated: '#FC8181',
-      angry: '#E53E3E',
-      overwhelmed: '#ED8936',
-      excited: '#9F7AEA',
+      joyful: '#16A34A', // green
+      content: '#22C55E', // light green
+      calm: '#814837', // ironstone
+      neutral: '#814837', // ironstone (replaces gray)
+      anxious: '#c67b22', // ochre
+      sad: '#8d503a', // potters-clay
+      frustrated: '#c2593f', // crail
+      angry: '#8d503a', // potters-clay (darker)
+      overwhelmed: '#b46c41', // brown-rust
+      excited: '#c67b22', // ochre
     }
-    return colors[mood.toLowerCase()] || '#A0AEC0'
+    return colors[mood.toLowerCase()] || '#814837' // ironstone default
   }
 
   const getMoodEmoji = (mood: string) => {
@@ -258,9 +253,10 @@ export default function Journal() {
           <p style={{
             fontSize: '15px',
             color: 'var(--text-secondary)',
-            fontFamily: 'var(--font-family-satoshi)'
+            fontFamily: 'var(--font-family-switzer)',
+            lineHeight: '1.5'
           }}>
-            Speak your thoughts, track your emotions
+            Express your thoughts naturally through voice. We'll help you understand your emotional patterns and build self-awareness.
           </p>
         </div>
 
@@ -316,6 +312,19 @@ export default function Journal() {
             padding: '40px',
             boxShadow: 'var(--shadow-sm)'
           }}>
+            {/* Entry Templates */}
+            <EntryTemplates
+              onTemplateSelect={(content) => setTranscript(content)}
+              isVisible={!isRecording && !transcript}
+            />
+
+            {/* Contextual Prompts */}
+            {!isRecording && !transcript && (
+              <ContextualPrompts
+                onPromptSelect={(promptText) => setTranscript(promptText)}
+              />
+            )}
+
             {/* Recording Section */}
             <div style={{
               textAlign: 'center',

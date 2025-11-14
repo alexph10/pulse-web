@@ -6,30 +6,19 @@
 }
 
 .metricCard {
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: var(--border-radius-md);
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   transition: all 0.2s ease;
-  border: 1px solid var(--border-primary);
+  border: 1px solid var(--border-subtle);
 }
 
 .metricCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: var(--border-secondary);
-}
-
-.iconWrapper {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(194, 89, 63, 0.15);
+  border-color: var(--accent-primary);
 }
 
 .metricContent {
@@ -46,7 +35,7 @@
 }
 
 .metricValue {
-  font-size: 24px;
+  font-size: 22px; /* slightly reduced */
   font-weight: 700;
   font-family: var(--font-family-satoshi);
   white-space: nowrap;
@@ -66,11 +55,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-  }
-  
-  .iconWrapper {
-    width: 48px;
-    height: 48px;
   }
   
   .metricValue {

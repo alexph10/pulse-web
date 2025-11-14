@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Card } from '../ui/Card'
 import { Button } from '../ui/Button'
-import { Sparkle, CaretDown, CaretUp } from '@phosphor-icons/react'
+import { CaretDown, CaretUp } from '@phosphor-icons/react'
 import styles from './MoodAnalysisPanel.module.css'
 
 interface MoodAnalysis {
@@ -27,13 +27,13 @@ export function MoodAnalysisPanel({ moodAnalysis, onDismiss }: MoodAnalysisPanel
 
   const getMoodColor = (mood: string): string => {
     const moodColors: Record<string, string> = {
-      'joyful': '#10b981',
-      'calm': '#3b82f6',
-      'anxious': '#f59e0b',
-      'frustrated': '#ef4444',
-      'sad': '#6366f1',
-      'excited': '#ec4899',
-      'neutral': '#6b7280',
+      'joyful': '#16A34A', // green (success)
+      'calm': '#814837', // ironstone
+      'anxious': '#c67b22', // ochre
+      'frustrated': '#c2593f', // crail
+      'sad': '#8d503a', // potters-clay
+      'excited': '#b46c41', // brown-rust
+      'neutral': '#814837', // ironstone (replaces gray)
     }
     return moodColors[mood.toLowerCase()] || 'var(--accent-primary)'
   }
@@ -42,8 +42,7 @@ export function MoodAnalysisPanel({ moodAnalysis, onDismiss }: MoodAnalysisPanel
     <Card elevation={2} className={styles.panel}>
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          <Sparkle size={20} weight="duotone" style={{ color: getMoodColor(moodAnalysis.primaryMood) }} />
-          <h3 className={styles.title}>Mood Analysis</h3>
+          <h3 className={styles.title} style={{ color: getMoodColor(moodAnalysis.primaryMood) }}>Mood Analysis</h3>
         </div>
         <div className={styles.headerRight}>
           <button

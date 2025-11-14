@@ -3,18 +3,11 @@
 }
 
 .title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 20px;
   font-family: var(--font-family-satoshi);
-}
-
-.title svg {
-  color: var(--accent-primary);
 }
 
 .loading,
@@ -37,9 +30,9 @@
 .insightCard {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-compact-md); /* 12px */
   background: var(--surface);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-md);
   transition: all var(--animation-timing-smooth) var(--animation-easing-easeOut);
   border-left-width: 3px;
   border-left-style: solid;
@@ -48,7 +41,7 @@
 }
 
 .insightCard:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
@@ -66,7 +59,7 @@
 .cardHeaderLeft {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-compact-md);
   flex: 1;
 }
 
@@ -97,8 +90,8 @@
 }
 
 .expandedContent {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-lg);
+  margin-top: var(--spacing-compact-md);
+  padding-top: var(--spacing-compact-md);
   border-top: var(--border-width-thin) solid var(--border-subtle);
   animation: slideDown var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
@@ -128,16 +121,6 @@
   }
 }
 
-.iconWrapper {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .content {
   flex: 1;
   min-width: 0;
@@ -162,11 +145,6 @@
   .insightCard {
     padding: 12px;
     gap: 12px;
-  }
-
-  .iconWrapper {
-    width: 36px;
-    height: 36px;
   }
 
   .insightTitle {

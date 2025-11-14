@@ -16,7 +16,12 @@ import {
   SignOut,
   Lightning,
   Bug,
-  ChatCircle
+  ChatCircle,
+  CaretDown,
+  CaretRight,
+  MagnifyingGlass,
+  FileText,
+  Folder
 } from '@phosphor-icons/react';
 import styles from './sidebar.module.css';
 import { useAuth } from '@/app/contexts/AuthContext';
@@ -26,6 +31,7 @@ interface NavItem {
   label: string;
   href: string;
   section?: 'main' | 'insights';
+  badge?: number | string;
 }
 
 interface SidebarProps {
@@ -33,8 +39,9 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['main', 'insights']));
   const pathname = usePathname();
   const { user, signOut } = useAuth();
 
@@ -51,6 +58,18 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
 
   const mainItems = navItems.filter(item => item.section === 'main');
   const insightItems = navItems.filter(item => item.section === 'insights');
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(section)) {
+        newSet.delete(section);
+      } else {
+        newSet.add(section);
+      }
+      return newSet;
+    });
+  };
 
   const handleSignOut = async () => {
     try {
@@ -80,14 +99,159 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
     <div 
       className={`${styles.sidebar} ${isExpanded ? styles.expanded : styles.collapsed}`}
     >
-      {/* Logo */}
-      <Link href="/dashboard" className={styles.logoLink}>
-        <div className={styles.logoContainer}>
-          <div className={styles.squareTopLeft} />
-          <div className={styles.squareBottomRight} />
-          {isExpanded && <span className={styles.logoText}>Pulse</span>}
+      {/* Header - Figma Style */}
+      <div className={styles.header}>
+        <div className={styles.headerTop}>
+          <div className={styles.projectIcon}>
+            <div className={styles.iconCluster}>
+              <div className={styles.iconDot}></div>
+              <div className={styles.iconDot}></div>
+              <div className={styles.iconDot}></div>
+            </div>
+            {isExpanded && <CaretDown size={12} weight="bold" className={styles.chevron} />}
+          </div>
+          {isExpanded && (
+            <div className={styles.projectInfo}>
+              <div className={styles.projectName}>Pulse</div>
+              <div className={styles.projectSubtitle}>Wellness journey</div>
+            </div>
+          )}
         </div>
-      </Link>
+        {isExpanded && (
+          <div className={styles.headerActions}>
+            <button className={styles.headerIconButton} title="Search">
+              <MagnifyingGlass size={16} weight="regular" />
+            </button>
+            <button className={styles.headerIconButton} title="Files">
+              <FileText size={16} weight="regular" />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Navigation Tabs - Figma Style */}
+      {isExpanded && (
+        <div className={styles.navTabs}>
+          <button className={`${styles.navTab} ${styles.navTabActive}`}>
+            Pages
+          </button>
+          <button className={styles.navTab}>
+            Assets
+          </button>
+          <button className={styles.navTabAdd}>+</button>
+        </div>
+      )}
+
+      {/* Navigation Items - Figma Style with Collapsible Sections */}
+      <nav className={styles.nav}>
+        {/* Main Section - Collapsible */}
+        {isExpanded && (
+          <div className={styles.navSection}>
+            <button 
+              className={styles.sectionHeader}
+              onClick={() => toggleSection('main')}
+            >
+              {expandedSections.has('main') ? (
+                <CaretDown size={12} weight="bold" className={styles.sectionChevron} />
+              ) : (
+                <CaretRight size={12} weight="bold" className={styles.sectionChevron} />
+              )}
+              <span className={styles.sectionLabel}>Pages</span>
+            </button>
+            
+            {expandedSections.has('main') && (
+              <div className={styles.sectionItems}>
+                {mainItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                    >
+                      <Icon 
+                        className={styles.icon} 
+                        weight={isActive ? 'fill' : 'regular'} 
+                        size={16} 
+                      />
+                      <span className={styles.label}>{item.label}</span>
+                      {isActive && <div className={styles.activeIndicator} />}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Insights Section - Collapsible */}
+        {isExpanded && (
+          <div className={styles.navSection}>
+            <button 
+              className={styles.sectionHeader}
+              onClick={() => toggleSection('insights')}
+            >
+              {expandedSections.has('insights') ? (
+                <CaretDown size={12} weight="bold" className={styles.sectionChevron} />
+              ) : (
+                <CaretRight size={12} weight="bold" className={styles.sectionChevron} />
+              )}
+              <span className={styles.sectionLabel}>Insights</span>
+            </button>
+            
+            {expandedSections.has('insights') && (
+              <div className={styles.sectionItems}>
+                {insightItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className={`${styles.navItem} ${isActive ? styles.active : ''}`}
+                    >
+                      <Icon 
+                        className={styles.icon} 
+                        weight={isActive ? 'fill' : 'regular'} 
+                        size={16} 
+                      />
+                      <span className={styles.label}>{item.label}</span>
+                      {isActive && <div className={styles.activeIndicator} />}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Collapsed State - Icons Only */}
+        {!isExpanded && (
+          <div className={styles.collapsedNav}>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.href;
+              
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`${styles.navItemCollapsed} ${isActive ? styles.activeCollapsed : ''}`}
+                  title={item.label}
+                >
+                  <Icon 
+                    weight={isActive ? 'fill' : 'regular'} 
+                    size={18} 
+                  />
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </nav>
 
       {/* Toggle Button */}
       <button 
@@ -95,51 +259,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
         onClick={toggleSidebar}
         aria-label={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
       >
-        <span className={styles.toggleIcon}>☰</span>
+        {isExpanded ? (
+          <CaretRight size={16} weight="bold" />
+        ) : (
+          <CaretRight size={16} weight="bold" style={{ transform: 'rotate(180deg)' }} />
+        )}
       </button>
-
-      {/* Navigation Items */}
-      <nav className={styles.nav}>
-        {/* Main Section */}
-        <div className={styles.navSection}>
-          {mainItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
-            
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-                title={!isExpanded ? item.label : undefined}
-              >
-                <Icon className={styles.icon} weight={isActive ? 'fill' : 'regular'} size={18} />
-                {isExpanded && <span className={styles.label}>{item.label}</span>}
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Insights Section */}
-        <div className={styles.navSection}>
-          {insightItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
-            
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-                title={!isExpanded ? item.label : undefined}
-              >
-                <Icon className={styles.icon} weight={isActive ? 'fill' : 'regular'} size={18} />
-                {isExpanded && <span className={styles.label}>{item.label}</span>}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
 
       {/* Profile & Settings at Bottom */}
       <div className={styles.footer}>

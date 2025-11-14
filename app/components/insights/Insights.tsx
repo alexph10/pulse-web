@@ -1,6 +1,6 @@
 'use client'
 
-import { Lightbulb, TrendUp, Fire, Brain, Heart, Target, CaretDown, CaretUp, Share, Copy } from '@phosphor-icons/react';
+import { CaretDown, CaretUp, Copy } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import styles from './Insights.module.css';
@@ -14,7 +14,6 @@ interface Insight {
   type: 'pattern' | 'streak' | 'mood' | 'growth' | 'milestone';
   title: string;
   description: string;
-  icon: any;
   color: string;
   bgColor: string;
 }
@@ -56,9 +55,8 @@ export default function Insights({ userId }: InsightsProps) {
           description: streak >= 7 
             ? "You're on fire! Keep up the momentum." 
             : "Great start! Keep building your habit.",
-          icon: Fire,
-          color: '#ef4444',
-          bgColor: 'rgba(239, 68, 68, 0.1)'
+          color: '#c2593f', // crail
+          bgColor: '#623e33' // quincy
         });
       }
 
@@ -71,9 +69,8 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'pattern',
           title: 'Your Peak Time',
           description: `You journal most around ${timeStr}. Consider scheduling reflection time then.`,
-          icon: TrendUp,
-          color: '#3b82f6',
-          bgColor: 'rgba(59, 130, 246, 0.1)'
+          color: '#b46c41', // brown-rust
+          bgColor: '#5d3e39' // congo-brown
         });
       }
 
@@ -85,9 +82,8 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'mood',
           title: moodTrend.title,
           description: moodTrend.description,
-          icon: Heart,
-          color: '#ec4899',
-          bgColor: 'rgba(236, 72, 153, 0.1)'
+          color: '#c67b22', // ochre
+          bgColor: '#623e33' // quincy
         });
       }
 
@@ -99,9 +95,8 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'milestone',
           title: `${totalEntries} Entries!`,
           description: "You're building a powerful self-awareness practice.",
-          icon: Target,
-          color: '#10b981',
-          bgColor: 'rgba(16, 185, 129, 0.1)'
+          color: '#8d503a', // potters-clay
+          bgColor: '#5d3e39' // congo-brown
         });
       }
 
@@ -113,9 +108,8 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'growth',
           title: 'Deep Reflector',
           description: `You average ${Math.round(avgWordCount)} words per entry. Your depth is impressive.`,
-          icon: Brain,
-          color: '#8b5cf6',
-          bgColor: 'rgba(139, 92, 246, 0.1)'
+          color: '#814837', // ironstone
+          bgColor: '#623e33' // quincy
         });
       }
 
@@ -226,7 +220,6 @@ export default function Insights({ userId }: InsightsProps) {
     return (
       <div className={styles.insights}>
         <h2 className={styles.title}>
-          <Lightbulb size={24} weight="duotone" />
           Insights
         </h2>
         <div className={styles.loading}>Analyzing your patterns...</div>
@@ -238,11 +231,25 @@ export default function Insights({ userId }: InsightsProps) {
     return (
       <div className={styles.insights}>
         <h2 className={styles.title}>
-          <Lightbulb size={24} weight="duotone" />
           Insights
         </h2>
         <div className={styles.empty}>
-          <p>Keep journaling to unlock personalized insights!</p>
+          <p style={{ 
+            fontSize: '15px',
+            color: 'var(--text-secondary)',
+            fontFamily: 'var(--font-family-switzer)',
+            marginBottom: '8px'
+          }}>
+            Your insights will appear here
+          </p>
+          <p style={{ 
+            fontSize: '13px',
+            color: 'var(--text-tertiary)',
+            fontFamily: 'var(--font-family-switzer)',
+            fontStyle: 'italic'
+          }}>
+            Journal 5+ entries to unlock personalized wellness insights
+          </p>
         </div>
       </div>
     );
@@ -251,12 +258,10 @@ export default function Insights({ userId }: InsightsProps) {
   return (
     <div className={styles.insights}>
       <h2 className={styles.title}>
-        <Lightbulb size={24} weight="duotone" />
         Insights
       </h2>
       <div className={styles.insightsList}>
         {insights.map((insight) => {
-          const Icon = insight.icon;
           return (
             <div 
               key={insight.id} 
@@ -268,15 +273,6 @@ export default function Insights({ userId }: InsightsProps) {
             >
               <div className={styles.cardHeader}>
                 <div className={styles.cardHeaderLeft}>
-                  <div 
-                    className={styles.iconWrapper}
-                    style={{ 
-                      backgroundColor: insight.bgColor,
-                      color: insight.color 
-                    }}
-                  >
-                    <Icon size={20} weight="duotone" />
-                  </div>
                   <div className={styles.content}>
                     <h3 className={styles.insightTitle} style={{ color: insight.color }}>
                       {insight.title}

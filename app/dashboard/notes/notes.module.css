@@ -66,6 +66,7 @@
   max-width: 680px;
   width: calc(100% - 80px);
   z-index: 10;
+  margin: 0 auto;
 }
 
 .inputContainer {

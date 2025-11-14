@@ -59,13 +59,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
+    setUser(null);
+    setSession(null);
+    // Clear AI service token cache on logout
+    const { clearTokenCache } = await import('@/lib/api/ai-client');
+    clearTokenCache();
   };
 
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard/notes`
+        redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`
       }
     });
     if (error) throw error;

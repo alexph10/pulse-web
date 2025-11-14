@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase'
+import { transcribeAudio, sendChatMessage, analyzePatterns } from '@/lib/api/ai-client';
 import { useVoiceRecorder } from '../../hooks/useVoiceRecorder';
 import styles from './notes.module.css';
 import { 
@@ -107,17 +108,13 @@ export default function Notes() {
         .getPublicUrl(fileName);
 
       // 3. Transcribe with Whisper
-      const formData = new FormData();
-      formData.append('audio', audioBlob);
+      const audioFile = new File([audioBlob], 'recording.webm', { type: 'audio/webm' });
+      const transcribeResponse = await transcribeAudio(audioFile);
+      const transcribeData = transcribeResponse.data;
 
-      const transcribeResponse = await fetch('/api/transcribe', {
-        method: 'POST',
-        body: formData,
-      });
+      if (!transcribeData.success) throw new Error('Transcription failed');
 
-      if (!transcribeResponse.ok) throw new Error('Transcription failed');
-
-      const { text: transcript } = await transcribeResponse.json();
+      const transcript = transcribeData.text;
 
       // 4. Save to database
       const { error: dbError } = await supabase
@@ -166,19 +163,8 @@ export default function Notes() {
       const recentEntries = entries.slice(0, 5);
 
       // Call chat API
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: userMessage,
-          conversationHistory: messages,
-          recentEntries,
-        }),
-      });
-
-      if (!response.ok) throw new Error('Failed to get response');
-
-      const data = await response.json();
+      const response = await sendChatMessage(userMessage, messages, recentEntries);
+      const data = response.data;
 
       // Add assistant response to chat
       setMessages([...newMessages, { role: 'assistant', content: data.message }]);
@@ -277,21 +263,8 @@ export default function Notes() {
     setError('');
 
     try {
-      const response = await fetch('/api/analyze-patterns', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: user.id,
-          days: 30,
-        }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Failed to generate insights');
-      }
-
-      const data = await response.json();
+      const response = await analyzePatterns(user.id, 30);
+      const data = response.data;
       setInsights(data);
       setShowInsights(true);
     } catch (err: any) {

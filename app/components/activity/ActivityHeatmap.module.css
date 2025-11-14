@@ -32,12 +32,13 @@
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: rgba(239, 68, 68, 0.1);
+  background: #2D1F14;
+  border: 1px solid #3A2E24;
   border-radius: 8px;
 }
 
 .streakIcon {
-  color: #ef4444;
+  color: #EA580C;
 }
 
 .streakText {
@@ -184,15 +185,19 @@
 }
 
 .intensity1 {
-  background: rgba(185, 28, 28, 0.3);
+  background: #7C2D12;
 }
 
 .intensity2 {
-  background: rgba(185, 28, 28, 0.6);
+  background: #9A3412;
 }
 
 .intensity3 {
-  background: rgba(185, 28, 28, 0.9);
+  background: #C2410C;
+}
+
+.intensity4 {
+  background: #EA580C;
 }
 
 .tooltip {

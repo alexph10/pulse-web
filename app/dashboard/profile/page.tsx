@@ -219,7 +219,7 @@ export default function Profile() {
       frustrated: '#FC8181',
       content: '#68D391'
     }
-    return colorMap[mood.toLowerCase()] || '#A0AEC0'
+    return colorMap[mood.toLowerCase()] || '#814837' // ironstone default
   }
 
   return (
