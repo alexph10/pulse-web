@@ -6,6 +6,7 @@ import { useGLTF, Environment, PerspectiveCamera, ContactShadows } from '@react-
 import { EffectComposer, Bloom, Pixelation } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { AsciiEffect } from 'three-stdlib';
+import FractalGlassPlane from '../fractal-glass/fractal-glass-plane';
 
 // ASCII Effect Component
 function AsciiRenderer({ 
@@ -181,6 +182,17 @@ export default function Scene3D() {
         {/* Environment for better lighting */}
         <Environment preset="sunset" />
         
+        {/* Fractal Glass Effect - Background Layer */}
+        {/* Note: Add a hero image to /public/hero.jpg to enable this effect */}
+        <Suspense fallback={null}>
+          <FractalGlassPlane 
+            imageUrl="/hero.jpg"
+            position={[0, 0, -15]}
+            scale={[25, 25, 1]}
+            enabled={false} // Set to true once you add /public/hero.jpg
+          />
+        </Suspense>
+        
         {/* Ground Shadows */}
         <ContactShadows
           position={[0, -0.5, 0]}
@@ -212,3 +224,4 @@ export default function Scene3D() {
 
 // Preload the model for better performance
 useGLTF.preload('/dangerous_beauty_-_diorama.glb');
+

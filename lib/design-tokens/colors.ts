@@ -119,6 +119,30 @@ export const colors = {
     infoLight: '#9a5845',
     infoDark: '#6a3829',
   },
+  // Brand colors - Pulse-specific branding
+  brand: {
+    limeGreen: '#84ff00', // Primary brand accent
+    limeGreenHover: '#a5ff33', // Hover state
+    lightGrey: '#d1d5db', // Secondary button background
+    lightGreyHover: '#e5e7eb', // Secondary button hover
+    black: '#000000', // Text on light backgrounds
+    white: '#ffffff', // Text on dark backgrounds
+  },
+  // Overlay/Backdrop colors for modals, overlays, etc.
+  overlay: {
+    backdrop: 'rgba(0, 0, 0, 0.5)', // Standard modal backdrop
+    backdropDark: 'rgba(0, 0, 0, 0.6)', // Darker modal backdrop
+    backdropLight: 'rgba(0, 0, 0, 0.3)', // Lighter backdrop
+    backdropSubtle: 'rgba(0, 0, 0, 0.1)', // Very subtle backdrop
+    backdropStrong: 'rgba(0, 0, 0, 0.8)', // Strong backdrop
+    whiteOverlay: 'rgba(255, 255, 255, 0.9)', // White overlay
+    whiteOverlayLight: 'rgba(255, 255, 255, 0.1)', // Light white overlay
+    whiteOverlayMedium: 'rgba(255, 255, 255, 0.2)', // Medium white overlay
+    whiteOverlaySubtle: 'rgba(255, 255, 255, 0.05)', // Subtle white overlay
+    whiteOverlayStrong: 'rgba(255, 255, 255, 0.95)', // Strong white overlay
+    successOverlay: 'rgba(158, 244, 208, 0.3)', // Success color overlay
+    successOverlaySubtle: 'rgba(158, 244, 208, 0.02)', // Subtle success overlay
+  },
 } as const
 
 export type ColorTheme = 'light' | 'dark' | 'visionary' | 'purple' | 'red'

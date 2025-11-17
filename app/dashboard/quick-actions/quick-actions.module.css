@@ -1,71 +1,65 @@
 .header {
-  margin-bottom: 32px;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .title {
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-size: 32px;
-  font-weight: 600;
+  gap: var(--spacing-lg);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
   font-family: var(--font-family-satoshi);
 }
 
 .title svg {
-  color: #ef4444;
+  color: var(--error);
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--font-size-small);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
 }
 
 /* Popular Section */
 .popularSection {
-  margin-bottom: 48px;
+  margin-bottom: var(--spacing-3xl);
 }
 
 .sectionTitle {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-lg);
   font-family: var(--font-family-satoshi);
 }
 
 .popularGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+  gap: var(--spacing-lg);
 }
 
 .popularCard {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 24px;
-  background: var(--bg-secondary);
-  border-radius: 16px;
-  border-top-width: 3px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background: var(--background-secondary);
+  border-radius: var(--border-radius-lg);
+  border-top-width: var(--border-width-medium);
   border-top-style: solid;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
-}
-
-.popularCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 .popularIcon {
   width: 72px;
   height: 72px;
-  border-radius: 16px;
+  border-radius: var(--border-radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,15 +72,15 @@
 }
 
 .popularLabel {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
   color: var(--text-primary);
-  margin-bottom: 6px;
+  margin-bottom: var(--spacing-compact-sm);
   font-family: var(--font-family-satoshi);
 }
 
 .popularDesc {
-  font-size: 14px;
+  font-size: var(--font-size-small);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
 }
@@ -94,37 +88,37 @@
 .shortcut {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
-  background: var(--bg-tertiary);
+  border-radius: var(--border-radius-md);
+  background: var(--surface-elevated);
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
   font-family: var(--font-family-satoshi);
   flex-shrink: 0;
 }
 
 /* Categories */
 .category {
-  margin-bottom: 48px;
+  margin-bottom: var(--spacing-3xl);
 }
 
 .categoryHeader {
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-lg);
 }
 
 .categoryTitle {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
 }
 
 .categoryDesc {
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
 }
@@ -132,41 +126,29 @@
 .actionGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .actionCard {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px;
-  background: var(--bg-secondary);
-  border-radius: 12px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--background-secondary);
+  border-radius: var(--border-radius-md);
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  border: 1px solid var(--border-primary);
-}
-
-.actionCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-color: var(--border-secondary);
+  border: var(--border-width-thin) solid var(--border-emphasis);
 }
 
 .iconWrapper {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  border-radius: var(--border-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.actionCard:hover .iconWrapper {
-  transform: scale(1.1) rotate(5deg);
 }
 
 .content {
@@ -175,67 +157,61 @@
 }
 
 .actionLabel {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
 }
 
 .actionDescription {
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
-  line-height: 1.4;
+  line-height: var(--line-height-normal);
 }
 
 .actionFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 8px;
-  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--spacing-sm);
+  border-top: var(--border-width-thin) solid var(--border-subtle);
 }
 
 .shortcutBadge {
-  padding: 4px 10px;
-  background: var(--bg-tertiary);
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-compact-md);
+  background: var(--surface-elevated);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-secondary);
   font-family: var(--font-family-satoshi);
 }
 
 .arrow {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
   opacity: 0.4;
-  transition: all 0.3s ease;
-}
-
-.actionCard:hover .arrow {
-  opacity: 1;
-  transform: translateX(4px);
 }
 
 /* Info Card */
 .infoCard {
   display: flex;
-  gap: 16px;
-  padding: 24px;
-  background: linear-gradient(135deg, rgba(185, 28, 28, 0.1) 0%, rgba(185, 28, 28, 0.05) 100%);
-  border-radius: 12px;
-  border: 1px solid rgba(185, 28, 28, 0.2);
-  margin-top: 48px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, var(--overlay-backdrop-subtle) 0%, var(--overlay-backdrop-subtle) 100%);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid var(--overlay-backdrop-light);
+  margin-top: var(--spacing-3xl);
 }
 
 .infoIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  background: rgba(185, 28, 28, 0.15);
-  color: #B91C1C;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  border-radius: var(--border-radius-md);
+  background: var(--overlay-backdrop-subtle);
+  color: var(--error);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,27 +223,27 @@
 }
 
 .infoTitle {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
   font-family: var(--font-family-satoshi);
 }
 
 .infoText {
-  font-size: 13px;
+  font-size: var(--font-size-tiny);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
-  line-height: 1.6;
+  line-height: var(--line-height-relaxed);
 }
 
 .infoText kbd {
-  padding: 2px 6px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
+  padding: var(--spacing-compact-xs) var(--spacing-compact-sm);
+  background: var(--background-secondary);
+  border: var(--border-width-thin) solid var(--border-emphasis);
+  border-radius: var(--border-radius-xs);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-semibold);
   font-family: monospace;
   color: var(--text-primary);
 }
@@ -283,7 +259,7 @@
   }
 
   .popularCard {
-    padding: 20px;
+    padding: var(--spacing-lg);
   }
 
   .popularIcon {
@@ -292,14 +268,14 @@
   }
 
   .popularLabel {
-    font-size: 18px;
+    font-size: var(--font-size-h4);
   }
 
   .title {
-    font-size: 26px;
+    font-size: var(--font-size-h2);
   }
 
   .categoryTitle {
-    font-size: 20px;
+    font-size: var(--font-size-h4);
   }
 }

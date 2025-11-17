@@ -7,16 +7,25 @@ import QuickActions from '../components/quick-actions/QuickActions';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useToast } from '../contexts/ToastContext';
 import { useContextualUI } from '@/lib/hooks/useContextualUI';
 import { PageTransition } from '../components/transitions/PageTransition';
 import { Skeleton } from '../components/ui';
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const { showToast } = useToast();
   const contextualUI = useContextualUI();
   const [lastVisit, setLastVisit] = useState<string | null>(null);
   const [activeView, setActiveView] = useState<'today' | 'week'>('today');
-  const [entries, setEntries] = useState<any[]>([]);
+  interface JournalEntry {
+    id: string;
+    transcript: string;
+    created_at: string;
+    [key: string]: unknown;
+  }
+  
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [loading, setLoading] = useState(true);
   
   // Fetch journal entries
@@ -34,10 +43,15 @@ export default function Dashboard() {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
-      setEntries(data || []);
-    } catch (err: any) {
-      console.error('Error fetching entries:', err);
+      if (error) {
+        console.error('Supabase journal_entries error:', error);
+        throw new Error(error.message || 'Unable to fetch journal entries');
+      }
+      setEntries((data as JournalEntry[]) || []);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch entries. Please try again.';
+      console.error('Failed to fetch entries:', err);
+      showToast(errorMessage, 'error');
     } finally {
       setLoading(false);
     }
@@ -231,7 +245,7 @@ export default function Dashboard() {
                   style={{
                     padding: 'var(--spacing-sm) var(--spacing-xl)',
                     background: activeView === 'today' ? 'var(--accent-primary)' : 'transparent',
-                    color: activeView === 'today' ? '#FFFFFF' : 'var(--text-secondary)',
+                    color: activeView === 'today' ? 'var(--brand-white)' : 'var(--text-secondary)',
                     border: activeView === 'today' ? 'var(--border-width-medium) solid var(--accent-primary)' : 'var(--border-width-thin) solid var(--border-subtle)',
                     borderRadius: 'var(--border-radius-sm)',
                     fontFamily: 'var(--font-family-satoshi)',
@@ -248,7 +262,7 @@ export default function Dashboard() {
                   style={{
                     padding: 'var(--spacing-sm) var(--spacing-xl)',
                     background: activeView === 'week' ? 'var(--accent-primary)' : 'transparent',
-                    color: activeView === 'week' ? '#FFFFFF' : 'var(--text-secondary)',
+                    color: activeView === 'week' ? 'var(--brand-white)' : 'var(--text-secondary)',
                     border: activeView === 'week' ? 'var(--border-width-medium) solid var(--accent-primary)' : 'var(--border-width-thin) solid var(--border-subtle)',
                     borderRadius: 'var(--border-radius-sm)',
                     fontFamily: 'var(--font-family-satoshi)',
@@ -266,7 +280,7 @@ export default function Dashboard() {
             {/* Right Section - Progress Stats */}
             <div className="flex flex-col justify-center" style={{
               minHeight: '240px',
-              padding: '16px'
+              padding: 'var(--spacing-lg)'
             }}>
               {loading ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>

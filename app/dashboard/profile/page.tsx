@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
+import { useToast } from '../../contexts/ToastContext'
 
 interface JournalEntry {
   id: string
@@ -17,6 +18,7 @@ interface JournalEntry {
 
 export default function Profile() {
   const { user } = useAuth()
+  const { showToast } = useToast()
   const [username, setUsername] = useState('')
   const [bio, setBio] = useState('')
   const [profilePicture, setProfilePicture] = useState('')
@@ -90,7 +92,7 @@ export default function Profile() {
         .upload(filePath, file)
 
       if (uploadError) {
-        console.error('Upload error:', uploadError)
+        showToast('Failed to upload image. Please try again.', 'error')
         alert('Failed to upload image. Please try again.')
         throw uploadError
       }
@@ -107,11 +109,11 @@ export default function Profile() {
       })
 
       if (updateError) {
-        console.error('Update error:', updateError)
+        showToast('Failed to update profile. Please try again.', 'error')
         alert('Image uploaded but failed to save. Please try again.')
       }
     } catch (error) {
-      console.error('Error uploading profile picture:', error)
+      showToast('Failed to upload profile picture. Please try again.', 'error')
     } finally {
       setUploadingProfile(false)
     }
@@ -145,7 +147,7 @@ export default function Profile() {
         .upload(filePath, file)
 
       if (uploadError) {
-        console.error('Upload error:', uploadError)
+        showToast('Failed to upload image. Please try again.', 'error')
         alert('Failed to upload banner. Please try again.')
         throw uploadError
       }
@@ -162,11 +164,11 @@ export default function Profile() {
       })
 
       if (updateError) {
-        console.error('Update error:', updateError)
+        showToast('Failed to update profile. Please try again.', 'error')
         alert('Banner uploaded but failed to save. Please try again.')
       }
     } catch (error) {
-      console.error('Error uploading banner:', error)
+      showToast('Failed to upload banner. Please try again.', 'error')
     } finally {
       setUploadingBanner(false)
     }
@@ -189,7 +191,7 @@ export default function Profile() {
 
       setIsEditMode(false)
     } catch (error) {
-      console.error('Error updating profile:', error)
+      showToast('Failed to update profile. Please try again.', 'error')
     } finally {
       setIsSaving(false)
     }

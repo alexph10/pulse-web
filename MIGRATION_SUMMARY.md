@@ -95,12 +95,16 @@ pulse-ai-service/ (AI Service)
    - Update main app environment variables
    - Test in production
 
+### 4. Care Circles & Chat History
+- Added `supabase_managed_profiles.sql` to store additional profiles (family, partners) with row-level security.
+- Added `supabase_chat_sessions.sql` for chat history storage plus updated_at trigger and policies.
+
 ## Benefits Achieved
 
 - **Security**: API keys isolated, JWT authentication
-- **Maintainability**: Clear separation of concerns
+- **Maintainability**: Clear separation of concerns and structured data tables
 - **Performance**: Smaller main app bundle (~40% reduction)
-- **Scalability**: Can scale AI service independently
+- **Scalability**: Can scale AI service independently while persisting collaborative data
 - **Compliance**: Easier to audit and secure AI service
 
 ## Notes

@@ -3,71 +3,28 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import styles from './navbar.module.css';
-import Image from 'next/image';
-import { Inter, EB_Garamond } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
-const ebGaramond = EB_Garamond({ subsets: ['latin'] });
-
-interface NavItem {
-   label: string;
-   href: string;
+interface NavbarProps {
+  transparent?: boolean;
 }
 
-const Navbar: React.FC = () => {
-   const [navItems, setNavItems] = useState<NavItem[]>([
-      { label: 'About', href: '/about' },
-      { label: 'Products', href: '/products' },
-   ]);
+const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
    const [activeItem, setActiveItem] = useState<string>('');
-   const [isLogoHovered, setIsLogoHovered] = useState(false);
-   const [logoClickCount, setLogoClickCount] = useState(0);
-   const [pulseAnimation, setPulseAnimation] = useState(false);
 
-   // Handle logo interactions
-   const handleLogoClick = (e: React.MouseEvent) => {
-      e.preventDefault();
-      setLogoClickCount(prev => prev + 1);
-      setPulseAnimation(true);
-      setTimeout(() => setPulseAnimation(false), 1000);
-      
-      // Navigate after animation
-      setTimeout(() => {
-         window.location.href = '/';
-      }, 300);
-   };
-
-   const handleLogoEnter = () => {
-      setIsLogoHovered(true);
-   };
-
-   const handleLogoLeave = () => {
-      setIsLogoHovered(false);
-   };
+   const navItems = [
+      { label: 'Collections', href: '/collections' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Freebies', href: '/freebies' },
+      { label: 'FAQ', href: '/faq' },
+      { label: 'Request', href: '/request' },
+   ];
    
    return (
-     <nav className={styles.navbar}>
+     <nav className={`${styles.navbar} ${transparent ? styles.transparent : ''}`}>
        <div className={styles.navbarBackground}>
          <div className={styles.container}>
-           {/* Logo */}
-           <Link 
-             href="/" 
-             className={styles.logo}
-             onMouseEnter={handleLogoEnter}
-             onMouseLeave={handleLogoLeave}
-             onClick={handleLogoClick}
-           >
-             <div className={`${styles.logoContainer} ${pulseAnimation ? styles.pulseEffect : ''}`}>
-               <div className={`${styles.squareTopLeft} ${isLogoHovered ? styles.squareAnimated : ''} ${pulseAnimation ? styles.squarePulse : ''}`} />
-               <span className={`${styles.logoText} ${logoClickCount > 0 ? styles.logoGlow : ''}`}>Pulse</span>
-               <div className={`${styles.squareBottomRight} ${isLogoHovered ? styles.squareAnimated : ''} ${pulseAnimation ? styles.squarePulse : ''}`} />
-               {/* Orbital rings */}
-               <div className={`${styles.orbitalRing} ${isLogoHovered ? styles.orbitalActive : ''}`} />
-               <div className={`${styles.orbitalRing} ${styles.orbitalRingDelay} ${isLogoHovered ? styles.orbitalActive : ''}`} />
-             </div>
-           </Link>
 
-           {/* Navigation Links */}
+           {/* Navigation Links - Center */}
            <div className={styles.navLinks}>
              {navItems.map((item) => (
                <Link
@@ -84,12 +41,9 @@ const Navbar: React.FC = () => {
              ))}
            </div>
            
-           {/* CTA Link */}
-           <Link 
-             href="/onboarding"
-             className={styles.ctaLink}
-           >
-             Sign up / Log in
+           {/* CTA - Right */}
+           <Link href="/login" className={styles.ctaLink}>
+             <span className={styles.ctaText}>Sign Up / Log In</span>
            </Link>
          </div>
        </div>

@@ -101,7 +101,7 @@
 .moodBadge {
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--border-radius-sm);
-  color: #FFFFFF;
+  color: var(--brand-white);
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-semibold);

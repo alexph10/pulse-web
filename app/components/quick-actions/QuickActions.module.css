@@ -1,27 +1,43 @@
 .quickActions {
-  margin-bottom: 32px;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-lg);
   font-family: var(--font-family-satoshi);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+}
+
+.subtitle {
+  font-size: var(--font-size-small);
+  color: var(--text-tertiary);
+  font-family: var(--font-family-switzer);
+  font-style: italic;
+  margin-top: var(--spacing-xs);
+  margin-left: var(--spacing-3xl);
 }
 
 .actionGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .actionCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 18px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-compact-xl);
   background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--border-radius-md);
@@ -41,7 +57,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.03) 100%);
+  background: linear-gradient(135deg, transparent 0%, var(--overlay-white-overlay-subtle) 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -52,7 +68,7 @@
 
 .actionCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(194, 89, 63, 0.25);
+  box-shadow: var(--shadow-lg);
   border-color: var(--accent-primary);
 }
 
@@ -66,23 +82,23 @@
 }
 
 .actionLabel {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 2px;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
   transition: color 0.2s ease;
 }
 
 .actionDescription {
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
   line-height: 1.4;
 }
 
 .arrow {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
   opacity: 0.4;
   transition: all 0.3s ease;
   flex-shrink: 0;
@@ -93,24 +109,85 @@
   transform: translateX(4px);
 }
 
+/* Action-specific color variants using design tokens */
+.actionCard.journal {
+  border-left-color: var(--accent-primary);
+  background: var(--surface);
+}
+
+.actionCard.journal .actionLabel,
+.actionCard.journal .arrow {
+  color: var(--accent-primary);
+}
+
+.actionCard.activity {
+  border-left-color: var(--accent-primary-hover);
+  background: var(--surface);
+}
+
+.actionCard.activity .actionLabel,
+.actionCard.activity .arrow {
+  color: var(--accent-primary-hover);
+}
+
+.actionCard.goal {
+  border-left-color: var(--accent-secondary);
+  background: var(--surface-elevated);
+}
+
+.actionCard.goal .actionLabel,
+.actionCard.goal .arrow {
+  color: var(--accent-secondary);
+}
+
+.actionCard.reflection {
+  border-left-color: var(--accent-primary-active);
+  background: var(--surface);
+}
+
+.actionCard.reflection .actionLabel,
+.actionCard.reflection .arrow {
+  color: var(--accent-primary-active);
+}
+
+.actionCard.habit {
+  border-left-color: var(--accent-muted);
+  background: var(--surface-elevated);
+}
+
+.actionCard.habit .actionLabel,
+.actionCard.habit .arrow {
+  color: var(--accent-muted);
+}
+
+.actionCard.progress {
+  border-left-color: var(--accent-primary);
+  background: var(--surface-elevated);
+}
+
+.actionCard.progress .actionLabel,
+.actionCard.progress .arrow {
+  color: var(--accent-primary);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .actionGrid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: var(--spacing-md);
   }
 
   .actionCard {
-    padding: 14px;
-    gap: 12px;
+    padding: var(--spacing-compact-lg);
+    gap: var(--spacing-md);
   }
 
   .actionLabel {
-    font-size: 14px;
+    font-size: var(--font-size-small);
   }
 
   .actionDescription {
-    font-size: 11px;
+    font-size: var(--font-size-tiny);
   }
 }
 

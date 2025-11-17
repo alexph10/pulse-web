@@ -114,6 +114,15 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
     setIsOpen(true)
   }, { ctrl: true, preventDefault: true })
 
+  // Listen for custom event to open command palette
+  useEffect(() => {
+    const handleOpen = () => {
+      setIsOpen(true)
+    }
+    window.addEventListener('openCommandPalette', handleOpen)
+    return () => window.removeEventListener('openCommandPalette', handleOpen)
+  }, [])
+
   // Close with Escape
   useKeyboardShortcut('Escape', () => {
     if (isOpen) {

@@ -14,8 +14,7 @@ interface Insight {
   type: 'pattern' | 'streak' | 'mood' | 'growth' | 'milestone';
   title: string;
   description: string;
-  color: string;
-  bgColor: string;
+  variant: 'streak' | 'pattern' | 'mood' | 'milestone' | 'growth';
 }
 
 export default function Insights({ userId }: InsightsProps) {
@@ -55,8 +54,7 @@ export default function Insights({ userId }: InsightsProps) {
           description: streak >= 7 
             ? "You're on fire! Keep up the momentum." 
             : "Great start! Keep building your habit.",
-          color: '#c2593f', // crail
-          bgColor: '#623e33' // quincy
+          variant: 'streak'
         });
       }
 
@@ -69,8 +67,7 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'pattern',
           title: 'Your Peak Time',
           description: `You journal most around ${timeStr}. Consider scheduling reflection time then.`,
-          color: '#b46c41', // brown-rust
-          bgColor: '#5d3e39' // congo-brown
+          variant: 'pattern'
         });
       }
 
@@ -82,8 +79,7 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'mood',
           title: moodTrend.title,
           description: moodTrend.description,
-          color: '#c67b22', // ochre
-          bgColor: '#623e33' // quincy
+          variant: 'mood'
         });
       }
 
@@ -95,8 +91,7 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'milestone',
           title: `${totalEntries} Entries!`,
           description: "You're building a powerful self-awareness practice.",
-          color: '#8d503a', // potters-clay
-          bgColor: '#5d3e39' // congo-brown
+          variant: 'milestone'
         });
       }
 
@@ -108,8 +103,7 @@ export default function Insights({ userId }: InsightsProps) {
           type: 'growth',
           title: 'Deep Reflector',
           description: `You average ${Math.round(avgWordCount)} words per entry. Your depth is impressive.`,
-          color: '#814837', // ironstone
-          bgColor: '#623e33' // quincy
+          variant: 'growth'
         });
       }
 
@@ -234,20 +228,10 @@ export default function Insights({ userId }: InsightsProps) {
           Insights
         </h2>
         <div className={styles.empty}>
-          <p style={{ 
-            fontSize: '15px',
-            color: 'var(--text-secondary)',
-            fontFamily: 'var(--font-family-switzer)',
-            marginBottom: '8px'
-          }}>
+          <p className={styles.emptyText}>
             Your insights will appear here
           </p>
-          <p style={{ 
-            fontSize: '13px',
-            color: 'var(--text-tertiary)',
-            fontFamily: 'var(--font-family-switzer)',
-            fontStyle: 'italic'
-          }}>
+          <p className={styles.emptySubtext}>
             Journal 5+ entries to unlock personalized wellness insights
           </p>
         </div>
@@ -265,16 +249,13 @@ export default function Insights({ userId }: InsightsProps) {
           return (
             <div 
               key={insight.id} 
-              className={`${styles.insightCard} ${expandedInsight === insight.id ? styles.expanded : ''}`}
-              style={{ 
-                borderLeft: `3px solid ${insight.color}`
-              }}
+              className={`${styles.insightCard} ${styles[insight.variant]} ${expandedInsight === insight.id ? styles.expanded : ''}`}
               onClick={() => setExpandedInsight(expandedInsight === insight.id ? null : insight.id)}
             >
               <div className={styles.cardHeader}>
                 <div className={styles.cardHeaderLeft}>
                   <div className={styles.content}>
-                    <h3 className={styles.insightTitle} style={{ color: insight.color }}>
+                    <h3 className={styles.insightTitle}>
                       {insight.title}
                     </h3>
                     <p className={styles.insightDescription}>{insight.description}</p>

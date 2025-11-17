@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react';
-import Sidebar from '../components/sidebar/sidebar';
+// import Sidebar from '../components/sidebar/sidebar';
 import SubmoduleNav from '../components/submodule-nav/submodule-nav';
 import { MobileNav } from '../components/mobile/MobileNav';
 import { PageTransition } from '../components/transitions/PageTransition';
@@ -12,24 +11,21 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true); // Start expanded
-
-  // Sync sidebar state
-  const handleSidebarToggle = (expanded: boolean) => {
-    setIsSidebarExpanded(expanded);
-  };
+  // Sidebar temporarily disabled
+  // const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  // const handleSidebarToggle = (expanded: boolean) => {
+  //   setIsSidebarExpanded(expanded);
+  // };
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <Sidebar onToggle={handleSidebarToggle} />
+      {/* <Sidebar onToggle={handleSidebarToggle} /> */}
       <main 
         style={{ 
           flex: 1,
-          marginLeft: isSidebarExpanded ? '240px' : '48px',
-          width: isSidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 48px)',
+          width: '100%',
           minHeight: '100vh',
           background: 'var(--background)',
-          transition: 'margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
           display: 'flex',
           flexDirection: 'column',
           paddingBottom: '80px', /* Space for mobile nav */
@@ -42,10 +38,11 @@ export default function DashboardLayout({
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
+          paddingTop: 'var(--spacing-4xl)',
         }}>
           <div style={{
             width: '100%',
-            maxWidth: isSidebarExpanded ? '100%' : '1070px',
+            maxWidth: '100%',
             padding: '0',
           }}>
             <PageTransition>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
+import { useToast } from '../../contexts/ToastContext';
 
 interface Goal {
   id: string;
@@ -34,6 +35,7 @@ interface Goal {
 
 export default function Goals() {
   const { user } = useAuth();
+  const { showToast } = useToast();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loading, setLoading] = useState(true);
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
@@ -89,7 +91,7 @@ export default function Goals() {
       if (error) throw error;
       setGoals(data || []);
     } catch (err) {
-      console.error('Error fetching goals:', err);
+      showToast('Failed to fetch goals. Please try again.', 'error');
     } finally {
       setLoading(false);
     }
@@ -123,7 +125,7 @@ export default function Goals() {
       setShowNewGoalForm(false);
       fetchGoals();
     } catch (err) {
-      console.error('Error creating goal:', err);
+      showToast('Failed to create goal. Please try again.', 'error');
     }
   };
 
@@ -140,7 +142,7 @@ export default function Goals() {
       if (error) throw error;
       fetchGoals();
     } catch (err) {
-      console.error('Error updating goal:', err);
+      showToast('Failed to update goal. Please try again.', 'error');
     }
   };
 
@@ -156,7 +158,7 @@ export default function Goals() {
       if (error) throw error;
       fetchGoals();
     } catch (err) {
-      console.error('Error deleting goal:', err);
+      showToast('Failed to delete goal. Please try again.', 'error');
     }
   };
 
@@ -170,7 +172,7 @@ export default function Goals() {
       if (error) throw error;
       fetchGoals();
     } catch (err) {
-      console.error('Error archiving goal:', err);
+      showToast('Failed to archive goal. Please try again.', 'error');
     }
   };
 
@@ -220,9 +222,9 @@ export default function Goals() {
             onClick={() => setShowNewGoalForm(!showNewGoalForm)}
             style={{
               padding: '10px 20px',
-              background: showNewGoalForm ? 'transparent' : '#8B5A3C',
-              color: showNewGoalForm ? '#8B5A3C' : '#FFFFFF',
-              border: showNewGoalForm ? '2px solid #8B5A3C' : 'none',
+              background: showNewGoalForm ? 'transparent' : 'var(--accent-primary)',
+              color: showNewGoalForm ? 'var(--accent-primary)' : 'var(--brand-white)',
+              border: showNewGoalForm ? '2px solid var(--accent-primary)' : 'none',
               borderRadius: '10px',
               fontSize: '14px',
               fontWeight: 600,
@@ -254,7 +256,7 @@ export default function Goals() {
                 background: 'transparent',
                 color: filterStatus === status ? 'var(--text-primary)' : 'var(--text-tertiary)',
                 border: 'none',
-                borderBottom: filterStatus === status ? '2px solid #C84B4B' : '2px solid transparent',
+                borderBottom: filterStatus === status ? '2px solid var(--error)' : '2px solid transparent',
                 fontSize: '14px',
                 fontWeight: filterStatus === status ? 600 : 500,
                 fontFamily: 'var(--font-family-satoshi)',
@@ -273,16 +275,15 @@ export default function Goals() {
           <div style={{
             background: 'var(--surface)',
             border: '1px solid var(--border-subtle)',
-            boxShadow: 'var(--shadow-md)',
+            boxShadow: 'var(--shadow-lg)',
             borderRadius: '16px',
             padding: '32px',
-            marginBottom: '32px',
-            boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)'
+            marginBottom: '32px'
           }}>
             <h3 style={{
               fontSize: '18px',
               fontWeight: 600,
-              color: '#FFFFFF',
+              color: 'var(--brand-white)',
               fontFamily: 'var(--font-family-satoshi)',
               marginBottom: '24px'
             }}>
@@ -297,7 +298,7 @@ export default function Goals() {
                     display: 'block',
                     fontSize: '13px',
                     fontWeight: 600,
-                    color: '#FFFFFF',
+                    color: 'var(--brand-white)',
                     fontFamily: 'var(--font-family-satoshi)',
                     marginBottom: '8px'
                   }}>
@@ -312,12 +313,12 @@ export default function Goals() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      background: 'var(--overlay-white-overlay-subtle)',
+                      border: '1px solid var(--overlay-white-overlay-light)',
                       borderRadius: '8px',
                       fontSize: '14px',
                       fontFamily: 'var(--font-family-satoshi)',
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       outline: 'none'
                     }}
                   />
@@ -343,12 +344,12 @@ export default function Goals() {
                     style={{
                       width: '100%',
                       padding: '12px 16px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      background: 'var(--overlay-white-overlay-subtle)',
+                      border: '1px solid var(--overlay-white-overlay-light)',
                       borderRadius: '8px',
                       fontSize: '14px',
                       fontFamily: 'var(--font-family-satoshi)',
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       outline: 'none',
                       resize: 'vertical'
                     }}
@@ -362,7 +363,7 @@ export default function Goals() {
                       display: 'block',
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       fontFamily: 'var(--font-family-satoshi)',
                       marginBottom: '8px'
                     }}>
@@ -382,7 +383,7 @@ export default function Goals() {
                         borderRadius: '8px',
                         fontSize: '14px',
                         fontFamily: 'var(--font-family-satoshi)',
-                        color: '#FFFFFF',
+                        color: 'var(--brand-white)',
                         outline: 'none'
                       }}
                     />
@@ -392,7 +393,7 @@ export default function Goals() {
                       display: 'block',
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       fontFamily: 'var(--font-family-satoshi)',
                       marginBottom: '8px'
                     }}>
@@ -412,7 +413,7 @@ export default function Goals() {
                         borderRadius: '8px',
                         fontSize: '14px',
                         fontFamily: 'var(--font-family-satoshi)',
-                        color: '#FFFFFF',
+                        color: 'var(--brand-white)',
                         outline: 'none'
                       }}
                     />
@@ -426,7 +427,7 @@ export default function Goals() {
                       display: 'block',
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       fontFamily: 'var(--font-family-satoshi)',
                       marginBottom: '8px'
                     }}>
@@ -443,7 +444,7 @@ export default function Goals() {
                         borderRadius: '8px',
                         fontSize: '14px',
                         fontFamily: 'var(--font-family-satoshi)',
-                        color: '#FFFFFF',
+                        color: 'var(--brand-white)',
                         outline: 'none'
                       }}
                     >
@@ -460,7 +461,7 @@ export default function Goals() {
                       display: 'block',
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       fontFamily: 'var(--font-family-satoshi)',
                       marginBottom: '8px'
                     }}>
@@ -478,7 +479,7 @@ export default function Goals() {
                         borderRadius: '8px',
                         fontSize: '14px',
                         fontFamily: 'var(--font-family-satoshi)',
-                        color: '#FFFFFF',
+                        color: 'var(--brand-white)',
                         outline: 'none',
                         colorScheme: 'dark'
                       }}
@@ -493,7 +494,7 @@ export default function Goals() {
                       display: 'block',
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       fontFamily: 'var(--font-family-satoshi)',
                       marginBottom: '8px'
                     }}>
@@ -510,7 +511,7 @@ export default function Goals() {
                         borderRadius: '8px',
                         fontSize: '14px',
                         fontFamily: 'var(--font-family-satoshi)',
-                        color: '#FFFFFF',
+                        color: 'var(--brand-white)',
                         outline: 'none'
                       }}
                     >
@@ -525,7 +526,7 @@ export default function Goals() {
                       display: 'block',
                       fontSize: '13px',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--brand-white)',
                       fontFamily: 'var(--font-family-satoshi)',
                       marginBottom: '8px'
                     }}>
@@ -544,7 +545,7 @@ export default function Goals() {
                         borderRadius: '8px',
                         fontSize: '14px',
                         fontFamily: 'var(--font-family-satoshi)',
-                        color: '#FFFFFF',
+                        color: 'var(--brand-white)',
                         outline: 'none'
                       }}
                     />
@@ -681,15 +682,15 @@ export default function Goals() {
                           <span style={{
                             padding: '4px 12px',
                             background: 
-                              goal.priority === 'urgent' ? 'rgba(200, 75, 75, 0.25)' :
-                              goal.priority === 'high' ? 'rgba(255, 140, 80, 0.15)' :
-                              goal.priority === 'medium' ? 'rgba(200, 75, 75, 0.15)' :
-                              'rgba(255, 255, 255, 0.1)',
+                              goal.priority === 'urgent' ? 'var(--overlay-backdrop-subtle)' :
+                              goal.priority === 'high' ? 'var(--overlay-backdrop-subtle)' :
+                              goal.priority === 'medium' ? 'var(--overlay-backdrop-subtle)' :
+                              'var(--overlay-white-overlay-subtle)',
                             color: 
-                              goal.priority === 'urgent' ? '#C84B4B' :
-                              goal.priority === 'high' ? '#FF8C50' :
-                              goal.priority === 'medium' ? '#C84B4B' :
-                              '#FFFFFF',
+                              goal.priority === 'urgent' ? 'var(--error)' :
+                              goal.priority === 'high' ? 'var(--accent-primary)' :
+                              goal.priority === 'medium' ? 'var(--error)' :
+                              'var(--brand-white)',
                             borderRadius: '12px',
                             fontSize: '11px',
                             fontWeight: 600,
@@ -702,8 +703,8 @@ export default function Goals() {
                         {goal.status === 'completed' && (
                           <span style={{
                             padding: '4px 12px',
-                            background: 'rgba(200, 75, 75, 0.15)',
-                            color: '#C84B4B',
+                            background: 'var(--overlay-backdrop-subtle)',
+                            color: 'var(--error)',
                             borderRadius: '12px',
                             fontSize: '11px',
                             fontWeight: 600,
@@ -727,7 +728,7 @@ export default function Goals() {
                       {goal.why && (
                         <p style={{
                           fontSize: '13px',
-                          color: '#C84B4B',
+                          color: 'var(--error)',
                           fontFamily: 'var(--font-family-switzer)',
                           margin: '8px 0 0 0',
                           lineHeight: '1.5',

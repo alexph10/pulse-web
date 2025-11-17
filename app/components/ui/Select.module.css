@@ -33,7 +33,7 @@
 
 .select:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .select:disabled {
@@ -47,7 +47,7 @@
 }
 
 .select.error:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .select option {

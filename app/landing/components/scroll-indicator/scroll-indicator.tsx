@@ -44,3 +44,4 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ sections }) => {
 };
 
 export default ScrollIndicator;
+

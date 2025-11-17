@@ -14,27 +14,25 @@ interface StatCardProps {
 }
 
 export default function StatCard({ title, value, subtitle, trend, icon }: StatCardProps) {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
+  const isMobile = useMediaQuery('(max-width: 767px)')
   
   return (
     <div style={{
-      background: 'white',
+      background: 'var(--brand-white)',
       border: '1px solid var(--border-subtle)',
-      borderRadius: '16px',
-      padding: isMobile ? '20px' : '24px',
+      borderRadius: 'var(--border-radius-2xl)',
+      padding: isMobile ? 'var(--spacing-lg)' : 'var(--spacing-xl)',
       display: 'flex',
       flexDirection: 'column',
-      gap: isMobile ? '10px' : '12px',
+      gap: isMobile ? 'var(--spacing-compact-md)' : 'var(--spacing-md)',
       transition: 'all 0.2s ease',
       cursor: 'default'
     }}
     onMouseEnter={(e) => {
-      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)'
-      e.currentTarget.style.transform = 'translateY(-2px)'
+      e.currentTarget.style.boxShadow = 'var(--shadow-md)'
     }}
     onMouseLeave={(e) => {
       e.currentTarget.style.boxShadow = 'none'
-      e.currentTarget.style.transform = 'translateY(0)'
     }}
     >
       {/* Header */}

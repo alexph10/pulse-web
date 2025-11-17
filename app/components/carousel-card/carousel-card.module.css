@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #ffb88c 0%, #ffd89e 25%, #ffeda0 50%, #ffd89e 75%, #ffb88c 100%);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 25%, var(--accent-secondary) 50%, var(--accent-primary-hover) 75%, var(--accent-primary) 100%);
 }
 
 /* Animated Gradient Layers */
@@ -18,7 +18,7 @@
   left: -20%;
   width: 96%;
   height: 120%;
-  background: radial-gradient(circle, rgba(255, 150, 100, 0.6) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--overlay-backdrop-light) 0%, transparent 70%);
   filter: blur(80px);
   pointer-events: none;
 }
@@ -29,7 +29,7 @@
   right: -20%;
   width: 80%;
   height: 96%;
-  background: radial-gradient(circle, rgba(255, 200, 120, 0.5) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--overlay-backdrop-light) 0%, transparent 70%);
   filter: blur(100px);
   pointer-events: none;
 }
@@ -40,7 +40,7 @@
   right: -10%;
   width: 88%;
   height: 104%;
-  background: radial-gradient(circle, rgba(255, 80, 60, 0.55) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--overlay-backdrop-light) 0%, transparent 70%);
   filter: blur(90px);
   pointer-events: none;
 }
@@ -66,84 +66,84 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 40px;
+  padding: var(--spacing-3xl);
   max-width: 1200px;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 24px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  gap: var(--spacing-sm);
+  background-color: var(--brand-white);
+  padding: var(--spacing-compact-lg) var(--spacing-lg);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-3xl);
+  box-shadow: var(--shadow-md);
 }
 
 .badgeIcon {
-  font-size: 16px;
+  font-size: var(--font-size-body);
 }
 
 .title {
   font-size: clamp(48px, 8vw, 96px);
   font-weight: 800;
-  color: white;
-  margin: 0 0 40px 0;
+  color: var(--brand-white);
+  margin: 0 0 var(--spacing-3xl) 0;
   line-height: 1.1;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  text-shadow: var(--shadow-sm);
 }
 
 .subtitle {
   font-size: clamp(18px, 2vw, 24px);
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 40px 0;
+  color: var(--overlay-white-overlay-strong);
+  margin: 0 0 var(--spacing-3xl) 0;
   max-width: 800px;
 }
 
 .buttonGroup {
   display: flex;
-  gap: 16px;
+  gap: var(--spacing-lg);
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .primaryButton {
-  background-color: #000;
-  color: white;
+  background-color: var(--brand-black);
+  color: var(--brand-white);
   border: none;
-  padding: 16px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 28px;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--border-radius-full);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .primaryButton:hover {
-  background-color: #222;
+  background-color: var(--surface-elevated);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .secondaryButton {
-  background-color: white;
-  color: #000;
+  background-color: var(--brand-white);
+  color: var(--brand-black);
   border: none;
-  padding: 16px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 28px;
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--border-radius-full);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .secondaryButton:hover {
-  background-color: #f5f5f5;
+  background-color: var(--background-secondary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 @media (max-width: 768px) {
@@ -152,15 +152,15 @@
   }
   
   .content {
-    padding: 20px;
+    padding: var(--spacing-lg);
   }
   
   .badge {
-    margin-bottom: 24px;
+    margin-bottom: var(--spacing-xl);
   }
   
   .title {
-    margin-bottom: 24px;
+    margin-bottom: var(--spacing-xl);
   }
   
   .buttonGroup {

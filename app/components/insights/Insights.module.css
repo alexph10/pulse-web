@@ -1,30 +1,44 @@
 .insights {
-  margin-bottom: 32px;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-xl);
   font-family: var(--font-family-satoshi);
 }
 
 .loading,
 .empty {
   text-align: center;
-  padding: 32px;
+  padding: var(--spacing-2xl);
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: var(--font-size-small);
   font-family: var(--font-family-switzer);
   background: var(--bg-secondary);
-  border-radius: 12px;
+  border-radius: var(--border-radius-md);
+}
+
+.emptyText {
+  font-size: var(--font-size-body);
+  color: var(--text-secondary);
+  font-family: var(--font-family-switzer);
+  margin-bottom: var(--spacing-sm);
+}
+
+.emptySubtext {
+  font-size: var(--font-size-small);
+  color: var(--text-tertiary);
+  font-family: var(--font-family-switzer);
+  font-style: italic;
 }
 
 .insightsList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
 .insightCard {
@@ -33,16 +47,51 @@
   padding: var(--spacing-compact-md); /* 12px */
   background: var(--surface);
   border-radius: var(--border-radius-md);
-  transition: all var(--animation-timing-smooth) var(--animation-easing-easeOut);
   border-left-width: 3px;
   border-left-style: solid;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
 }
 
-.insightCard:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+/* Insight type variants using design tokens */
+.insightCard.streak {
+  border-left-color: var(--accent-primary);
+}
+
+.insightCard.streak .insightTitle {
+  color: var(--accent-primary);
+}
+
+.insightCard.pattern {
+  border-left-color: var(--accent-primary-hover);
+}
+
+.insightCard.pattern .insightTitle {
+  color: var(--accent-primary-hover);
+}
+
+.insightCard.mood {
+  border-left-color: var(--accent-secondary);
+}
+
+.insightCard.mood .insightTitle {
+  color: var(--accent-secondary);
+}
+
+.insightCard.milestone {
+  border-left-color: var(--accent-primary-active);
+}
+
+.insightCard.milestone .insightTitle {
+  color: var(--accent-primary-active);
+}
+
+.insightCard.growth {
+  border-left-color: var(--accent-muted);
+}
+
+.insightCard.growth .insightTitle {
+  color: var(--accent-muted);
 }
 
 .insightCard.expanded {
@@ -74,19 +123,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
   border: none;
   background: transparent;
   color: var(--text-tertiary);
   cursor: pointer;
   border-radius: var(--border-radius-sm);
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
-}
-
-.actionButton:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
 }
 
 .expandedContent {
@@ -113,7 +157,7 @@
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(calc(-1 * var(--spacing-sm)));
   }
   to {
     opacity: 1;
@@ -127,14 +171,14 @@
 }
 
 .insightTitle {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
 }
 
 .insightDescription {
-  font-size: 13px;
+  font-size: var(--font-size-small);
   line-height: 1.5;
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
@@ -143,15 +187,15 @@
 /* Mobile responsive */
 @media (max-width: 768px) {
   .insightCard {
-    padding: 12px;
-    gap: 12px;
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
   }
 
   .insightTitle {
-    font-size: 14px;
+    font-size: var(--font-size-small);
   }
 
   .insightDescription {
-    font-size: 12px;
+    font-size: var(--font-size-tiny);
   }
 }

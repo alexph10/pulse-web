@@ -241,35 +241,68 @@ export async function sendChatMessage(
 ): Promise<AIResponse> {
   const token = await getAuthToken();
   if (!token) {
-    throw new Error('Authentication required');
+    throw new Error('Authentication required. Please log in again.');
   }
 
-  const response = await fetchWithRetry(
-    `${AI_SERVICE_URL}/api/chat`,
-    {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+  try {
+    const response = await fetchWithRetry(
+      `${AI_SERVICE_URL}/api/chat`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message,
+          conversationHistory,
+          recentEntries,
+        }),
       },
-      body: JSON.stringify({
-        message,
-        conversationHistory,
-        recentEntries,
-      }),
-    },
-    TIMEOUTS.AI_ENDPOINTS
-  );
+      TIMEOUTS.AI_ENDPOINTS
+    );
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: 'Request failed' }));
-    throw new Error(error.error || 'Chat failed');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Request failed' }));
+      
+      // Handle specific error codes with user-friendly messages
+      if (response.status === 429) {
+        const retryAfter = errorData.retryAfter || 60;
+        throw new Error(`Rate limit exceeded. Please wait ${retryAfter} seconds before trying again.`);
+      }
+      
+      if (response.status === 400) {
+        throw new Error(errorData.error || 'Invalid request. Please check your message and try again.');
+      }
+      
+      if (response.status === 503 || response.status === 504) {
+        throw new Error('AI service is temporarily unavailable. Please try again in a few moments.');
+      }
+      
+      if (response.status === 401) {
+        throw new Error('Your session has expired. Please refresh the page and try again.');
+      }
+      
+      // Use the error message from the API if available
+      throw new Error(errorData.error || 'Failed to send message. Please try again.');
+    }
+
+    const data = await response.json();
+    const rateLimit = extractRateLimitHeaders(response);
+
+    return { data, rateLimit };
+  } catch (error: any) {
+    // Re-throw with better context if it's a network error
+    if (error.name === 'AbortError' || error.message?.includes('timeout')) {
+      throw new Error('Request timed out. Please check your connection and try again.');
+    }
+    
+    if (error.message) {
+      throw error; // Already has a good message
+    }
+    
+    throw new Error('Failed to connect to AI service. Please check your internet connection.');
   }
-
-  const data = await response.json();
-  const rateLimit = extractRateLimitHeaders(response);
-
-  return { data, rateLimit };
 }
 
 /**

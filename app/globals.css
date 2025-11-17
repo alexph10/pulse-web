@@ -1,137 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "./fonts.css";
+@import "./generated-tokens.css";
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Font Families */
-  --font-family-satoshi: 'Satoshi', sans-serif;
-  --font-family-switzer: 'Switzer', sans-serif;
-  --font-family-manier: 'Manier', sans-serif;
-  --font-family-inter: 'Inter', sans-serif;
-  --font-family-garamond: 'EB Garamond', serif;
-  --font-family-cormorant: 'Cormorant Garamond', serif;
-  --font-family-antonia: 'Antonia H1', serif;
-
   /* UI Scale - Fixed to 100% for accessibility (WCAG AA compliance) */
   font-size: 100%; /* 100% of default 16px = 16px base */
 
-  /* Visionary Earth Tone Theme - No Gray */
-  --background: #363d49; /* bright-gray */
-  --background-secondary: #3f373c; /* thunder */
-  --surface: #623e33; /* quincy */
-  --surface-elevated: #5d3e39; /* congo-brown */
-
-  /* Text Colors - Warm Earth Tones */
-  --text-primary: #ffedc1; /* egg-white */
-  --text-secondary: #fdedc1; /* beeswax */
-  --text-tertiary: #c67b22; /* ochre */
-  --text-disabled: #814837; /* ironstone */
-
-  /* Borders & Dividers - Earth Tones */
-  --border-subtle: #5d3e39; /* congo-brown */
-  --border-emphasis: #814837; /* ironstone */
-  --border-strong: #8d503a; /* potters-clay */
-
-  /* Accent Colors - Visionary Palette */
-  --accent-primary: #c2593f; /* crail */
-  --accent-primary-hover: #b46c41; /* brown-rust */
-  --accent-primary-active: #8d503a; /* potters-clay */
-  --accent-secondary: #c67b22; /* ochre */
-  --accent-tertiary: #b46c41; /* brown-rust */
-  --accent-muted: #814837; /* ironstone */
-  --accent-subtle: #5d3e39; /* congo-brown */
-
-  /* Semantic Colors - Earth Tones, No Gray */
-  --success: #16A34A; /* green (keep for success) */
-  --success-dark: #15803D;
-  --info: #814837; /* ironstone */
-  --info-dark: #6a3829;
-  --warning: #c67b22; /* ochre */
-  --warning-dark: #a6691a;
-  --error: #c2593f; /* crail */
-  --error-dark: #8d503a; /* potters-clay */
-  --highlight: #5d3e39; /* congo-brown */
-
-  /* Badge System Colors - Earth Tones */
-  --badge-bronze: #8d503a; /* potters-clay */
-  --badge-silver: #814837; /* ironstone */
-  --badge-gold: #c67b22; /* ochre */
-  --badge-platinum: #b46c41; /* brown-rust */
-  --badge-green-glow: rgba(22, 163, 74, 0.3);
-
-  /* Shadows - Earth Tone Tinted */
-  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.15); /* congo-brown */
-  --shadow-md: 0 4px 12px rgba(194, 89, 63, 0.2); /* crail */
-  --shadow-lg: 0 8px 24px rgba(194, 89, 63, 0.25); /* crail */
-  --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.3); /* ochre */
-  --shadow-none: none;
-  --shadow-xl: 0 16px 48px rgba(194, 89, 63, 0.4); /* crail */
-
-  /* Spacing Scale (8px base) - Enhanced */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --spacing-xl: 24px;
-  --spacing-2xl: 32px;
-  --spacing-3xl: 48px;
-  --spacing-4xl: 64px;
-  --spacing-5xl: 96px;
-  /* Compact Spacing Scale (0.75x multiplier) */
-  --spacing-compact-xs: 3px;
-  --spacing-compact-sm: 6px;
-  --spacing-compact-md: 9px;
-  --spacing-compact-lg: 12px;
-  --spacing-compact-xl: 18px;
-  --spacing-compact-2xl: 24px;
+  /* Additional spacing utilities */
+  --section-gap: var(--spacing-3xl); /* reduced from 48px */
+  --card-gap: var(--spacing-compact-xl); /* reduced from 24px */
   
-  --section-gap: 36px; /* reduced from 48px */
-  --card-gap: 18px; /* reduced from 24px */
-
-  /* Typography Scale - Enhanced Hierarchy */
-  --font-size-h1: 56px;
-  --font-size-h2: 40px;
-  --font-size-h3: 28px;
-  --font-size-h4: 20px;
-  --font-size-body: 16px;
-  --font-size-small: 14px;
-  --font-size-tiny: 12px;
-  --line-height-tight: 1.1;
-  --line-height-normal: 1.55; /* slightly reduced from 1.5 */
-  --line-height-relaxed: 1.65; /* slightly reduced from 1.7 */
-  --letter-spacing-tight: -0.03em;
-  --letter-spacing-heading: -0.03em;
-  --letter-spacing-normal: 0;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  /* Border Radius - Contextual Reductions */
-  --border-radius-sm: 5px; /* small components */
-  --border-radius-md: 6px; /* medium components */
-  --border-radius-lg: 8px; /* large cards */
-  --border-radius-xl: 10px; /* major containers */
-  --border-radius-full: 9999px;
-
-  /* Border Width */
-  --border-width-thin: 1px;
-  --border-width-medium: 2px;
-  --border-width-thick: 3px;
-
-  /* Animation Timing */
-  --animation-timing-micro: 150ms;
-  --animation-timing-standard: 200ms;
-  --animation-timing-smooth: 300ms;
-  --animation-timing-slow: 500ms;
-
-  /* Animation Easing */
-  --animation-easing-easeIn: cubic-bezier(0.4, 0, 1, 1);
-  --animation-easing-easeOut: cubic-bezier(0, 0, 0.2, 1);
-  --animation-easing-easeInOut: cubic-bezier(0.4, 0, 0.2, 1);
-  --animation-easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* Additional shadow for glow effect */
+  --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.3); /* ochre */
+  
+  /* Additional semantic color variants */
+  --success-dark: var(--successDark);
+  --error-dark: var(--errorDark); /* potters-clay */
+  --warning-dark: var(--warningDark);
+  --info-dark: var(--infoDark);
+  --highlight: var(--accent-subtle); /* congo-brown */
 
   /* Legacy */
   --color-background: var(--background);
@@ -173,10 +63,10 @@
 /* Dark mode via data attribute (manual toggle) */
 [data-theme='dark'] {
   /* Visionary Theme - Even Darker */
-  --background: #2a1f2e; /* darker version of bright-gray */
-  --background-secondary: #1f1a26;
-  --surface: #3f2e2a; /* darker quincy */
-  --surface-elevated: #4a3530; /* darker congo-brown */
+  --background: var(--background); /* darker version of bright-gray */
+  --background-secondary: var(--background-secondary);
+  --surface: var(--surface); /* darker quincy */
+  --surface-elevated: var(--surface-elevated); /* darker congo-brown */
 
   /* Text Colors - High Contrast */
   --text-primary: #ffedc1; /* egg-white */
@@ -185,9 +75,9 @@
   --text-disabled: #814837; /* ironstone */
 
   /* Borders & Dividers - Earth Tones */
-  --border-subtle: #4a3530;
-  --border-emphasis: #5a4035;
-  --border-strong: #6a4a40;
+  --border-subtle: var(--border-subtle);
+  --border-emphasis: var(--border-emphasis);
+  --border-strong: var(--border-strong);
 
   /* Accent Colors - Visionary Palette */
   --accent-primary: #c2593f; /* crail */
@@ -206,65 +96,18 @@
   --highlight: #5d3e39; /* congo-brown */
 
   /* Shadows - Earth Tone Tinted */
-  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.2);
-  --shadow-md: 0 4px 12px rgba(194, 89, 63, 0.25);
-  --shadow-lg: 0 8px 24px rgba(194, 89, 63, 0.3);
-  --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.35);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-glow: var(--shadow-md);
   --shadow-none: none;
-  --shadow-xl: 0 16px 48px rgba(194, 89, 63, 0.4);
+  --shadow-xl: var(--shadow-xl);
 
   /* Legacy */
   --foreground: var(--text-primary);
 }
 
-/* Fallback to system preference if no manual selection */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    /* Visionary Theme - Even Darker */
-    --background: #2a1f2e; /* darker version of bright-gray */
-    --background-secondary: #1f1a26;
-    --surface: #3f2e2a; /* darker quincy */
-    --surface-elevated: #4a3530; /* darker congo-brown */
-
-    /* Text Colors - High Contrast */
-    --text-primary: #ffedc1; /* egg-white */
-    --text-secondary: #fdedc1; /* beeswax */
-    --text-tertiary: #c67b22; /* ochre */
-    --text-disabled: #814837; /* ironstone */
-
-    /* Borders & Dividers - Earth Tones */
-    --border-subtle: #4a3530;
-    --border-emphasis: #5a4035;
-    --border-strong: #6a4a40;
-
-    /* Accent Colors - Visionary Palette */
-    --accent-primary: #c2593f; /* crail */
-    --accent-primary-hover: #b46c41; /* brown-rust */
-    --accent-primary-active: #8d503a; /* potters-clay */
-    --accent-secondary: #c67b22; /* ochre */
-    --accent-tertiary: #b46c41; /* brown-rust */
-    --accent-muted: #814837; /* ironstone */
-    --accent-subtle: #5d3e39; /* congo-brown */
-
-    /* Semantic Colors - Earth Tones */
-    --success: #16A34A; /* green (keep) */
-    --info: #814837; /* ironstone */
-    --warning: #c67b22; /* ochre */
-    --error: #c2593f; /* crail */
-    --highlight: #5d3e39; /* congo-brown */
-
-    /* Shadows - Earth Tone Tinted */
-    --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.2);
-    --shadow-md: 0 4px 12px rgba(194, 89, 63, 0.25);
-    --shadow-lg: 0 8px 24px rgba(194, 89, 63, 0.3);
-    --shadow-glow: 0 4px 16px rgba(198, 123, 34, 0.35);
-    --shadow-none: none;
-    --shadow-xl: 0 16px 48px rgba(194, 89, 63, 0.4);
-
-    /* Legacy */
-    --foreground: var(--text-primary);
-  }
-}
+/* System preference fallback is handled in generated-tokens.css */
 
 /* Hide default scrollbar */
 ::-webkit-scrollbar {
@@ -394,7 +237,7 @@ html {
   textarea:focus,
   select:focus {
     transform: scale(1.01);
-    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+    box-shadow: var(--shadow-sm);
   }
   
   /* Smooth scale on interactive elements */

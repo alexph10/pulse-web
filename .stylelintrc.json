@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recess-order"
+  ],
+  "rules": {
+    "color-no-hex": [
+      true,
+      {
+        "message": "Use design token CSS variables instead of hex colors. Example: var(--accent-primary) instead of #c2593f"
+      }
+    ],
+    "declaration-property-value-disallowed-list": {
+      "/^(padding|margin|gap|top|right|bottom|left|width|height|min-width|min-height|max-width|max-height)$/": [
+        "/^\\d+px$/",
+        "/^\\d+rem$/",
+        "/^\\d+em$/"
+      ],
+      "/^font-size$/": [
+        "/^\\d+px$/",
+        "/^\\d+rem$/",
+        "/^\\d+em$/"
+      ]
+    },
+    "custom-property-pattern": "^--(spacing|color|font|border|shadow|animation|accent|text|background|surface|badge|line-height|letter-spacing|font-weight)-",
+    "value-keyword-case": "lower",
+    "function-name-case": "lower",
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
+    "selector-class-pattern": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["tailwind", "apply", "layer", "theme", "custom-variant"]
+      }
+    ]
+  },
+  "ignoreFiles": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "app/generated-tokens.css"
+  ]
+}
+

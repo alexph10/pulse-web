@@ -1,28 +1,28 @@
 .heatmap {
   background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 32px;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-xl);
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .titleSection {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   font-family: var(--font-family-satoshi);
 }
@@ -30,15 +30,15 @@
 .streak {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  background: #2D1F14;
-  border: 1px solid #3A2E24;
-  border-radius: 8px;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-compact-sm) var(--spacing-md);
+  background: var(--surface);
+  border: var(--border-width-thin) solid var(--border-emphasis);
+  border-radius: var(--border-radius-sm);
 }
 
 .streakIcon {
-  color: #EA580C;
+  color: var(--accent-primary);
 }
 
 .streakText {
@@ -80,33 +80,28 @@
 
 .viewToggle {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   background: var(--bg-tertiary);
-  padding: 4px;
-  border-radius: 8px;
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
 }
 
 .toggleBtn {
-  padding: 8px 16px;
+  padding: var(--spacing-sm) var(--spacing-lg);
   border: none;
   background: transparent;
   color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: 6px;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  transition: all 0.2s ease;
   font-family: var(--font-family-switzer);
-}
-
-.toggleBtn:hover {
-  color: var(--text-primary);
 }
 
 .toggleBtn.active {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .calendar {
@@ -115,59 +110,52 @@
 
 .monthLabels {
   display: grid;
-  grid-template-columns: repeat(53, 12px);
-  gap: 3px;
-  margin-bottom: 4px;
-  margin-left: 32px;
-  font-size: 11px;
+  grid-template-columns: repeat(53, var(--spacing-md));
+  gap: var(--spacing-compact-xs);
+  margin-bottom: var(--spacing-xs);
+  margin-left: var(--spacing-2xl);
+  font-size: var(--font-size-tiny);
   color: var(--text-secondary);
   font-family: var(--font-family-switzer);
 }
 
 .grid {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .dayLabels {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: var(--text-secondary);
-  padding-right: 8px;
+  padding-right: var(--spacing-sm);
   font-family: var(--font-family-switzer);
 }
 
 .dayLabels span {
-  height: 12px;
-  line-height: 12px;
+  height: var(--spacing-md);
+  line-height: var(--spacing-md);
 }
 
 .weeks {
   display: flex;
-  gap: 3px;
+  gap: var(--spacing-compact-xs);
 }
 
 .week {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--spacing-compact-xs);
 }
 
 .day {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  width: var(--spacing-md);
+  height: var(--spacing-md);
+  border-radius: var(--border-radius-xs);
   cursor: pointer;
-  transition: all 0.15s ease;
   position: relative;
-}
-
-.day:hover {
-  transform: scale(1.3);
-  z-index: 2;
-  border: 1px solid var(--text-secondary);
 }
 
 .empty {
@@ -175,46 +163,41 @@
   cursor: default;
 }
 
-.empty:hover {
-  transform: none;
-  border: none;
-}
-
 .intensity0 {
   background: var(--bg-tertiary);
 }
 
 .intensity1 {
-  background: #7C2D12;
+  background: var(--accent-subtle);
 }
 
 .intensity2 {
-  background: #9A3412;
+  background: var(--accent-muted);
 }
 
 .intensity3 {
-  background: #C2410C;
+  background: var(--accent-primary-active);
 }
 
 .intensity4 {
-  background: #EA580C;
+  background: var(--accent-primary);
 }
 
 .tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + var(--spacing-sm));
   left: 50%;
   transform: translateX(-50%);
   background: var(--bg-primary);
   color: var(--text-primary);
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 12px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-tiny);
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   z-index: 100;
   pointer-events: none;
-  border: 1px solid var(--border-primary);
+  border: var(--border-width-thin) solid var(--border-subtle);
   font-family: var(--font-family-switzer);
 }
 
@@ -231,22 +214,22 @@
 .legend {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-top: 16px;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-lg);
   justify-content: flex-end;
 }
 
 .legendLabel {
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   color: var(--text-secondary);
-  margin: 0 4px;
+  margin: 0 var(--spacing-xs);
   font-family: var(--font-family-switzer);
 }
 
 .legendBox {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  width: var(--spacing-md);
+  height: var(--spacing-md);
+  border-radius: var(--border-radius-xs);
 }
 
 /* Modal */
@@ -256,93 +239,89 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--overlay-backdrop-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 24px;
+  padding: var(--spacing-xl);
 }
 
 .modalContent {
   background: var(--bg-primary);
-  border-radius: 16px;
-  padding: 32px;
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl);
   max-width: 600px;
   width: 100%;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-xl);
 }
 
 .modalTitle {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
   font-family: var(--font-family-satoshi);
 }
 
 .modalStats {
-  font-size: 14px;
+  font-size: var(--font-size-small);
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-xl);
   font-family: var(--font-family-switzer);
 }
 
 .modalEntries {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .modalEntry {
-  padding: 16px;
+  padding: var(--spacing-lg);
   background: var(--bg-secondary);
-  border-radius: 12px;
+  border-radius: var(--border-radius-md);
 }
 
 .modalEntryMood {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: white;
-  margin-bottom: 12px;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-medium);
+  color: var(--brand-white);
+  margin-bottom: var(--spacing-md);
   font-family: var(--font-family-switzer);
 }
 
 .modalEntryText {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
   color: var(--text-primary);
   font-family: var(--font-family-switzer);
 }
 
 .closeBtn {
   width: 100%;
-  padding: 12px;
+  padding: var(--spacing-md);
   background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
-  border-radius: 8px;
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: var(--border-radius-sm);
   color: var(--text-primary);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
   font-family: var(--font-family-switzer);
-}
-
-.closeBtn:hover {
-  background: var(--bg-tertiary);
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
   .heatmap {
-    padding: 16px;
+    padding: var(--spacing-lg);
   }
   
   .header {
@@ -355,11 +334,11 @@
   }
   
   .day {
-    width: 10px;
-    height: 10px;
+    width: var(--spacing-compact-md);
+    height: var(--spacing-compact-md);
   }
   
   .modalContent {
-    padding: 24px;
+    padding: var(--spacing-xl);
   }
 }

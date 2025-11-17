@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Component, ErrorInfo, ReactNode } from 'react'
+import styles from './ErrorBoundary.module.css'
 
 /**
  * ERROR BOUNDARY - Your App's Safety Net
@@ -89,42 +90,22 @@ class ErrorBoundary extends Component<Props, State> {
       // Default fallback UI
       return (
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '400px',
-            padding: '40px',
-            textAlign: 'center',
-            background: 'var(--surface)',
-            borderRadius: '12px',
-            border: '1px solid var(--border-subtle)',
-            margin: '20px'
-          }}
+          className={styles.container}
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
         >
           {/* Error Icon */}
-          <div
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: 'rgba(239, 68, 68, 0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '24px'
-            }}
-          >
+          <div className={styles.iconContainer}>
             <svg
-              width="40"
-              height="40"
+              className={styles.icon}
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#EF4444"
+              stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
@@ -133,67 +114,22 @@ class ErrorBoundary extends Component<Props, State> {
           </div>
 
           {/* Error Message */}
-          <h2
-            style={{
-              fontSize: '24px',
-              fontWeight: '600',
-              color: 'var(--text-primary)',
-              marginBottom: '8px',
-              fontFamily: 'var(--font-family-satoshi)'
-            }}
-          >
+          <h2 className={styles.title}>
             Something went wrong
           </h2>
 
-          <p
-            style={{
-              fontSize: '15px',
-              color: 'var(--text-secondary)',
-              marginBottom: '24px',
-              maxWidth: '500px',
-              lineHeight: '1.6',
-              fontFamily: 'var(--font-family-satoshi)'
-            }}
-          >
+          <p className={styles.message}>
             We encountered an unexpected error. Don't worry—your data is safe. 
             Try refreshing the page or clicking the button below.
           </p>
 
           {/* Error Details (only in development) */}
           {process.env.NODE_ENV === 'development' && this.state.error && (
-            <details
-              style={{
-                marginBottom: '24px',
-                padding: '16px',
-                background: 'var(--background)',
-                borderRadius: '8px',
-                border: '1px solid var(--border-subtle)',
-                textAlign: 'left',
-                maxWidth: '600px',
-                width: '100%'
-              }}
-            >
-              <summary
-                style={{
-                  cursor: 'pointer',
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '8px',
-                  fontFamily: 'var(--font-family-satoshi)'
-                }}
-              >
+            <details className={styles.details}>
+              <summary className={styles.detailsSummary}>
                 Error Details (Development Only)
               </summary>
-              <pre
-                style={{
-                  fontSize: '13px',
-                  color: '#EF4444',
-                  overflow: 'auto',
-                  fontFamily: 'monospace',
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-word'
-                }}
-              >
+              <pre className={styles.detailsPre}>
                 {this.state.error.toString()}
                 {this.state.error.stack}
               </pre>
@@ -201,55 +137,19 @@ class ErrorBoundary extends Component<Props, State> {
           )}
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div className={styles.buttonContainer}>
             <button
               onClick={this.handleReset}
-              style={{
-                padding: '12px 24px',
-                background: 'var(--accent-primary)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '15px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                fontFamily: 'var(--font-family-satoshi)'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)'
-                e.currentTarget.style.boxShadow = '0 8px 16px rgba(139, 92, 246, 0.3)'
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
+              className={styles.buttonPrimary}
+              aria-label="Try again to reload the component"
             >
               Try Again
             </button>
 
             <button
               onClick={() => window.location.href = '/dashboard'}
-              style={{
-                padding: '12px 24px',
-                background: 'var(--surface)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '8px',
-                fontSize: '15px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                fontFamily: 'var(--font-family-satoshi)'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)'
-                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.1)'
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
+              className={styles.buttonSecondary}
+              aria-label="Navigate to dashboard"
             >
               Go to Dashboard
             </button>

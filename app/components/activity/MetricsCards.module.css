@@ -1,23 +1,23 @@
 .metricsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
 }
 
 .metricCard {
   border-radius: var(--border-radius-md);
-  padding: 16px;
+  padding: var(--spacing-lg);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-md);
   transition: all 0.2s ease;
   border: 1px solid var(--border-subtle);
 }
 
 .metricCard:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(194, 89, 63, 0.15);
+  box-shadow: var(--shadow-md);
   border-color: var(--accent-primary);
 }
 
@@ -27,38 +27,79 @@
 }
 
 .metricLabel {
-  font-size: 13px;
+  font-size: var(--font-size-small);
   color: var(--text-secondary);
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-switzer);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .metricValue {
-  font-size: 22px; /* slightly reduced */
-  font-weight: 700;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
   font-family: var(--font-family-satoshi);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* Metric card variants using design tokens */
+.metricCard.primary {
+  background: var(--surface);
+}
+
+.metricCard.primary .metricValue {
+  color: var(--accent-primary);
+}
+
+.metricCard.hover {
+  background: var(--surface);
+}
+
+.metricCard.hover .metricValue {
+  color: var(--accent-primary-hover);
+}
+
+.metricCard.secondary {
+  background: var(--surface-elevated);
+}
+
+.metricCard.secondary .metricValue {
+  color: var(--accent-secondary);
+}
+
+.metricCard.active {
+  background: var(--surface-elevated);
+}
+
+.metricCard.active .metricValue {
+  color: var(--accent-primary-active);
+}
+
+.metricCard.muted {
+  background: var(--surface);
+}
+
+.metricCard.muted .metricValue {
+  color: var(--accent-muted);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .metricsGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: var(--spacing-md);
   }
   
   .metricCard {
-    padding: 16px;
+    padding: var(--spacing-lg);
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: var(--spacing-md);
   }
   
   .metricValue {
-    font-size: 20px;
+    font-size: var(--font-size-body);
   }
 }
 

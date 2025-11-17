@@ -1,0 +1,15 @@
+{
+  "*.{css,module.css}": [
+    "stylelint --fix",
+    "git add"
+  ],
+  "*.{ts,tsx,js,jsx}": [
+    "eslint --fix",
+    "git add"
+  ],
+  "lib/design-tokens/**/*.ts": [
+    "npm run design:generate",
+    "git add app/generated-tokens.css"
+  ]
+}
+

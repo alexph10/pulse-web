@@ -10,72 +10,53 @@ export default function QuickActions() {
       label: 'New Journal Entry',
       description: 'Record your thoughts and feelings',
       href: '/dashboard/journal',
-      color: '#c2593f', // crail
-      bgColor: '#623e33', // quincy
-      borderColor: '#5d3e39' // congo-brown
+      variant: 'journal'
     },
     {
       id: 'activity',
       label: 'View Activity',
       description: 'Track your journaling patterns',
       href: '/dashboard/activity',
-      color: '#b46c41', // brown-rust
-      bgColor: '#623e33', // quincy
-      borderColor: '#5d3e39' // congo-brown
+      variant: 'activity'
     },
     {
       id: 'goal',
       label: 'Set Wellness Goal',
       description: 'Define what you want to achieve',
       href: '/dashboard/goals',
-      color: '#c67b22', // ochre
-      bgColor: '#5d3e39', // congo-brown
-      borderColor: '#814837' // ironstone
+      variant: 'goal'
     },
     {
       id: 'reflection',
       label: 'Deep Reflection',
       description: 'Explore your patterns and growth',
       href: '/dashboard/reflections',
-      color: '#8d503a', // potters-clay
-      bgColor: '#623e33', // quincy
-      borderColor: '#5d3e39' // congo-brown
+      variant: 'reflection'
     },
     {
       id: 'habit',
       label: 'Track Habits',
       description: 'Build consistent wellness practices',
       href: '/dashboard/habits',
-      color: '#814837', // ironstone
-      bgColor: '#5d3e39', // congo-brown
-      borderColor: '#8d503a' // potters-clay
+      variant: 'habit'
     },
     {
       id: 'progress',
       label: 'View Progress',
       description: 'See your wellness journey',
       href: '/dashboard/progress',
-      color: '#c2593f', // crail
-      bgColor: '#5d3e39', // congo-brown
-      borderColor: '#814837' // ironstone
+      variant: 'progress'
     }
   ];
 
   return (
     <div className={styles.quickActions}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--spacing-lg)' }}>
+      <div className={styles.header}>
         <div>
           <h2 className={styles.title}>
             Quick Actions
           </h2>
-          <p style={{
-            fontSize: 'var(--font-size-small)',
-            color: 'var(--text-tertiary)',
-            fontFamily: 'var(--font-family-switzer)',
-            fontStyle: 'italic',
-            marginTop: '4px',
-            marginLeft: '36px'
-          }}>
+          <p className={styles.subtitle}>
             Your wellness tools
           </p>
         </div>
@@ -86,21 +67,13 @@ export default function QuickActions() {
             <Link
               key={action.id}
               href={action.href}
-              className={styles.actionCard}
-              style={{
-                borderLeft: `2px solid ${action.color}`,
-                backgroundColor: action.bgColor,
-                borderColor: action.borderColor
-              }}
+              className={`${styles.actionCard} ${styles[action.variant]}`}
             >
               <div className={styles.content}>
-                <h3 className={styles.actionLabel} style={{ color: action.color }}>{action.label}</h3>
+                <h3 className={styles.actionLabel}>{action.label}</h3>
                 <p className={styles.actionDescription}>{action.description}</p>
               </div>
-              <div 
-                className={styles.arrow}
-                style={{ color: action.color }}
-              >
+              <div className={styles.arrow}>
                 →
               </div>
             </Link>

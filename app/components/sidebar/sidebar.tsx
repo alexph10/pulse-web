@@ -20,8 +20,7 @@ import {
   CaretDown,
   CaretRight,
   MagnifyingGlass,
-  FileText,
-  Folder
+  FileText
 } from '@phosphor-icons/react';
 import styles from './sidebar.module.css';
 import { useAuth } from '@/app/contexts/AuthContext';
@@ -100,24 +99,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
       className={`${styles.sidebar} ${isExpanded ? styles.expanded : styles.collapsed}`}
     >
       {/* Header - Figma Style */}
-      <div className={styles.header}>
-        <div className={styles.headerTop}>
-          <div className={styles.projectIcon}>
-            <div className={styles.iconCluster}>
-              <div className={styles.iconDot}></div>
-              <div className={styles.iconDot}></div>
-              <div className={styles.iconDot}></div>
-            </div>
-            {isExpanded && <CaretDown size={12} weight="bold" className={styles.chevron} />}
-          </div>
-          {isExpanded && (
-            <div className={styles.projectInfo}>
-              <div className={styles.projectName}>Pulse</div>
-              <div className={styles.projectSubtitle}>Wellness journey</div>
-            </div>
-          )}
-        </div>
-        {isExpanded && (
+      {isExpanded && (
+        <div className={styles.header}>
           <div className={styles.headerActions}>
             <button className={styles.headerIconButton} title="Search">
               <MagnifyingGlass size={16} weight="regular" />
@@ -126,19 +109,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
               <FileText size={16} weight="regular" />
             </button>
           </div>
-        )}
-      </div>
-
-      {/* Navigation Tabs - Figma Style */}
-      {isExpanded && (
-        <div className={styles.navTabs}>
-          <button className={`${styles.navTab} ${styles.navTabActive}`}>
-            Pages
-          </button>
-          <button className={styles.navTab}>
-            Assets
-          </button>
-          <button className={styles.navTabAdd}>+</button>
         </div>
       )}
 
@@ -177,7 +147,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                         size={16} 
                       />
                       <span className={styles.label}>{item.label}</span>
-                      {isActive && <div className={styles.activeIndicator} />}
                     </Link>
                   );
                 })}
@@ -219,7 +188,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                         size={16} 
                       />
                       <span className={styles.label}>{item.label}</span>
-                      {isActive && <div className={styles.activeIndicator} />}
                     </Link>
                   );
                 })}
@@ -244,7 +212,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                 >
                   <Icon 
                     weight={isActive ? 'fill' : 'regular'} 
-                    size={18} 
+                    size={16} 
                   />
                 </Link>
               );

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged for staged files
+npx lint-staged
+
+# Validate design tokens haven't been broken
+npm run design:validate || exit 1

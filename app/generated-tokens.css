@@ -1,0 +1,214 @@
+/*
+ * AUTO-GENERATED FILE - DO NOT EDIT MANUALLY
+ * Generated from lib/design-tokens/
+ * Run: npm run design:generate
+ */
+
+:root {
+  /* Font Families */
+  --font-family-satoshi: 'Satoshi', sans-serif;
+  --font-family-switzer: 'Switzer', sans-serif;
+  --font-family-manier: 'Manier', sans-serif;
+  --font-family-inter: 'Inter', sans-serif;
+  --font-family-garamond: 'EB Garamond', serif;
+  --font-family-cormorant: 'Cormorant Garamond', serif;
+  --font-family-antonia: 'Antonia H1', serif;
+
+  /* Colors - Visionary Earth Tone Theme (Primary) */
+  --background: #363d49;
+  --background-secondary: #3f373c;
+  --surface: #623e33;
+  --surface-elevated: #5d3e39;
+  --text-primary: #ffedc1;
+  --text-secondary: #fdedc1;
+  --text-tertiary: #c67b22;
+  --text-disabled: #814837;
+  --accent-primary: #c2593f;
+  --accent-primary-hover: #b46c41;
+  --accent-primary-active: #8d503a;
+  --accent-secondary: #c67b22;
+  --accent-muted: #814837;
+  --accent-subtle: #5d3e39;
+  --border-subtle: #5d3e39;
+  --border-emphasis: #814837;
+  --border-strong: #8d503a;
+
+  /* Semantic Colors - Earth Tones */
+  --success: #16A34A;
+  --successLight: #22C55E;
+  --successDark: #15803D;
+  --error: #c2593f;
+  --errorLight: #b46c41;
+  --errorDark: #8d503a;
+  --warning: #c67b22;
+  --warningLight: #d6892a;
+  --warningDark: #a6691a;
+  --info: #814837;
+  --infoLight: #9a5845;
+  --infoDark: #6a3829;
+
+  /* Brand Colors - Pulse-specific branding */
+  --brand-lime-green: #84ff00;
+  --brand-lime-green-hover: #a5ff33;
+  --brand-light-grey: #d1d5db;
+  --brand-light-grey-hover: #e5e7eb;
+  --brand-black: #000000;
+  --brand-white: #ffffff;
+
+  /* Spacing Scale (8px base) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+  --spacing-5xl: 96px;
+
+  /* Compact Spacing Scale (0.75x multiplier) */
+  --spacing-compact-xs: 3px;
+  --spacing-compact-sm: 6px;
+  --spacing-compact-md: 9px;
+  --spacing-compact-lg: 12px;
+  --spacing-compact-xl: 18px;
+  --spacing-compact-2xl: 24px;
+  --spacing-compact-3xl: 36px;
+  --spacing-compact-4xl: 48px;
+  --spacing-compact-5xl: 72px;
+
+  --section-gap: 36px;
+  --card-gap: 18px;
+
+  /* Typography Scale */
+  --font-size-h1: 48px;
+  --line-height-h1: 1.2;
+  --font-weight-h1: 600;
+  --letter-spacing-h1: -0.02em;
+  --font-size-h2: 36px;
+  --line-height-h2: 1.2;
+  --font-weight-h2: 600;
+  --letter-spacing-h2: -0.01em;
+  --font-size-h3: 24px;
+  --line-height-h3: 1.3;
+  --font-weight-h3: 600;
+  --letter-spacing-h3: 0;
+  --font-size-h4: 20px;
+  --line-height-h4: 1.4;
+  --font-weight-h4: 600;
+  --letter-spacing-h4: 0;
+  --font-size-body: 16px;
+  --line-height-body: 1.55;
+  --font-weight-body: 400;
+  --letter-spacing-body: 0;
+  --font-size-small: 14px;
+  --line-height-small: 1.45;
+  --font-weight-small: 400;
+  --letter-spacing-small: 0;
+  --font-size-tiny: 12px;
+  --line-height-tiny: 1.4;
+  --font-weight-tiny: 400;
+  --letter-spacing-tiny: 0;
+
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.55;
+  --line-height-relaxed: 1.65;
+  --letter-spacing-tight: -0.03em;
+  --letter-spacing-heading: -0.03em;
+  --letter-spacing-normal: 0;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border Radius */
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
+
+  /* Border Width */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+
+  /* Shadows - Earth Tone Tinted */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.1);
+  --shadow-md: 0 4px 12px rgba(93, 62, 57, 0.15);
+  --shadow-lg: 0 8px 24px rgba(93, 62, 57, 0.2);
+  --shadow-xl: 0 16px 48px rgba(93, 62, 57, 0.25);
+
+  /* Animation Timing */
+  --animation-timing-micro: 150ms;
+  --animation-timing-standard: 200ms;
+  --animation-timing-smooth: 300ms;
+  --animation-timing-slow: 500ms;
+
+  /* Animation Easing */
+  --animation-easing-easeIn: cubic-bezier(0.4, 0, 1, 1);
+  --animation-easing-easeOut: cubic-bezier(0, 0, 0.2, 1);
+  --animation-easing-easeInOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Badge System Colors - Earth Tones */
+  --badge-bronze: #8d503a; /* potters-clay */
+  --badge-silver: #814837; /* ironstone */
+  --badge-gold: #c67b22; /* ochre */
+  --badge-platinum: #b46c41; /* brown-rust */
+  --badge-green-glow: rgba(22, 163, 74, 0.3);
+
+}
+
+/* Dark mode via data attribute */
+[data-theme='dark'] {
+  /* Visionary Theme - Even Darker */
+  --background: #0A0705;
+  --background-secondary: #120E0A;
+  --surface: #1A1510;
+  --surface-elevated: #241B15;
+  --text-primary: #F5F3F0;
+  --text-secondary: #D4C9BC;
+  --text-tertiary: #A1937F;
+  --text-disabled: #5E5650;
+  --accent-primary: #FB923C;
+  --accent-primary-hover: #FDBA74;
+  --accent-primary-active: #F97316;
+  --accent-secondary: #FED7AA;
+  --accent-muted: #9A3412;
+  --accent-subtle: #7C2D12;
+  --border-subtle: #2A2218;
+  --border-emphasis: #3A2E24;
+  --border-strong: #4A3D30;
+
+  /* Shadows - Darker */
+  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.15000000000000002);
+  --shadow-md: 0 4px 12px rgba(93, 62, 57, 0.2);
+  --shadow-lg: 0 8px 24px rgba(93, 62, 57, 0.25);
+  --shadow-xl: 0 16px 48px rgba(93, 62, 57, 0.3);
+}
+
+/* Fallback to system preference if no manual selection */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Same as dark theme above */
+    --background: #0A0705;
+    --background-secondary: #120E0A;
+    --surface: #1A1510;
+    --surface-elevated: #241B15;
+    --text-primary: #F5F3F0;
+    --text-secondary: #D4C9BC;
+    --text-tertiary: #A1937F;
+    --text-disabled: #5E5650;
+    --accent-primary: #FB923C;
+    --accent-primary-hover: #FDBA74;
+    --accent-primary-active: #F97316;
+    --accent-secondary: #FED7AA;
+    --accent-muted: #9A3412;
+    --accent-subtle: #7C2D12;
+    --border-subtle: #2A2218;
+    --border-emphasis: #3A2E24;
+    --border-strong: #4A3D30;
+  }
+}

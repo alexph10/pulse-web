@@ -27,13 +27,13 @@ export function MoodAnalysisPanel({ moodAnalysis, onDismiss }: MoodAnalysisPanel
 
   const getMoodColor = (mood: string): string => {
     const moodColors: Record<string, string> = {
-      'joyful': '#16A34A', // green (success)
-      'calm': '#814837', // ironstone
-      'anxious': '#c67b22', // ochre
-      'frustrated': '#c2593f', // crail
-      'sad': '#8d503a', // potters-clay
-      'excited': '#b46c41', // brown-rust
-      'neutral': '#814837', // ironstone (replaces gray)
+      'joyful': 'var(--success)', // green (success)
+      'calm': 'var(--info)', // ironstone
+      'anxious': 'var(--warning)', // ochre
+      'frustrated': 'var(--error)', // crail
+      'sad': 'var(--error-dark)', // potters-clay
+      'excited': 'var(--error-light)', // brown-rust
+      'neutral': 'var(--info)', // ironstone (replaces gray)
     }
     return moodColors[mood.toLowerCase()] || 'var(--accent-primary)'
   }

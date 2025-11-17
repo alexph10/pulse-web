@@ -96,7 +96,7 @@ export default function Journal() {
         setEntries(data.entries)
       }
     } catch (error) {
-      console.error('Failed to fetch entries:', error)
+      showToast('Failed to fetch entries. Please try again.', 'error');
     }
   }
 
@@ -123,9 +123,9 @@ export default function Journal() {
       } else {
         showToast('Transcription failed. Please try again.', 'error')
       }
-    } catch (error: any) {
-      console.error('Transcription failed:', error)
-      showToast(error.message || 'Failed to transcribe audio. Check your connection.', 'error')
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to transcribe audio. Check your connection.';
+      showToast(errorMessage, 'error')
     } finally {
       setIsTranscribing(false)
     }
@@ -148,9 +148,9 @@ export default function Journal() {
           followUpQuestion: data.followUpQuestion,
         })
       }
-    } catch (error: any) {
-      console.error('Mood analysis failed:', error)
-      showToast(error.message || 'Mood analysis failed', 'error')
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Mood analysis failed';
+      showToast(errorMessage, 'error')
     } finally {
       setIsAnalyzing(false)
     }
@@ -200,7 +200,7 @@ export default function Journal() {
         showToast(data.error || 'Failed to save entry', 'error')
       }
     } catch (error) {
-      console.error('Failed to save entry:', error)
+      // Error toast already shown in saveEntry function
       // Network or unexpected error
       showToast('Failed to save entry. Please try again.', 'error')
     } finally {
@@ -506,7 +506,7 @@ export default function Journal() {
             entries={entries}
             onEntryClick={(entry) => {
               // Could open entry in a modal or navigate to detail view
-              console.log('Entry clicked:', entry)
+              // Entry clicked
             }}
             onDelete={async (entryId) => {
               try {

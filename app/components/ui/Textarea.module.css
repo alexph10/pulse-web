@@ -34,7 +34,7 @@
 
 .textarea:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
 }
 
 .textarea:disabled {
@@ -48,7 +48,8 @@
 }
 
 .textarea.error:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+  border-color: var(--error);
 }
 
 .errorText {
