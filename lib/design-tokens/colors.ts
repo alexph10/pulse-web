@@ -4,25 +4,25 @@
  */
 
 export const colors = {
-  // Visionary Earth Tone Theme (Primary)
+  // Serene Sandstone Theme (Primary)
   visionary: {
-    background: '#363d49', // bright-gray
-    backgroundSecondary: '#3f373c', // thunder
-    surface: '#623e33', // quincy
-    surfaceElevated: '#5d3e39', // congo-brown
-    textPrimary: '#ffedc1', // egg-white
-    textSecondary: '#fdedc1', // beeswax
-    textTertiary: '#c67b22', // ochre
-    textDisabled: '#814837', // ironstone
-    accentPrimary: '#c2593f', // crail
-    accentPrimaryHover: '#b46c41', // brown-rust
-    accentPrimaryActive: '#8d503a', // potters-clay
-    accentSecondary: '#c67b22', // ochre
-    accentMuted: '#814837', // ironstone
-    accentSubtle: '#5d3e39', // congo-brown
-    borderSubtle: '#5d3e39', // congo-brown
-    borderEmphasis: '#814837', // ironstone
-    borderStrong: '#8d503a', // potters-clay
+    background: '#f5f2eb', // warm off-white
+    backgroundSecondary: '#ebe5dc', // soft beige
+    surface: '#ffffff', // pure white cards
+    surfaceElevated: '#fdf9f2', // subtle ivory
+    textPrimary: '#1f252e', // deep charcoal
+    textSecondary: '#4a5666', // muted slate
+    textTertiary: '#7e8796', // cool taupe
+    textDisabled: '#b8c0cc', // light grey
+    accentPrimary: '#f6b562', // sunlit amber
+    accentPrimaryHover: '#f8c37f', // lighter amber
+    accentPrimaryActive: '#e9a24a', // deeper amber
+    accentSecondary: '#7b8ba4', // soft steel
+    accentMuted: '#d9dfe7', // pale mist
+    accentSubtle: '#f0ede6', // gentle sand
+    borderSubtle: '#e4ddd3', // parchment edge
+    borderEmphasis: '#d0c3b5', // clay edge
+    borderStrong: '#b9a48f', // warm stone
   },
   // Purple Theme (from reference images)
   purple: {
@@ -64,25 +64,25 @@ export const colors = {
     borderEmphasis: '#6A0000',
     borderStrong: '#7A0000',
   },
-  // Light mode colors - Visionary Earth Tone Theme (Default)
+  // Light mode colors - Serene Sandstone Theme (Default)
   light: {
-    background: '#363d49', // bright-gray
-    backgroundSecondary: '#3f373c', // thunder
-    surface: '#623e33', // quincy
-    surfaceElevated: '#5d3e39', // congo-brown
-    textPrimary: '#ffedc1', // egg-white
-    textSecondary: '#fdedc1', // beeswax
-    textTertiary: '#c67b22', // ochre
-    textDisabled: '#814837', // ironstone
-    accentPrimary: '#c2593f', // crail
-    accentPrimaryHover: '#b46c41', // brown-rust
-    accentPrimaryActive: '#8d503a', // potters-clay
-    accentSecondary: '#c67b22', // ochre
-    accentMuted: '#814837', // ironstone
-    accentSubtle: '#5d3e39', // congo-brown
-    borderSubtle: '#5d3e39', // congo-brown
-    borderEmphasis: '#814837', // ironstone
-    borderStrong: '#8d503a', // potters-clay
+    background: '#f5f2eb',
+    backgroundSecondary: '#ebe5dc',
+    surface: '#ffffff',
+    surfaceElevated: '#fdf9f2',
+    textPrimary: '#1f252e',
+    textSecondary: '#4a5666',
+    textTertiary: '#7e8796',
+    textDisabled: '#b8c0cc',
+    accentPrimary: '#f6b562',
+    accentPrimaryHover: '#f8c37f',
+    accentPrimaryActive: '#e9a24a',
+    accentSecondary: '#7b8ba4',
+    accentMuted: '#d9dfe7',
+    accentSubtle: '#f0ede6',
+    borderSubtle: '#e4ddd3',
+    borderEmphasis: '#d0c3b5',
+    borderStrong: '#b9a48f',
   },
   // Dark mode colors - Even darker for true dark mode
   dark: {

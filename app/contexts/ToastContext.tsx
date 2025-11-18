@@ -173,23 +173,23 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
     switch (toast.type) {
       case 'success':
         return {
-          background: 'linear-gradient(135deg, #10B981, #059669)',
+          background: 'linear-gradient(135deg, #dff4eb, #bfe8d8)',
           icon: 'SUCCESS'
         }
       case 'error':
         return {
-          background: 'linear-gradient(135deg, #EF4444, #DC2626)',
+          background: 'linear-gradient(135deg, #ffe7e3, #ffd2ca)',
           icon: 'ERROR'
         }
       case 'warning':
         return {
-          background: 'linear-gradient(135deg, #F59E0B, #D97706)',
+          background: 'linear-gradient(135deg, #fff3e0, #ffe3bd)',
           icon: 'WARNING'
         }
       case 'info':
       default:
         return {
-          background: 'linear-gradient(135deg, #3B82F6, #2563EB)',
+          background: 'linear-gradient(135deg, #e9eff7, #d6e2f0)',
           icon: 'INFO'
         }
     }
@@ -201,10 +201,10 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
     <div
       style={{
         background: styles.background,
-        color: 'white',
+        color: '#0f3d3c',
         padding: '16px 20px',
         borderRadius: '12px',
-        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 18px 32px rgba(15, 61, 60, 0.12)',
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
@@ -220,7 +220,7 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
           width: '28px',
           height: '28px',
           borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.2)',
+          background: 'rgba(15, 61, 60, 0.08)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -251,7 +251,7 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
         style={{
           background: 'transparent',
           border: 'none',
-          color: 'white',
+          color: '#0f3d3c',
           fontSize: '18px',
           cursor: 'pointer',
           padding: '4px',
@@ -263,7 +263,7 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
           flexShrink: 0
         }}
         onMouseOver={(e) => {
-          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'
+          e.currentTarget.style.background = 'rgba(15, 61, 60, 0.12)'
         }}
         onMouseOut={(e) => {
           e.currentTarget.style.background = 'transparent'

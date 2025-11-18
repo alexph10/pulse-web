@@ -1,0 +1,113 @@
+/* EmptyState Component Styles - Using Design Tokens */
+
+.emptyStateCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-5xl) var(--spacing-3xl);
+  text-align: center;
+  min-height: 400px;
+  background: transparent;
+  border: none;
+}
+
+.illustrationContainer {
+  margin-bottom: var(--spacing-2xl);
+  opacity: 0.9;
+  animation: fadeInUp var(--animation-timing-slow) var(--animation-easing-easeOut);
+  filter: drop-shadow(0 var(--spacing-lg) var(--spacing-xl) rgba(234, 88, 12, 0.15));
+}
+
+.title {
+  font-family: var(--font-family-satoshi);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-compact-lg);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.description {
+  font-family: var(--font-family-switzer);
+  font-size: var(--font-size-body);
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-2xl);
+  max-width: 400px;
+  line-height: var(--line-height-relaxed);
+}
+
+.descriptionWithAction {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.illustration {
+  animation: fadeInUp var(--animation-timing-slow) var(--animation-easing-easeOut);
+}
+
+.illustration circle[fill*="accent"],
+.illustration path[stroke*="accent"] {
+  animation: pulse 2s var(--animation-easing-easeInOut) infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-xl)) scale(0.95);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .emptyStateCard {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+    min-height: 300px;
+  }
+
+  .illustrationContainer {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .title {
+    font-size: var(--font-size-h4);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .description {
+    font-size: var(--font-size-small);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .emptyStateCard {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    min-height: 250px;
+  }
+
+  .illustrationContainer {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-body);
+  }
+
+  .description {
+    font-size: var(--font-size-small);
+  }
+}
+

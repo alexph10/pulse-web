@@ -3,18 +3,11 @@
 }
 
 .title {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
   font-size: var(--font-size-h1);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   margin-bottom: var(--spacing-sm);
   font-family: var(--font-family-satoshi);
-}
-
-.title svg {
-  color: var(--error);
 }
 
 .subtitle {
@@ -56,14 +49,12 @@
   position: relative;
 }
 
-.popularIcon {
-  width: 72px;
-  height: 72px;
-  border-radius: var(--border-radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.popularAccent {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--border-radius-full);
+  background: var(--text-secondary);
+  opacity: 0.3;
 }
 
 .popularContent {
@@ -141,14 +132,12 @@
   border: var(--border-width-thin) solid var(--border-emphasis);
 }
 
-.iconWrapper {
-  width: var(--spacing-3xl);
-  height: var(--spacing-3xl);
-  border-radius: var(--border-radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.actionIndicator {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-full);
+  background: var(--text-secondary);
+  opacity: 0.25;
 }
 
 .content {
@@ -207,14 +196,8 @@
 }
 
 .infoIcon {
-  width: var(--spacing-3xl);
-  height: var(--spacing-3xl);
-  border-radius: var(--border-radius-md);
-  background: var(--overlay-backdrop-subtle);
-  color: var(--error);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 0;
+  height: 0;
   flex-shrink: 0;
 }
 

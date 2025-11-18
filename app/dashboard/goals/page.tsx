@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '../../contexts/ToastContext';
+import styles from './page.module.css';
+import { cn } from '@/lib/utils';
+import LoadingState from '../../components/shared/LoadingState';
+import EmptyState from '../../components/shared/EmptyState';
 
 interface Goal {
   id: string;
@@ -193,77 +197,40 @@ export default function Goals() {
     <div className="min-h-screen p-8" style={{ background: 'var(--background)' }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '32px'
-        }}>
-          <div>
-            <h1 style={{
-              fontSize: '32px',
-              fontWeight: 600,
-              color: 'var(--text-primary)',
-              fontFamily: 'var(--font-family-satoshi)',
-              marginBottom: '8px'
-            }}>
+        <div className={styles.header}>
+          <div className={styles.headerContent}>
+            <h1 className={styles.title}>
               Goals
             </h1>
-            <p style={{
-              fontSize: '14px',
-              color: 'var(--text-secondary)',
-              fontFamily: 'var(--font-family-switzer)'
-            }}>
+            <p className={styles.subtitle}>
               Track and achieve your personal goals
             </p>
           </div>
           
           <button
             onClick={() => setShowNewGoalForm(!showNewGoalForm)}
-            style={{
-              padding: '10px 20px',
-              background: showNewGoalForm ? 'transparent' : 'var(--accent-primary)',
-              color: showNewGoalForm ? 'var(--accent-primary)' : 'var(--brand-white)',
-              border: showNewGoalForm ? '2px solid var(--accent-primary)' : 'none',
-              borderRadius: '10px',
-              fontSize: '14px',
-              fontWeight: 600,
-              fontFamily: 'var(--font-family-satoshi)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+            className={cn(
+              styles.newGoalButton,
+              showNewGoalForm && styles.newGoalButtonCancel
+            )}
+            aria-label={showNewGoalForm ? 'Cancel creating new goal' : 'Create new goal'}
           >
             {showNewGoalForm ? 'Cancel' : 'New Goal'}
           </button>
         </div>
 
         {/* Filter Tabs */}
-        <div style={{
-          display: 'flex',
-          gap: '12px',
-          marginBottom: '32px',
-          borderBottom: '1px solid var(--border-subtle)',
-          paddingBottom: '0'
-        }}>
+        <div className={styles.filterTabs}>
           {(['all', 'active', 'completed'] as const).map(status => (
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              style={{
-                padding: '12px 24px',
-                background: 'transparent',
-                color: filterStatus === status ? 'var(--text-primary)' : 'var(--text-tertiary)',
-                border: 'none',
-                borderBottom: filterStatus === status ? '2px solid var(--error)' : '2px solid transparent',
-                fontSize: '14px',
-                fontWeight: filterStatus === status ? 600 : 500,
-                fontFamily: 'var(--font-family-satoshi)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                textTransform: 'capitalize'
-              }}
+              className={cn(
+                styles.filterTab,
+                filterStatus === status && styles.filterTabActive
+              )}
+              aria-label={`Filter goals by ${status}`}
+              aria-pressed={filterStatus === status}
             >
               {status === 'all' ? 'All Goals' : `${status.charAt(0).toUpperCase() + status.slice(1)}`}
             </button>
@@ -272,314 +239,164 @@ export default function Goals() {
 
         {/* New Goal Form */}
         {showNewGoalForm && (
-          <div style={{
-            background: 'var(--surface)',
-            border: '1px solid var(--border-subtle)',
-            boxShadow: 'var(--shadow-lg)',
-            borderRadius: '16px',
-            padding: '32px',
-            marginBottom: '32px'
-          }}>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: 600,
-              color: 'var(--brand-white)',
-              fontFamily: 'var(--font-family-satoshi)',
-              marginBottom: '24px'
-            }}>
+          <div className={styles.newGoalForm}>
+            <h3 className={styles.formTitle}>
               Create New Goal
             </h3>
             
             <form onSubmit={createGoal}>
-              <div style={{ display: 'grid', gap: '20px' }}>
+              <div className={styles.formGrid}>
                 {/* Title */}
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: 'var(--brand-white)',
-                    fontFamily: 'var(--font-family-satoshi)',
-                    marginBottom: '8px'
-                  }}>
+                <div className={styles.formField}>
+                  <label className={styles.formLabel} htmlFor="goal-title">
                     Goal Title
                   </label>
                   <input
+                    id="goal-title"
                     type="text"
                     required
                     value={newGoal.title}
                     onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
                     placeholder="e.g., Read 12 books this year"
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      background: 'var(--overlay-white-overlay-subtle)',
-                      border: '1px solid var(--overlay-white-overlay-light)',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      color: 'var(--brand-white)',
-                      outline: 'none'
-                    }}
+                    className={styles.formInput}
+                    aria-label="Goal title"
+                    aria-required="true"
                   />
                 </div>
 
                 {/* Description */}
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    color: '#FFFFFF',
-                    fontFamily: 'var(--font-family-satoshi)',
-                    marginBottom: '8px'
-                  }}>
+                <div className={styles.formField}>
+                  <label className={styles.formLabel} htmlFor="goal-description">
                     Description (optional)
                   </label>
                   <textarea
+                    id="goal-description"
                     value={newGoal.description}
                     onChange={(e) => setNewGoal({ ...newGoal, description: e.target.value })}
                     placeholder="Add more details about your goal..."
                     rows={3}
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      background: 'var(--overlay-white-overlay-subtle)',
-                      border: '1px solid var(--overlay-white-overlay-light)',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      color: 'var(--brand-white)',
-                      outline: 'none',
-                      resize: 'vertical'
-                    }}
+                    className={styles.formTextarea}
+                    aria-label="Goal description"
                   />
                 </div>
 
                 {/* Target Value & Unit */}
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px' }}>
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--brand-white)',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      marginBottom: '8px'
-                    }}>
+                <div className={styles.formGridTwoCol}>
+                  <div className={styles.formField}>
+                    <label className={styles.formLabel} htmlFor="goal-target">
                       Target Value
                     </label>
                     <input
+                      id="goal-target"
                       type="number"
                       required
                       min="1"
                       value={newGoal.target_value}
                       onChange={(e) => setNewGoal({ ...newGoal, target_value: parseInt(e.target.value) })}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontFamily: 'var(--font-family-satoshi)',
-                        color: 'var(--brand-white)',
-                        outline: 'none'
-                      }}
+                      className={styles.formInput}
+                      aria-label="Target value"
+                      aria-required="true"
                     />
                   </div>
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--brand-white)',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      marginBottom: '8px'
-                    }}>
+                  <div className={styles.formField}>
+                    <label className={styles.formLabel} htmlFor="goal-unit">
                       Unit
                     </label>
                     <input
+                      id="goal-unit"
                       type="text"
                       required
                       value={newGoal.unit}
                       onChange={(e) => setNewGoal({ ...newGoal, unit: e.target.value })}
                       placeholder="books, miles, etc."
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontFamily: 'var(--font-family-satoshi)',
-                        color: 'var(--brand-white)',
-                        outline: 'none'
-                      }}
+                      className={styles.formInput}
+                      aria-label="Unit of measurement"
+                      aria-required="true"
                     />
                   </div>
                 </div>
 
                 {/* Category & Due Date */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--brand-white)',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      marginBottom: '8px'
-                    }}>
+                <div className={styles.formGridEqual}>
+                  <div className={styles.formField}>
+                    <label className={styles.formLabel} htmlFor="goal-category">
                       Category
                     </label>
                     <select
+                      id="goal-category"
                       value={newGoal.category}
                       onChange={(e) => setNewGoal({ ...newGoal, category: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontFamily: 'var(--font-family-satoshi)',
-                        color: 'var(--brand-white)',
-                        outline: 'none'
-                      }}
+                      className={styles.formSelect}
+                      aria-label="Goal category"
                     >
-                      <option value="personal" style={{ background: 'var(--surface)' }}>Personal</option>
-                      <option value="health" style={{ background: 'var(--surface)' }}>Health</option>
-                      <option value="career" style={{ background: 'var(--surface)' }}>Career</option>
-                      <option value="learning" style={{ background: 'var(--surface)' }}>Learning</option>
-                      <option value="financial" style={{ background: 'var(--surface)' }}>Financial</option>
-                      <option value="social" style={{ background: 'var(--surface)' }}>Social</option>
+                      <option value="personal">Personal</option>
+                      <option value="health">Health</option>
+                      <option value="career">Career</option>
+                      <option value="learning">Learning</option>
+                      <option value="financial">Financial</option>
+                      <option value="social">Social</option>
                     </select>
                   </div>
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--brand-white)',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      marginBottom: '8px'
-                    }}>
+                  <div className={styles.formField}>
+                    <label className={styles.formLabel} htmlFor="goal-due-date">
                       Due Date (optional)
                     </label>
                     <input
+                      id="goal-due-date"
                       type="date"
                       value={newGoal.due_date}
                       onChange={(e) => setNewGoal({ ...newGoal, due_date: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontFamily: 'var(--font-family-satoshi)',
-                        color: 'var(--brand-white)',
-                        outline: 'none',
-                        colorScheme: 'dark'
-                      }}
+                      className={styles.formInput}
+                      aria-label="Goal due date"
                     />
                   </div>
                 </div>
 
                 {/* Priority & Why */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--brand-white)',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      marginBottom: '8px'
-                    }}>
+                <div className={styles.formGridPriority}>
+                  <div className={styles.formField}>
+                    <label className={styles.formLabel} htmlFor="goal-priority">
                       Priority
                     </label>
                     <select
+                      id="goal-priority"
                       value={newGoal.priority}
                       onChange={(e) => setNewGoal({ ...newGoal, priority: e.target.value as 'low' | 'medium' | 'high' | 'urgent' })}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontFamily: 'var(--font-family-satoshi)',
-                        color: 'var(--brand-white)',
-                        outline: 'none'
-                      }}
+                      className={styles.formSelect}
+                      aria-label="Goal priority"
                     >
-                      <option value="low" style={{ background: 'var(--surface)' }}>Low</option>
-                      <option value="medium" style={{ background: 'var(--surface)' }}>Medium</option>
-                      <option value="high" style={{ background: 'var(--surface)' }}>High</option>
-                      <option value="urgent" style={{ background: 'var(--surface)' }}>Urgent</option>
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                      <option value="urgent">Urgent</option>
                     </select>
                   </div>
-                  <div>
-                    <label style={{
-                      display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--brand-white)',
-                      fontFamily: 'var(--font-family-satoshi)',
-                      marginBottom: '8px'
-                    }}>
+                  <div className={styles.formField}>
+                    <label className={styles.formLabel} htmlFor="goal-why">
                       Why is this important? (optional)
                     </label>
                     <input
+                      id="goal-why"
                       type="text"
                       value={newGoal.why}
                       onChange={(e) => setNewGoal({ ...newGoal, why: e.target.value })}
                       placeholder="To improve my mental health..."
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontFamily: 'var(--font-family-satoshi)',
-                        color: 'var(--brand-white)',
-                        outline: 'none'
-                      }}
+                      className={styles.formInput}
+                      aria-label="Why this goal is important"
                     />
                   </div>
                 </div>
 
                 {/* Submit Button */}
-                <button
-                  type="submit"
-                  style={{
-                    width: '100%',
-                    padding: '14px',
-                    background: 'var(--accent-primary)',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '10px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-family-satoshi)',
-                    cursor: 'pointer',
-                    marginTop: '8px',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = '0.9';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = '1';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  Create Goal
-                </button>
+                <div className={styles.formButtonGroup}>
+                  <button
+                    type="submit"
+                    className={styles.formButton}
+                    aria-label="Create goal"
+                  >
+                    Create Goal
+                  </button>
+                </div>
               </div>
             </form>
           </div>
@@ -587,54 +404,23 @@ export default function Goals() {
 
         {/* Goals List */}
         {loading ? (
-          <div style={{
-            textAlign: 'center',
-            padding: '60px 0',
-            color: 'var(--text-tertiary)',
-            fontFamily: 'var(--font-family-satoshi)',
-            fontSize: '14px'
-          }}>
-            Loading goals...
-          </div>
+          <LoadingState variant="card" count={3} />
         ) : goals.length === 0 ? (
-          <div style={{
-            textAlign: 'center',
-            padding: '60px 0'
-          }}>
-            <p style={{
-              fontSize: '16px',
-              color: 'var(--text-tertiary)',
-              fontFamily: 'var(--font-family-switzer)',
-              marginBottom: '24px'
-            }}>
-              {filterStatus === 'active' ? 'No active goals yet' : 
-               filterStatus === 'completed' ? 'No completed goals yet' : 
-               'No goals yet'}
-            </p>
-            {!showNewGoalForm && (
-              <button
-                onClick={() => setShowNewGoalForm(true)}
-                style={{
-                  padding: '12px 24px',
-                  background: 'var(--accent-primary)',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  borderRadius: '10px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  fontFamily: 'var(--font-family-satoshi)',
-                  cursor: 'pointer',
-                  transition: 'opacity 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-              >
-                Create Your First Goal
-              </button>
-            )}
-          </div>
+          <EmptyState
+            title={
+              filterStatus === 'active' ? 'No active goals yet' : 
+              filterStatus === 'completed' ? 'No completed goals yet' : 
+              'No goals yet'
+            }
+            description="Start tracking your progress by creating your first goal"
+            illustration="goals"
+            action={!showNewGoalForm ? {
+              text: 'Create Your First Goal',
+              onClick: () => setShowNewGoalForm(true)
+            } : undefined}
+          />
         ) : (
-          <div style={{ display: 'grid', gap: '20px' }}>
+          <div className={styles.goalsList}>
             {goals.map(goal => {
               const progress = getProgressPercentage(goal.current_value, goal.target_value);
               const daysUntilDue = getDaysUntilDue(goal.due_date);
@@ -644,150 +430,58 @@ export default function Goals() {
               return (
                 <div
                   key={goal.id}
-                  style={{
-                    background: 'var(--surface)',
-                    borderRadius: '16px',
-                    padding: '24px',
-                    border: '1px solid var(--border-subtle)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.08)';
-                    e.currentTarget.style.borderColor = 'var(--border-primary)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                  }}
+                  className={styles.goalCard}
                 >
                   {/* Header */}
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    marginBottom: '16px'
-                  }}>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                        <h3 style={{
-                          fontSize: '18px',
-                          fontWeight: 600,
-                          color: 'var(--text-primary)',
-                          fontFamily: 'var(--font-family-satoshi)',
-                          margin: 0
-                        }}>
+                  <div className={styles.goalCardHeader}>
+                    <div className={styles.goalCardContent}>
+                      <div className={styles.goalTitleRow}>
+                        <h3 className={styles.goalTitle}>
                           {goal.title}
                         </h3>
                         {goal.priority && (
-                          <span style={{
-                            padding: '4px 12px',
-                            background: 
-                              goal.priority === 'urgent' ? 'var(--overlay-backdrop-subtle)' :
-                              goal.priority === 'high' ? 'var(--overlay-backdrop-subtle)' :
-                              goal.priority === 'medium' ? 'var(--overlay-backdrop-subtle)' :
-                              'var(--overlay-white-overlay-subtle)',
-                            color: 
-                              goal.priority === 'urgent' ? 'var(--error)' :
-                              goal.priority === 'high' ? 'var(--accent-primary)' :
-                              goal.priority === 'medium' ? 'var(--error)' :
-                              'var(--brand-white)',
-                            borderRadius: '12px',
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            fontFamily: 'var(--font-family-satoshi)',
-                            textTransform: 'uppercase'
-                          }}>
+                          <span className={cn(
+                            styles.priorityBadge,
+                            goal.priority === 'high' && styles.priorityBadgeHigh,
+                            goal.priority === 'medium' && styles.priorityBadgeMedium,
+                            goal.priority === 'low' && styles.priorityBadgeLow
+                          )}>
                             {goal.priority}
                           </span>
                         )}
                         {goal.status === 'completed' && (
-                          <span style={{
-                            padding: '4px 12px',
-                            background: 'var(--overlay-backdrop-subtle)',
-                            color: 'var(--error)',
-                            borderRadius: '12px',
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            fontFamily: 'var(--font-family-satoshi)'
-                          }}>
+                          <span className={styles.statusBadge}>
                             Completed
                           </span>
                         )}
                       </div>
                       {goal.description && (
-                        <p style={{
-                          fontSize: '13px',
-                          color: 'var(--text-secondary)',
-                          fontFamily: 'var(--font-family-switzer)',
-                          margin: 0,
-                          lineHeight: '1.5'
-                        }}>
+                        <p className={styles.goalDescription}>
                           {goal.description}
                         </p>
                       )}
                       {goal.why && (
-                        <p style={{
-                          fontSize: '13px',
-                          color: 'var(--error)',
-                          fontFamily: 'var(--font-family-switzer)',
-                          margin: '8px 0 0 0',
-                          lineHeight: '1.5',
-                          fontStyle: 'italic'
-                        }}>
+                        <p className={styles.goalWhy}>
                           Why: {goal.why}
                         </p>
                       )}
                     </div>
                     
                     {/* Action Buttons */}
-                    <div style={{ display: 'flex', gap: '8px', marginLeft: '16px' }}>
+                    <div className={styles.goalActions}>
                       <button
                         onClick={() => archiveGoal(goal.id)}
+                        className={styles.actionButton}
+                        aria-label="Archive goal"
                         title="Archive goal"
-                        style={{
-                          padding: '8px 12px',
-                          background: 'transparent',
-                          border: '1px solid var(--border-subtle)',
-                          borderRadius: '8px',
-                          color: 'var(--text-tertiary)',
-                          fontSize: '12px',
-                          cursor: 'pointer',
-                          fontFamily: 'var(--font-family-satoshi)',
-                          transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--text-secondary)';
-                          e.currentTarget.style.color = 'var(--text-secondary)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                          e.currentTarget.style.color = 'var(--text-tertiary)';
-                        }}
                       >
                         Archive
                       </button>
                       <button
                         onClick={() => deleteGoal(goal.id)}
+                        className={cn(styles.actionButton, styles.actionButtonDelete)}
+                        aria-label="Delete goal"
                         title="Delete goal"
-                        style={{
-                          padding: '8px 12px',
-                          background: 'transparent',
-                          border: '1px solid rgba(224, 145, 197, 0.3)',
-                          borderRadius: '8px',
-                          color: '#E091C5',
-                          fontSize: '12px',
-                          cursor: 'pointer',
-                          fontFamily: 'var(--font-family-satoshi)',
-                          transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(224, 145, 197, 0.1)';
-                          e.currentTarget.style.borderColor = '#E091C5';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'transparent';
-                          e.currentTarget.style.borderColor = 'rgba(224, 145, 197, 0.3)';
-                        }}
                       >
                         Delete
                       </button>
@@ -795,30 +489,16 @@ export default function Goals() {
                   </div>
 
                   {/* Category & Due Date */}
-                  <div style={{
-                    display: 'flex',
-                    gap: '16px',
-                    marginBottom: '16px',
-                    fontSize: '12px',
-                    color: 'var(--text-tertiary)',
-                    fontFamily: 'var(--font-family-switzer)'
-                  }}>
-                    <span style={{
-                      padding: '4px 12px',
-                      background: 'var(--surface-elevated)',
-                      borderRadius: '6px',
-                      textTransform: 'capitalize'
-                    }}>
+                  <div className={styles.categoryInfo}>
+                    <span className={styles.categoryBadge}>
                       {goal.category}
                     </span>
                     {daysUntilDue !== null && (
-                      <span style={{
-                        padding: '4px 12px',
-                        background: isOverdue ? 'rgba(224, 145, 197, 0.1)' : isDueSoon ? 'rgba(229, 168, 98, 0.1)' : 'var(--surface-elevated)',
-                        color: isOverdue ? '#E091C5' : isDueSoon ? '#E5A862' : 'var(--text-tertiary)',
-                        borderRadius: '6px',
-                        fontWeight: 500
-                      }}>
+                      <span className={cn(
+                        styles.dueDateBadge,
+                        isOverdue && styles.dueDateBadgeOverdue,
+                        isDueSoon && !isOverdue && styles.dueDateBadgeSoon
+                      )}>
                         {isOverdue 
                           ? `${Math.abs(daysUntilDue)}d overdue` 
                           : daysUntilDue === 0 
@@ -829,105 +509,47 @@ export default function Goals() {
                   </div>
 
                   {/* Progress Bar */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '8px'
-                    }}>
-                      <span style={{
-                        fontSize: '13px',
-                        color: 'var(--text-secondary)',
-                        fontFamily: 'var(--font-family-switzer)'
-                      }}>
+                  <div className={styles.progressSection}>
+                    <div className={styles.progressHeader}>
+                      <span className={styles.progressLabel}>
                         {goal.current_value} / {goal.target_value} {goal.unit}
                       </span>
-                      <span style={{
-                        fontSize: '14px',
-                        fontWeight: 600,
-                        color: progress === 100 ? '#C84B4B' : '#B8A8D8',
-                        fontFamily: 'var(--font-family-satoshi)'
-                      }}>
+                      <span className={cn(
+                        styles.progressValue,
+                        progress === 100 && styles.progressPercentageComplete
+                      )}>
                         {Math.round(progress)}%
                       </span>
                     </div>
-                    <div style={{
-                      width: '100%',
-                      height: '12px',
-                      background: 'var(--surface-elevated)',
-                      borderRadius: '6px',
-                      overflow: 'hidden'
-                    }}>
-                      <div style={{
-                        width: `${progress}%`,
-                        height: '100%',
-                        background: progress === 100 ? '#C84B4B' : '#8B2F2F',
-                        borderRadius: '6px',
-                        transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-                      }} />
+                    <div className={styles.progressBar}>
+                      <div 
+                        className={styles.progressBarFill}
+                        style={{ width: `${progress}%` }}
+                        role="progressbar"
+                        aria-valuenow={progress}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`Progress: ${Math.round(progress)}%`}
+                      />
                     </div>
                   </div>
 
                   {/* Progress Controls */}
                   {goal.status === 'active' && (
-                    <div style={{
-                      display: 'flex',
-                      gap: '8px'
-                    }}>
+                    <div className={styles.valueControls}>
                       <button
                         onClick={() => updateGoalProgress(goal.id, Math.max(0, goal.current_value - 1), goal.target_value)}
                         disabled={goal.current_value === 0}
-                        style={{
-                          flex: 1,
-                          padding: '10px',
-                          background: 'transparent',
-                          border: '1px solid var(--border-subtle)',
-                          borderRadius: '8px',
-                          color: 'var(--text-secondary)',
-                          fontSize: '13px',
-                          fontWeight: 600,
-                          fontFamily: 'var(--font-family-satoshi)',
-                          cursor: goal.current_value === 0 ? 'not-allowed' : 'pointer',
-                          opacity: goal.current_value === 0 ? 0.5 : 1,
-                          transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                          if (goal.current_value > 0) {
-                            e.currentTarget.style.background = 'var(--surface-elevated)';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'transparent';
-                        }}
+                        className={cn(styles.valueButton, styles.valueButtonDecrease)}
+                        aria-label="Decrease progress by 1"
                       >
                         -1
                       </button>
                       <button
                         onClick={() => updateGoalProgress(goal.id, goal.current_value + 1, goal.target_value)}
                         disabled={goal.current_value >= goal.target_value}
-                        style={{
-                          flex: 1,
-                          padding: '10px',
-                          background: goal.current_value >= goal.target_value ? 'transparent' : '#8B2F2F',
-                          border: goal.current_value >= goal.target_value ? '1px solid var(--border-subtle)' : 'none',
-                          borderRadius: '8px',
-                          color: goal.current_value >= goal.target_value ? 'var(--text-secondary)' : '#FFFFFF',
-                          fontSize: '13px',
-                          fontWeight: 600,
-                          fontFamily: 'var(--font-family-satoshi)',
-                          cursor: goal.current_value >= goal.target_value ? 'not-allowed' : 'pointer',
-                          opacity: goal.current_value >= goal.target_value ? 0.5 : 1,
-                          transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                          if (goal.current_value < goal.target_value) {
-                            e.currentTarget.style.opacity = '0.9';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.opacity = '1';
-                        }}
+                        className={cn(styles.valueButton, styles.valueButtonIncrease)}
+                        aria-label="Increase progress by 1"
                       >
                         +1
                       </button>

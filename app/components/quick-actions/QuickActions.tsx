@@ -7,20 +7,25 @@ export default function QuickActions() {
   const actions = [
     {
       id: 'journal',
+      category: 'Journal',
       label: 'New Journal Entry',
       description: 'Record your thoughts and feelings',
       href: '/dashboard/journal',
-      variant: 'journal'
+      variant: 'journal',
+      icon: null
     },
     {
       id: 'activity',
+      category: 'Activity',
       label: 'View Activity',
       description: 'Track your journaling patterns',
       href: '/dashboard/activity',
-      variant: 'activity'
+      variant: 'activity',
+      icon: null
     },
     {
       id: 'goal',
+      category: 'Goals',
       label: 'Set Wellness Goal',
       description: 'Define what you want to achieve',
       href: '/dashboard/goals',
@@ -28,6 +33,7 @@ export default function QuickActions() {
     },
     {
       id: 'reflection',
+      category: 'Reflection',
       label: 'Deep Reflection',
       description: 'Explore your patterns and growth',
       href: '/dashboard/reflections',
@@ -35,6 +41,7 @@ export default function QuickActions() {
     },
     {
       id: 'habit',
+      category: 'Habits',
       label: 'Track Habits',
       description: 'Build consistent wellness practices',
       href: '/dashboard/habits',
@@ -42,6 +49,7 @@ export default function QuickActions() {
     },
     {
       id: 'progress',
+      category: 'Progress',
       label: 'View Progress',
       description: 'See your wellness journey',
       href: '/dashboard/progress',
@@ -69,13 +77,13 @@ export default function QuickActions() {
               href={action.href}
               className={`${styles.actionCard} ${styles[action.variant]}`}
             >
-              <div className={styles.content}>
-                <h3 className={styles.actionLabel}>{action.label}</h3>
-                <p className={styles.actionDescription}>{action.description}</p>
+              <div className={styles.cardHeader}>
+                <span className={styles.categoryTag}>{action.category}</span>
               </div>
-              <div className={styles.arrow}>
-                →
-              </div>
+            <div className={styles.content}>
+              <h3 className={styles.actionLabel}>{action.label}</h3>
+              <p className={styles.actionDescription}>{action.description}</p>
+            </div>
             </Link>
           );
         })}

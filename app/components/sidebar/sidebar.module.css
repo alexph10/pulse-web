@@ -46,9 +46,7 @@
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.projectIcon:hover {
-  opacity: 0.8;
-}
+/* Static state - no hover effects */
 
 .iconCluster {
   display: flex;
@@ -125,13 +123,7 @@
   transform: none !important;
 }
 
-.headerIconButton:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-  outline: none !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
+/* Static state - no hover effects */
 
 .headerIconButton:focus,
 .headerIconButton:focus-visible {
@@ -267,10 +259,7 @@
   position: relative;
 }
 
-.navTab:hover {
-  color: var(--text-primary);
-  background: var(--surface-elevated);
-}
+/* Static state - no hover effects */
 
 .navTabActive {
   color: var(--text-primary);
@@ -296,10 +285,7 @@
   align-self: center;
 }
 
-.navTabAdd:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
+/* Static state - no hover effects */
 
 /* Navigation */
 .nav {
@@ -335,10 +321,7 @@
   font-family: var(--font-family-satoshi);
 }
 
-.sectionHeader:hover {
-  background: var(--surface-elevated);
-  color: var(--text-secondary);
-}
+/* Static state - no hover effects */
 
 .sectionChevron {
   color: var(--text-tertiary);
@@ -376,10 +359,7 @@
   min-height: 28px; /* Fixed min-height - not using spacing token */
 }
 
-.navItem:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
+/* Static state - no hover effects */
 
 .navItem.active {
   background: var(--surface-elevated);
@@ -442,10 +422,7 @@
   position: relative;
 }
 
-.navItemCollapsed:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
+/* Static state - no hover effects */
 
 .navItemCollapsed.activeCollapsed {
   background: var(--accent-primary);
@@ -480,10 +457,7 @@
   flex-shrink: 0;
 }
 
-.toggleButton:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
+/* Static state - no hover effects */
 
 /* Footer - Profile */
 .footer {
@@ -509,9 +483,7 @@
   justify-content: center;
 }
 
-.profileButton:hover {
-  background: var(--surface-elevated);
-}
+/* Static state - no hover effects */
 
 .profileAvatar {
   width: var(--spacing-2xl);
@@ -663,10 +635,7 @@
   text-align: left;
 }
 
-.profileMenuItem:hover {
-  background: var(--surface-elevated);
-  color: var(--accent-primary);
-}
+/* Static state - no hover effects */
 
 .profileMenuDivider {
   height: var(--border-width-thin);
@@ -697,10 +666,7 @@
   min-height: 38px; /* Fixed min-height - not using spacing token */
 }
 
-.signOutButton:hover {
-  background: var(--surface-elevated);
-  color: var(--accent-primary);
-}
+/* Static state - no hover effects */
 
 .signOutButton .icon {
   width: 20px; /* Fixed icon size - not using spacing token */
@@ -726,9 +692,7 @@
   border-radius: var(--border-radius-xs);
 }
 
-.nav::-webkit-scrollbar-thumb:hover {
-  background: var(--border-emphasis);
-}
+/* Static state - no hover effects */
 
 /* Mobile responsive */
 @media (max-width: 768px) {

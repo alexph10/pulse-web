@@ -1,19 +1,5 @@
 'use client'
 
-import { 
-  PenNib, 
-  Target, 
-  CheckSquare, 
-  Lightbulb, 
-  ChartLine,
-  Lightning,
-  Notebook,
-  ChartLineUp,
-  User,
-  BookOpen,
-  Fire,
-  Brain
-} from '@phosphor-icons/react';
 import Link from 'next/link';
 import { useAuth } from '../../contexts/AuthContext';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
@@ -29,7 +15,6 @@ export default function QuickActionsPage() {
       actions: [
         {
           id: 'journal',
-          icon: PenNib,
           label: 'New Journal Entry',
           description: 'Record your thoughts and feelings',
           href: '/dashboard/journal',
@@ -39,7 +24,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'note',
-          icon: Notebook,
           label: 'Quick Note',
           description: 'Jot down a quick thought',
           href: '/dashboard/notes',
@@ -49,7 +33,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'goal',
-          icon: Target,
           label: 'Set New Goal',
           description: 'Define what you want to achieve',
           href: '/dashboard/goals',
@@ -59,7 +42,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'reflection',
-          icon: Lightbulb,
           label: 'Deep Reflection',
           description: 'Analyze your patterns and growth',
           href: '/dashboard/reflections',
@@ -75,7 +57,6 @@ export default function QuickActionsPage() {
       actions: [
         {
           id: 'habits',
-          icon: CheckSquare,
           label: 'Check Habits',
           description: 'Mark off today\'s routines',
           href: '/dashboard/habits',
@@ -85,7 +66,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'activity',
-          icon: ChartLineUp,
           label: 'View Activity',
           description: 'See your journaling patterns',
           href: '/dashboard/activity',
@@ -95,7 +75,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'progress',
-          icon: ChartLine,
           label: 'Check Progress',
           description: 'Review your analytics',
           href: '/dashboard/progress',
@@ -111,7 +90,6 @@ export default function QuickActionsPage() {
       actions: [
         {
           id: 'insights',
-          icon: Brain,
           label: 'View Insights',
           description: 'Get personalized recommendations',
           href: '/dashboard/insights',
@@ -121,7 +99,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'streak',
-          icon: Fire,
           label: 'Streak Status',
           description: 'Check your consistency',
           href: '/dashboard/activity',
@@ -131,7 +108,6 @@ export default function QuickActionsPage() {
         },
         {
           id: 'profile',
-          icon: User,
           label: 'Profile Settings',
           description: 'Manage your account',
           href: '/dashboard/profile',
@@ -148,7 +124,6 @@ export default function QuickActionsPage() {
       <div className={styles.header}>
         <div>
           <h1 className={styles.title}>
-            <Lightning size={32} weight="duotone" />
             Quick Actions
           </h1>
           <p className={styles.subtitle}>
@@ -162,7 +137,6 @@ export default function QuickActionsPage() {
         <h2 className={styles.sectionTitle}>Most Used</h2>
         <div className={styles.popularGrid}>
           {actionCategories[0].actions.slice(0, 2).map(action => {
-            const Icon = action.icon;
             return (
               <Link
                 key={action.id}
@@ -170,15 +144,7 @@ export default function QuickActionsPage() {
                 className={styles.popularCard}
                 style={{ borderTop: `3px solid ${action.color}` }}
               >
-                <div
-                  className={styles.popularIcon}
-                  style={{
-                    backgroundColor: action.bgColor,
-                    color: action.color
-                  }}
-                >
-                  <Icon size={32} weight="duotone" />
-                </div>
+                <div className={styles.popularAccent} aria-hidden="true" />
                 <div className={styles.popularContent}>
                   <h3 className={styles.popularLabel}>{action.label}</h3>
                   <p className={styles.popularDesc}>{action.description}</p>
@@ -199,22 +165,13 @@ export default function QuickActionsPage() {
           </div>
           <div className={styles.actionGrid}>
             {category.actions.map((action) => {
-              const Icon = action.icon;
               return (
                 <Link
                   key={action.id}
                   href={action.href}
                   className={styles.actionCard}
                 >
-                  <div
-                    className={styles.iconWrapper}
-                    style={{
-                      backgroundColor: action.bgColor,
-                      color: action.color
-                    }}
-                  >
-                    <Icon size={24} weight="duotone" />
-                  </div>
+                  <div className={styles.actionIndicator} aria-hidden="true" />
                   <div className={styles.content}>
                     <h3 className={styles.actionLabel}>{action.label}</h3>
                     <p className={styles.actionDescription}>{action.description}</p>
@@ -223,10 +180,7 @@ export default function QuickActionsPage() {
                     <span className={styles.shortcutBadge}>
                       {action.shortcut}
                     </span>
-                    <span 
-                      className={styles.arrow}
-                      style={{ color: action.color }}
-                    >
+                    <span className={styles.arrow}>
                       →
                     </span>
                   </div>
@@ -239,9 +193,7 @@ export default function QuickActionsPage() {
 
       {/* Keyboard Shortcuts Info */}
       <div className={styles.infoCard}>
-        <div className={styles.infoIcon}>
-          <Lightning size={24} weight="duotone" />
-        </div>
+        <div className={styles.infoIcon} aria-hidden="true" />
         <div className={styles.infoContent}>
           <h3 className={styles.infoTitle}>Keyboard Shortcuts</h3>
           <p className={styles.infoText}>

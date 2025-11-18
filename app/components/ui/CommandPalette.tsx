@@ -250,7 +250,6 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
                         setSearch('')
                         setSelectedIndex(0)
                       }}
-                      onMouseEnter={() => setSelectedIndex(globalIndex)}
                     >
                       {Icon && (
                         <Icon size={20} weight="regular" className={styles.commandIcon} />

@@ -371,8 +371,6 @@ export default function Profile() {
                   transition: 'opacity 0.2s',
                   pointerEvents: 'none'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -422,14 +420,6 @@ export default function Profile() {
                 marginBottom: '16px',
                 position: 'relative',
                 zIndex: 3
-              }}
-              onMouseEnter={(e) => {
-                if (!isSaving) {
-                  e.currentTarget.style.background = 'var(--background)'
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--surface)'
               }}
             >
               {isSaving ? 'Saving...' : isEditMode ? 'Save Profile' : 'Edit Profile'}

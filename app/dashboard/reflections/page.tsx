@@ -278,16 +278,6 @@ export default function Reflections() {
                 transition: 'all 0.3s ease',
                 boxShadow: '0 1px 3px rgba(62, 53, 48, 0.05)'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--surface-elevated)';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.boxShadow = '0 2px 6px rgba(62, 53, 48, 0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--surface)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 1px 3px rgba(62, 53, 48, 0.05)';
-              }}
             >
               Edit Today's Reflection
             </button>
@@ -313,10 +303,9 @@ export default function Reflections() {
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--border-subtle)',
-          boxShadow: 'var(--shadow-md)',
+          boxShadow: '0 20px 40px rgba(15, 61, 60, 0.08)',
           borderRadius: '20px',
           padding: '32px',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
           position: 'relative',
           overflow: 'hidden'
         }}>
@@ -337,7 +326,7 @@ export default function Reflections() {
               display: 'block',
               fontSize: '14px',
               fontWeight: 600,
-              color: '#FFFFFF',
+              color: 'var(--text-primary)',
               fontFamily: 'var(--font-family-satoshi)',
               marginBottom: '16px',
               letterSpacing: '-0.01em'
@@ -356,10 +345,10 @@ export default function Reflections() {
                   style={{
                     padding: '12px 10px',
                     background: mood === option.value ? option.color : 'transparent',
-                    color: mood === option.value ? '#2D3A37' : 'rgba(255, 255, 255, 0.6)',
+                    color: mood === option.value ? '#0f3d3c' : 'rgba(15, 61, 60, 0.6)',
                     border: mood === option.value 
-                      ? '2px dashed #2D3A37' 
-                      : '1px solid rgba(255, 255, 255, 0.3)',
+                      ? '2px dashed #0f3d3c' 
+                      : '1px solid rgba(15, 61, 60, 0.3)',
                     borderRadius: '6px',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
@@ -370,18 +359,6 @@ export default function Reflections() {
                     fontFamily: 'var(--font-family-satoshi)',
                     fontSize: '13px',
                     fontWeight: mood === option.value ? 600 : 500
-                  }}
-                  onMouseEnter={(e) => {
-                    if (mood !== option.value) {
-                      e.currentTarget.style.borderColor = option.color;
-                      e.currentTarget.style.color = option.color;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (mood !== option.value) {
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
-                    }
                   }}
                 >
                   {option.label}
@@ -401,7 +378,7 @@ export default function Reflections() {
               <label style={{
                 fontSize: '14px',
                 fontWeight: 600,
-                color: '#FFFFFF',
+                color: 'var(--text-primary)',
                 fontFamily: 'var(--font-family-satoshi)',
                 letterSpacing: '-0.01em'
               }}>
@@ -413,7 +390,7 @@ export default function Reflections() {
                 borderRadius: '16px',
                 fontSize: '14px',
                 fontWeight: 700,
-                color: '#2D3A37',
+                color: '#0f3d3c',
                 fontFamily: 'var(--font-family-satoshi)'
               }}>
                 {energyLevel}/10
@@ -439,8 +416,8 @@ export default function Reflections() {
                   background: `linear-gradient(to right, 
                     #B8A8D8 0%, 
                     #B8A8D8 ${(energyLevel - 1) * 11.11}%, 
-                    rgba(255, 255, 255, 0.2) ${(energyLevel - 1) * 11.11}%, 
-                    rgba(255, 255, 255, 0.2) 100%)`,
+                    rgba(15, 61, 60, 0.2) ${(energyLevel - 1) * 11.11}%, 
+                    rgba(15, 61, 60, 0.2) 100%)`,
                   cursor: 'pointer',
                   WebkitAppearance: 'none',
                   appearance: 'none'
@@ -459,7 +436,7 @@ export default function Reflections() {
                     key={level}
                     style={{
                       fontSize: '11px',
-                      color: energyLevel >= level ? '#B8A8D8' : 'rgba(255, 255, 255, 0.3)',
+                      color: energyLevel >= level ? '#B8A8D8' : 'rgba(15, 61, 60, 0.3)',
                       fontFamily: 'var(--font-family-satoshi)',
                       fontWeight: energyLevel === level ? 700 : 400,
                       transition: 'all 0.3s ease'
@@ -478,7 +455,7 @@ export default function Reflections() {
               display: 'block',
               fontSize: '14px',
               fontWeight: 600,
-              color: '#FFFFFF',
+              color: 'var(--text-primary)',
               fontFamily: 'var(--font-family-satoshi)',
               marginBottom: '12px',
               letterSpacing: '-0.01em'
@@ -494,22 +471,22 @@ export default function Reflections() {
                 style={{
                   width: '100%',
                   padding: '12px 16px',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  background: 'rgba(15, 61, 60, 0.05)',
+                  border: '1px solid rgba(15, 61, 60, 0.2)',
                   borderRadius: '8px',
                   fontSize: '14px',
                   fontFamily: 'var(--font-family-satoshi)',
-                  color: '#FFFFFF',
+                  color: 'var(--text-primary)',
                   outline: 'none',
                   transition: 'all 0.3s ease'
                 }}
                 onFocus={(e) => {
                   e.currentTarget.style.borderColor = '#9EF4D0';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.background = 'rgba(15, 61, 60, 0.08)';
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(15, 61, 60, 0.2)';
+                  e.currentTarget.style.background = 'rgba(15, 61, 60, 0.05)';
                 }}
               />
             </div>
@@ -521,7 +498,7 @@ export default function Reflections() {
               display: 'block',
               fontSize: '14px',
               fontWeight: 600,
-              color: '#FFFFFF',
+              color: 'var(--text-primary)',
               fontFamily: 'var(--font-family-satoshi)',
               marginBottom: '12px',
               letterSpacing: '-0.01em'
@@ -529,7 +506,7 @@ export default function Reflections() {
               Any thoughts to capture? 
               <span style={{ 
                 fontWeight: 400, 
-                color: 'rgba(255, 255, 255, 0.5)',
+                color: 'rgba(15, 61, 60, 0.5)',
                 fontSize: '12px',
                 marginLeft: '6px'
               }}>
@@ -544,12 +521,12 @@ export default function Reflections() {
               style={{
                 width: '100%',
                 padding: '12px 16px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
+                background: 'rgba(15, 61, 60, 0.05)',
+                border: '1px solid rgba(15, 61, 60, 0.2)',
                 borderRadius: '8px',
                 fontSize: '14px',
                 fontFamily: 'var(--font-family-satoshi)',
-                color: '#FFFFFF',
+                color: 'var(--text-primary)',
                 outline: 'none',
                 transition: 'all 0.3s ease',
                 resize: 'vertical',
@@ -557,11 +534,11 @@ export default function Reflections() {
               }}
               onFocus={(e) => {
                 e.currentTarget.style.borderColor = '#9EF4D0';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.background = 'rgba(15, 61, 60, 0.08)';
               }}
               onBlur={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(15, 61, 60, 0.2)';
+                e.currentTarget.style.background = 'rgba(15, 61, 60, 0.05)';
               }}
             />
           </div>
@@ -574,9 +551,9 @@ export default function Reflections() {
               style={{
                 width: '100%',
                 padding: '14px',
-                background: mood ? '#9EF4D0' : 'rgba(255, 255, 255, 0.1)',
-                color: mood ? '#2D3A37' : 'rgba(255, 255, 255, 0.3)',
-                border: mood ? '2px dashed #2D3A37' : '1px solid rgba(255, 255, 255, 0.15)',
+                background: mood ? '#9EF4D0' : 'rgba(15, 61, 60, 0.08)',
+                color: mood ? '#0f3d3c' : 'rgba(15, 61, 60, 0.35)',
+                border: mood ? '2px dashed #0f3d3c' : '1px solid rgba(15, 61, 60, 0.15)',
                 borderRadius: '10px',
                 fontSize: '14px',
                 fontWeight: 700,
@@ -585,16 +562,6 @@ export default function Reflections() {
                 transition: 'all 0.3s ease',
                 letterSpacing: '-0.01em',
                 opacity: saving ? 0.5 : 1
-              }}
-              onMouseEnter={(e) => {
-                if (mood && !saving) {
-                  e.currentTarget.style.opacity = '0.9';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!saving) {
-                  e.currentTarget.style.opacity = '1';
-                }
               }}
             >
               {saving ? 'Saving...' : (todayReflection ? 'Update Reflection' : 'Save Reflection')}
@@ -617,8 +584,8 @@ export default function Reflections() {
                   width: '100%',
                   padding: '12px',
                   background: 'transparent',
-                  color: 'rgba(255, 255, 255, 0.6)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  color: 'rgba(15, 61, 60, 0.6)',
+                  border: '1px solid rgba(15, 61, 60, 0.3)',
                   borderRadius: '10px',
                   fontSize: '13px',
                   fontWeight: 600,
@@ -627,14 +594,6 @@ export default function Reflections() {
                   marginTop: '12px',
                   transition: 'all 0.3s ease',
                   letterSpacing: '-0.01em'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                 }}
               >
                 Cancel
@@ -719,16 +678,6 @@ export default function Reflections() {
                         position: 'relative'
                       }}
                       title={`${moodOptions.find(m => m.value === reflection.mood)?.label} - ${date.toLocaleDateString()}`}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.opacity = '1';
-                        e.currentTarget.style.transform = 'translateY(-6px)';
-                        e.currentTarget.style.boxShadow = `0 -4px 16px ${color}66, 0 0 0 2px ${color}44`;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.opacity = isToday ? '1' : '0.75';
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = isToday ? `0 -2px 12px ${color}55, 0 0 0 2px ${color}33` : 'none';
-                      }}
                     />
                     <span style={{
                       fontSize: '11px',
@@ -785,11 +734,10 @@ export default function Reflections() {
         {reflections.length > 1 && (
           <div style={{
             background: 'var(--surface)',
-          border: '1px solid var(--border-subtle)',
-          boxShadow: 'var(--shadow-md)',
+            border: '1px solid var(--border-subtle)',
+            boxShadow: '0 20px 40px rgba(15, 61, 60, 0.08)',
             borderRadius: '24px',
             padding: '40px 48px',
-            boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
             position: 'relative',
             overflow: 'hidden',
             marginBottom: '40px'
@@ -821,7 +769,7 @@ export default function Reflections() {
               <h2 style={{
                 fontSize: '22px',
                 fontWeight: 600,
-                color: '#FFFFFF',
+                color: 'var(--text-primary)',
                 fontFamily: 'var(--font-family-satoshi)',
                 margin: 0,
                 letterSpacing: '-0.01em'
@@ -830,7 +778,7 @@ export default function Reflections() {
               </h2>
               <span style={{
                 fontSize: '13px',
-                color: 'rgba(255, 255, 255, 0.5)',
+                color: 'rgba(15, 61, 60, 0.5)',
                 fontFamily: 'var(--font-family-switzer)'
               }}>
                 Last {Math.min(reflections.length, 14)} days
@@ -887,8 +835,8 @@ export default function Reflections() {
                           right: '-8px',
                           bottom: `${(avgEnergy / 10) * 100}%`,
                           height: '2px',
-                          background: 'rgba(255, 255, 255, 0.2)',
-                          borderTop: '1px dashed rgba(255, 255, 255, 0.3)',
+                          background: 'rgba(15, 61, 60, 0.08)',
+                          borderTop: '1px dashed rgba(15, 61, 60, 0.3)',
                           zIndex: 0,
                           width: `${recentReflections.length * 100}%`
                         }}>
@@ -897,7 +845,7 @@ export default function Reflections() {
                             right: '0',
                             top: '-8px',
                             fontSize: '10px',
-                            color: 'rgba(255, 255, 255, 0.4)',
+                            color: 'rgba(15, 61, 60, 0.4)',
                             fontFamily: 'var(--font-family-switzer)',
                             background: 'var(--surface)',
           border: '1px solid var(--border-subtle)',
@@ -925,16 +873,6 @@ export default function Reflections() {
                           zIndex: 1
                         }}
                         title={`Energy: ${reflection.energy_level}/10 - ${date.toLocaleDateString()}`}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.opacity = '1';
-                          e.currentTarget.style.transform = 'translateY(-6px)';
-                          e.currentTarget.style.boxShadow = `0 -4px 16px ${color}66, 0 0 0 2px ${color}44`;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.opacity = isToday ? '1' : '0.75';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.boxShadow = isToday ? `0 -2px 12px ${color}55, 0 0 0 2px ${color}33` : 'none';
-                        }}
                       >
                         {/* Energy value on hover */}
                         <span style={{
@@ -944,7 +882,7 @@ export default function Reflections() {
                           transform: 'translateX(-50%)',
                           fontSize: '11px',
                           fontWeight: 600,
-                          color: '#FFFFFF',
+                          color: 'var(--text-primary)',
                           opacity: 0,
                           transition: 'opacity 0.3s ease',
                           pointerEvents: 'none',
@@ -953,16 +891,13 @@ export default function Reflections() {
                           borderRadius: '6px',
                           whiteSpace: 'nowrap'
                         }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.opacity = '1';
-                        }}
                         >
                           {reflection.energy_level}/10
                         </span>
                       </div>
                       <span style={{
                         fontSize: '11px',
-                        color: 'rgba(255, 255, 255, 0.4)',
+                        color: 'rgba(15, 61, 60, 0.4)',
                         fontFamily: 'var(--font-family-switzer)',
                         marginTop: '8px',
                         fontWeight: isToday ? 600 : 400
@@ -983,7 +918,7 @@ export default function Reflections() {
               gap: '24px',
               marginTop: '20px',
               paddingTop: '20px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              borderTop: '1px solid rgba(15, 61, 60, 0.12)',
               position: 'relative',
               zIndex: 1
             }}>
@@ -1007,7 +942,7 @@ export default function Reflections() {
                   }} />
                   <span style={{
                     fontSize: '13px',
-                    color: 'rgba(255, 255, 255, 0.7)',
+                    color: 'rgba(15, 61, 60, 0.75)',
                     fontFamily: 'var(--font-family-switzer)',
                     fontWeight: 500
                   }}>
@@ -1080,14 +1015,6 @@ export default function Reflections() {
                     boxShadow: '0 1px 3px rgba(62, 53, 48, 0.03)',
                     transition: 'all 0.3s ease'
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(62, 53, 48, 0.08)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(62, 53, 48, 0.03)';
-                  }}
                 >
                   <div style={{
                     display: 'flex',
@@ -1109,7 +1036,7 @@ export default function Reflections() {
                         <span style={{
                           fontSize: '16px',
                           fontWeight: 700,
-                          color: '#2D3A37',
+                          color: '#0f3d3c',
                           fontFamily: 'var(--font-family-satoshi)',
                           textTransform: 'uppercase'
                         }}>

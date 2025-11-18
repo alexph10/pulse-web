@@ -49,11 +49,7 @@
   transition: all 0.2s ease;
 }
 
-.filterBtn:hover {
-  background: var(--overlay-backdrop-subtle);
-  border-color: var(--error);
-  color: var(--error);
-}
+/* Static state - no hover effects */
 
 .filterBtn.active {
   background: var(--error);
@@ -100,10 +96,7 @@
   transition: all 0.3s ease;
 }
 
-.insightCard:hover {
-  transform: translateX(var(--spacing-xs));
-  box-shadow: var(--shadow-lg);
-}
+/* Static state - no hover effects */
 
 .iconWrapper {
   width: var(--spacing-4xl);

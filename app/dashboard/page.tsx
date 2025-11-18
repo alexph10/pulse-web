@@ -11,6 +11,8 @@ import { useToast } from '../contexts/ToastContext';
 import { useContextualUI } from '@/lib/hooks/useContextualUI';
 import { PageTransition } from '../components/transitions/PageTransition';
 import { Skeleton } from '../components/ui';
+import styles from './page.module.css';
+import { cn } from '@/lib/utils';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -75,7 +77,7 @@ export default function Dashboard() {
 
     // Calculate streak (consecutive days with at least one entry)
     let streak = 0;
-    let checkDate = new Date(todayStart);
+    const checkDate = new Date(todayStart);
     
     while (streak < 365) { // Max check 1 year
       const dayEntries = entries.filter(entry => {
@@ -168,11 +170,11 @@ export default function Dashboard() {
     const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
     
     const messages = [
-      { text: 'Ready to make today count?', color: '#FB923C' },
-      { text: 'What will you create today?', color: '#EA580C' },
-      { text: 'Let\'s build on yesterday\'s momentum', color: '#F97316' },
-      { text: 'Another chance to grow', color: '#C2410C' },
-      { text: 'What\'s calling your attention today?', color: '#FB923C' }
+      { text: 'Ready to make today count?' },
+      { text: 'What will you create today?' },
+      { text: 'Let\'s build on yesterday\'s momentum' },
+      { text: 'Another chance to grow' },
+      { text: 'What\'s calling your attention today?' }
     ];
     
     // Use modulo to cycle through messages based on day
@@ -192,85 +194,46 @@ export default function Dashboard() {
   return (
     <DashboardLayout isLoading={loading}>
       {/* Main Feature Card with Toggle and Graph */}
-      <div className="mt-8 rounded-2xl overflow-hidden"
-        style={{
-          background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%)',
-          width: '100%',
-          border: '1px solid var(--border-subtle)',
-          boxShadow: 'var(--shadow-md)'
-        }}
-      >
+      <div className={styles.mainCard}>
           {/* Main Content Area */}
-          <div className="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className={styles.contentGrid}>
             {/* Left Section */}
-            <div className="flex flex-col justify-between">
+            <div className={styles.leftSection}>
               <div>
-                <h2 style={{
-                  color: 'var(--text-primary)',
-                  fontSize: 'var(--font-size-h2)',
-                  fontWeight: 'var(--font-weight-semibold)',
-                  lineHeight: 'var(--line-height-tight)',
-                  marginBottom: 'var(--spacing-sm)',
-                  fontFamily: 'var(--font-family-satoshi)'
-                }}>
+                <h2 className={styles.greeting}>
                   {contextualUI.greeting}, {firstName}
                 </h2>
-                <p style={{
-                  color: 'var(--text-secondary)',
-                  fontSize: 'var(--font-size-small)',
-                  lineHeight: 'var(--line-height-relaxed)',
-                  fontFamily: 'var(--font-family-switzer)',
-                  transition: 'color var(--animation-timing-smooth) var(--animation-easing-easeOut)',
-                  marginBottom: 'var(--spacing-md)'
-                }}>
+                <p className={styles.dailyMessage}>
                   {dailyMessage.text}
                 </p>
                 {getStats().totalCount === 0 && (
-                  <p style={{
-                    color: 'var(--text-tertiary)',
-                    fontSize: 'var(--font-size-small)',
-                    fontFamily: 'var(--font-family-switzer)',
-                    fontStyle: 'italic',
-                    marginTop: 'var(--spacing-sm)'
-                  }}>
+                  <p className={styles.emptyStateMessage}>
                     Start your wellness journey with your first journal entry
                   </p>
                 )}
               </div>
 
               {/* Toggle Bar - Bottom Left */}
-              <div className="flex items-center gap-2">
+              <div className={styles.toggleBar}>
                 <button
                   onClick={() => setActiveView('today')}
-                  style={{
-                    padding: 'var(--spacing-sm) var(--spacing-xl)',
-                    background: activeView === 'today' ? 'var(--accent-primary)' : 'transparent',
-                    color: activeView === 'today' ? 'var(--brand-white)' : 'var(--text-secondary)',
-                    border: activeView === 'today' ? 'var(--border-width-medium) solid var(--accent-primary)' : 'var(--border-width-thin) solid var(--border-subtle)',
-                    borderRadius: 'var(--border-radius-sm)',
-                    fontFamily: 'var(--font-family-satoshi)',
-                    fontWeight: activeView === 'today' ? 'var(--font-weight-semibold)' : 'var(--font-weight-medium)',
-                    fontSize: 'var(--font-size-small)',
-                    cursor: 'pointer',
-                    transition: 'all var(--animation-timing-smooth) var(--animation-easing-easeOut)'
-                  }}
+                  className={cn(
+                    styles.toggleButton,
+                    activeView === 'today' && styles.toggleButtonActive
+                  )}
+                  aria-label="View today's activity"
+                  aria-pressed={activeView === 'today'}
                 >
                   Today
                 </button>
                 <button
                   onClick={() => setActiveView('week')}
-                  style={{
-                    padding: 'var(--spacing-sm) var(--spacing-xl)',
-                    background: activeView === 'week' ? 'var(--accent-primary)' : 'transparent',
-                    color: activeView === 'week' ? 'var(--brand-white)' : 'var(--text-secondary)',
-                    border: activeView === 'week' ? 'var(--border-width-medium) solid var(--accent-primary)' : 'var(--border-width-thin) solid var(--border-subtle)',
-                    borderRadius: 'var(--border-radius-sm)',
-                    fontFamily: 'var(--font-family-satoshi)',
-                    fontWeight: activeView === 'week' ? 'var(--font-weight-semibold)' : 'var(--font-weight-medium)',
-                    fontSize: 'var(--font-size-small)',
-                    cursor: 'pointer',
-                    transition: 'all var(--animation-timing-smooth) var(--animation-easing-easeOut)'
-                  }}
+                  className={cn(
+                    styles.toggleButton,
+                    activeView === 'week' && styles.toggleButtonActive
+                  )}
+                  aria-label="View this week's activity"
+                  aria-pressed={activeView === 'week'}
                 >
                   This Week
                 </button>
@@ -278,14 +241,11 @@ export default function Dashboard() {
             </div>
 
             {/* Right Section - Progress Stats */}
-            <div className="flex flex-col justify-center" style={{
-              minHeight: '240px',
-              padding: 'var(--spacing-lg)'
-            }}>
+            <div className={styles.rightSection}>
               {loading ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
+                <div className={styles.loadingContainer}>
                   <Skeleton height="24px" width="60%" rounded />
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-lg)' }}>
+                  <div className={styles.loadingSkeletonGrid}>
                     <Skeleton height="80px" rounded />
                     <Skeleton height="80px" rounded />
                   </div>
@@ -295,59 +255,26 @@ export default function Dashboard() {
                 <>
                   {activeView === 'today' ? (
                     <div>
-                      <h3 style={{
-                        color: 'var(--text-primary)',
-                        fontSize: 'var(--font-size-h4)',
-                        fontWeight: 'var(--font-weight-medium)',
-                        marginBottom: 'var(--spacing-xl)',
-                        fontFamily: 'var(--font-family-satoshi)'
-                      }}>
+                      <h3 className={styles.sectionTitle}>
                         Today's Activity
                       </h3>
                       
                       {/* Stats Grid */}
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '16px',
-                        marginBottom: '24px'
-                      }}>
+                      <div className={styles.statsGrid}>
                         <div>
-                          <div style={{
-                            fontSize: '36px',
-                            fontWeight: 600,
-                            color: 'var(--accent-primary)',
-                            fontFamily: 'var(--font-family-satoshi)',
-                            lineHeight: '1'
-                          }}>
+                          <div className={styles.statValue}>
                             {getStats().todayCount}
                           </div>
-                          <div style={{
-                            fontSize: '12px',
-                            color: '#A1937F',
-                            marginTop: '6px',
-                            fontFamily: 'var(--font-family-switzer)'
-                          }}>
+                          <div className={styles.statLabel}>
                             Entries Today
                           </div>
                         </div>
                         
                         <div>
-                          <div style={{
-                            fontSize: '36px',
-                            fontWeight: 600,
-                            color: 'var(--text-secondary)',
-                            fontFamily: 'var(--font-family-satoshi)',
-                            lineHeight: '1'
-                          }}>
+                          <div className={cn(styles.statValue, styles.statValueSecondary)}>
                             {getStats().streak}
                           </div>
-                          <div style={{
-                            fontSize: '12px',
-                            color: '#A1937F',
-                            marginTop: '6px',
-                            fontFamily: 'var(--font-family-switzer)'
-                          }}>
+                          <div className={styles.statLabel}>
                             Day Streak
                           </div>
                         </div>
@@ -355,21 +282,15 @@ export default function Dashboard() {
                       
                       {/* Hourly Activity Chart */}
                       {getStats().todayCount > 0 && (
-                        <div style={{ marginTop: '20px' }}>
-                          <div style={{
-                            fontSize: '12px',
-                            color: '#A1937F',
-                            marginBottom: '10px',
-                            fontFamily: 'var(--font-family-switzer)'
-                          }}>
+                        <div className={styles.chartContainer}>
+                          <div className={styles.chartTitle}>
                             Activity Timeline
                           </div>
-                          <div style={{
-                            display: 'flex',
-                            alignItems: 'flex-end',
-                            gap: '3px',
-                            height: '60px'
-                          }}>
+                          <div 
+                            className={styles.hourlyChart}
+                            role="img"
+                            aria-label="Hourly activity chart showing journal entries throughout the day"
+                          >
                             {Object.entries(getTodayHourlyData())
                               .filter(([_, count]) => count > 0)
                               .map(([hour, count]) => {
@@ -378,29 +299,16 @@ export default function Dashboard() {
                                 return (
                                   <div
                                     key={hour}
-                                    style={{
-                                      flex: 1,
-                                      display: 'flex',
-                                      flexDirection: 'column',
-                                      alignItems: 'center',
-                                      gap: '3px'
-                                    }}
+                                    className={styles.chartBarContainer}
                                   >
                                     <div
-                                      style={{
-                                        width: '100%',
-                                        height: `${height}%`,
-                                        background: '#FB923C',
-                                        borderRadius: '3px 3px 0 0',
-                                        transition: 'all 0.3s ease'
-                                      }}
+                                      className={styles.chartBar}
+                                      style={{ height: `${height}%` }}
+                                      role="img"
+                                      aria-label={`${count} ${count === 1 ? 'entry' : 'entries'} at ${hour}:00`}
                                       title={`${count} ${count === 1 ? 'entry' : 'entries'} at ${hour}:00`}
                                     />
-                                    <span style={{
-                                      fontSize: '9px',
-                                      color: '#A1937F',
-                                      fontFamily: 'var(--font-family-satoshi)'
-                                    }}>
+                                    <span className={styles.chartLabel}>
                                       {hour}h
                                     </span>
                                   </div>
@@ -411,19 +319,8 @@ export default function Dashboard() {
                       )}
                       
                       {/* Progress Message */}
-                      <div style={{
-                        padding: '12px',
-                        background: 'rgba(158, 244, 208, 0.1)',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(158, 244, 208, 0.2)',
-                        marginTop: '20px'
-                      }}>
-                        <p style={{
-                          fontSize: '12px',
-                          color: 'rgba(255, 255, 255, 0.8)',
-                          fontFamily: 'var(--font-family-switzer)',
-                          lineHeight: '1.6'
-                        }}>
+                      <div className={styles.progressMessage}>
+                        <p className={styles.progressMessageText}>
                           {getStats().todayCount === 0 
                             ? 'Start your day with a reflection' 
                             : getStats().todayCount === 1 
@@ -434,111 +331,60 @@ export default function Dashboard() {
                     </div>
                   ) : (
                     <div>
-                      <h3 style={{
-                        color: 'var(--text-primary)',
-                        fontSize: 'var(--font-size-h4)',
-                        fontWeight: 'var(--font-weight-medium)',
-                        marginBottom: '20px',
-                        fontFamily: 'var(--font-family-satoshi)'
-                      }}>
+                      <h3 className={styles.sectionTitle}>
                         This Week's Progress
                       </h3>
                       
                       {/* Stats Grid */}
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 1fr)',
-                        gap: '16px',
-                        marginBottom: '24px'
-                      }}>
+                      <div className={styles.statsGrid}>
                         <div>
-                          <div style={{
-                            fontSize: '36px',
-                            fontWeight: 600,
-                            color: 'var(--accent-primary)',
-                            fontFamily: 'var(--font-family-satoshi)',
-                            lineHeight: '1'
-                          }}>
+                          <div className={styles.statValue}>
                             {getStats().weekCount}
                           </div>
-                          <div style={{
-                            fontSize: '12px',
-                            color: '#A1937F',
-                            marginTop: '6px',
-                            fontFamily: 'var(--font-family-switzer)'
-                          }}>
+                          <div className={styles.statLabel}>
                             Entries This Week
                           </div>
                         </div>
                         
                         <div>
-                          <div style={{
-                            fontSize: '36px',
-                            fontWeight: 600,
-                            color: '#F97316',
-                            fontFamily: 'var(--font-family-satoshi)',
-                            lineHeight: '1'
-                          }}>
+                          <div className={cn(styles.statValue, styles.statValueTotal)}>
                             {getStats().totalCount}
                           </div>
-                          <div style={{
-                            fontSize: '12px',
-                            color: '#A1937F',
-                            marginTop: '6px',
-                            fontFamily: 'var(--font-family-switzer)'
-                          }}>
+                          <div className={styles.statLabel}>
                             Total Entries
                           </div>
                         </div>
                       </div>
                       
                       {/* Weekly Bar Chart */}
-                      <div style={{ marginTop: '20px' }}>
-                        <div style={{
-                          fontSize: '12px',
-                          color: '#A1937F',
-                          marginBottom: '10px',
-                          fontFamily: 'var(--font-family-switzer)'
-                        }}>
+                      <div className={styles.chartContainer}>
+                        <div className={styles.chartTitle}>
                           Daily Breakdown
                         </div>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'flex-end',
-                          gap: '6px',
-                          height: '80px'
-                        }}>
+                        <div 
+                          className={styles.weeklyChart}
+                          role="img"
+                          aria-label="Weekly activity chart showing journal entries for each day of the week"
+                        >
                           {getWeeklyData().map(({ day, count, isToday }) => {
                             const maxCount = Math.max(...getWeeklyData().map(d => d.count), 1);
                             const height = count > 0 ? (count / maxCount) * 100 : 5;
                             return (
                               <div
                                 key={day}
-                                style={{
-                                  flex: 1,
-                                  display: 'flex',
-                                  flexDirection: 'column',
-                                  alignItems: 'center',
-                                  gap: '6px'
-                                }}
+                                className={styles.chartBarContainer}
                               >
                                 <div
-                                  style={{
-                                    width: '100%',
-                                    height: `${height}%`,
-                                    background: isToday ? '#F97316' : count > 0 ? '#FB923C' : '#2D1F14',
-                                    borderRadius: '3px 3px 0 0',
-                                    transition: 'all 0.3s ease',
-                                    border: isToday ? '2px solid #F97316' : '1px solid #3A2E24'
-                                  }}
+                                  className={cn(
+                                    styles.chartBar,
+                                    isToday ? styles.chartBarToday : count > 0 ? styles.chartBarFilled : styles.chartBarEmpty
+                                  )}
+                                  style={{ height: `${height}%` }}
+                                  role="img"
+                                  aria-label={`${day}: ${count} ${count === 1 ? 'entry' : 'entries'}`}
                                   title={`${day}: ${count} ${count === 1 ? 'entry' : 'entries'}`}
                                 />
-                                <span style={{
-                                  fontSize: '10px',
-                                  color: isToday ? '#F97316' : '#A1937F',
-                                  fontFamily: 'var(--font-family-satoshi)',
-                                  fontWeight: isToday ? 600 : 400
-                                }}>
+                                <span className={cn(styles.chartLabel, isToday && styles.chartLabelToday)}>
                                   {day}
                                 </span>
                               </div>
@@ -548,19 +394,8 @@ export default function Dashboard() {
                       </div>
                       
                       {/* Progress Message */}
-                      <div style={{
-                        padding: '12px',
-                        background: 'rgba(158, 244, 208, 0.1)',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(158, 244, 208, 0.2)',
-                        marginTop: '20px'
-                      }}>
-                        <p style={{
-                          fontSize: '12px',
-                          color: 'rgba(255, 255, 255, 0.8)',
-                          fontFamily: 'var(--font-family-switzer)',
-                          lineHeight: '1.6'
-                        }}>
+                      <div className={styles.progressMessage}>
+                        <p className={styles.progressMessageText}>
                           {getStats().weekCount === 0 
                             ? 'Start building your weekly habit' 
                             : getStats().weekCount < 7 
@@ -577,19 +412,19 @@ export default function Dashboard() {
         </div>
 
       {/* Quick Actions */}
-      <div className="mt-8">
+      <div className={styles.sectionSpacing}>
         <QuickActions />
       </div>
 
       {/* Insights */}
       {user && (
-        <div className="mt-8">
+        <div className={styles.sectionSpacing}>
           <Insights userId={user.id} />
         </div>
       )}
 
       {/* Quick Goals Widget */}
-      <div className="mt-8">
+      <div className={styles.sectionSpacing}>
         <QuickGoalsWidget />
       </div>
     </DashboardLayout>

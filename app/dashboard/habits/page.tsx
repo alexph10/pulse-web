@@ -751,16 +751,6 @@ export default function Habits() {
                                 transition: 'all 0.2s',
                                 position: 'relative'
                               }}
-                              onMouseEnter={(e) => {
-                                if (!isCompleted) {
-                                  e.currentTarget.style.background = `${habit.color}30`;
-                                }
-                              }}
-                              onMouseLeave={(e) => {
-                                if (!isCompleted) {
-                                  e.currentTarget.style.background = 'var(--background-secondary)';
-                                }
-                              }}
                               title={format(day, 'EEEE, MMMM d')}
                             >
                               {isCompleted ? (

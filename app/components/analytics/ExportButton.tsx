@@ -43,18 +43,6 @@ export default function ExportButton({ onExport, disabled }: ExportButtonProps) 
         gap: '10px',
         opacity: disabled || isExporting ? 0.7 : 1
       }}
-      onMouseEnter={(e) => {
-        if (!disabled && !isExporting) {
-          e.currentTarget.style.transform = 'translateY(-2px)'
-          e.currentTarget.style.boxShadow = '0 8px 16px rgba(139, 47, 47, 0.2)'
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled && !isExporting) {
-          e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = 'none'
-        }
-      }}
     >
       {isExporting ? (
         <>

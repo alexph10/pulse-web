@@ -307,14 +307,6 @@ export default function Activity() {
               fontSize: '14px',
               transition: 'all 0.2s ease'
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--accent-primary-hover)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--accent-primary)';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
           >
             Record Your First Entry
           </a>

@@ -29,7 +29,6 @@ interface DayData {
 export default function ActivityHeatmap({ entries }: ActivityHeatmapProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('count');
   const [selectedDay, setSelectedDay] = useState<DayData | null>(null);
-  const [hoveredDay, setHoveredDay] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
   // Generate heatmap data for the last 365 days
@@ -263,15 +262,8 @@ export default function ActivityHeatmap({ entries }: ActivityHeatmapProps) {
                       key={dateKey}
                       className={`${styles.day} ${intensity >= 0 ? styles[`intensity${intensity}`] : styles.empty}`}
                       onClick={() => handleDayClick(day)}
-                      onMouseEnter={() => setHoveredDay(dateKey)}
-                      onMouseLeave={() => setHoveredDay(null)}
                       title={getTooltipText(day)}
                     >
-                      {hoveredDay === dateKey && day.date.getTime() !== 0 && (
-                        <div className={styles.tooltip}>
-                          {getTooltipText(day)}
-                        </div>
-                      )}
                     </div>
                   );
                 })}

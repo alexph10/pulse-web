@@ -1,26 +1,26 @@
 .navbarWrapper {
   position: fixed;
-  top: var(--spacing-md);
+  top: var(--spacing-sm);
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - var(--spacing-2xl));
-  max-width: 1800px;
+  max-width: 1300px;
   z-index: 50;
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: #f7f4ed;
+  border: 1px solid rgba(15, 61, 61, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 18px 30px rgba(31, 37, 46, 0.1);
 }
 
 .navbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-xs) var(--spacing-md);
-  min-height: var(--spacing-3xl);
+  padding: var(--spacing-compact-sm) var(--spacing-md);
+  min-height: 42px;
   max-width: 100%;
+  gap: var(--spacing-sm);
+  background: transparent;
 }
 
 /* Left Section - Icons */
@@ -28,70 +28,115 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  flex-shrink: 0;
+  justify-content: flex-start;
 }
 
 .iconButton {
-  width: var(--spacing-2xl);
-  height: var(--spacing-2xl);
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  min-height: 27px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
-  border-radius: var(--border-radius-xs);
-  color: var(--text-secondary);
+  background: #ffffff;
+  border: 1px solid rgba(15, 61, 61, 0.12);
+  outline: none;
+  border-radius: var(--border-radius-full);
+  color: #0f3d3c;
   cursor: pointer;
-  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
+  transition: transform var(--animation-timing-standard) var(--animation-easing-easeOut),
+    color var(--animation-timing-standard) var(--animation-easing-easeOut),
+    border-color var(--animation-timing-standard) var(--animation-easing-easeOut);
   padding: 0;
   text-decoration: none;
+  position: relative;
 }
 
-.iconButton:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
+.iconButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
+
+.activeIcon {
+  background: #0f3d3c;
+  border-color: #0f3d3c;
+  color: #fefbf3;
+}
+
+.activeIcon .indicator {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 3px;
+  height: 3px;
+  background: #f6b562;
+  border-radius: var(--border-radius-full);
+  opacity: 0.9;
+}
+
+.iconButton:focus,
+.iconButton:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Static state - no hover effects */
 
 .notificationButton {
   color: var(--accent-primary);
-}
-
-.notificationButton:hover {
-  background: var(--surface-elevated);
-  color: var(--accent-primary-hover);
 }
 
 /* Center Section - Mode Toggle Buttons */
 .centerSection {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  flex: 1;
+  gap: var(--spacing-md);
   justify-content: center;
 }
 
 .modeButton {
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: var(--spacing-compact-xs) var(--spacing-md);
   font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-medium);
   font-family: var(--font-family-satoshi);
-  color: var(--accent-primary);
+  color: #0f3d3c;
   background: transparent;
   border: none;
+  outline: none;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
-  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
+  transition: background var(--animation-timing-standard) var(--animation-easing-easeOut),
+    color var(--animation-timing-standard) var(--animation-easing-easeOut),
+    border-color var(--animation-timing-standard) var(--animation-easing-easeOut);
   white-space: nowrap;
+  min-height: 30px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modeButton:hover {
-  background: var(--surface-elevated);
-}
+/* Static state - no hover effects */
 
 .modeButton.active {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
+  background: #0f3d3c;
+  color: #fefbf3;
   font-weight: var(--font-weight-semibold);
+  box-shadow: none;
+  opacity: 1;
+}
+
+.modeButton:not(.active) {
+  opacity: 1;
+}
+
+.modeButton:focus,
+.modeButton:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: none;
 }
 
 /* Right Section - Utility Icons */
@@ -99,53 +144,65 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-  flex-shrink: 0;
+  justify-content: flex-end;
 }
 
 .zoomLevel {
   font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-medium);
   font-family: var(--font-family-satoshi);
-  color: var(--text-secondary);
-  padding: 0 var(--spacing-xs);
+  color: #0f3d3c;
+  padding: 0 var(--spacing-compact-sm);
   white-space: nowrap;
+  min-width: var(--spacing-2xl);
+  text-align: center;
+  opacity: 0.9;
 }
+
+.separator {
+  width: 1px;
+  height: var(--spacing-lg);
+  background: rgba(15, 61, 61, 0.2);
+  margin: 0 var(--spacing-compact-sm);
+  opacity: 1;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .navbarWrapper {
     width: calc(100% - var(--spacing-xl));
-    top: var(--spacing-sm);
+    top: var(--spacing-xs);
   }
 
   .navbar {
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-compact-sm) var(--spacing-sm);
+    min-height: 36px;
   }
 }
 
 @media (max-width: 768px) {
   .navbarWrapper {
     width: calc(100% - var(--spacing-lg));
-    top: var(--spacing-sm);
-    border-radius: var(--border-radius-md);
+    top: var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
   }
 
   .navbar {
-    padding: var(--spacing-xs);
-    min-height: var(--spacing-2xl);
+    padding: var(--spacing-compact-xs) var(--spacing-compact-sm);
+    min-height: 32px;
   }
 
   .iconButton {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
   }
 
   .modeButton {
-    padding: var(--spacing-compact-sm) var(--spacing-sm);
+    padding: var(--spacing-compact-xs) var(--spacing-compact-sm);
     font-size: var(--font-size-tiny);
-  }
-
-  .zoomLevel {
-    display: none;
+    min-height: 26px;
   }
 }

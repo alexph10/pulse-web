@@ -86,15 +86,15 @@ export default function QuickGoalsWidget() {
   if (loading) {
     return (
       <div style={{
-        background: '#3D4A47',
+        background: 'var(--surface)',
         borderRadius: '20px',
         padding: '32px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
+        boxShadow: '0 20px 40px rgba(15, 61, 60, 0.08)',
         position: 'relative',
         overflow: 'hidden'
       }}>
         <div style={{
-          color: 'rgba(255, 255, 255, 0.3)',
+          color: 'rgba(15, 61, 60, 0.4)',
           fontFamily: 'var(--font-family-satoshi)',
           fontSize: '14px',
           textAlign: 'center'
@@ -107,10 +107,10 @@ export default function QuickGoalsWidget() {
 
   return (
     <div style={{
-      background: '#3D4A47',
+      background: 'var(--surface)',
       borderRadius: '20px',
       padding: '32px',
-      boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
+      boxShadow: '0 20px 40px rgba(15, 61, 60, 0.08)',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -137,7 +137,7 @@ export default function QuickGoalsWidget() {
         <h2 style={{
           fontSize: '18px',
           fontWeight: 600,
-          color: '#FFFFFF',
+          color: 'var(--text-primary)',
           fontFamily: 'var(--font-family-satoshi)',
           margin: 0,
           letterSpacing: '-0.01em'
@@ -148,14 +148,12 @@ export default function QuickGoalsWidget() {
           href="/dashboard/goals"
           style={{
             fontSize: '12px',
-            color: '#9EF4D0',
+            color: 'var(--accent-primary)',
             fontFamily: 'var(--font-family-satoshi)',
             textDecoration: 'none',
             fontWeight: 500,
             transition: 'opacity 0.3s ease'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
         >
           View All
         </Link>
@@ -176,7 +174,7 @@ export default function QuickGoalsWidget() {
           }}>
             <p style={{
               fontSize: '14px',
-              color: 'rgba(255, 255, 255, 0.5)',
+              color: 'rgba(15, 61, 60, 0.55)',
               fontFamily: 'var(--font-family-switzer)',
               marginBottom: '16px'
             }}>
@@ -187,8 +185,8 @@ export default function QuickGoalsWidget() {
               style={{
                 display: 'inline-block',
                 padding: '8px 16px',
-                background: '#9EF4D0',
-                color: '#2D3A37',
+                background: 'var(--accent-primary)',
+                color: '#0f3d3c',
                 borderRadius: '8px',
                 fontSize: '13px',
                 fontWeight: 600,
@@ -196,8 +194,6 @@ export default function QuickGoalsWidget() {
                 textDecoration: 'none',
                 transition: 'opacity 0.3s ease'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
             >
               Create Your First Goal
             </Link>
@@ -213,19 +209,11 @@ export default function QuickGoalsWidget() {
               <div
                 key={goal.id}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'rgba(15, 61, 60, 0.04)',
                   borderRadius: '12px',
                   padding: '16px',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(15, 61, 60, 0.12)',
                   transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }}
               >
                 {/* Goal Title & Due Date */}
@@ -238,7 +226,7 @@ export default function QuickGoalsWidget() {
                   <h3 style={{
                     fontSize: '14px',
                     fontWeight: 600,
-                    color: '#FFFFFF',
+                    color: 'var(--text-primary)',
                     fontFamily: 'var(--font-family-satoshi)',
                     margin: 0,
                     flex: 1
@@ -248,7 +236,7 @@ export default function QuickGoalsWidget() {
                   {daysUntilDue !== null && (
                     <span style={{
                       fontSize: '11px',
-                      color: isOverdue ? '#E091C5' : isDueSoon ? '#E5A862' : 'rgba(255, 255, 255, 0.5)',
+                      color: isOverdue ? '#E091C5' : isDueSoon ? '#E5A862' : 'rgba(15, 61, 60, 0.55)',
                       fontFamily: 'var(--font-family-switzer)',
                       fontWeight: 500,
                       marginLeft: '12px',
@@ -268,7 +256,7 @@ export default function QuickGoalsWidget() {
                   <div style={{
                     width: '100%',
                     height: '8px',
-                    background: 'rgba(255, 255, 255, 0.1)',
+                    background: 'rgba(15, 61, 60, 0.08)',
                     borderRadius: '4px',
                     overflow: 'hidden',
                     position: 'relative'
@@ -276,7 +264,7 @@ export default function QuickGoalsWidget() {
                     <div style={{
                       width: `${progress}%`,
                       height: '100%',
-                      background: progress === 100 ? '#9EF4D0' : '#B8A8D8',
+                      background: progress === 100 ? 'var(--accent-primary)' : 'var(--accent-secondary)',
                       borderRadius: '4px',
                       transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
                     }} />
@@ -291,7 +279,7 @@ export default function QuickGoalsWidget() {
                 }}>
                   <span style={{
                     fontSize: '12px',
-                    color: 'rgba(255, 255, 255, 0.6)',
+                    color: 'rgba(15, 61, 60, 0.6)',
                     fontFamily: 'var(--font-family-switzer)'
                   }}>
                     {goal.current_value} / {goal.target_value} {goal.unit}
@@ -301,23 +289,15 @@ export default function QuickGoalsWidget() {
                       onClick={() => updateGoalProgress(goal.id, goal.current_value + 1)}
                       style={{
                         background: 'transparent',
-                        border: '1px solid rgba(184, 168, 216, 0.5)',
+                        border: '1px solid rgba(15, 61, 60, 0.2)',
                         borderRadius: '6px',
                         padding: '4px 12px',
                         fontSize: '11px',
                         fontWeight: 600,
-                        color: '#B8A8D8',
+                        color: 'var(--accent-secondary)',
                         fontFamily: 'var(--font-family-satoshi)',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(184, 168, 216, 0.1)';
-                        e.currentTarget.style.borderColor = '#B8A8D8';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent';
-                        e.currentTarget.style.borderColor = 'rgba(184, 168, 216, 0.5)';
                       }}
                     >
                       +1

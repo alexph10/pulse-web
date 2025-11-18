@@ -33,47 +33,42 @@
 }
 
 .actionCard {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-md);
-  padding: var(--spacing-compact-xl);
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
-  border-left-width: 2px;
-  border-left-style: solid;
-  text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
   position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--surface);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 16px 32px rgba(15, 61, 60, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  --accent-color: var(--text-secondary);
+  --accent-soft: var(--surface-elevated);
 }
 
-.actionCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, var(--overlay-white-overlay-subtle) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.actionCard:focus-visible {
+  outline: var(--border-width-medium) solid var(--accent-primary);
+  outline-offset: var(--spacing-xs);
 }
 
-.actionCard:hover::before {
-  opacity: 1;
+.cardHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.actionCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent-primary);
-}
-
-.actionCard:active {
-  transform: translateY(-1px);
+.categoryTag {
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0;
+  border-radius: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-family-satoshi);
 }
 
 .content {
@@ -87,6 +82,9 @@
   margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .actionDescription {
@@ -104,70 +102,17 @@
   flex-shrink: 0;
 }
 
-.actionCard:hover .arrow {
-  opacity: 1;
-  transform: translateX(4px);
-}
+/* Static state - no hover effects */
 
 /* Action-specific color variants using design tokens */
-.actionCard.journal {
-  border-left-color: var(--accent-primary);
-  background: var(--surface);
-}
-
-.actionCard.journal .actionLabel,
-.actionCard.journal .arrow {
-  color: var(--accent-primary);
-}
-
-.actionCard.activity {
-  border-left-color: var(--accent-primary-hover);
-  background: var(--surface);
-}
-
-.actionCard.activity .actionLabel,
-.actionCard.activity .arrow {
-  color: var(--accent-primary-hover);
-}
-
-.actionCard.goal {
-  border-left-color: var(--accent-secondary);
-  background: var(--surface-elevated);
-}
-
-.actionCard.goal .actionLabel,
-.actionCard.goal .arrow {
-  color: var(--accent-secondary);
-}
-
-.actionCard.reflection {
-  border-left-color: var(--accent-primary-active);
-  background: var(--surface);
-}
-
-.actionCard.reflection .actionLabel,
-.actionCard.reflection .arrow {
-  color: var(--accent-primary-active);
-}
-
-.actionCard.habit {
-  border-left-color: var(--accent-muted);
-  background: var(--surface-elevated);
-}
-
-.actionCard.habit .actionLabel,
-.actionCard.habit .arrow {
-  color: var(--accent-muted);
-}
-
+.actionCard.journal,
+.actionCard.activity,
+.actionCard.goal,
+.actionCard.reflection,
+.actionCard.habit,
 .actionCard.progress {
-  border-left-color: var(--accent-primary);
-  background: var(--surface-elevated);
-}
-
-.actionCard.progress .actionLabel,
-.actionCard.progress .arrow {
-  color: var(--accent-primary);
+  --accent-color: var(--text-secondary);
+  --accent-soft: var(--surface-elevated);
 }
 
 /* Mobile responsive */

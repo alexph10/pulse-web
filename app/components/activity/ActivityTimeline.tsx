@@ -23,7 +23,6 @@ interface ActivityTimelineProps {
 }
 
 export default function ActivityTimeline({ entries }: ActivityTimelineProps) {
-  const [hoveredEntry, setHoveredEntry] = useState<string | null>(null);
   const [visibleEntries, setVisibleEntries] = useState(20);
   const observerRef = useRef<HTMLDivElement>(null);
 
@@ -140,8 +139,6 @@ export default function ActivityTimeline({ entries }: ActivityTimelineProps) {
               <div
                 key={entry.id}
                 className={styles.entryCard}
-                onMouseEnter={() => setHoveredEntry(entry.id)}
-                onMouseLeave={() => setHoveredEntry(null)}
                 style={{
                   borderLeft: `3px solid ${getMoodColor(entry.primary_mood)}`
                 }}
@@ -185,30 +182,6 @@ export default function ActivityTimeline({ entries }: ActivityTimelineProps) {
                     {getWordCount(entry.content)} words
                   </div>
                 </div>
-
-                {hoveredEntry === entry.id && (
-                  <div className={styles.hoverCard}>
-                    <div className={styles.hoverContent}>
-                      <div className={styles.hoverMood} style={{ color: getMoodColor(entry.primary_mood) }}>
-                        {entry.primary_mood || 'Neutral'}
-                      </div>
-                      <div className={styles.hoverText}>
-                        {getEntryPreview(entry.content, 200)}
-                      </div>
-                      <div className={styles.hoverFooter}>
-                        <span>{getWordCount(entry.content)} words</span>
-                        <span>•</span>
-                        <span>
-                          {new Date(entry.created_at).toLocaleDateString('en-US', { 
-                            month: 'short', 
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>

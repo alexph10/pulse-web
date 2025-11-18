@@ -78,9 +78,9 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
             position: 'absolute',
             width: '12px',
             height: '12px',
-            background: 'linear-gradient(135deg, #ff7a3d, #ff6b35)',
+            background: 'linear-gradient(135deg, #0f3d3c, #1f5c57)',
             borderRadius: '2px',
-            boxShadow: '0 1px 4px rgba(255, 107, 53, 0.3)',
+            boxShadow: '0 1px 4px rgba(15, 61, 60, 0.25)',
             animation: isLoading ? 'chaseSquare1 3s cubic-bezier(0.4, 0, 0.2, 1) infinite' : 'none',
             top: isLoading ? undefined : '0px',
             left: isLoading ? undefined : '16px',
@@ -90,9 +90,9 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
             position: 'absolute',
             width: '12px',
             height: '12px',
-            background: 'linear-gradient(135deg, #ff6b35, #e55d37)',
+            background: 'linear-gradient(135deg, #1f5c57, #2a736d)',
             borderRadius: '2px',
-            boxShadow: '0 1px 4px rgba(255, 107, 53, 0.3)',
+            boxShadow: '0 1px 4px rgba(15, 61, 60, 0.2)',
             animation: isLoading ? 'chaseSquare2 3s cubic-bezier(0.4, 0, 0.2, 1) infinite' : 'none',
             top: isLoading ? undefined : '16px',
             left: isLoading ? undefined : '0px',
@@ -158,27 +158,15 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                 className="text-sm"
                 style={{ 
                   fontFamily: 'var(--font-family-satoshi)',
-                  color: isActive ? '#ffffff' : 'var(--text-secondary)',
+                  color: isActive ? '#fefbf3' : 'var(--text-primary)',
                   fontWeight: 500,
-                  backgroundColor: isActive ? 'var(--accent-primary)' : 'transparent',
+                  backgroundColor: isActive ? '#0f3d3c' : 'transparent',
                   padding: '8px 16px',
                   borderRadius: '6px',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px'
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                    e.currentTarget.style.color = '#ffffff';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = 'var(--text-secondary)';
-                  }
                 }}
               >
                 <Icon size={18} weight={isActive ? 'fill' : 'regular'} />
@@ -200,8 +188,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
             border: '1px solid var(--border-subtle)',
             color: 'var(--text-secondary)'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
           title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
         >
           {theme === 'light' ? (
@@ -229,11 +215,9 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
           className="px-6 py-2.5 rounded-md transition-all text-sm font-semibold flex items-center gap-2"
           style={{ 
             fontFamily: 'var(--font-family-satoshi)',
-            backgroundColor: 'var(--accent-primary)',
-            color: '#ffffff'
+            backgroundColor: '#0f3d3c',
+            color: '#fefbf3'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--accent-primary-hover)'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--accent-primary)'}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10" />
@@ -250,11 +234,11 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
               width: '40px',
               height: '40px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%)',
+              background: 'linear-gradient(135deg, #0f3d3c 0%, #1f5c57 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#FFFFFF',
+              color: '#fefbf3',
               fontSize: '16px',
               fontWeight: 600,
               fontFamily: 'var(--font-family-satoshi)',
@@ -263,14 +247,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
               transition: 'all 0.3s ease'
             }}
             title={user?.email || 'Profile'}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.borderColor = 'var(--accent-primary)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.borderColor = 'var(--border-subtle)';
-            }}
           >
             {user?.email?.charAt(0).toUpperCase() || 'U'}
           </div>
@@ -301,7 +277,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                   background: 'var(--surface)',
                   border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                  boxShadow: '0 20px 40px rgba(15, 61, 60, 0.08)',
                   zIndex: 1000,
                   overflow: 'hidden',
                   animation: 'slideDown 0.2s ease-out'
@@ -327,11 +303,11 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                         width: '40px',
                         height: '40px',
                         borderRadius: '50%',
-                        background: 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%)',
+                        background: 'linear-gradient(135deg, #0f3d3c 0%, #1f5c57 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#FFFFFF',
+                        color: '#fefbf3',
                         fontSize: '16px',
                         fontWeight: 600,
                         fontFamily: 'var(--font-family-satoshi)',
@@ -388,12 +364,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       color: 'var(--text-primary)',
                       fontFamily: 'var(--font-family-satoshi)'
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
-                    }}
                   >
                     View profile
                   </Link>
@@ -412,12 +382,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       fontWeight: '500',
                       color: 'var(--text-primary)',
                       fontFamily: 'var(--font-family-satoshi)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
                     }}
                   >
                     Shortcuts
@@ -440,12 +404,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       background: 'transparent',
                       border: 'none',
                       textAlign: 'left'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
                     }}
                   >
                     Switch to {theme === 'light' ? 'dark' : 'light'} mode
@@ -473,12 +431,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       border: 'none',
                       textAlign: 'left'
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
-                    }}
                   >
                     Logout
                   </button>
@@ -505,12 +457,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       color: 'var(--text-primary)',
                       fontFamily: 'var(--font-family-satoshi)'
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
-                    }}
                   >
                     Report a bug
                   </Link>
@@ -530,12 +476,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       color: 'var(--text-primary)',
                       fontFamily: 'var(--font-family-satoshi)'
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
-                    }}
                   >
                     Request a feature
                   </Link>
@@ -554,12 +494,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       fontWeight: '500',
                       color: 'var(--text-primary)',
                       fontFamily: 'var(--font-family-satoshi)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--background)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent'
                     }}
                   >
                     Contact us

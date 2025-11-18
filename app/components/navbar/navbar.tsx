@@ -33,8 +33,6 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
                  className={`${styles.navItem} ${
                    activeItem === item.label ? styles.active : ''
                  }`}
-                 onMouseEnter={() => setActiveItem(item.label)}
-                 onMouseLeave={() => setActiveItem('')}
                >
                  {item.label}
                </Link>

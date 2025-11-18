@@ -113,7 +113,6 @@ export default function JournalStreak({ entries }: JournalStreakProps) {
         }}
         showWeekdayLabels
         onMouseOver={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       />
 
       {/* Custom Tooltip */}

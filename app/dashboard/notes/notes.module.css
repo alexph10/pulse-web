@@ -67,10 +67,7 @@
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.chatToolbarButton:hover {
-  background: var(--surface-elevated);
-  border-color: var(--border-emphasis);
-}
+/* Static state - no hover effects */
 
 .chatToolbarButton:disabled {
   opacity: 0.5;
@@ -231,9 +228,7 @@
   transition: color var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.iconButton:hover {
-  color: var(--text-primary);
-}
+/* Static state - no hover effects */
 
 .iconButtonFavorite {
   color: var(--accent-primary);
@@ -454,9 +449,7 @@
   transition: background var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.recordingSaveButton:hover {
-  background-color: var(--accent-primary-hover);
-}
+/* Static state - no hover effects */
 
 .recordingSaveButton:disabled {
   background-color: var(--text-disabled);
@@ -753,9 +746,7 @@
   transition: background var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.deleteButton:hover {
-  background: var(--errorLight);
-}
+/* Static state - no hover effects */
 
 .cancelButton {
   padding: var(--spacing-compact-sm) var(--spacing-lg);
@@ -770,10 +761,7 @@
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.cancelButton:hover {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
+/* Static state - no hover effects */
 
 /* Edit Mode */
 .editTextarea {
@@ -815,9 +803,7 @@
   transition: background var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
-.saveButton:hover {
-  background: var(--accent-primary-hover);
-}
+/* Static state - no hover effects */
 
 /* Search Highlight */
 .searchHighlight {

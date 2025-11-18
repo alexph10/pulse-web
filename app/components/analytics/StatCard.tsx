@@ -28,12 +28,6 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
       transition: 'all 0.2s ease',
       cursor: 'default'
     }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.boxShadow = 'var(--shadow-md)'
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.boxShadow = 'none'
-    }}
     >
       {/* Header */}
       <div style={{

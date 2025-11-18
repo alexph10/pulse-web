@@ -3,6 +3,8 @@
 import React from 'react'
 import { Button } from '../ui/Button'
 import { Card } from '../ui/Card'
+import styles from './EmptyState.module.css'
+import { cn } from '@/lib/utils'
 
 type IllustrationType = 'noData' | 'noEntries' | 'loading' | 'journal' | 'goals' | 'notes'
 
@@ -105,47 +107,19 @@ export default function EmptyState({
   return (
     <Card
       elevation={0}
-      className=""
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 'var(--spacing-5xl) var(--spacing-3xl)',
-        textAlign: 'center',
-        minHeight: '400px',
-        background: 'transparent',
-        border: 'none'
-      }}
+      className={styles.emptyStateCard}
     >
-      <div style={{
-        marginBottom: '32px',
-        opacity: 0.9,
-        animation: 'fadeInUp 0.6s ease-out',
-        filter: 'drop-shadow(0 4px 12px rgba(234, 88, 12, 0.15))'
-      }}>
-        {renderIllustration()}
+      <div className={styles.illustrationContainer}>
+        <div className={styles.illustration}>
+          {renderIllustration()}
+        </div>
       </div>
       
-      <h3 style={{
-        fontFamily: 'var(--font-family-satoshi)',
-        fontSize: '24px',
-        fontWeight: '600',
-        color: 'var(--text-primary)',
-        marginBottom: '12px',
-        letterSpacing: '-0.01em'
-      }}>
+      <h3 className={styles.title}>
         {title}
       </h3>
       
-      <p style={{
-        fontFamily: 'var(--font-family-switzer)',
-        fontSize: '15px',
-        color: 'var(--text-tertiary)',
-        marginBottom: action ? '32px' : '0',
-        maxWidth: '400px',
-        lineHeight: '1.6'
-      }}>
+      <p className={cn(styles.description, action && styles.descriptionWithAction)}>
         {description}
       </p>
       
@@ -153,40 +127,11 @@ export default function EmptyState({
         <Button
           variant="primary"
           onClick={action.onClick}
+          aria-label={action.text}
         >
           {action.text}
         </Button>
       )}
-      
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to {
-            opacity: 0.9;
-            transform: translateY(0) scale(1);
-          }
-        }
-        
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.9;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-        
-        svg {
-          animation: fadeInUp 0.6s ease-out;
-        }
-        
-        svg circle[fill*="accent"] {
-          animation: pulse 2s ease-in-out infinite;
-        }
-      `}</style>
     </Card>
   )
 }
