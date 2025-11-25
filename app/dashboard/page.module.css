@@ -2,33 +2,19 @@
   min-height: 100vh;
   background: transparent;
   padding-top: 100px;
-  padding-left: 5vw;
-  padding-right: calc(180px + 5vw); /* Panel width + dynamic padding */
+  padding-left: 24px;
+  padding-right: 204px; /* 180px panel + 24px spacing */
   padding-bottom: 24px;
-  max-width: none; /* Remove max-width constraint */
+  max-width: 1200px; /* Centered container like Era */
+  margin: 0 auto; /* Center the container */
 }
 
 /* Mobile - side panel hidden */
 @media (width <= 768px) {
   .container {
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 20px;
+    padding-left: 20px;
     padding-top: 80px;
-  }
-}
-
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .container {
-    padding-left: 3vw;
-    padding-right: calc(180px + 3vw);
-  }
-}
-
-/* Large screens - cap the expansion */
-@media (min-width: 1920px) {
-  .container {
-    padding-left: 96px; /* 5% of 1920px */
-    padding-right: calc(180px + 96px);
+    max-width: 100%;
   }
 }

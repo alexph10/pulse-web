@@ -348,8 +348,8 @@ export default function DashboardPage() {
         >
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
-            gap: gridSystem.gaps.sm,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+            gap: '16px',
             width: '100%',
           }}>
             {widgetLayout
