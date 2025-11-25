@@ -1,0 +1,160 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 40px;
+  box-sizing: border-box;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e4ddd3;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.mainMetric {
+  font-size: 56px;
+  font-weight: 600;
+  color: #e4ddd3;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Categories Grid */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 0;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.dotJournal {
+  background: #2d5a3d;
+}
+
+.dotGoals {
+  background: #d4774a;
+}
+
+.dotCheckins {
+  background: #8a9199;
+}
+
+.categoryLabel {
+  font-size: 11px;
+  font-weight: 400;
+  color: #a39d96;
+  line-height: 1.4;
+}
+
+.categoryValue {
+  font-size: 22px;
+  font-weight: 600;
+  color: #e4ddd3;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-left: 16px;
+}
+
+/* Stacked Bar Chart */
+.barContainer {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.bar {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  border-radius: 0;
+  overflow: hidden;
+  background: rgba(228, 221, 211, 0.08);
+}
+
+.barSegment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.barJournal {
+  background: #2d5a3d;
+}
+
+.barGoals {
+  background: #d4774a;
+}
+
+.barCheckins {
+  background: #8a9199;
+  /* Add stripe pattern for low percentage segments */
+  background-image: repeating-linear-gradient(
+    45deg,
+    #8a9199,
+    #8a9199 10px,
+    #7a8189 10px,
+    #7a8189 20px
+  );
+}
+
+/* Responsive */
+@media (width <= 768px) {
+  .container {
+    padding: 24px;
+  }
+
+  .mainMetric {
+    font-size: 44px;
+  }
+
+  .categories {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .categoryValue {
+    font-size: 20px;
+  }
+
+  .bar {
+    height: 28px;
+  }
+}
+
+@media (width <= 480px) {
+  .categories {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+

@@ -18,15 +18,15 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
   
   return (
     <div style={{
-      background: 'var(--brand-white)',
-      border: '1px solid var(--border-subtle)',
-      borderRadius: 'var(--border-radius-2xl)',
-      padding: isMobile ? 'var(--spacing-lg)' : 'var(--spacing-xl)',
+      background: '#252c2c',
+      border: 'none',
+      borderRadius: '0',
+      padding: isMobile ? '16px' : '20px',
       display: 'flex',
       flexDirection: 'column',
-      gap: isMobile ? 'var(--spacing-compact-md)' : 'var(--spacing-md)',
-      transition: 'all 0.2s ease',
-      cursor: 'default'
+      gap: isMobile ? '10px' : '12px',
+      transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+      cursor: 'default',
     }}
     >
       {/* Header */}
@@ -36,23 +36,23 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
         justifyContent: 'space-between'
       }}>
         <span style={{
-          fontSize: isMobile ? '13px' : '14px',
-          color: 'var(--text-secondary)',
+          fontSize: isMobile ? '10px' : '11px',
+          color: '#a39d96',
           fontFamily: 'var(--font-family-satoshi)',
-          fontWeight: '500'
+          fontWeight: '400',
+          letterSpacing: '-0.01em',
+          lineHeight: '1.4'
         }}>
           {title}
         </span>
         {icon && (
           <div style={{
-            width: isMobile ? '36px' : '40px',
-            height: isMobile ? '36px' : '40px',
-            borderRadius: '10px',
-            background: '#f0fdf4',
+            width: '16px',
+            height: '16px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#10b981'
+            color: '#a39d96'
           }}>
             {icon}
           </div>
@@ -63,9 +63,10 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
       <div style={{
         fontSize: isMobile ? '28px' : '32px',
         fontWeight: '600',
-        color: 'var(--text-primary)',
+        color: '#e4ddd3',
         fontFamily: 'var(--font-family-satoshi)',
-        lineHeight: '1'
+        lineHeight: '1',
+        letterSpacing: '-0.02em'
       }}>
         {value}
       </div>
@@ -76,27 +77,12 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
         alignItems: 'center',
         gap: '8px'
       }}>
-        {trend && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            padding: '4px 8px',
-            borderRadius: '6px',
-            background: trend.isPositive ? '#f0fdf4' : '#fef2f2',
-            color: trend.isPositive ? '#10b981' : '#ef4444',
-            fontSize: '12px',
-            fontWeight: '600'
-          }}>
-            <span>{trend.isPositive ? '↑' : '↓'}</span>
-            <span>{Math.abs(trend.value)}%</span>
-          </div>
-        )}
         {subtitle && (
           <span style={{
-            fontSize: '13px',
-            color: 'var(--text-secondary)',
-            fontFamily: 'var(--font-family-satoshi)'
+            fontSize: '10px',
+            color: '#a39d96',
+            fontFamily: 'var(--font-family-satoshi)',
+            fontWeight: '400'
           }}>
             {subtitle}
           </span>

@@ -3,36 +3,36 @@
 }
 
 .title {
+  margin-bottom: var(--spacing-xl);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: var(--spacing-xl);
-  font-family: var(--font-family-satoshi);
 }
 
 .loading,
 .empty {
-  text-align: center;
   padding: var(--spacing-2xl);
-  color: var(--text-secondary);
-  font-size: var(--font-size-small);
   font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  text-align: center;
   background: var(--bg-secondary);
-  border-radius: var(--border-radius-md);
+  border-radius: 0;
 }
 
 .emptyText {
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-body);
   color: var(--text-secondary);
-  font-family: var(--font-family-switzer);
-  margin-bottom: var(--spacing-sm);
 }
 
 .emptySubtext {
-  font-size: var(--font-size-small);
-  color: var(--text-tertiary);
   font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
   font-style: italic;
+  color: var(--text-tertiary);
 }
 
 .insightsList {
@@ -45,11 +45,11 @@
   display: flex;
   flex-direction: column;
   padding: var(--spacing-compact-md); /* 12px */
-  background: var(--surface);
-  border-radius: var(--border-radius-md);
-  border-left-width: 3px;
-  border-left-style: solid;
   cursor: pointer;
+  background: var(--surface);
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-radius: 0;
   box-shadow: var(--shadow-sm);
 }
 
@@ -100,23 +100,23 @@
 
 .cardHeader {
   display: flex;
+  gap: var(--spacing-md);
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--spacing-md);
 }
 
 .cardHeaderLeft {
   display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-compact-md);
   flex: 1;
+  gap: var(--spacing-compact-md);
+  align-items: flex-start;
 }
 
 .cardActions {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
   flex-shrink: 0;
+  gap: var(--spacing-xs);
+  align-items: center;
 }
 
 .actionButton {
@@ -125,17 +125,17 @@
   justify-content: center;
   width: var(--spacing-2xl);
   height: var(--spacing-2xl);
-  border: none;
-  background: transparent;
   color: var(--text-tertiary);
   cursor: pointer;
-  border-radius: var(--border-radius-sm);
+  background: transparent;
+  border: none;
+  border-radius: 0;
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
 .expandedContent {
-  margin-top: var(--spacing-compact-md);
   padding-top: var(--spacing-compact-md);
+  margin-top: var(--spacing-compact-md);
   border-top: var(--border-width-thin) solid var(--border-subtle);
   animation: slideDown var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
@@ -147,11 +147,11 @@
 }
 
 .detailText {
+  margin: 0;
   font-family: var(--font-family-switzer);
   font-size: var(--font-size-small);
-  color: var(--text-secondary);
   line-height: var(--line-height-relaxed);
-  margin: 0;
+  color: var(--text-secondary);
 }
 
 @keyframes slideDown {
@@ -159,6 +159,7 @@
     opacity: 0;
     transform: translateY(calc(-1 * var(--spacing-sm)));
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -171,24 +172,24 @@
 }
 
 .insightTitle {
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-semibold);
   margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
 }
 
 .insightDescription {
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-small);
   line-height: 1.5;
   color: var(--text-secondary);
-  font-family: var(--font-family-switzer);
 }
 
 /* Mobile responsive */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .insightCard {
-    padding: var(--spacing-md);
     gap: var(--spacing-md);
+    padding: var(--spacing-md);
   }
 
   .insightTitle {

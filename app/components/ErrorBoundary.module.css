@@ -5,22 +5,22 @@
   justify-content: center;
   min-height: 400px; /* Fixed min-height - not using spacing token */
   padding: var(--spacing-3xl);
+  margin: var(--spacing-lg);
   text-align: center;
   background: var(--surface);
-  border-radius: var(--border-radius-lg);
   border: var(--border-width-thin) solid var(--border-subtle);
-  margin: var(--spacing-lg);
+  border-radius: 0;
 }
 
 .iconContainer {
-  width: 80px; /* Fixed icon container size - not using spacing token */
-  height: 80px; /* Fixed icon container size - not using spacing token */
-  border-radius: 50%;
-  background: var(--overlay-backdrop-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 80px; /* Fixed icon container size - not using spacing token */
+  height: 80px; /* Fixed icon container size - not using spacing token */
   margin-bottom: var(--spacing-xl);
+  background: var(--overlay-backdrop-subtle);
+  border-radius: 0;
 }
 
 .icon {
@@ -34,48 +34,48 @@
 }
 
 .title {
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: var(--spacing-sm);
-  font-family: var(--font-family-satoshi);
 }
 
 .message {
-  font-size: var(--font-size-body);
-  color: var(--text-secondary);
-  margin-bottom: var(--spacing-xl);
   max-width: 500px; /* Fixed max-width - not using spacing token */
-  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-xl);
   font-family: var(--font-family-satoshi);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-secondary);
 }
 
 .details {
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: var(--background);
-  border-radius: var(--border-radius-md);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  text-align: left;
-  max-width: 600px; /* Fixed max-width - not using spacing token */
   width: 100%;
+  max-width: 600px; /* Fixed max-width - not using spacing token */
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  text-align: left;
+  background: var(--background);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
 }
 
 .detailsSummary {
-  cursor: pointer;
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
   margin-bottom: var(--spacing-sm);
   font-family: var(--font-family-satoshi);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  cursor: pointer;
 }
 
 .detailsPre {
-  font-size: var(--font-size-small);
-  color: var(--error);
   overflow: auto;
   font-family: monospace;
-  white-space: pre-wrap;
+  font-size: var(--font-size-small);
+  color: var(--error);
   word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .buttonContainer {
@@ -85,25 +85,25 @@
 
 .buttonPrimary {
   padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--accent-primary);
-  color: var(--brand-white);
-  border: none;
-  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
+  color: var(--brand-white);
   cursor: pointer;
-  font-family: var(--font-family-satoshi);
+  background: var(--accent-primary);
+  border: none;
+  border-radius: 0;
 }
 
 .buttonSecondary {
   padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--surface);
-  color: var(--text-primary);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
   cursor: pointer;
-  font-family: var(--font-family-satoshi);
+  background: var(--surface);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
 }
 

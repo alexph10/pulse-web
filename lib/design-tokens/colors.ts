@@ -1,28 +1,29 @@
 /**
  * Design Tokens - Colors
  * Single source of truth for all colors in the application
+ * Serene Sandstone Theme
  */
 
 export const colors = {
   // Serene Sandstone Theme (Primary)
   visionary: {
-    background: '#f5f2eb', // warm off-white
-    backgroundSecondary: '#ebe5dc', // soft beige
-    surface: '#ffffff', // pure white cards
-    surfaceElevated: '#fdf9f2', // subtle ivory
-    textPrimary: '#1f252e', // deep charcoal
-    textSecondary: '#4a5666', // muted slate
-    textTertiary: '#7e8796', // cool taupe
-    textDisabled: '#b8c0cc', // light grey
-    accentPrimary: '#f6b562', // sunlit amber
-    accentPrimaryHover: '#f8c37f', // lighter amber
-    accentPrimaryActive: '#e9a24a', // deeper amber
-    accentSecondary: '#7b8ba4', // soft steel
-    accentMuted: '#d9dfe7', // pale mist
-    accentSubtle: '#f0ede6', // gentle sand
-    borderSubtle: '#e4ddd3', // parchment edge
-    borderEmphasis: '#d0c3b5', // clay edge
-    borderStrong: '#b9a48f', // warm stone
+    background: '#f5f2eb', // warm cream
+    backgroundSecondary: '#faf8f4', // lighter cream
+    surface: '#ffffff', // pure white
+    surfaceElevated: '#fefefe', // elevated white
+    textPrimary: '#385f52', // forest green
+    textSecondary: '#4a7364', // medium green
+    textTertiary: '#5c8776', // soft green
+    textDisabled: '#9eb5ad', // muted green
+    accentPrimary: '#385f52', // forest green
+    accentPrimaryHover: '#4a7364', // hover green
+    accentPrimaryActive: '#2d4d42', // active green
+    accentSecondary: '#f6b562', // warm amber
+    accentMuted: '#e4a855', // muted amber
+    accentSubtle: '#f9d8a8', // soft amber
+    borderSubtle: '#e4ddd3', // subtle cream border
+    borderEmphasis: '#d4c9bb', // emphasis border
+    borderStrong: '#b8a895', // strong border
   },
   // Purple Theme (from reference images)
   purple: {
@@ -64,45 +65,67 @@ export const colors = {
     borderEmphasis: '#6A0000',
     borderStrong: '#7A0000',
   },
-  // Light mode colors - Serene Sandstone Theme (Default)
+  // Light mode - Sandstone theme
   light: {
     background: '#f5f2eb',
-    backgroundSecondary: '#ebe5dc',
+    backgroundSecondary: '#faf8f4',
     surface: '#ffffff',
-    surfaceElevated: '#fdf9f2',
-    textPrimary: '#1f252e',
-    textSecondary: '#4a5666',
-    textTertiary: '#7e8796',
-    textDisabled: '#b8c0cc',
-    accentPrimary: '#f6b562',
-    accentPrimaryHover: '#f8c37f',
-    accentPrimaryActive: '#e9a24a',
-    accentSecondary: '#7b8ba4',
-    accentMuted: '#d9dfe7',
-    accentSubtle: '#f0ede6',
+    surfaceElevated: '#fefefe',
+    textPrimary: '#385f52',
+    textSecondary: '#4a7364',
+    textTertiary: '#5c8776',
+    textDisabled: '#9eb5ad',
+    accentPrimary: '#385f52',
+    accentPrimaryHover: '#4a7364',
+    accentPrimaryActive: '#2d4d42',
+    accentSecondary: '#f6b562',
+    accentMuted: '#e4a855',
+    accentSubtle: '#f9d8a8',
     borderSubtle: '#e4ddd3',
-    borderEmphasis: '#d0c3b5',
-    borderStrong: '#b9a48f',
+    borderEmphasis: '#d4c9bb',
+    borderStrong: '#b8a895',
   },
-  // Dark mode colors - Even darker for true dark mode
+  // Dark mode - True Black theme with dramatic depth
   dark: {
-    background: '#0A0705',
-    backgroundSecondary: '#120E0A',
-    surface: '#1A1510',
-    surfaceElevated: '#241B15',
-    textPrimary: '#F5F3F0',
-    textSecondary: '#D4C9BC',
-    textTertiary: '#A1937F',
-    textDisabled: '#5E5650',
-    accentPrimary: '#FB923C',
-    accentPrimaryHover: '#FDBA74',
-    accentPrimaryActive: '#F97316',
-    accentSecondary: '#FED7AA',
-    accentMuted: '#9A3412',
-    accentSubtle: '#7C2D12',
-    borderSubtle: '#2A2218',
-    borderEmphasis: '#3A2E24',
-    borderStrong: '#4A3D30',
+    background: '#000000',           // True black base
+    backgroundSecondary: '#0A0A0A',  // Barely elevated
+    surface: '#141414',              // Card/modal surfaces
+    surfaceElevated: '#1A1A1A',      // More elevated surfaces
+    surfaceHover: '#1F1F1F',         // Hover states
+    textPrimary: '#FAFAFA',          // Bright white for contrast
+    textSecondary: '#8A8A8A',        // Medium gray
+    textTertiary: '#5A5A5A',         // Dark gray
+    textDisabled: '#3A3A3A',         // Very dark gray
+    textInverse: '#000000',          // Black text on light backgrounds
+    accentPrimary: '#B91C1C',        // Brand red
+    accentPrimaryHover: '#DC2626',   // Lighter red hover
+    accentPrimaryActive: '#991B1B',  // Darker red active
+    accentSecondary: '#991B1B',      // Secondary red
+    accentTertiary: '#7F1D1D',       // Tertiary red
+    accentDarkest: '#5F1010',        // Ultra dark red
+    accentMuted: 'rgba(185, 28, 28, 0.25)',      // Muted red overlay
+    accentSubtle: 'rgba(185, 28, 28, 0.06)',     // Subtle red overlay
+    accentSubtleDark: 'rgba(95, 16, 16, 0.4)',   // Dark red overlay
+    borderSubtle: 'rgba(255, 255, 255, 0.05)',   // Very subtle borders
+    borderBase: 'rgba(255, 255, 255, 0.08)',     // Base borders
+    borderEmphasis: 'rgba(255, 255, 255, 0.12)', // Emphasized borders
+    borderStrong: 'rgba(255, 255, 255, 0.16)',   // Strong borders
+  },
+    accentSecondary: '#B87FCE',
+    accentMuted: '#9865B8',
+    accentSubtle: '#6B4A88',
+    borderSubtle: '#5a2a52',
+    borderEmphasis: '#6B4A88',
+    borderStrong: '#7A5FA8',
+  },
+  // Chart / Accent palettes - warm earth tones
+  charts: {
+    saffron: '#f5ce58',
+    marigold: '#e29c43',
+    clay: '#b4623b',
+    russet: '#8b4530',
+    cocoa: '#5a1b16',
+    sand: '#f9d8a8',
   },
   // Semantic colors (theme-agnostic) - Earth tones, no gray
   semantic: {
@@ -123,6 +146,8 @@ export const colors = {
   brand: {
     limeGreen: '#84ff00', // Primary brand accent
     limeGreenHover: '#a5ff33', // Hover state
+    forestGreen: '#385f52', // Primary forest green
+    forestGreenHover: '#4a7364', // Forest green hover
     lightGrey: '#d1d5db', // Secondary button background
     lightGreyHover: '#e5e7eb', // Secondary button hover
     black: '#000000', // Text on light backgrounds

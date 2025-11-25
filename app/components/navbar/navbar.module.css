@@ -1,8 +1,8 @@
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   z-index: 1000;
   background: var(--overlay-backdrop-strong);
   border-bottom: var(--border-width-thin) solid var(--overlay-white-overlay-light);
@@ -21,37 +21,37 @@
 .container {
   display: flex;
   flex-direction: row;
+  gap: var(--spacing-2xl);
   align-items: center;
   justify-content: space-between;
   max-width: 1000px;
-  margin: 0 auto;
   padding: var(--spacing-lg) var(--spacing-2xl);
-  gap: var(--spacing-2xl);
+  margin: 0 auto;
 }
 
 /* Navigation Links Container - Center */
 .navLinks {
   display: flex;
+  flex: 1;
   flex-direction: row;
   gap: var(--spacing-2xl);
   align-items: center;
-  font-family: var(--font-family-satoshi);
-  flex: 1;
   justify-content: center;
+  font-family: var(--font-family-satoshi);
 }
 
 /* Individual Navigation Items */
 .navItem {
   position: relative;
-  color: var(--overlay-white-overlay);
-  text-decoration: none;
+  padding: var(--spacing-xs) 0;
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-regular);
+  color: var(--overlay-white-overlay);
+  text-decoration: none;
   letter-spacing: 0.2px;
-  padding: var(--spacing-xs) 0;
-  transition: color var(--animation-timing-standard) var(--animation-easing-easeOut);
   white-space: nowrap;
-  font-family: var(--font-family-satoshi);
+  transition: color var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
 .navItem:hover {
@@ -66,48 +66,48 @@
 .ctaLink {
   position: relative;
   display: inline-block;
-  text-decoration: none;
   flex-shrink: 0;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .ctaText {
   position: relative;
-  display: inline-block;
-  font-style: italic;
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-regular);
-  font-family: var(--font-family-satoshi);
-  color: var(--brand-white);
-  padding: var(--spacing-xs) 0;
   z-index: 2;
+  display: inline-block;
+  padding: var(--spacing-xs) 0;
+  font-family: var(--font-family-satoshi);
+  font-size: var(--font-size-small);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+  color: var(--brand-white);
   transition: color var(--animation-timing-smooth) var(--animation-easing-easeOut);
   transition-delay: var(--animation-timing-micro);
 }
 
 .ctaLink::before {
-  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 1;
   width: 0;
   height: 2px;
+  content: '';
   background: var(--brand-white);
   transition: width var(--animation-timing-smooth) var(--animation-easing-easeOut);
-  z-index: 1;
 }
 
 .ctaLink::after {
-  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 1;
   width: 100%;
   height: 0;
+  content: '';
   background: var(--brand-white);
   transition: height var(--animation-timing-smooth) var(--animation-easing-easeOut);
   transition-delay: var(--animation-timing-smooth);
-  z-index: 1;
 }
 
 .ctaLink:hover::before {
@@ -122,10 +122,10 @@
   color: var(--brand-black);
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .container {
-    padding: var(--spacing-lg) var(--spacing-xl);
     gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
   }
 
   .navLinks {
@@ -141,10 +141,10 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .container {
-    padding: var(--spacing-lg);
     gap: var(--spacing-md);
+    padding: var(--spacing-lg);
   }
 
   .navLinks {

@@ -1,22 +1,22 @@
 .container {
   display: flex;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100vh;
 }
 
 /* Left Side - Form */
 .leftSide {
-  flex: 1.3;
-  background-color: var(--brand-white);
   display: flex;
+  flex: 1.3;
   align-items: center;
   justify-content: center;
   padding: 3rem 2rem;
+  background-color: var(--brand-white);
 }
 
 .formContainer {
-  max-width: 480px;
   width: 100%;
+  max-width: 480px;
 }
 
 .form {
@@ -27,13 +27,13 @@
 
 .error {
   padding: var(--spacing-compact-xl);
+  font-family: Satoshi, sans-serif;
+  font-size: var(--font-size-small);
+  color: var(--error);
+  text-align: center;
   background-color: var(--overlay-backdrop-subtle);
   border: 1px solid var(--error);
-  border-radius: var(--border-radius-sm);
-  color: var(--error);
-  font-family: 'Satoshi', sans-serif;
-  font-size: var(--font-size-small);
-  text-align: center;
+  border-radius: 0;
 }
 
 .inputGroup {
@@ -43,21 +43,21 @@
 }
 
 .label {
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
-  color: var(--text-secondary);
   font-weight: 400;
+  color: var(--text-secondary);
 }
 
 .input {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-small);
   color: var(--text-primary);
   background-color: var(--brand-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
   transition: all 0.2s ease;
 }
 
@@ -66,8 +66,8 @@
 }
 
 .input:focus {
-  outline: none;
   border-color: var(--accent-primary);
+  outline: none;
   box-shadow: var(--shadow-sm);
 }
 
@@ -92,9 +92,9 @@
 
 .checkboxItem {
   display: flex;
-  align-items: center;
   gap: var(--spacing-compact-lg);
-  font-family: 'Satoshi', sans-serif;
+  align-items: center;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-small);
   color: var(--text-primary);
   cursor: pointer;
@@ -103,60 +103,60 @@
 .checkboxItem input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  cursor: pointer;
   accent-color: var(--accent-primary);
+  cursor: pointer;
 }
 
 .disclaimer {
-  font-family: 'Satoshi', sans-serif;
+  margin-top: 0.4rem;
+  font-family: Satoshi, sans-serif;
   font-size: 0.75rem;
   color: var(--text-tertiary);
-  margin-top: 0.4rem;
 }
 
 .submitButton {
   width: 100%;
   padding: var(--spacing-compact-2xl);
-  background-color: var(--accent-primary);
-  color: var(--brand-white);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
+  margin-top: 0.75rem;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
+  color: var(--brand-white);
   cursor: pointer;
+  background-color: var(--accent-primary);
+  border: none;
+  border-radius: 0;
   transition: all 0.2s ease;
-  margin-top: 0.75rem;
 }
 
 .submitButton:hover:not(:disabled) {
   background-color: var(--accent-primary-hover);
-  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 .submitButton:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .divider {
   display: flex;
   align-items: center;
-  text-align: center;
   margin: 0.5rem 0;
+  text-align: center;
 }
 
 .divider::before,
 .divider::after {
-  content: '';
   flex: 1;
+  content: '';
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .divider span {
   padding: 0 1rem;
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
   color: var(--text-tertiary);
 }
@@ -169,29 +169,29 @@
 
 .googleButton,
 .appleButton {
-  width: 100%;
-  padding: var(--spacing-compact-2xl);
-  background-color: var(--brand-white);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
-  font-size: var(--font-size-body);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
   display: flex;
+  gap: var(--spacing-compact-xl);
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-compact-xl);
+  width: 100%;
+  padding: var(--spacing-compact-2xl);
+  font-family: Satoshi, sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-color: var(--brand-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  transition: all 0.2s ease;
 }
 
 .googleButton:hover,
 .appleButton:hover {
   background-color: var(--background-secondary);
   border-color: var(--border-emphasis);
-  transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .googleIcon,
@@ -202,37 +202,37 @@
 
 /* Right Side - Testimonial */
 .rightSide {
-  flex: 0.7;
-  background-color: var(--background-secondary);
   display: flex;
+  flex: 0.7;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
+  background-color: var(--background-secondary);
 }
 
 .testimonialContainer {
-  max-width: 420px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  max-width: 420px;
 }
 
 .imagePlaceholder {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
-  border-radius: var(--border-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+  border-radius: 0;
 }
 
 .logoMark {
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: 2.5rem;
-  font-weight: var(--font-weight-semibold);
   font-style: italic;
+  font-weight: var(--font-weight-semibold);
   color: var(--brand-white);
 }
 
@@ -243,18 +243,18 @@
 }
 
 .quote {
-  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-body);
   line-height: 1.6;
   color: var(--text-primary);
-  margin: 0;
 }
 
 .author {
-  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
   color: var(--text-secondary);
-  margin: 0;
 }
 
 .stats {
@@ -270,23 +270,23 @@
 }
 
 .statNumber {
-  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin: 0;
 }
 
 .statLabel {
-  font-family: 'Satoshi', sans-serif;
-  font-size: var(--font-size-tiny);
-  color: var(--text-secondary);
   margin: 0;
+  font-family: Satoshi, sans-serif;
+  font-size: var(--font-size-tiny);
   line-height: 1.4;
+  color: var(--text-secondary);
 }
 
 /* Responsive */
-@media (max-width: 968px) {
+@media (width <= 968px) {
   .container {
     flex-direction: column;
   }

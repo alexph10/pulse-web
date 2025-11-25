@@ -1,66 +1,88 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: 6px;
   width: 100%;
 }
 
 .label {
   font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-medium);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
+  line-height: 1.5;
 }
 
 .textarea {
   width: 100%;
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
-  font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-body);
-  color: var(--text-primary);
-  line-height: var(--line-height-relaxed);
-  resize: vertical;
   min-height: 100px;
-  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
+  padding: 12px;
+  font-family: var(--font-family-satoshi);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  resize: vertical;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
   outline: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .textarea::placeholder {
   color: var(--text-tertiary);
+  opacity: 0.5;
+}
+
+.textarea:hover:not(:disabled) {
+  border-color: var(--border-emphasis);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .textarea:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px var(--accent-subtle);
+  box-shadow: 
+    0 0 0 3px rgba(185, 28, 28, 0.15),
+    0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .textarea:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
-  background: var(--background);
+  background: var(--background-elevated);
+  opacity: 0.4;
+  border-color: var(--border-subtle);
 }
 
 .textarea.error {
   border-color: var(--error);
+  background: rgba(239, 68, 68, 0.02);
 }
 
 .textarea.error:focus {
-  box-shadow: 0 0 0 3px var(--accent-subtle);
   border-color: var(--error);
+  box-shadow: 
+    0 0 0 3px rgba(239, 68, 68, 0.08),
+    0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .errorText {
-  font-family: var(--font-family-switzer);
-  font-size: var(--font-size-small);
+  font-family: var(--font-family-satoshi);
+  font-size: 0.8125rem;
+  font-weight: 500;
   color: var(--error);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 .helperText {
-  font-family: var(--font-family-switzer);
-  font-size: var(--font-size-small);
+  font-family: var(--font-family-satoshi);
+  font-size: 0.8125rem;
   color: var(--text-tertiary);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 

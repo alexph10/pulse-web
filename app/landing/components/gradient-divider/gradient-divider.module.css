@@ -1,0 +1,30 @@
+.divider {
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--spacing-5xl) + var(--spacing-2xl));
+  margin: var(--spacing-4xl) 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background) 0%, transparent) 0%,
+    var(--chart-sand) 20%,
+    var(--chart-saffron) 45%,
+    var(--chart-clay) 70%,
+    var(--chart-cocoa) 90%,
+    var(--background) 100%
+  );
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.divider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--background) 80%, transparent));
+}
+
+.compact {
+  margin: var(--spacing-3xl) 0;
+  min-height: calc(var(--spacing-4xl) + var(--spacing-xl));
+}
+

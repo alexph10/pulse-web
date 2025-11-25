@@ -18,14 +18,14 @@ export default function DashboardLayout({
   // };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--background)' }}>
       {/* <Sidebar onToggle={handleSidebarToggle} /> */}
       <main 
         style={{ 
           flex: 1,
           width: '100%',
           minHeight: '100vh',
-          background: 'var(--background)',
+          background: 'transparent',
           display: 'flex',
           flexDirection: 'column',
           paddingBottom: '80px', /* Space for mobile nav */
@@ -33,12 +33,13 @@ export default function DashboardLayout({
         className="main-content"
       >
         <SubmoduleNav />
+        
         <div style={{
           flex: 1,
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          paddingTop: 'var(--spacing-4xl)',
+          paddingTop: 'var(--spacing-xl)',
         }}>
           <div style={{
             width: '100%',

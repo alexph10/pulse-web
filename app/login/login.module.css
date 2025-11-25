@@ -1,49 +1,49 @@
 .container {
   display: flex;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100vh;
 }
 
 /* Left Side - Form */
 .leftSide {
-  flex: 1.3;
-  background-color: var(--brand-white);
   display: flex;
+  flex: 1.3;
   align-items: center;
   justify-content: center;
   padding: 3rem 2rem;
+  background-color: var(--brand-white);
 }
 
 .formContainer {
-  max-width: 580px;
   width: 100%;
+  max-width: 580px;
 }
 
 /* Tab Toggle */
 .tabContainer {
   position: relative;
   display: flex;
-  background-color: var(--background-secondary);
-  border-radius: var(--border-radius-sm);
+  gap: var(--spacing-xs);
   padding: var(--spacing-xs);
   margin-bottom: var(--spacing-2xl);
-  gap: var(--spacing-xs);
+  background-color: var(--background-secondary);
+  border-radius: 0;
 }
 
 .tab {
+  position: relative;
+  z-index: 1;
   flex: 1;
   padding: var(--spacing-compact-xl) var(--spacing-compact-2xl);
-  background-color: transparent;
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-body);
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   transition: all 0.2s ease;
-  position: relative;
-  z-index: 1;
 }
 
 .tab:hover {
@@ -51,21 +51,21 @@
 }
 
 .tabActive {
-  color: var(--text-primary);
   font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
 .tabIndicator {
   position: absolute;
   top: var(--spacing-xs);
   left: var(--spacing-xs);
+  z-index: 0;
   width: calc(50% - var(--spacing-xs));
   height: calc(100% - var(--spacing-sm));
   background-color: var(--brand-white);
-  border-radius: var(--border-radius-sm);
+  border-radius: 0;
   box-shadow: var(--shadow-sm);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 0;
 }
 
 .tabIndicatorRight {
@@ -80,13 +80,13 @@
 
 .error {
   padding: var(--spacing-compact-xl);
+  font-family: Satoshi, sans-serif;
+  font-size: var(--font-size-small);
+  color: var(--error);
+  text-align: center;
   background-color: var(--overlay-backdrop-subtle);
   border: 1px solid var(--error);
-  border-radius: var(--border-radius-sm);
-  color: var(--error);
-  font-family: 'Satoshi', sans-serif;
-  font-size: var(--font-size-small);
-  text-align: center;
+  border-radius: 0;
 }
 
 .inputGroup {
@@ -97,23 +97,23 @@
 
 .labelRow {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .label {
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
-  color: var(--text-secondary);
   font-weight: 400;
+  color: var(--text-secondary);
 }
 
 .forgotLink {
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
+  font-weight: 500;
   color: var(--accent-primary);
   text-decoration: none;
-  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -125,12 +125,12 @@
 .input {
   width: 100%;
   padding: var(--spacing-compact-lg) var(--spacing-compact-2xl);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-small);
   color: var(--text-primary);
   background-color: var(--brand-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
   transition: all 0.2s ease;
 }
 
@@ -139,54 +139,54 @@
 }
 
 .input:focus {
-  outline: none;
   border-color: var(--accent-primary);
+  outline: none;
   box-shadow: var(--shadow-sm);
 }
 
 .submitButton {
   width: 100%;
   padding: var(--spacing-compact-2xl);
-  background-color: var(--accent-primary);
-  color: var(--brand-white);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
+  margin-top: var(--spacing-compact-xl);
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
+  color: var(--brand-white);
   cursor: pointer;
+  background-color: var(--accent-primary);
+  border: none;
+  border-radius: 0;
   transition: all 0.2s ease;
-  margin-top: var(--spacing-compact-xl);
 }
 
 .submitButton:hover:not(:disabled) {
   background-color: var(--accent-primary-hover);
-  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 .submitButton:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .divider {
   display: flex;
   align-items: center;
-  text-align: center;
   margin: 0.5rem 0;
+  text-align: center;
 }
 
 .divider::before,
 .divider::after {
-  content: '';
   flex: 1;
+  content: '';
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .divider span {
   padding: 0 1rem;
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
   color: var(--text-tertiary);
 }
@@ -199,29 +199,29 @@
 
 .googleButton,
 .appleButton {
-  width: 100%;
-  padding: var(--spacing-compact-2xl);
-  background-color: var(--brand-white);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--border-radius-sm);
-  font-family: 'Satoshi', sans-serif;
-  font-size: var(--font-size-body);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
   display: flex;
+  gap: var(--spacing-compact-xl);
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-compact-xl);
+  width: 100%;
+  padding: var(--spacing-compact-2xl);
+  font-family: Satoshi, sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-color: var(--brand-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  transition: all 0.2s ease;
 }
 
 .googleButton:hover,
 .appleButton:hover {
   background-color: var(--background-secondary);
   border-color: var(--border-emphasis);
-  transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .googleIcon,
@@ -232,37 +232,37 @@
 
 /* Right Side - Testimonial */
 .rightSide {
-  flex: 0.7;
-  background-color: var(--background-secondary);
   display: flex;
+  flex: 0.7;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
+  background-color: var(--background-secondary);
 }
 
 .testimonialContainer {
-  max-width: 420px;
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  max-width: 420px;
 }
 
 .imagePlaceholder {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
-  border-radius: var(--border-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+  border-radius: 0;
 }
 
 .logoMark {
-  font-family: 'Satoshi', sans-serif;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-semibold);
   font-style: italic;
+  font-weight: var(--font-weight-semibold);
   color: var(--brand-white);
 }
 
@@ -273,18 +273,18 @@
 }
 
 .quote {
-  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-body);
   line-height: 1.6;
   color: var(--text-primary);
-  margin: 0;
 }
 
 .author {
-  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-tiny);
   color: var(--text-secondary);
-  margin: 0;
 }
 
 .stats {
@@ -300,23 +300,23 @@
 }
 
 .statNumber {
-  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  font-family: Satoshi, sans-serif;
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin: 0;
 }
 
 .statLabel {
-  font-family: 'Satoshi', sans-serif;
-  font-size: var(--font-size-tiny);
-  color: var(--text-secondary);
   margin: 0;
+  font-family: Satoshi, sans-serif;
+  font-size: var(--font-size-tiny);
   line-height: 1.4;
+  color: var(--text-secondary);
 }
 
 /* Responsive */
-@media (max-width: 968px) {
+@media (width <= 968px) {
   .container {
     flex-direction: column;
   }

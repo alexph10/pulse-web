@@ -1,49 +1,86 @@
 .card {
+  padding: 24px;
   background: var(--surface);
-  border-radius: var(--border-radius-md);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  padding: var(--spacing-compact-2xl);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .elevation-0 {
-  box-shadow: var(--shadow-none);
+  box-shadow: none;
+  border: 1px solid transparent;
 }
 
 .elevation-1 {
-  box-shadow: var(--shadow-sm);
+  box-shadow: 
+    0 2px 4px 0 rgba(0, 0, 0, 0.3),
+    0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .elevation-2 {
-  box-shadow: var(--shadow-md);
+  box-shadow: 
+    0 6px 10px -1px rgba(0, 0, 0, 0.4),
+    0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .elevation-3 {
-  box-shadow: var(--shadow-lg);
+  box-shadow: 
+    0 12px 20px -3px rgba(0, 0, 0, 0.5),
+    0 6px 10px -2px rgba(0, 0, 0, 0.4);
+}
+
+.hoverable:hover {
+  border-color: var(--border-emphasis);
+  box-shadow: 
+    0 10px 16px -2px rgba(0, 0, 0, 0.5),
+    0 4px 8px -1px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 
 .clickable {
   cursor: pointer;
+  user-select: none;
+}
+
+.clickable:hover {
+  border-color: var(--border-emphasis);
+  box-shadow: 
+    0 10px 16px -2px rgba(0, 0, 0, 0.5),
+    0 4px 8px -1px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.clickable:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 4px 0 rgba(0, 0, 0, 0.3),
+    0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .clickable:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
+  box-shadow: 
+    0 0 0 4px rgba(185, 28, 28, 0.15),
+    0 10px 16px -2px rgba(0, 0, 0, 0.5);
 }
 
 .header {
-  margin-bottom: var(--spacing-compact-md); /* 9px */
-  padding-bottom: var(--spacing-compact-md);
-  border-bottom: var(--border-width-thin) solid var(--border-subtle);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .footer {
-  margin-top: var(--spacing-compact-md);
-  padding-top: var(--spacing-compact-md);
-  border-top: var(--border-width-thin) solid var(--border-subtle);
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .content {
-  /* Content area - no additional styles needed */
+  font-family: var(--font-family-satoshi);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-primary);
 }
 

@@ -7,29 +7,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
   border-bottom: var(--border-width-thin) solid var(--border-subtle);
 }
 
 .headerLeft {
   display: flex;
-  align-items: center;
   gap: var(--spacing-sm);
+  align-items: center;
 }
 
 .title {
+  margin: 0;
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin: 0;
 }
 
 .headerRight {
   display: flex;
-  align-items: center;
   gap: var(--spacing-sm);
+  align-items: center;
 }
 
 .toggleButton,
@@ -39,18 +39,18 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border: none;
-  background: transparent;
   color: var(--text-tertiary);
   cursor: pointer;
-  border-radius: var(--border-radius-sm);
+  background: transparent;
+  border: none;
+  border-radius: 0;
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
 .toggleButton:hover,
 .dismissButton:hover {
-  background: var(--surface-elevated);
   color: var(--text-primary);
+  background: var(--surface-elevated);
 }
 
 .content {
@@ -61,25 +61,25 @@
 
 .moodSection {
   display: flex;
+  gap: var(--spacing-lg);
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-lg);
 }
 
 .moodBadge {
   padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--border-radius-full);
-  color: var(--brand-white);
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-semibold);
+  color: var(--brand-white);
   text-transform: capitalize;
+  border-radius: 0;
 }
 
 .score {
   display: flex;
-  align-items: baseline;
   gap: var(--spacing-xs);
+  align-items: baseline;
 }
 
 .scoreValue {
@@ -98,52 +98,52 @@
 .insight {
   padding: var(--spacing-lg);
   background: var(--surface-elevated);
-  border-radius: var(--border-radius-md);
   border-left: var(--border-width-medium) solid var(--accent-primary);
+  border-radius: 0;
 }
 
 .insightText {
+  margin: 0;
   font-family: var(--font-family-switzer);
   font-size: var(--font-size-body);
-  color: var(--text-primary);
   line-height: var(--line-height-relaxed);
-  margin: 0;
+  color: var(--text-primary);
 }
 
 .question {
   padding: var(--spacing-md);
   background: var(--accent-muted);
-  border-radius: var(--border-radius-md);
+  border-radius: 0;
 }
 
 .questionText {
+  margin: 0;
   font-family: var(--font-family-switzer);
   font-size: var(--font-size-small);
-  color: var(--text-primary);
   font-style: italic;
-  margin: 0;
+  color: var(--text-primary);
 }
 
 .advancedToggle {
   display: flex;
+  gap: var(--spacing-xs);
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-md);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  background: transparent;
-  border-radius: var(--border-radius-sm);
-  color: var(--text-secondary);
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-small);
+  color: var(--text-secondary);
   cursor: pointer;
+  background: transparent;
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
   transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
 .advancedToggle:hover {
+  color: var(--text-primary);
   background: var(--surface-elevated);
   border-color: var(--border-emphasis);
-  color: var(--text-primary);
 }
 
 .advanced {
@@ -152,7 +152,7 @@
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
   background: var(--surface-elevated);
-  border-radius: var(--border-radius-md);
+  border-radius: 0;
   animation: fadeIn var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
@@ -179,12 +179,12 @@
 
 .tag {
   padding: var(--spacing-xs) var(--spacing-sm);
-  background: var(--background);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-sm);
   font-family: var(--font-family-switzer);
   font-size: var(--font-size-tiny);
   color: var(--text-secondary);
+  background: var(--background);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
 }
 
 .sentiment {
@@ -199,6 +199,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -209,6 +210,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

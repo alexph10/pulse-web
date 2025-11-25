@@ -8,10 +8,10 @@
 
 import { tokens, componentStyles, typographyStyles } from '@/lib/design-tokens/helpers';
 import { cardPatterns, buttonPatterns, formPatterns, textPatterns, statusPatterns } from '@/lib/design-system/component-patterns';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/ui/Textarea';
+import { Card } from '@/app/components/ui/Card';
+import { Button } from '@/app/components/ui/Button';
+import { Input } from '@/app/components/ui/Input';
+import { Textarea } from '@/app/components/ui/Textarea';
 
 export default function DesignSystemPage() {
   return (

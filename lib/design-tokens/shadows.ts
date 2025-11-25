@@ -1,14 +1,16 @@
 /**
  * Design Tokens - Shadows & Elevation
- * Elevation system for depth and hierarchy
+ * Dramatic elevation system for true black backgrounds
  */
 
 export const shadows = {
   none: 'none',
-  sm: '0 1px 3px rgba(0, 0, 0, 0.1)',
-  md: '0 4px 12px rgba(0, 0, 0, 0.15)',
-  lg: '0 8px 24px rgba(0, 0, 0, 0.2)',
-  xl: '0 16px 48px rgba(0, 0, 0, 0.25)',
+  sm: '0 2px 4px 0 rgba(0, 0, 0, 0.3)',
+  md: '0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
+  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4)',
+  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5)',
+  brand: '0 8px 16px -4px rgba(185, 28, 28, 0.4)',
+  glow: '0 0 20px rgba(185, 28, 28, 0.5)',
 } as const
 
 export const elevation = {

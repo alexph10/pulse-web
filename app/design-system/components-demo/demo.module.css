@@ -1,0 +1,101 @@
+.page {
+  min-height: 100vh;
+  background: var(--background);
+  padding: 60px 40px 100px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin: 0 0 48px 0;
+}
+
+.section {
+  margin-bottom: 64px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 32px 0;
+}
+
+.dividerSection {
+  margin-bottom: 48px;
+}
+
+.tableSection {
+  margin-bottom: 32px;
+}
+
+.exampleTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+}
+
+.text {
+  font-size: 14px;
+  color: #e4ddd3;
+  margin: 0;
+}
+
+/* Code Examples */
+.codeBlock {
+  margin-bottom: 32px;
+}
+
+.codeTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+}
+
+.code {
+  background: #252c2c;
+  padding: 20px 24px;
+  border-radius: 0;
+  border: 1px solid rgba(228, 221, 211, 0.15);
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e4ddd3;
+  overflow-x: auto;
+  margin: 0;
+}
+
+/* Responsive */
+@media (width <= 768px) {
+  .page {
+    padding: 40px 24px 80px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+}
+
+
+
+
+
+

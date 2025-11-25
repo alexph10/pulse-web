@@ -3,27 +3,27 @@
 }
 
 .title {
+  margin-bottom: var(--spacing-lg);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: var(--spacing-lg);
-  font-family: var(--font-family-satoshi);
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
   margin-bottom: var(--spacing-lg);
 }
 
 .subtitle {
-  font-size: var(--font-size-small);
-  color: var(--text-tertiary);
-  font-family: var(--font-family-switzer);
-  font-style: italic;
   margin-top: var(--spacing-xs);
   margin-left: var(--spacing-3xl);
+  font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
+  font-style: italic;
+  color: var(--text-tertiary);
 }
 
 .actionGrid {
@@ -38,13 +38,14 @@
   flex-direction: column;
   gap: var(--spacing-md);
   padding: var(--spacing-lg);
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-lg);
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 16px 32px rgba(15, 61, 60, 0.08);
+  background: var(--surface);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
+  box-shadow: 0 16px 32px rgb(15 61 60 / 8%);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+
   --accent-color: var(--text-secondary);
   --accent-soft: var(--surface-elevated);
 }
@@ -56,19 +57,19 @@
 
 .cardHeader {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .categoryTag {
+  padding: 0;
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 0;
   border-radius: 0;
-  color: var(--text-secondary);
-  font-family: var(--font-family-satoshi);
 }
 
 .content {
@@ -77,29 +78,29 @@
 }
 
 .actionLabel {
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-semibold);
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
   margin-bottom: var(--spacing-xs);
   font-family: var(--font-family-satoshi);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
   transition: color 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
 }
 
 .actionDescription {
-  font-size: var(--font-size-small);
-  color: var(--text-secondary);
   font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
   line-height: 1.4;
+  color: var(--text-secondary);
 }
 
 .arrow {
+  flex-shrink: 0;
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-semibold);
   opacity: 0.4;
   transition: all 0.3s ease;
-  flex-shrink: 0;
 }
 
 /* Static state - no hover effects */
@@ -116,15 +117,15 @@
 }
 
 /* Mobile responsive */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .actionGrid {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
   }
 
   .actionCard {
-    padding: var(--spacing-compact-lg);
     gap: var(--spacing-md);
+    padding: var(--spacing-compact-lg);
   }
 
   .actionLabel {
@@ -136,7 +137,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .actionGrid {
     grid-template-columns: repeat(2, 1fr);
   }

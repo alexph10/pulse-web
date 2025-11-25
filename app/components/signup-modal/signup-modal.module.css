@@ -5,15 +5,16 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  padding: var(--spacing-2xl);
   background-color: var(--overlay-backdrop-dark);
   animation: fadeIn 0.3s ease;
-  padding: var(--spacing-2xl);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -21,19 +22,19 @@
 
 .modalContent {
   position: relative;
-  width: 480px;
-  height: 360px;
-  background: var(--overlay-backdrop-light);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  padding: 0;
-  animation: slideUp 0.3s ease;
   display: flex;
   flex-direction: row;
+  width: 480px;
+  height: 360px;
+  padding: 0;
   overflow: hidden;
-  border-radius: var(--border-radius-lg);
+  background: var(--overlay-backdrop-light);
+  backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
   border: 1px solid var(--overlay-white-overlay-light);
+  border-radius: 0;
   box-shadow: var(--shadow-xl);
+  animation: slideUp 0.3s ease;
 }
 
 .modalContent::before {
@@ -42,15 +43,15 @@
 
 /* Left Column - Form */
 .leftColumn {
-  flex: 1;
-  background-color: transparent;
-  padding: var(--spacing-xl) var(--spacing-3xl);
+  position: relative;
+  z-index: 10;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  position: relative;
-  z-index: 10;
+  padding: var(--spacing-xl) var(--spacing-3xl);
+  background-color: transparent;
 }
 
 /* Right Column - Gradient */
@@ -65,9 +66,9 @@
   left: -20%;
   width: 96%;
   height: 120%;
+  pointer-events: none;
   background: radial-gradient(circle, var(--overlay-backdrop-light) 0%, transparent 70%);
   filter: blur(80px);
-  pointer-events: none;
 }
 
 .gradientLayer2 {
@@ -76,9 +77,9 @@
   right: -20%;
   width: 80%;
   height: 96%;
+  pointer-events: none;
   background: radial-gradient(circle, var(--overlay-backdrop-light) 0%, transparent 70%);
   filter: blur(100px);
-  pointer-events: none;
 }
 
 .gradientLayer3 {
@@ -87,9 +88,9 @@
   right: -10%;
   width: 88%;
   height: 104%;
+  pointer-events: none;
   background: radial-gradient(circle, var(--overlay-backdrop-light) 0%, transparent 70%);
   filter: blur(90px);
-  pointer-events: none;
 }
 
 .logo {
@@ -97,39 +98,39 @@
 }
 
 .logoIcon {
-  width: var(--spacing-3xl);
-  height: var(--spacing-3xl);
-  background-color: var(--surface-elevated);
-  border-radius: var(--border-radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
   font-size: var(--font-size-body);
   color: var(--brand-white);
+  background-color: var(--surface-elevated);
+  border-radius: 0;
 }
 
 .title {
+  width: 100%;
+  margin: 0 0 var(--spacing-xs) 0;
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-semibold);
   color: var(--brand-white);
-  margin: 0 0 var(--spacing-xs) 0;
   text-align: left;
-  width: 100%;
 }
 
 .subtitle {
+  width: 100%;
+  margin: 0 0 var(--spacing-lg) 0;
   font-size: var(--font-size-tiny);
   color: var(--overlay-white-overlay);
-  margin: 0 0 var(--spacing-lg) 0;
   text-align: left;
-  width: 100%;
 }
 
 .form {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  width: 100%;
 }
 
 .inputGroup {
@@ -140,18 +141,18 @@
 
 .inputLabel {
   font-size: var(--font-size-tiny);
-  color: var(--overlay-white-overlay);
   font-weight: var(--font-weight-normal);
+  color: var(--overlay-white-overlay);
 }
 
 .input {
   width: 100%;
   padding: var(--spacing-compact-sm) var(--spacing-md);
+  font-size: var(--font-size-tiny);
+  color: var(--brand-white);
   background-color: var(--overlay-backdrop-dark);
   border: 1px solid var(--overlay-white-overlay-light);
-  border-radius: var(--border-radius-full);
-  color: var(--brand-white);
-  font-size: var(--font-size-tiny);
+  border-radius: 0;
   transition: all 0.2s ease;
 }
 
@@ -160,31 +161,31 @@
 }
 
 .input:focus {
-  outline: none;
   background-color: var(--overlay-backdrop-strong);
   border-color: var(--overlay-white-overlay-medium);
+  outline: none;
 }
 
 .options {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: var(--font-size-tiny);
+  justify-content: space-between;
   margin-top: calc(-1 * var(--spacing-xs));
+  font-size: var(--font-size-tiny);
 }
 
 .checkbox {
   display: flex;
-  align-items: center;
   gap: var(--spacing-xs);
+  align-items: center;
   color: var(--overlay-white-overlay);
   cursor: pointer;
 }
 
 .checkbox input {
-  cursor: pointer;
   width: var(--spacing-compact-lg);
   height: var(--spacing-compact-lg);
+  cursor: pointer;
 }
 
 .forgotPassword {
@@ -200,20 +201,20 @@
 .loginButton {
   width: 100%;
   padding: var(--spacing-sm);
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
-  color: var(--brand-black);
-  border: none;
-  border-radius: var(--border-radius-full);
+  margin-top: var(--spacing-xs);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
+  color: var(--brand-black);
   cursor: pointer;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+  border: none;
+  border-radius: 0;
   transition: all 0.2s ease;
-  margin-top: var(--spacing-xs);
 }
 
 .loginButton:hover {
-  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
 .divider {
@@ -221,58 +222,59 @@
 }
 
 .googleButton {
-  width: var(--spacing-3xl);
-  height: var(--spacing-3xl);
-  padding: 0;
-  background-color: var(--brand-white);
-  color: var(--surface-elevated);
-  border: none;
-  border-radius: 50%;
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  padding: 0;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--surface-elevated);
+  cursor: pointer;
+  background-color: var(--brand-white);
+  border: none;
+  border-radius: 0;
   box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
 }
 
 .socialButtons {
   display: flex;
   gap: var(--spacing-compact-md);
-  margin-top: var(--spacing-compact-lg);
   justify-content: center;
   width: 100%;
+  margin-top: var(--spacing-compact-lg);
 }
 
 .googleButton:hover {
-  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
 .googleIcon {
-  font-weight: 700;
   font-size: var(--font-size-body);
+  font-weight: 700;
 }
 
 @keyframes slideUp {
   from {
-    transform: translateY(var(--spacing-lg));
     opacity: 0;
+    transform: translateY(var(--spacing-lg));
   }
+
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .modalContent {
+    flex-direction: column;
     width: 90%;
     height: auto;
     max-height: 90vh;
-    flex-direction: column;
   }
   
   .leftColumn {

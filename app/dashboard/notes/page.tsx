@@ -1,11 +1,14 @@
 'use client'
 
-import styles from './notes.module.css';
-
-export default function Notes() {
+export default function NotesPage() {
   return (
-    <div className={styles.pageWrapper}>
-      <p>Notes Page - Ready to build</p>
+    <div
+      style={{
+        minHeight: '100vh',
+        background: 'transparent',
+      }}
+    >
+      {/* Notes content will go here */}
     </div>
-  );
+  )
 }

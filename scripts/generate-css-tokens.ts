@@ -41,6 +41,16 @@ function generateCSSVariables(): string {
   });
   lines.push('');
   
+  // Chart Colors / Accent Palette
+  if (colors.charts) {
+    lines.push('  /* Chart Accent Palette */');
+    Object.entries(colors.charts).forEach(([key, value]) => {
+      const cssKey = toKebabCase(key);
+      lines.push(`  --chart-${cssKey}: ${value};`);
+    });
+    lines.push('');
+  }
+
   // Semantic Colors
   lines.push('  /* Semantic Colors - Earth Tones */');
   Object.entries(colors.semantic).forEach(([key, value]) => {

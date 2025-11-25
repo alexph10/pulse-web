@@ -1,0 +1,99 @@
+/* Container */
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.container.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.label {
+  font-size: 13px;
+  color: #e4ddd3;
+  line-height: 1;
+}
+
+/* Toggle Root */
+.root {
+  position: relative;
+  background: rgba(228, 221, 211, 0.15);
+  border: 1px solid rgba(228, 221, 211, 0.2);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.root:hover {
+  background: rgba(228, 221, 211, 0.2);
+}
+
+.root:focus-visible {
+  outline: 1px solid rgba(228, 221, 211, 0.3);
+  outline-offset: 2px;
+}
+
+.root[data-state='checked'] {
+  background: #2d5a3d;
+  border-color: #2d5a3d;
+}
+
+.root[data-state='checked']:hover {
+  background: #385f52;
+  border-color: #385f52;
+}
+
+.root[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Sizes */
+.sm {
+  width: 32px;
+  height: 18px;
+}
+
+.md {
+  width: 40px;
+  height: 22px;
+}
+
+/* Thumb */
+.thumb {
+  display: block;
+  background: #e4ddd3;
+  border-radius: 0;
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+.thumb-sm {
+  width: 14px;
+  height: 14px;
+  transform: translateX(2px);
+}
+
+.thumb-md {
+  width: 18px;
+  height: 18px;
+  transform: translateX(2px);
+}
+
+.root[data-state='checked'] .thumb-sm {
+  transform: translateX(16px);
+}
+
+.root[data-state='checked'] .thumb-md {
+  transform: translateX(20px);
+}
+
+
+
+
+
+

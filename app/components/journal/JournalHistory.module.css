@@ -18,8 +18,8 @@
 
 .actions {
   display: flex;
-  gap: var(--spacing-sm);
   flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }
 
 .filters {
@@ -44,23 +44,23 @@
 .filterSelect,
 .dateInput {
   padding: var(--spacing-sm) var(--spacing-md);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
-  background: var(--surface);
-  color: var(--text-primary);
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-body);
+  color: var(--text-primary);
+  background: var(--surface);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
 }
 
 .dateInputs {
   display: flex;
-  align-items: center;
   gap: var(--spacing-sm);
+  align-items: center;
 }
 
 .dateInputs span {
-  color: var(--text-tertiary);
   font-family: var(--font-family-switzer);
+  color: var(--text-tertiary);
 }
 
 .filterActions {
@@ -86,26 +86,26 @@
 
 .entryHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: var(--spacing-md);
 }
 
 .entryMeta {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
   flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
 }
 
 .moodBadge {
   padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  color: var(--brand-white);
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-semibold);
+  color: var(--brand-white);
   text-transform: capitalize;
+  border-radius: 0;
 }
 
 .date {
@@ -127,17 +127,17 @@
 }
 
 .preview {
+  margin: 0;
   font-family: var(--font-family-switzer);
   font-size: var(--font-size-body);
-  color: var(--text-primary);
   line-height: var(--line-height-relaxed);
-  margin: 0;
+  color: var(--text-primary);
 }
 
 .empty {
-  text-align: center;
   padding: var(--spacing-3xl);
   color: var(--text-tertiary);
+  text-align: center;
 }
 
 @keyframes slideDown {
@@ -145,6 +145,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

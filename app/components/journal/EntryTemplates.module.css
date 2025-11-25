@@ -3,24 +3,24 @@
 }
 
 .toggleButton {
-  background: transparent;
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
+  width: 100%;
   padding: var(--spacing-compact-md) var(--spacing-compact-lg);
-  color: var(--text-secondary);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
-  font-family: var(--font-family-satoshi);
-  cursor: pointer;
-  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
-  width: 100%;
+  color: var(--text-secondary);
   text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
+  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
 .toggleButton:hover {
+  color: var(--text-primary);
   background: var(--surface-elevated);
   border-color: var(--accent-primary);
-  color: var(--text-primary);
 }
 
 .templatesGrid {
@@ -32,25 +32,25 @@
 }
 
 .templateCard {
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
-  border-left: var(--border-width-medium) solid var(--accent-primary);
-  padding: var(--spacing-compact-lg);
-  text-align: left;
-  cursor: pointer;
-  transition: all var(--animation-timing-smooth) var(--animation-easing-easeOut);
-  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 100px;
+  padding: var(--spacing-compact-lg);
+  text-align: left;
+  cursor: pointer;
+  background: var(--surface);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-left: var(--border-width-medium) solid var(--accent-primary);
+  border-radius: 0;
+  transition: all var(--animation-timing-smooth) var(--animation-easing-easeOut);
 }
 
 .templateCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--accent-primary);
   background: var(--surface-elevated);
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .templateCard:active {
@@ -58,8 +58,8 @@
 }
 
 .templateCard.selected {
-  border-color: var(--accent-primary);
   background: var(--surface-elevated);
+  border-color: var(--accent-primary);
   box-shadow: var(--shadow-sm);
 }
 
@@ -70,19 +70,19 @@
 }
 
 .templateName {
+  margin: 0;
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  font-family: var(--font-family-satoshi);
-  margin: 0;
 }
 
 .templateDescription {
+  margin: 0;
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-tiny);
   line-height: var(--line-height-normal);
   color: var(--text-tertiary);
-  font-family: var(--font-family-switzer);
-  margin: 0;
 }
 
 @keyframes fadeIn {
@@ -90,19 +90,20 @@
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .templatesGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .templatesGrid {
     grid-template-columns: 1fr;
   }

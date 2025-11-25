@@ -15,20 +15,20 @@
 .select {
   width: 100%;
   padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: var(--border-radius-md);
+  padding-right: var(--spacing-3xl);
   font-family: var(--font-family-satoshi);
   font-size: var(--font-size-body);
   color: var(--text-primary);
-  cursor: pointer;
-  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
-  outline: none;
   appearance: none;
+  cursor: pointer;
+  background: var(--surface);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%236B5644' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--spacing-lg) center;
-  padding-right: var(--spacing-3xl);
+  border: var(--border-width-thin) solid var(--border-subtle);
+  border-radius: 0;
+  outline: none;
+  transition: all var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
 .select:focus {
@@ -37,9 +37,9 @@
 }
 
 .select:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
   background-color: var(--background);
+  opacity: 0.6;
 }
 
 .select.error {
@@ -51,9 +51,9 @@
 }
 
 .select option {
-  background: var(--surface);
-  color: var(--text-primary);
   padding: var(--spacing-md);
+  color: var(--text-primary);
+  background: var(--surface);
 }
 
 .errorText {

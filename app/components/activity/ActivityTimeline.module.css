@@ -3,11 +3,11 @@
 }
 
 .timelineTitle {
+  margin-bottom: var(--spacing-xl);
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
-  margin-bottom: var(--spacing-xl);
-  font-family: var(--font-family-satoshi);
 }
 
 .timelineGroup {
@@ -15,13 +15,13 @@
 }
 
 .groupLabel {
-  font-size: var(--font-size-tiny);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-secondary);
   margin-bottom: var(--spacing-lg);
   font-family: var(--font-family-switzer);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .entriesList {
@@ -31,44 +31,44 @@
 }
 
 .entryCard {
-  background: var(--bg-secondary);
-  border-radius: var(--border-radius-md);
+  position: relative;
   padding: var(--spacing-lg);
   cursor: pointer;
-  position: relative;
-  border-left-width: var(--border-width-medium);
+  background: var(--bg-secondary);
   border-left-style: solid;
+  border-left-width: var(--border-width-medium);
+  border-radius: 0;
 }
 
 .entryHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: var(--spacing-md);
 }
 
 .entryMeta {
   display: flex;
-  align-items: center;
   gap: var(--spacing-md);
+  align-items: center;
 }
 
 .moodBadge {
   padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-medium);
   color: var(--brand-white);
-  font-family: var(--font-family-switzer);
+  border-radius: 0;
 }
 
 .entryTime {
   display: flex;
-  align-items: center;
   gap: var(--spacing-compact-sm);
+  align-items: center;
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-small);
   color: var(--text-secondary);
-  font-family: var(--font-family-switzer);
 }
 
 .entryIcons {
@@ -77,14 +77,14 @@
 }
 
 .iconBadge {
-  width: var(--spacing-3xl);
-  height: var(--spacing-3xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-tertiary);
-  border-radius: var(--border-radius-sm);
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
   color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border-radius: 0;
 }
 
 .entryContent {
@@ -92,31 +92,31 @@
 }
 
 .entryPreview {
+  margin-bottom: var(--spacing-sm);
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-small);
   line-height: 1.6;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-sm);
-  font-family: var(--font-family-switzer);
 }
 
 .entryStats {
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-tiny);
   color: var(--text-secondary);
-  font-family: var(--font-family-switzer);
 }
 
 .hoverCard {
   position: absolute;
   top: calc(-1 * var(--spacing-sm));
   left: calc(100% + var(--spacing-lg));
+  z-index: 10;
   width: 20rem;
+  padding: var(--spacing-lg);
+  pointer-events: none;
   background: var(--bg-primary);
   border: 1px solid var(--border-primary);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-lg);
+  border-radius: 0;
   box-shadow: var(--shadow-lg);
-  z-index: 10;
-  pointer-events: none;
   animation: fadeIn var(--animation-timing-standard) var(--animation-easing-easeOut);
 }
 
@@ -125,6 +125,7 @@
     opacity: 0;
     transform: translateY(var(--spacing-xs));
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -138,58 +139,58 @@
 }
 
 .hoverMood {
+  font-family: var(--font-family-satoshi);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
-  font-family: var(--font-family-satoshi);
 }
 
 .hoverText {
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-small);
   line-height: 1.6;
   color: var(--text-primary);
-  font-family: var(--font-family-switzer);
 }
 
 .hoverFooter {
   display: flex;
   gap: var(--spacing-sm);
+  font-family: var(--font-family-switzer);
   font-size: var(--font-size-tiny);
   color: var(--text-secondary);
-  font-family: var(--font-family-switzer);
 }
 
 .loadMore {
-  text-align: center;
   padding: var(--spacing-xl);
-  color: var(--text-secondary);
-  font-size: var(--font-size-small);
   font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  text-align: center;
 }
 
 .emptyState {
-  text-align: center;
   padding: var(--spacing-4xl) var(--spacing-xl);
-  color: var(--text-secondary);
-  font-size: var(--font-size-small);
   font-family: var(--font-family-switzer);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  text-align: center;
 }
 
 /* Mobile responsive */
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .hoverCard {
     display: none;
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .entryCard {
     padding: var(--spacing-md);
   }
   
   .entryHeader {
     flex-direction: column;
-    align-items: flex-start;
     gap: var(--spacing-sm);
+    align-items: flex-start;
   }
   
   .entryMeta {

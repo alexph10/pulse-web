@@ -1,0 +1,211 @@
+/* Modal Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  z-index: 9998;
+}
+
+/* Modal Content */
+.content {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  background: var(--surface);
+  border-radius: 0;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 
+    0 24px 32px -8px rgba(0, 0, 0, 0.6),
+    0 12px 16px -4px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
+/* Modal Sizes */
+.sm {
+  width: 90%;
+  max-width: 400px;
+}
+
+.md {
+  width: 90%;
+  max-width: 600px;
+}
+
+.lg {
+  width: 90%;
+  max-width: 800px;
+}
+
+.full {
+  width: 95%;
+  max-width: 1200px;
+}
+
+/* Modal Header */
+.header {
+  position: relative;
+  padding: 24px 32px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Close Button */
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.closeButton:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.1);
+}
+
+/* Modal Title */
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin: 0;
+  padding-right: 40px;
+  font-family: var(--font-family-satoshi);
+}
+
+/* Modal Body */
+.body {
+  padding: 24px 32px;
+  overflow-y: auto;
+  flex: 1;
+  color: #e4ddd3;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar for body */
+.body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: rgba(228, 221, 211, 0.05);
+  border-radius: 0;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: rgba(228, 221, 211, 0.2);
+  border-radius: 0;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+  background: rgba(228, 221, 211, 0.3);
+}
+
+/* Modal Footer */
+.footer {
+  padding: 20px 32px 24px;
+  border-top: 1px solid rgba(228, 221, 211, 0.08);
+  display: flex;
+  gap: 8px;
+}
+
+/* Footer Alignment */
+.align-left {
+  justify-content: flex-start;
+}
+
+.align-center {
+  justify-content: center;
+}
+
+.align-right {
+  justify-content: flex-end;
+}
+
+.align-between {
+  justify-content: space-between;
+}
+
+/* Responsive */
+@media (width <= 768px) {
+  .header {
+    padding: 20px 20px 16px;
+  }
+
+  .closeButton {
+    top: 16px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .title {
+    font-size: 15px;
+    padding-right: 32px;
+  }
+
+  .body {
+    padding: 20px;
+    font-size: 13px;
+  }
+
+  .footer {
+    padding: 16px 20px 20px;
+    flex-direction: column-reverse;
+  }
+
+  .footer > * {
+    width: 100%;
+  }
+
+  .align-between {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (width <= 480px) {
+  .content {
+    border-radius: 0;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .sm,
+  .md,
+  .lg,
+  .full {
+    width: 95%;
+    max-width: 95%;
+  }
+}
+
