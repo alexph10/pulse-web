@@ -17,18 +17,18 @@ export default function Progress() {
 
   return (
     <DashboardLayout isLoading={loading}>
-      <div style={{ marginBottom: '32px' }}>
+      <div style={{ marginBottom: '24px' }}>
         <h1 style={{
-          fontSize: '32px',
+          fontSize: '28px',
           fontWeight: 600,
           color: 'var(--text-primary)',
-          marginBottom: '8px',
+          marginBottom: '6px',
           fontFamily: 'var(--font-family-satoshi)'
         }}>
           Progress & Analytics
         </h1>
         <p style={{
-          fontSize: '14px',
+          fontSize: '13px',
           color: 'var(--text-secondary)',
           fontFamily: 'var(--font-family-switzer)'
         }}>

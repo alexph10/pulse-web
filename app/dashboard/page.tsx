@@ -99,9 +99,9 @@ export default function DashboardPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '400px',
+          minHeight: '300px',
           color: '#a39d96',
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'var(--font-family-satoshi)',
         }}>
           Loading dashboard...
@@ -117,9 +117,9 @@ export default function DashboardPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '400px',
+          minHeight: '300px',
           color: '#a39d96',
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'var(--font-family-satoshi)',
         }}>
           {error || 'Failed to load dashboard data'}
@@ -177,13 +177,13 @@ export default function DashboardPage() {
           <div style={{
             background: '#252c2c',
             border: 'none',
-            padding: '20px',
+            padding: '16px',
           }}>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              marginBottom: '24px',
+              marginBottom: '16px',
             }}>
               <div>
                 <h3 style={{
@@ -315,15 +315,15 @@ export default function DashboardPage() {
     <div className={styles.container}>
       {/* Dashboard Header */}
       <div style={{
-        marginBottom: gridSystem.gaps.lg,
+        marginBottom: gridSystem.gaps.md,
       }}>
         <h2 style={{
-          fontSize: '15px',
+          fontSize: '14px',
           fontWeight: '600',
           color: '#e4ddd3',
           fontFamily: 'var(--font-family-satoshi)',
           letterSpacing: '-0.01em',
-          marginBottom: '4px',
+          marginBottom: '2px',
         }}>
           Dashboard Analytics
         </h2>
@@ -349,7 +349,7 @@ export default function DashboardPage() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
-            gap: '16px',
+            gap: '12px',
             width: '100%',
           }}>
             {widgetLayout

@@ -51,8 +51,8 @@ export default function SettingsPage() {
         {/* Two-column layout */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '220px 1fr',
-          gap: '20px',
+          gridTemplateColumns: '200px 1fr',
+          gap: '16px',
         }}>
           {/* Sidebar navigation */}
           <nav style={{
@@ -69,7 +69,7 @@ export default function SettingsPage() {
                   flexDirection: 'column',
                   alignItems: 'flex-start',
                   gap: '4px',
-                  padding: '10px 12px',
+                  padding: '8px 10px',
                   background: activeSection === section.id 
                     ? 'rgba(219, 39, 119, 0.2)' 
                     : 'transparent',
@@ -77,7 +77,7 @@ export default function SettingsPage() {
                     ? '1px solid rgba(219, 39, 119, 0.4)'
                     : '1px solid transparent',
                   color: activeSection === section.id ? '#fce7f3' : '#9ca3af',
-                  fontSize: '14px',
+                  fontSize: '13px',
                   fontWeight: activeSection === section.id ? '600' : '400',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',

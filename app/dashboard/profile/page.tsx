@@ -12,11 +12,11 @@ export default function ProfilePage() {
       style={{
         minHeight: '100vh',
         background: 'transparent',
-        padding: '100px 32px 32px',
+        padding: '80px 24px 24px',
         fontFamily: 'var(--font-family-satoshi)',
       }}
     >
-      <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#fce7f3', marginBottom: '32px' }}>Profile</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#fce7f3', marginBottom: '24px' }}>Profile</h2>
       {/* Add static profile info or summary here if needed */}
     </div>
   )
