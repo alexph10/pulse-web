@@ -12,13 +12,13 @@
   /* === PULSE COLOR SYSTEM === */
   
   /* Brand Colors */
-  --brand-primary: #B91C1C;
-  --brand-secondary: #991B1B;
-  --brand-tertiary: #7F1D1D;
-  --brand-darkest: #5F1010;
-  --brand-light: #DC2626;
-  --brand-subtle: rgba(185, 28, 28, 0.06);
-  --brand-subtle-dark: rgba(95, 16, 16, 0.4);
+  --brand-primary: #111827;
+  --brand-secondary: #1F2937;
+  --brand-tertiary: #374151;
+  --brand-darkest: #4B5563;
+  --brand-light: #6B7280;
+  --brand-subtle: rgba(17, 24, 39, 0.06);
+  --brand-subtle-dark: rgba(17, 24, 39, 0.4);
 
   /* Dark Theme - Backgrounds */
   --background: #FFFFFF;
@@ -42,14 +42,14 @@
   --border-strong: rgba(0, 0, 0, 0.2);
 
   /* Accent Colors */
-  --accent-primary: #B91C1C;
-  --accent-primary-hover: #DC2626;
-  --accent-primary-active: #991B1B;
-  --accent-secondary: #991B1B;
-  --accent-tertiary: #7F1D1D;
-  --accent-darkest: #5F1010;
-  --accent-muted: rgba(185, 28, 28, 0.25);
-  --accent-subtle: rgba(185, 28, 28, 0.06);
+  --accent-primary: #111827;
+  --accent-primary-hover: #1F2937;
+  --accent-primary-active: #374151;
+  --accent-secondary: #4B5563;
+  --accent-tertiary: #6B7280;
+  --accent-darkest: #9CA3AF;
+  --accent-muted: rgba(17, 24, 39, 0.25);
+  --accent-subtle: rgba(17, 24, 39, 0.06);
 
   /* Semantic Colors */
   --success: #10B981;
@@ -70,24 +70,24 @@
   --successDark: #059669;
 
   /* Chart Colors */
-  --chart-1: #B91C1C;
+  --chart-1: #111827;
   --chart-2: #3B82F6;
   --chart-3: #10B981;
   --chart-4: #F59E0B;
   --chart-5: #8B5CF6;
-  --chart-saffron: #B91C1C;
-  --chart-marigold: #DC2626;
-  --chart-clay: #EF4444;
-  --chart-russet: #F87171;
-  --chart-cocoa: #FCA5A5;
+  --chart-saffron: #111827;
+  --chart-marigold: #1F2937;
+  --chart-clay: #374151;
+  --chart-russet: #4B5563;
+  --chart-cocoa: #6B7280;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-brand: 0 8px 16px -4px rgba(185, 28, 28, 0.2);
-  --shadow-glow: 0 0 20px rgba(185, 28, 28, 0.3);
+  --shadow-brand: 0 8px 16px -4px rgba(17, 24, 39, 0.2);
+  --shadow-glow: 0 0 20px rgba(17, 24, 39, 0.3);
   --shadow-none: none;
 
   /* Additional spacing utilities */
