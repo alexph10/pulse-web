@@ -13,12 +13,12 @@
 
 .navbar {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  min-height: 32px;
-  padding: var(--spacing-sm) var(--spacing-md);
+  min-height: 28px;
+  padding: var(--spacing-xs) var(--spacing-sm);
   background: transparent;
 }
 
@@ -32,10 +32,10 @@
   position: relative;
   display: flex;
   flex: 1;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   align-items: center;
-  max-width: 480px;
-  padding: var(--spacing-sm) var(--spacing-md);
+  max-width: 420px;
+  padding: var(--spacing-xs) var(--spacing-sm);
   background: transparent;
   border: none;
   border-radius: 0;
@@ -91,9 +91,9 @@
   display: flex;
   gap: var(--spacing-xs);
   align-items: center;
-  padding: var(--spacing-compact-sm) var(--spacing-md);
+  padding: var(--spacing-compact-xs) var(--spacing-sm);
   font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   cursor: pointer;
@@ -109,9 +109,9 @@
 }
 
 .upgradeButton {
-  padding: var(--spacing-compact-sm) var(--spacing-md);
+  padding: var(--spacing-compact-xs) var(--spacing-sm);
   font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-tiny);
   font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   cursor: pointer;
@@ -130,8 +130,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   color: var(--text-secondary);
   cursor: pointer;
@@ -155,8 +155,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   color: var(--text-tertiary);
   text-decoration: none;
   border-radius: 0;
@@ -170,9 +170,9 @@
 /* Page Toggle Navigation */
 .pageToggle {
   display: flex;
-  gap: var(--spacing-2xl);
+  gap: var(--spacing-xl);
   align-items: center;
-  padding: 0 var(--spacing-md);
+  padding: 0 var(--spacing-sm);
   margin-top: 0;
   border-bottom: none;
 }

@@ -26,6 +26,10 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
   const pathname = usePathname();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [goalsCount, setGoalsCount] = useState(0);
+  const [habitsCount, setHabitsCount] = useState(0);
+  const [goalsLimit] = useState(20); // Free plan limit
+  const [habitsLimit] = useState(3); // Free plan limit (packs)
   const { user } = useAuth();
   
   // Mock user for design preview
@@ -51,6 +55,44 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
       document.documentElement.setAttribute('data-theme', initialTheme);
     }
   }, []);
+
+  // Fetch user goals and habits count
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!user?.id) return;
+
+      try {
+        // Fetch active goals count
+        const { count: goalsTotal, error: goalsError } = await supabase
+          .from('goals')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .eq('status', 'active');
+
+        if (goalsError) {
+          console.error('Error fetching goals:', goalsError);
+        } else {
+          setGoalsCount(goalsTotal || 0);
+        }
+
+        // Fetch habits count
+        const { count: habitsTotal, error: habitsError } = await supabase
+          .from('habits')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        if (habitsError) {
+          console.error('Error fetching habits:', habitsError);
+        } else {
+          setHabitsCount(habitsTotal || 0);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -176,6 +218,21 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
 
       {/* Right Button */}
       <div className="flex items-center gap-3">
+        <button 
+          className="px-6 py-2.5 rounded-md transition-all text-sm font-semibold flex items-center gap-2"
+          style={{ 
+            fontFamily: 'var(--font-family-satoshi)',
+            backgroundColor: '#0f3d3c',
+            color: '#fefbf3'
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          Schedule
+        </button>
+
         {/* Theme Toggle */}
         <button 
           onClick={toggleTheme}
@@ -206,21 +263,6 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
           )}
-        </button>
-
-        <button 
-          className="px-6 py-2.5 rounded-md transition-all text-sm font-semibold flex items-center gap-2"
-          style={{ 
-            fontFamily: 'var(--font-family-satoshi)',
-            backgroundColor: '#0f3d3c',
-            color: '#fefbf3'
-          }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-          Schedule
         </button>
 
         {/* Profile Icon with Dropdown */}
@@ -438,10 +480,10 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       fontFamily: 'var(--font-family-satoshi)'
                     }}>Free plan limits</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px', color: '#6b7280' }}>
-                      <span>0/20</span><span style={{ fontWeight: 600, letterSpacing: '0.5px' }}>TRACKS</span>
+                      <span>{goalsCount}/{goalsLimit}</span><span style={{ fontWeight: 600, letterSpacing: '0.5px' }}>TRACKS</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '13px', color: '#6b7280' }}>
-                      <span>0/3</span><span style={{ fontWeight: 600, letterSpacing: '0.5px' }}>PACKS</span>
+                      <span>{habitsCount}/{habitsLimit}</span><span style={{ fontWeight: 600, letterSpacing: '0.5px' }}>PACKS</span>
                     </div>
                     <div style={{ 
                       width: '100%', 
@@ -450,7 +492,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       marginBottom: '14px'
                     }}>
                       <div style={{ 
-                        width: '0%', 
+                        width: `${Math.min((goalsCount / goalsLimit) * 100, 100)}%`, 
                         height: '100%', 
                         background: 'linear-gradient(135deg, #db2777 0%, #f472b6 100%)'
                       }} />

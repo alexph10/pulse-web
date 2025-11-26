@@ -101,7 +101,7 @@
 
 @media (min-width: 768px) {
   .dashboardContent {
-    padding: 24px;
+    padding: var(--spacing-lg);
   }
 }
 

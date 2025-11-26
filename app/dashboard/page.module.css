@@ -1,10 +1,10 @@
 .container {
   min-height: 100vh;
   background: transparent;
-  padding-top: 100px;
-  padding-left: 24px;
-  padding-right: 204px; /* 180px panel + 24px spacing */
-  padding-bottom: 24px;
+  padding-top: 80px;
+  padding-left: var(--spacing-lg);
+  padding-right: 188px; /* 180px panel + 8px spacing */
+  padding-bottom: var(--spacing-lg);
   max-width: 1200px; /* Centered container like Era */
   margin: 0 auto; /* Center the container */
 }
@@ -12,9 +12,9 @@
 /* Mobile - side panel hidden */
 @media (width <= 768px) {
   .container {
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top: 80px;
+    padding-right: var(--spacing-md);
+    padding-left: var(--spacing-md);
+    padding-top: 64px;
     max-width: 100%;
   }
 }

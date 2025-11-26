@@ -130,7 +130,7 @@
 /* Responsive */
 @media (width <= 768px) {
   .container {
-    padding: 24px;
+    padding: var(--spacing-lg);
   }
 
   .mainMetric {
