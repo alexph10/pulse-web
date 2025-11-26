@@ -72,7 +72,6 @@ const mainPages = [
   { label: 'Home', href: '/dashboard' },
   { label: 'Insights', href: '/dashboard/insights' },
   { label: 'Journal', href: '/dashboard/journal' },
-  { label: 'Settings', href: '/dashboard/profile' },
 ];
 
 const SubmoduleNav: React.FC<SubmoduleNavProps> = ({ isLoading = false }) => {

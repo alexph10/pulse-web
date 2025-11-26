@@ -12,8 +12,6 @@ import {
   Lightbulb, 
   ChartLine,
   ChartLineUp,
-  User,
-  SignOut,
   Lightning,
   Bug,
   ChatCircle,
@@ -39,10 +37,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['main', 'insights']));
   const pathname = usePathname();
-  const { user, signOut } = useAuth();
 
   const navItems: NavItem[] = [
     { icon: House, label: 'Home', href: '/dashboard', section: 'main' },
@@ -70,28 +66,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
     });
   };
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
   const toggleSidebar = () => {
     const newExpandedState = !isExpanded;
     setIsExpanded(newExpandedState);
     if (onToggle) {
       onToggle(newExpandedState);
     }
-  };
-
-  const toggleProfileMenu = () => {
-    setIsProfileMenuOpen(!isProfileMenuOpen);
-  };
-
-  const getInitials = (email: string) => {
-    return email.charAt(0).toUpperCase();
   };
 
   return (
@@ -236,92 +216,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
 
       {/* Profile & Settings at Bottom */}
       <div className={styles.footer}>
-        <button 
-          onClick={toggleProfileMenu}
-          className={styles.profileButton}
-          title={!isExpanded ? 'Profile' : undefined}
-        >
-          <div className={styles.profileAvatar}>
-            {user?.email ? getInitials(user.email) : 'U'}
-          </div>
-          {isExpanded && (
-            <div className={styles.profileInfo}>
-              <div className={styles.profileName}>
-                {user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}
-              </div>
-              <div className={styles.profileEmail}>
-                {user?.email || 'user@example.com'}
-              </div>
-            </div>
-          )}
-        </button>
-
-        {/* Profile Menu Overlay */}
-        {isProfileMenuOpen && (
-          <>
-            <div className={styles.overlay} onClick={toggleProfileMenu} />
-            <div className={styles.profileMenu}>
-              {/* User Info Header */}
-              <div className={styles.profileMenuHeader}>
-                <div className={styles.profileHeaderContent}>
-                  <div className={styles.profileAvatarLarge}>
-                    {user?.email ? getInitials(user.email) : 'U'}
-                  </div>
-                  <div className={styles.profileHeaderInfo}>
-                    <div className={styles.profileMenuName}>
-                      {user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}
-                    </div>
-                    <div className={styles.profileMenuEmail}>
-                      {user?.email || 'user@example.com'}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Menu Items */}
-              <div className={styles.profileMenuItems}>
-                <Link href="/dashboard/profile" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
-                  View profile
-                </Link>
-                <Link href="/dashboard/shortcuts" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
-                  Shortcuts
-                </Link>
-                <button 
-                  onClick={() => {
-                    const currentTheme = document.documentElement.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                    localStorage.setItem('theme', newTheme);
-                    document.documentElement.setAttribute('data-theme', newTheme);
-                  }}
-                  className={styles.profileMenuItem}
-                >
-                  Switch to {document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'} mode
-                </button>
-                <button
-                  onClick={() => {
-                    toggleProfileMenu();
-                    handleSignOut();
-                  }}
-                  className={styles.profileMenuItem}
-                >
-                  Logout
-                </button>
-
-                <div className={styles.profileMenuDivider} />
-
-                <Link href="/report-bug" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
-                  Report a bug
-                </Link>
-                <Link href="/request-feature" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
-                  Request a feature
-                </Link>
-                <Link href="/contact" onClick={toggleProfileMenu} className={styles.profileMenuItem}>
-                  Contact us
-                </Link>
-              </div>
-            </div>
-          </>
-        )}
+        {/* Profile section removed - use navbar profile menu instead */}
       </div>
     </div>
   );

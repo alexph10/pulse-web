@@ -13,8 +13,7 @@ interface PageLink {
 const mainPages: PageLink[] = [
   { label: 'Home', href: '/dashboard' },
   { label: 'Insights', href: '/dashboard/insights' },
-  { label: 'Journal', href: '/dashboard/journal' },
-  { label: 'Settings', href: '/dashboard/profile' },
+  { label: 'Goals', href: '/dashboard/goals' },
 ];
 
 const PageToggle: React.FC = () => {

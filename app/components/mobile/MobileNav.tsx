@@ -18,7 +18,6 @@ export function MobileNav() {
     { href: '/dashboard/activity', icon: ChartLine, label: 'Activity' },
     { href: '/dashboard/goals', icon: Target, label: 'Goals' },
     { href: '/dashboard/insights', icon: Lightbulb, label: 'Insights' },
-    { href: '/dashboard/profile', icon: User, label: 'Profile' },
   ]
 
   return (

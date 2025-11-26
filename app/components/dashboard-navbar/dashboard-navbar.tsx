@@ -27,17 +27,14 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { user } = useAuth();
+  
+  // Mock user for design preview
+  const displayUser = user || { email: 'user@example.com' };
 
   const navItems = [
-    { label: 'Dashboard', href: '/dashboard', icon: House },
-    { label: 'Notes', href: '/dashboard/notes', icon: Note },
+    { label: 'Home', href: '/dashboard', icon: House },
+    { label: 'Insights', href: '/dashboard/analytics', icon: ChartLine },
     { label: 'Journal', href: '/dashboard/journal', icon: BookOpen },
-    { label: 'Goals', href: '/dashboard/goals', icon: Target },
-    { label: 'Analytics', href: '/dashboard/analytics', icon: ChartLine },
-    { label: 'Habits', href: '/dashboard/habits', icon: CheckCircle },
-    { label: 'Activity', href: '/dashboard/activity', icon: ChartLineUp },
-    { label: 'Reflections', href: '/dashboard/reflections', icon: Lightbulb },
-    { label: 'Progress', href: '/dashboard/progress', icon: TrendUp },
   ];
  
   // Initialize theme from localStorage or system preference
@@ -246,9 +243,9 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
               border: '2px solid var(--border-subtle)',
               transition: 'all 0.3s ease'
             }}
-            title={user?.email || 'Profile'}
+            title={displayUser?.email || 'Profile'}
           >
-            {user?.email?.charAt(0).toUpperCase() || 'U'}
+            {displayUser?.email?.charAt(0).toUpperCase() || 'U'}
           </div>
 
           {/* Profile Dropdown Menu */}
@@ -263,7 +260,8 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  zIndex: 999
+                  zIndex: 999,
+                  background: 'transparent'
                 }}
               />
 
@@ -273,96 +271,30 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                   position: 'absolute',
                   top: '52px',
                   right: '0',
-                  width: '260px',
-                  background: 'var(--surface)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  boxShadow: '0 20px 40px rgba(15, 61, 60, 0.08)',
+                  width: '320px',
+                  background: '#1a1d24',
+                  border: '1px solid #2a2e38',
+                  borderRadius: '0',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.24)',
                   zIndex: 1000,
-                  overflow: 'hidden',
-                  animation: 'slideDown 0.2s ease-out'
+                  overflow: 'hidden'
                 }}
               >
-                {/* User Info Header */}
-                <div
-                  style={{
-                    padding: '20px 16px',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    background: 'var(--background)'
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px'
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #0f3d3c 0%, #1f5c57 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#fefbf3',
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        fontFamily: 'var(--font-family-satoshi)',
-                        flexShrink: 0
-                      }}
-                    >
-                      {user?.email?.charAt(0).toUpperCase() || 'U'}
-                    </div>
-                    <div style={{ flex: 1, overflow: 'hidden' }}>
-                      <div
-                        style={{
-                          fontSize: '14px',
-                          fontWeight: '600',
-                          color: 'var(--text-primary)',
-                          fontFamily: 'var(--font-family-satoshi)',
-                          marginBottom: '2px',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap'
-                        }}
-                      >
-                        {user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: '12px',
-                          color: 'var(--text-secondary)',
-                          fontFamily: 'var(--font-family-satoshi)',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap'
-                        }}
-                      >
-                        {user?.email || 'user@example.com'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Menu Items */}
-                <div style={{ padding: '8px' }}>
+                <div style={{ padding: '16px 0' }}>
                   <Link
                     href="/dashboard/profile"
                     onClick={() => setShowProfileMenu(false)}
                     style={{
                       display: 'block',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
+                      padding: '12px 24px',
                       textDecoration: 'none',
-                      transition: 'all 0.2s ease',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-family-satoshi)'
+                      color: '#f9fafb',
+                      fontFamily: 'var(--font-family-satoshi)',
+                      background: 'transparent'
                     }}
                   >
                     View profile
@@ -373,15 +305,14 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                     onClick={() => setShowProfileMenu(false)}
                     style={{
                       display: 'block',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
+                      padding: '12px 24px',
                       textDecoration: 'none',
-                      transition: 'all 0.2s ease',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-family-satoshi)'
+                      color: '#f9fafb',
+                      fontFamily: 'var(--font-family-satoshi)',
+                      background: 'transparent'
                     }}
                   >
                     Shortcuts
@@ -392,14 +323,11 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                     style={{
                       display: 'block',
                       width: '100%',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
-                      textDecoration: 'none',
-                      transition: 'all 0.2s ease',
+                      padding: '12px 24px',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
+                      color: '#f9fafb',
                       fontFamily: 'var(--font-family-satoshi)',
                       background: 'transparent',
                       border: 'none',
@@ -418,14 +346,11 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                     style={{
                       display: 'block',
                       width: '100%',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
-                      textDecoration: 'none',
-                      transition: 'all 0.2s ease',
+                      padding: '12px 24px',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
+                      color: '#f9fafb',
                       fontFamily: 'var(--font-family-satoshi)',
                       background: 'transparent',
                       border: 'none',
@@ -438,8 +363,8 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                   {/* Divider */}
                   <div style={{
                     height: '1px',
-                    background: 'var(--border-subtle)',
-                    margin: '8px 0'
+                    background: '#2a2e38',
+                    margin: '12px 0'
                   }} />
 
                   <Link
@@ -447,15 +372,14 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                     onClick={() => setShowProfileMenu(false)}
                     style={{
                       display: 'block',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
+                      padding: '12px 24px',
                       textDecoration: 'none',
-                      transition: 'all 0.2s ease',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-family-satoshi)'
+                      color: '#f9fafb',
+                      fontFamily: 'var(--font-family-satoshi)',
+                      background: 'transparent'
                     }}
                   >
                     Report a bug
@@ -466,15 +390,14 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                     onClick={() => setShowProfileMenu(false)}
                     style={{
                       display: 'block',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
+                      padding: '12px 24px',
                       textDecoration: 'none',
-                      transition: 'all 0.2s ease',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-family-satoshi)'
+                      color: '#f9fafb',
+                      fontFamily: 'var(--font-family-satoshi)',
+                      background: 'transparent'
                     }}
                   >
                     Request a feature
@@ -485,34 +408,68 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                     onClick={() => setShowProfileMenu(false)}
                     style={{
                       display: 'block',
-                      padding: '10px 12px',
-                      borderRadius: '6px',
+                      padding: '12px 24px',
                       textDecoration: 'none',
-                      transition: 'all 0.2s ease',
                       cursor: 'pointer',
                       fontSize: '14px',
                       fontWeight: '500',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-family-satoshi)'
+                      color: '#f9fafb',
+                      fontFamily: 'var(--font-family-satoshi)',
+                      background: 'transparent'
                     }}
                   >
                     Contact us
                   </Link>
+
+                  {/* Divider */}
+                  <div style={{
+                    height: '1px',
+                    background: '#2a2e38',
+                    margin: '12px 0'
+                  }} />
+
+                  {/* Free plan limits */}
+                  <div style={{ padding: '12px 24px' }}>
+                    <div style={{ 
+                      marginBottom: '12px', 
+                      fontWeight: 600,
+                      fontSize: '13px',
+                      color: '#9ca3af',
+                      fontFamily: 'var(--font-family-satoshi)'
+                    }}>Free plan limits</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px', color: '#6b7280' }}>
+                      <span>0/20</span><span style={{ fontWeight: 600, letterSpacing: '0.5px' }}>TRACKS</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '13px', color: '#6b7280' }}>
+                      <span>0/3</span><span style={{ fontWeight: 600, letterSpacing: '0.5px' }}>PACKS</span>
+                    </div>
+                    <div style={{ 
+                      width: '100%', 
+                      height: '6px', 
+                      background: '#2a2e38',
+                      marginBottom: '14px'
+                    }}>
+                      <div style={{ 
+                        width: '0%', 
+                        height: '100%', 
+                        background: 'linear-gradient(135deg, #db2777 0%, #f472b6 100%)'
+                      }} />
+                    </div>
+                    <button style={{ 
+                      width: '100%', 
+                      padding: '10px 0', 
+                      background: 'rgba(219, 39, 119, 0.12)', 
+                      border: '1px solid rgba(219, 39, 119, 0.3)', 
+                      color: '#f9a8d4', 
+                      fontWeight: 600, 
+                      cursor: 'pointer',
+                      fontSize: '13px',
+                      fontFamily: 'var(--font-family-satoshi)',
+                      transition: 'all 0.2s ease'
+                    }}>Upgrade to Pro</button>
+                  </div>
                 </div>
               </div>
-
-              <style jsx>{`
-                @keyframes slideDown {
-                  from {
-                    opacity: 0;
-                    transform: translateY(-8px);
-                  }
-                  to {
-                    opacity: 1;
-                    transform: translateY(0);
-                  }
-                }
-              `}</style>
             </>
           )}
         </div>
