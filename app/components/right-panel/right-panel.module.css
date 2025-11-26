@@ -64,33 +64,33 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-lg);
-  border-bottom: 1px solid rgba(219, 39, 119, 0.2);
-  background: rgba(219, 39, 119, 0.05);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.2);
+  background: rgba(17, 24, 39, 0.05);
 }
 
 .title {
   font-size: 18px;
   font-weight: 600;
-  color: #fce7f3;
+  color: #111827;
   font-family: var(--font-family-satoshi);
 }
 
 .closeButton {
   width: 36px;
   height: 36px;
-  background: rgba(219, 39, 119, 0.1);
-  border: 1px solid rgba(219, 39, 119, 0.2);
+  background: rgba(17, 24, 39, 0.1);
+  border: 1px solid rgba(17, 24, 39, 0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fce7f3;
+  color: #111827;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .closeButton:hover {
-  background: rgba(219, 39, 119, 0.2);
+  background: rgba(17, 24, 39, 0.2);
 }
 
 .content {
@@ -129,18 +129,18 @@
 }
 
 .statCard:hover {
-  background: rgba(219, 39, 119, 0.12);
+  background: rgba(17, 24, 39, 0.12);
 }
 
 .statIcon {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #0f3d3c 0%, #1f5c57 100%);
+  background: linear-gradient(135deg, #111827 0%, #1F2937 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fce7f3;
+  color: #F9FAFB;
   flex-shrink: 0;
 }
 
@@ -171,7 +171,7 @@
 .upcomingTime {
   font-size: 12px;
   font-weight: 600;
-  color: #db2777;
+  color: #111827;
   font-family: var(--font-family-satoshi);
   min-width: 60px;
 }
@@ -185,10 +185,10 @@
 .actionButton {
   width: 100%;
   padding: 12px;
-  background: rgba(219, 39, 119, 0.1);
-  border: 1px solid rgba(219, 39, 119, 0.3);
+  background: rgba(17, 24, 39, 0.1);
+  border: 1px solid rgba(17, 24, 39, 0.3);
   border-radius: 8px;
-  color: #fce7f3;
+  color: #111827;
   font-size: 13px;
   font-weight: 500;
   font-family: var(--font-family-satoshi);

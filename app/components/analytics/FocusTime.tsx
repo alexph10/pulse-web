@@ -152,14 +152,14 @@ export default function FocusTime({
           top: 0,
           bottom: 0,
           width: '3px',
-          background: 'linear-gradient(180deg, #db2777 0%, #be185d 100%)',
+          background: 'linear-gradient(180deg, #111827 0%, #1F2937 100%)',
         }} />
         <div style={{
           paddingLeft: '12px',
         }}>
           <p style={{
             fontSize: '13px',
-            color: '#fce7f3',
+            color: '#F9FAFB',
             fontWeight: '600',
             marginBottom: '4px',
           }}>

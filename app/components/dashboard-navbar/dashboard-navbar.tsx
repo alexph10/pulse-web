@@ -494,7 +494,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       <div style={{ 
                         width: `${Math.min((goalsCount / goalsLimit) * 100, 100)}%`, 
                         height: '100%', 
-                        background: 'linear-gradient(135deg, #db2777 0%, #f472b6 100%)'
+                        background: 'linear-gradient(135deg, #111827 0%, #1F2937 100%)'
                       }} />
                     </div>
                     <button style={{ 
@@ -502,7 +502,7 @@ export default function DashboardNavbar({ isLoading = false }: DashboardNavbarPr
                       padding: '10px 0', 
                       background: 'rgba(219, 39, 119, 0.12)', 
                       border: '1px solid rgba(219, 39, 119, 0.3)', 
-                      color: '#f9a8d4', 
+                      color: '#111827', 
                       fontWeight: 600, 
                       cursor: 'pointer',
                       fontSize: '13px',

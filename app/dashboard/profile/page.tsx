@@ -16,7 +16,7 @@ export default function ProfilePage() {
         fontFamily: 'var(--font-family-satoshi)',
       }}
     >
-      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#fce7f3', marginBottom: '24px' }}>Profile</h2>
+      <h2 style={{ fontSize: '24px', fontWeight: '700', color: '#111827', marginBottom: '24px' }}>Profile</h2>
       {/* Add static profile info or summary here if needed */}
     </div>
   )
@@ -25,7 +25,7 @@ export default function ProfilePage() {
 function NotificationsTab() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#fce7f3', marginBottom: '8px' }}>Notification Preferences</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '8px' }}>Notification Preferences</h3>
       <ToggleOption label="Daily reminders" description="Get reminded to log your mood" defaultChecked />
       <ToggleOption label="Weekly reports" description="Receive weekly wellness summaries" defaultChecked />
       <ToggleOption label="Goal notifications" description="Alerts for goal progress" />
@@ -37,7 +37,7 @@ function NotificationsTab() {
 function PrivacyTab() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#fce7f3', marginBottom: '8px' }}>Privacy & Security</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '8px' }}>Privacy & Security</h3>
       <ToggleOption label="Profile visibility" description="Make your profile public" />
       <ToggleOption label="Share analytics" description="Help improve the app" defaultChecked />
       <ToggleOption label="Two-factor authentication" description="Extra security for your account" />
@@ -48,7 +48,7 @@ function PrivacyTab() {
 function AppearanceTab() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#fce7f3', marginBottom: '8px' }}>Appearance</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '8px' }}>Appearance</h3>
       <div>
         <label style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '8px', display: 'block' }}>Theme</label>
         <div style={{ display: 'flex', gap: '12px' }}>
@@ -77,13 +77,13 @@ function AppearanceTab() {
 function DataTab() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#fce7f3', marginBottom: '8px' }}>Data Management</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '8px' }}>Data Management</h3>
       <div>
         <button style={{
           padding: '12px 24px',
           background: 'rgba(219, 39, 119, 0.2)',
           border: '1px solid rgba(219, 39, 119, 0.4)',
-          color: '#f9a8d4',
+          color: '#6B7280',
           fontSize: '13px',
           fontWeight: '500',
           cursor: 'pointer',
@@ -113,7 +113,7 @@ function DataTab() {
 function AboutTab() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#fce7f3', marginBottom: '8px' }}>About Pulse</h3>
+      <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#111827', marginBottom: '8px' }}>About Pulse</h3>
       <div>
         <p style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '8px' }}>Version</p>
         <p style={{ fontSize: '14px', color: '#f9fafb' }}>1.0.0</p>
@@ -121,10 +121,10 @@ function AboutTab() {
       <div>
         <p style={{ fontSize: '13px', color: '#9ca3af', marginBottom: '12px' }}>Links</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '13px', textDecoration: 'none' }}>Documentation</a>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '13px', textDecoration: 'none' }}>Support</a>
+          <a href="#" style={{ color: '#111827', fontSize: '13px', textDecoration: 'none' }}>Documentation</a>
+          <a href="#" style={{ color: '#111827', fontSize: '13px', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="#" style={{ color: '#111827', fontSize: '13px', textDecoration: 'none' }}>Terms of Service</a>
+          <a href="#" style={{ color: '#111827', fontSize: '13px', textDecoration: 'none' }}>Support</a>
         </div>
       </div>
     </div>
@@ -182,7 +182,7 @@ function ToggleOption({ label, description, defaultChecked }: { label: string; d
           left: 0,
           right: 0,
           bottom: 0,
-          background: defaultChecked ? '#db2777' : '#374151',
+          background: defaultChecked ? '#111827' : '#374151',
           transition: '0.3s',
         }}>
           <span style={{

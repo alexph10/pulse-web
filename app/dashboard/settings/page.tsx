@@ -76,7 +76,7 @@ export default function SettingsPage() {
                   border: activeSection === section.id
                     ? '1px solid rgba(219, 39, 119, 0.4)'
                     : '1px solid transparent',
-                  color: activeSection === section.id ? '#fce7f3' : '#9ca3af',
+                  color: activeSection === section.id ? '#111827' : '#9ca3af',
                   fontSize: '13px',
                   fontWeight: activeSection === section.id ? '600' : '400',
                   cursor: 'pointer',
@@ -171,7 +171,7 @@ function ProfileSection() {
               padding: '10px 20px',
               background: 'rgba(219, 39, 119, 0.2)',
               border: '1px solid rgba(219, 39, 119, 0.4)',
-              color: '#fce7f3',
+              color: '#F9FAFB',
               fontSize: '13px',
               fontWeight: '500',
               cursor: 'pointer',
@@ -304,7 +304,7 @@ function DashboardSection() {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: widget.enabled ? '#db2777' : '#374151',
+                  background: widget.enabled ? '#111827' : '#374151',
                   transition: '0.3s',
                 }}>
                   <span style={{
@@ -541,7 +541,7 @@ function DataSection() {
           padding: '12px 24px',
           background: 'rgba(219, 39, 119, 0.2)',
           border: '1px solid rgba(219, 39, 119, 0.4)',
-          color: '#f9a8d4',
+          color: '#6B7280',
           fontSize: '13px',
           fontWeight: '500',
           cursor: 'pointer',
@@ -620,10 +620,10 @@ function AboutSection() {
 
       <SettingCard title="Links">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '14px', textDecoration: 'none' }}>Documentation</a>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '14px', textDecoration: 'none' }}>Privacy Policy</a>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '14px', textDecoration: 'none' }}>Terms of Service</a>
-          <a href="#" style={{ color: '#f9a8d4', fontSize: '14px', textDecoration: 'none' }}>Support</a>
+          <a href="#" style={{ color: '#111827', fontSize: '14px', textDecoration: 'none' }}>Documentation</a>
+          <a href="#" style={{ color: '#111827', fontSize: '14px', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="#" style={{ color: '#111827', fontSize: '14px', textDecoration: 'none' }}>Terms of Service</a>
+          <a href="#" style={{ color: '#111827', fontSize: '14px', textDecoration: 'none' }}>Support</a>
         </div>
       </SettingCard>
     </div>
@@ -689,7 +689,7 @@ function ToggleOption({ label, description, defaultChecked }: {
           left: 0,
           right: 0,
           bottom: 0,
-          background: defaultChecked ? '#db2777' : '#374151',
+          background: defaultChecked ? '#111827' : '#374151',
           transition: '0.3s',
         }}>
           <span style={{
