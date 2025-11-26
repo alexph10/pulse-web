@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
   padding: var(--spacing-xl) var(--spacing-lg);
-  background: #0a0f0f;
+  background: #FFFFFF;
   font-family: var(--font-family-satoshi);
 }
 
