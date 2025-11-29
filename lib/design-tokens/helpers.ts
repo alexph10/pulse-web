@@ -3,16 +3,23 @@
  * Use these helpers to access design tokens with full type safety
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { spacing, SpacingSize } from './spacing';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { typography, TypographyVariant } from './typography';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { colors } from './colors';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { shadows, ShadowSize } from './shadows';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { borders, BorderRadius, BorderWidth } from './borders';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { animations, AnimationTiming, AnimationEasing } from './animations';
 
 /**
  * Convert camelCase to kebab-case for CSS variables
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function toKebabCase(str: string): string {
   return str.replace(/([A-Z])/g, '-$1').toLowerCase();
 }

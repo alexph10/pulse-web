@@ -1,4 +1,4 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
 function getSupabaseCredentials() {
@@ -28,11 +28,11 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<{ user
         get(name: string) {
           return request.cookies.get(name)?.value;
         },
-        set(_name: string, _value: string, _options: CookieOptions) {
+        set() {
           // In API routes, we can't set cookies directly
           // This is handled by the client
         },
-        remove(_name: string, _options: CookieOptions) {
+        remove() {
           // In API routes, we can't remove cookies directly
           // This is handled by the client
         },
@@ -84,11 +84,11 @@ export async function createAuthenticatedSupabaseClient(request: NextRequest) {
         get(name: string) {
           return request.cookies.get(name)?.value;
         },
-        set(name: string, value: string, options: CookieOptions) {
+        set() {
           // In API routes, we can't set cookies directly
           // This is handled by the client
         },
-        remove(name: string, options: CookieOptions) {
+        remove() {
           // In API routes, we can't remove cookies directly
           // This is handled by the client
         },

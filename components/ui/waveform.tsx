@@ -585,6 +585,7 @@ export const MicrophoneWaveform = ({
       }
       return
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processing, active])
 
   useEffect(() => {
@@ -812,7 +813,6 @@ export const LiveMicrophoneWaveform = ({
     }
   }
 
-  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     if (!active) {
       if (
@@ -838,7 +838,6 @@ export const LiveMicrophoneWaveform = ({
     historyRef.current = []
     audioChunksRef.current = []
     audioBufferRef.current = null
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPlaybackPosition(null)
 
     const setupMicrophone = async () => {
@@ -1169,6 +1168,8 @@ export const LiveMicrophoneWaveform = ({
         cancelAnimationFrame(animationRef.current)
       }
     }
+    // historyRef excluded - using ref pattern to avoid triggering effect on every data change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     active,
     sensitivity,
@@ -1182,7 +1183,7 @@ export const LiveMicrophoneWaveform = ({
     fadeWidth,
     dragOffset,
     playbackPosition,
-    historyRef,
+    hasHistory,
   ])
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {

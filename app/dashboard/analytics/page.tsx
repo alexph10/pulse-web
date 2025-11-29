@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../../contexts/AuthContext'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
@@ -36,13 +36,7 @@ export default function AnalyticsPage() {
   const isMobile = useMediaQuery('(max-width: 767px)')
   const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)')
 
-  useEffect(() => {
-    if (user) {
-      fetchEntries()
-    }
-  }, [user])
-
-  const fetchEntries = async () => {
+  const fetchEntries = useCallback(async () => {
     if (!user) return
     
     setLoading(true)
@@ -61,7 +55,13 @@ export default function AnalyticsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [user])
+
+  useEffect(() => {
+    if (user) {
+      fetchEntries()
+    }
+  }, [user, fetchEntries])
 
   // Filter entries by date range
   const filteredEntries = entries.filter(entry => {

@@ -229,7 +229,7 @@ export default function OnboardingPage() {
         // If no confirmation needed (or already confirmed), go to dashboard
         window.location.href = '/dashboard'
       }
-    } catch (_err) {
+    } catch {
       setError('An error occurred. Please try again.')
       setLoading(false)
     }

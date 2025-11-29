@@ -21,18 +21,9 @@ interface SubmoduleNavProps {
   isLoading?: boolean;
 }
 
-interface Submodule {
-  label: string;
-  href: string;
-}
-
-interface SubmoduleConfig {
-  [key: string]: Submodule[];
-}
-
 // Unused configuration - kept for reference
 /*
-const submoduleConfig: SubmoduleConfig = {
+const submoduleConfig = {
   '/dashboard': [...],
   '/dashboard/notes': [...],
   '/dashboard/journal': [...],

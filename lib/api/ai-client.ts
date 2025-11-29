@@ -13,7 +13,6 @@ interface TokenCache {
 }
 
 let tokenCache: TokenCache | null = null;
-const _TOKEN_EXPIRY_BUFFER_MS = 5 * 60 * 1000; // Refresh 5 minutes before expiry
 
 /**
  * Get JWT token for AI service authentication

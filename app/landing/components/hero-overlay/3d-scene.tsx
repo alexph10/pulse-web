@@ -62,7 +62,7 @@ function AsciiRenderer({
         container.removeChild(effect.domElement);
       }
     };
-  }, [gl, characters, invert, color, backgroundColor, resolution, size]);
+  }, [gl, characters, invert, color, backgroundColor, resolution, size, useColor]);
 
   useFrame(() => {
     if (effectRef.current) {

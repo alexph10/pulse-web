@@ -134,10 +134,6 @@ describe('Design Tokens', () => {
     });
 
     it('should meet WCAG AA for accent-primary text on surface', () => {
-      const contrast = getContrastRatio(
-        colors.visionary.accentPrimary,
-        colors.visionary.surface
-      );
       // Accent colors might be used as backgrounds, so check if readable
       const textContrast = getContrastRatio(
         colors.visionary.textPrimary,

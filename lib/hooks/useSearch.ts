@@ -40,15 +40,6 @@ export function useSearch({ userId, table, searchFields }: UseSearchOptions) {
 
       // Text search across multiple fields
       if (query.trim()) {
-        const searchConditions = searchFields.map(field => 
-          `${field}.ilike.%${query}%`
-        ).join(',')
-
-        // For Supabase, we need to use or() for multiple field search
-        const orConditions = searchFields.map(field => 
-          `${field}.ilike.%${query}%`
-        )
-
         // Apply text search to first field
         queryBuilder = queryBuilder.ilike(searchFields[0], `%${query}%`)
       }
