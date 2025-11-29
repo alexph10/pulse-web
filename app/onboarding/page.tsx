@@ -1,8 +1,8 @@
 'use client'
 
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
-import { EffectComposer, Pixelation, Bloom } from '@react-three/postprocessing'
+import { EffectComposer, Pixelation } from '@react-three/postprocessing'
 import { Suspense, useState, FormEvent } from 'react'
 import { supabase } from '@/lib/supabase'
 
@@ -10,7 +10,7 @@ function PointCloud() {
   const { scene } = useGLTF('/recovering_oak_-_point_cloud_version.glb')
   
   // Increase saturation of materials
-  scene.traverse((child: any) => {
+  scene.traverse((child: { isMesh?: boolean; material?: { color?: { getHSL: (hsl: { h: number; s: number; l: number }) => void; setHSL: (h: number, s: number, l: number) => void } } }) => {
     if (child.isMesh && child.material) {
       // Increase color saturation
       if (child.material.color) {

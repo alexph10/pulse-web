@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter } from "next/navigation"
 import { useKeyboardShortcut } from '@/lib/hooks/useKeyboardShortcut'
 import { MagnifyingGlass, X, ArrowRight } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'

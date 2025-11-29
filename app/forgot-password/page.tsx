@@ -23,8 +23,9 @@ export default function ForgotPassword() {
       if (error) throw error
 
       setSuccess(true)
-    } catch (error: any) {
-      setError(error.message || 'Failed to send reset email')
+    } catch (error: unknown) {
+      const err = error as Error
+      setError(err.message || 'Failed to send reset email')
     } finally {
       setLoading(false)
     }
@@ -63,7 +64,7 @@ export default function ForgotPassword() {
               color: '#718096',
               marginBottom: '32px'
             }}>
-              Enter your email address and we'll send you a link to reset your password.
+              Enter your email address and we&apos;ll send you a link to reset your password.
             </p>
 
             <form onSubmit={handleResetPassword} style={{
@@ -185,7 +186,7 @@ export default function ForgotPassword() {
                 color: '#718096',
                 lineHeight: '1.6'
               }}>
-                We've sent a password reset link to <strong>{email}</strong>. 
+                We&apos;ve sent a password reset link to <strong>{email}</strong>. 
                 Click the link in the email to reset your password.
               </p>
             </div>

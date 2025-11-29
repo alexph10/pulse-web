@@ -75,8 +75,9 @@ export default function LoginPage() {
         await signIn(formData.email, formData.password);
         router.push('/dashboard');
       }
-    } catch (err: any) {
-      setError(err.message || (mode === 'signup' ? 'Failed to sign up' : 'Failed to log in'));
+    } catch (err: unknown) {
+      const error = err as Error
+      setError(error.message || (mode === 'signup' ? 'Failed to sign up' : 'Failed to log in'));
     } finally {
       setLoading(false);
     }
@@ -87,8 +88,9 @@ export default function LoginPage() {
     try {
       await signInWithGoogle();
       // Redirect happens automatically via Supabase
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in with Google');
+    } catch (err: unknown) {
+      const error = err as Error
+      setError(error.message || 'Failed to sign in with Google');
     }
   };
 
