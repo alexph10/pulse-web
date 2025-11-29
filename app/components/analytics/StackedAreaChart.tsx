@@ -13,32 +13,36 @@ interface StackedAreaChartProps {
   subtitle?: string
 }
 
+// Generate sample data at module level
+const generateSampleSeries = (): AreaSeries[] => [
+  {
+    name: 'Journal',
+    color: '#2d5a3d',
+    data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 3) + 1),
+  },
+  {
+    name: 'Goals',
+    color: '#d4774a',
+    data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 2) + 1),
+  },
+  {
+    name: 'Habits',
+    color: '#8a9199',
+    data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 2)),
+  },
+];
+
+const defaultSampleSeries = generateSampleSeries();
+const defaultSampleLabels = Array.from({ length: 30 }, (_, idx) => `Day ${idx + 1}`);
+
 export default function StackedAreaChart({
   series,
   labels,
   title = 'Activity Trends',
   subtitle = 'Cumulative activity over time',
 }: StackedAreaChartProps) {
-  // Sample data: 30 days of journal/goals/habits
-  const sampleSeries: AreaSeries[] = series || [
-    {
-      name: 'Journal',
-      color: '#2d5a3d',
-      data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 3) + 1),
-    },
-    {
-      name: 'Goals',
-      color: '#d4774a',
-      data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 2) + 1),
-    },
-    {
-      name: 'Habits',
-      color: '#8a9199',
-      data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 2)),
-    },
-  ]
-
-  const sampleLabels = labels || Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`)
+  const sampleSeries = series || defaultSampleSeries
+  const sampleLabels = labels || defaultSampleLabels
 
   const displaySeries = series || sampleSeries
   const displayLabels = labels || sampleLabels

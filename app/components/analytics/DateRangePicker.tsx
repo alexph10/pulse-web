@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { format } from 'date-fns'
 import type { DateRangePreset } from '@/app/hooks/useDateRange'
 
 interface DateRangePickerProps {

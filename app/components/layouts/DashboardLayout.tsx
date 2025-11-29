@@ -5,7 +5,7 @@ interface DashboardLayoutProps {
   isLoading?: boolean
 }
 
-export default function DashboardLayout({ children, isLoading = false }: DashboardLayoutProps) {
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="min-h-screen p-8" style={{
       background: 'var(--background)'

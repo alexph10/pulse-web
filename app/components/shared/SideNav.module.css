@@ -1,0 +1,241 @@
+/* Side Panel Container */
+.sidePanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 10002;
+  overflow: hidden;
+}
+
+/* Green Line Indicator */
+.sidePanelIndicator {
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  background-color: #112623;
+  border-radius: 0;
+}
+
+/* Top Line Indicator - Always visible */
+.sidePanelTopLine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 8px;
+  background: linear-gradient(90deg, 
+    #FFF4E6 0%,
+    #FFD4A3 15%,
+    #FF8C69 30%,
+    #FF6347 50%,
+    #FF4500 70%,
+    #DC143C 85%,
+    #8B0000 100%
+  );
+  background-size: cover;
+  background-position: center;
+  border-radius: 0;
+  z-index: 10002;
+  pointer-events: none;
+}
+
+/* Panel Content */
+.sidePanelContent {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 160px;
+  height: 100%;
+  background-color: #112623;
+  pointer-events: none;
+  border-radius: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidePanel:hover .sidePanelContent {
+  pointer-events: all;
+}
+
+.sidePanel {
+  cursor: pointer;
+}
+
+/* Top Section with Profile and Button */
+.topSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(240, 249, 244, 0.1);
+}
+
+.profileIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #1a3833;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F0F9F4;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.profileIcon:hover {
+  background-color: #234d45;
+}
+
+.addJournalButton {
+  width: 100%;
+  padding: 6px 12px;
+  background-color: transparent;
+  color: #F0F9F4;
+  border: 1px solid #F0F9F4;
+  border-radius: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.addJournalButton:hover {
+  background-color: rgba(240, 249, 244, 0.08);
+}
+
+/* Navigation Container */
+.navContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  padding: 0 10px;
+  flex: 1;
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+
+.navSectionBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  padding: 0 10px;
+  border-top: 1px solid rgba(240, 249, 244, 0.1);
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+
+/* Navigation Items */
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #F0F9F4;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  user-select: none;
+}
+
+.navItem:hover {
+  background-color: rgba(240, 249, 244, 0.08);
+}
+
+.navItemActive {
+  background-color: rgba(240, 249, 244, 0.12);
+  font-weight: 500;
+}
+
+.navIcon {
+  flex-shrink: 0;
+  color: #F0F9F4;
+}
+
+.navLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Settings Sub-Panel */
+.settingsSubPanel {
+  position: fixed;
+  top: 0;
+  left: 160px;
+  width: 200px;
+  height: 100vh;
+  background-color: #0d1f1c;
+  z-index: 9999;
+  pointer-events: all;
+  border-left: 1px solid rgba(240, 249, 244, 0.1);
+}
+
+.subPanelContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 20px;
+}
+
+.subPanelHeader {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #F0F9F4;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(240, 249, 244, 0.1);
+}
+
+.subPanelItems {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subPanelItem {
+  padding: 8px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #F0F9F4;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.subPanelItem:hover {
+  background-color: rgba(240, 249, 244, 0.08);
+}

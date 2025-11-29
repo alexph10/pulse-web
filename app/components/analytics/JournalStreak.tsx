@@ -11,6 +11,11 @@ interface JournalStreakProps {
   }[]
 }
 
+interface HeatmapValue {
+  date: string
+  count: number
+}
+
 export default function JournalStreak({ entries }: JournalStreakProps) {
   const [tooltipData, setTooltipData] = useState<{ date: string; count: number } | null>(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
@@ -26,7 +31,7 @@ export default function JournalStreak({ entries }: JournalStreakProps) {
     count: entry.count
   }))
 
-  const handleMouseEnter = (event: React.MouseEvent, value: any) => {
+  const handleMouseEnter = (event: React.MouseEvent, value: HeatmapValue | null) => {
     if (value && value.count > 0) {
       setTooltipData({
         date: new Date(value.date).toLocaleDateString('en-US', { 
@@ -40,11 +45,9 @@ export default function JournalStreak({ entries }: JournalStreakProps) {
         x: event.clientX,
         y: event.clientY
       })
+    } else {
+      setTooltipData(null)
     }
-  }
-
-  const handleMouseLeave = () => {
-    setTooltipData(null)
   }
 
   return (

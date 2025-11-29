@@ -111,13 +111,6 @@ export const colors = {
     borderEmphasis: 'rgba(255, 255, 255, 0.12)', // Emphasized borders
     borderStrong: 'rgba(255, 255, 255, 0.16)',   // Strong borders
   },
-    accentSecondary: '#B87FCE',
-    accentMuted: '#9865B8',
-    accentSubtle: '#6B4A88',
-    borderSubtle: '#5a2a52',
-    borderEmphasis: '#6B4A88',
-    borderStrong: '#7A5FA8',
-  },
   // Chart / Accent palettes - warm earth tones
   charts: {
     saffron: '#f5ce58',

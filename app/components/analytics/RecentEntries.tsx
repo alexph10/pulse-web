@@ -15,42 +15,47 @@ interface RecentEntriesProps {
   onEntryClick?: (id: string) => void
 }
 
-export default function RecentEntries({ entries, onEntryClick }: RecentEntriesProps) {
-  // Sample data if none provided
-  const sampleEntries: JournalEntry[] = entries || [
+// Generate sample data once at module level
+const generateSampleEntries = (): JournalEntry[] => {
+  const now = Date.now();
+  return [
     {
       id: '1',
       content: 'Had a really productive day working on the new dashboard. Feeling accomplished and energized.',
-      created_at: new Date(Date.now() - 2 * 60 * 60 * 1000),
+      created_at: new Date(now - 2 * 60 * 60 * 1000),
       mood: 'energized'
     },
     {
       id: '2',
       content: 'Morning meditation session was peaceful. Starting to see the benefits of consistency.',
-      created_at: new Date(Date.now() - 8 * 60 * 60 * 1000),
+      created_at: new Date(now - 8 * 60 * 60 * 1000),
       mood: 'calm'
     },
     {
       id: '3',
       content: 'Team meeting went well. Everyone is aligned on the project goals for next quarter.',
-      created_at: new Date(Date.now() - 26 * 60 * 60 * 1000),
+      created_at: new Date(now - 26 * 60 * 60 * 1000),
       mood: 'focused'
     },
     {
       id: '4',
       content: 'Completed the workout routine. Pushed through even though I was tired.',
-      created_at: new Date(Date.now() - 50 * 60 * 60 * 1000),
+      created_at: new Date(now - 50 * 60 * 60 * 1000),
       mood: 'determined'
     },
     {
       id: '5',
       content: 'Spending quality time with family. Grateful for these moments.',
-      created_at: new Date(Date.now() - 72 * 60 * 60 * 1000),
+      created_at: new Date(now - 72 * 60 * 60 * 1000),
       mood: 'grateful'
     },
-  ]
+  ];
+};
 
-  const displayEntries = entries || sampleEntries
+const defaultSampleEntries = generateSampleEntries();
+
+export default function RecentEntries({ entries, onEntryClick }: RecentEntriesProps) {
+  const displayEntries = entries || defaultSampleEntries
 
   const truncateText = (text: string, maxLength: number = 100) => {
     if (text.length <= maxLength) return text
@@ -93,7 +98,7 @@ export default function RecentEntries({ entries, onEntryClick }: RecentEntriesPr
         gap: '1px',
         background: 'rgba(228, 221, 211, 0.12)',
       }}>
-        {displayEntries.slice(0, 5).map((entry, idx) => (
+        {displayEntries.slice(0, 5).map((entry) => (
           <div
             key={entry.id}
             onClick={() => onEntryClick?.(entry.id)}

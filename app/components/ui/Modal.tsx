@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, forwardRef } from 'react'
+import { ReactNode } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'

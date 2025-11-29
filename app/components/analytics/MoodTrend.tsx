@@ -11,14 +11,20 @@ interface MoodTrendProps {
   height?: number
 }
 
-export default function MoodTrend({ data, width = 400, height = 100 }: MoodTrendProps) {
-  // Generate sample data for last 30 days
-  const sampleData: DataPoint[] = data || Array.from({ length: 30 }, (_, i) => ({
-    date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000),
-    value: 5 + Math.random() * 4 + Math.sin(i / 5) * 2
-  }))
+// Generate sample data once at module level
+const generateSampleData = (): DataPoint[] => {
+  const now = Date.now();
+  const randomSeed = Math.random();
+  return Array.from({ length: 30 }, (_, i) => ({
+    date: new Date(now - (29 - i) * 24 * 60 * 60 * 1000),
+    value: 5 + randomSeed * 4 + Math.sin(i / 5) * 2
+  }));
+};
 
-  const displayData = data || sampleData
+const defaultSampleData = generateSampleData();
+
+export default function MoodTrend({ data, width = 400, height = 100 }: MoodTrendProps) {
+  const displayData = data || defaultSampleData
 
   // Calculate SVG path
   const padding = 20

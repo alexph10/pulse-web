@@ -1,0 +1,18 @@
+.blankContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  min-width: 2560px;
+  min-height: 1440px;
+  background: #fdfdef; /* Light green background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  z-index: 9999; /* Ensure it's on top */
+}
+

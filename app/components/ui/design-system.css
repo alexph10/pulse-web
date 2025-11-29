@@ -15,10 +15,26 @@
   --ds-text-secondary: #a39d96;
   --ds-text-tertiary: rgba(228, 221, 211, 0.6);
   
-  /* Data Visualization Colors */
+  /* Data Visualization Colors - Original */
   --ds-data-green: #2d5a3d;
   --ds-data-orange: #d4774a;
   --ds-data-gray: #8a9199;
+  
+  /* Chart Colors - Brightened for dark theme */
+  --ds-chart-lavender: #a89dd8;
+  --ds-chart-mint: #7dbaa3;
+  --ds-chart-peach: #d4956a;
+  --ds-chart-sky: #6b9bc3;
+  --ds-chart-rose: #c789a0;
+  --ds-chart-teal: #5a9b9d;
+  --ds-chart-amber: #e4b363;
+  --ds-chart-purple: #9370db;
+  
+  /* Chart UI Elements */
+  --ds-chart-grid: rgba(228, 221, 211, 0.08);
+  --ds-chart-axis: rgba(228, 221, 211, 0.2);
+  --ds-chart-tooltip-bg: rgba(37, 44, 44, 0.95);
+  --ds-chart-dot-size: 6px;
   
   /* Interactive States */
   --ds-hover-overlay: rgba(228, 221, 211, 0.05);
@@ -33,6 +49,12 @@
   
   /* Overlay (for modals) */
   --ds-overlay-background: rgba(60, 15, 51, 0.85);
+  
+  /* Glassmorphism */
+  --ds-glass-background: rgba(37, 44, 44, 0.7);
+  --ds-glass-border: rgba(228, 221, 211, 0.15);
+  --ds-glass-blur: blur(16px);
+  --ds-glass-highlight: rgba(228, 221, 211, 0.05);
   
   /* ========================================
      TYPOGRAPHY
@@ -83,6 +105,12 @@
   --ds-radius-lg: 0;
   --ds-radius-full: 50%; /* Only for circular elements like dots */
   
+  /* Rounded variants (for Wellmetrix-style components) */
+  --ds-radius-rounded-sm: 8px;
+  --ds-radius-rounded-md: 12px;
+  --ds-radius-rounded-lg: 16px;
+  --ds-radius-rounded-xl: 20px;
+  
   /* ========================================
      SHADOWS
      ======================================== */
@@ -129,6 +157,15 @@
   
   /* Dot Indicator */
   --ds-dot-size: 8px;
+  
+  /* Navigation */
+  --ds-icon-sidebar-width: 72px;
+  --ds-top-nav-height: 64px;
+  
+  /* Charts */
+  --ds-chart-line-height: 140px;
+  --ds-chart-bar-min-width: 16px;
+  --ds-chart-circular-size: 200px;
 }
 
 /* ========================================
@@ -240,5 +277,52 @@
 .ds-divider-vertical {
   width: 1px;
   background: var(--ds-divider);
+}
+
+/* Glassmorphism */
+.ds-glass {
+  background: var(--ds-glass-background);
+  border: 1px solid var(--ds-glass-border);
+  backdrop-filter: var(--ds-glass-blur);
+  -webkit-backdrop-filter: var(--ds-glass-blur);
+}
+
+.ds-glass-highlight {
+  position: relative;
+}
+
+.ds-glass-highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: var(--ds-glass-highlight);
+  pointer-events: none;
+}
+
+/* Chart Elements */
+.ds-chart-dot {
+  width: var(--ds-chart-dot-size);
+  height: var(--ds-chart-dot-size);
+  border-radius: var(--ds-radius-full);
+  background: currentColor;
+}
+
+.ds-chart-grid-line {
+  stroke: var(--ds-chart-grid);
+  stroke-width: 1px;
+}
+
+.ds-chart-axis-line {
+  stroke: var(--ds-chart-axis);
+  stroke-width: 1px;
+}
+
+.ds-chart-label {
+  font-size: var(--ds-text-label);
+  color: var(--ds-text-tertiary);
+  fill: var(--ds-text-tertiary);
 }
 

@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay } from 'date-fns'
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns'
 
 interface MonthlyReviewProps {
   month?: Date

@@ -12,7 +12,7 @@ interface Command {
   label: string
   description?: string
   shortcut?: string
-  icon?: React.ComponentType<{ size?: number; weight?: string }>
+  icon?: React.ComponentType<{ size?: number; weight?: string; className?: string }>
   action: () => void
   category: string
   keywords?: string[]
@@ -27,7 +27,6 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const router = useRouter()
-  const pathname = usePathname()
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
@@ -235,7 +234,7 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
             Object.entries(groupedCommands).map(([category, categoryCommands]) => (
               <div key={category} className={styles.category}>
                 <div className={styles.categoryLabel}>{category}</div>
-                {categoryCommands.map((cmd, index) => {
+                {categoryCommands.map((cmd) => {
                   const globalIndex = filteredCommands.indexOf(cmd)
                   const isSelected = globalIndex === selectedIndex
                   const Icon = cmd.icon

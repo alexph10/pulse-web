@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const token = generateAIServiceToken(auth.userId);
 
     return NextResponse.json({ token });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error generating AI service token:', error);
     return NextResponse.json(
       { error: 'Failed to generate token' },

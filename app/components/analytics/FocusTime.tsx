@@ -73,7 +73,7 @@ export default function FocusTime({
         right: 0,
         width: '200px',
         height: '200px',
-        background: 'radial-gradient(circle at top right, rgba(219, 39, 119, 0.08) 0%, transparent 70%)',
+        background: 'radial-gradient(circle at top right, rgba(217, 119, 6, 0.08) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -142,8 +142,8 @@ export default function FocusTime({
       {/* Insight card */}
       <div style={{
         padding: '16px',
-        background: 'rgba(219, 39, 119, 0.08)',
-        border: '1px solid rgba(219, 39, 119, 0.2)',
+        background: 'rgba(217, 119, 6, 0.08)',
+        border: '1px solid rgba(217, 119, 6, 0.2)',
         position: 'relative',
       }}>
         <div style={{
@@ -170,7 +170,7 @@ export default function FocusTime({
             color: '#9ca3af',
             lineHeight: '1.5',
           }}>
-            You're most focused around <strong style={{ color: '#10b981' }}>{bestFocus.hour}</strong> with a {bestFocus.score}% productivity score
+            You&apos;re most focused around <strong style={{ color: '#10b981' }}>{bestFocus.hour}</strong> with a {bestFocus.score}% productivity score
           </p>
         </div>
       </div>

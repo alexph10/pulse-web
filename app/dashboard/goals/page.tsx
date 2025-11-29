@@ -1,14 +1,23 @@
 'use client'
 
+import TopBar from '../../components/shared/TopBar'
+import SideNav from '../../components/shared/SideNav'
+
 export default function GoalsPage() {
   return (
     <div
       style={{
-        minHeight: '100vh',
-        background: 'transparent',
+        width: '100vw',
+        height: '100vh',
+        background: '#fdfdef',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      {/* Goals content will go here */}
+      <TopBar />
+      <SideNav />
+      {/* Blank Goals Page */}
     </div>
   )
 }

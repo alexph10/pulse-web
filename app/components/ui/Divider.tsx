@@ -1,6 +1,5 @@
 'use client'
 
-import { ReactNode } from 'react'
 import styles from './Divider.module.css'
 
 interface DividerProps {
@@ -34,6 +33,12 @@ export function Divider({
     />
   )
 }
+
+
+
+
+
+
 
 
 

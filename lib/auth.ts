@@ -1,14 +1,28 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
+function getSupabaseCredentials() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Supabase credentials are missing. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
+    throw new Error('Supabase is not configured');
+  }
+
+  return { supabaseUrl, supabaseAnonKey };
+}
+
 /**
  * Get authenticated user from request
  * Returns user ID if authenticated, null otherwise
  */
 export async function getAuthenticatedUser(request: NextRequest): Promise<{ userId: string; user: any } | null> {
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {
@@ -60,9 +74,11 @@ export async function validateUserId(request: NextRequest, providedUserId: strin
  * Create an authenticated Supabase client for API routes
  */
 export async function createAuthenticatedSupabaseClient(request: NextRequest) {
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
+
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {

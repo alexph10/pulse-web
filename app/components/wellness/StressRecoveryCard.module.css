@@ -1,0 +1,175 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-family-satoshi);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  font-family: var(--font-family-satoshi);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.chartContainer {
+  height: 200px;
+  margin: -8px 0;
+}
+
+.insight {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  font-family: var(--font-family-satoshi);
+  margin: 0;
+  padding: 12px;
+  background: var(--accent-subtle);
+  border-radius: 8px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.metricCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metricLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-family-satoshi);
+}
+
+.metricChange {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  font-family: var(--font-family-satoshi);
+}
+
+.barChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 60px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  min-height: 8px;
+}
+
+.barLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-family: var(--font-family-satoshi);
+}
+
+.gaugeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}
+
+.gauge {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent-primary) 0deg,
+    var(--accent-primary) calc(var(--progress, 75%) * 3.6deg),
+    rgba(228, 221, 211, 0.15) calc(var(--progress, 75%) * 3.6deg),
+    rgba(228, 221, 211, 0.15) 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gaugeFill {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.gaugeCenter {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.gaugeValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-family-satoshi);
+  line-height: 1;
+}
+
+.gaugeUnit {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-family: var(--font-family-satoshi);
+}
+
+.gaugeLabel {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  font-family: var(--font-family-satoshi);
+  margin-top: 4px;
+}
+
+@media (width <= 768px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+

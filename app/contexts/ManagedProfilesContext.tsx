@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from './AuthContext'
 
@@ -34,16 +34,7 @@ export function ManagedProfilesProvider({ children }: { children: React.ReactNod
   const [activeProfileId, setActiveProfileId] = useState<string>('self')
   const [loadingProfiles, setLoadingProfiles] = useState(false)
 
-  useEffect(() => {
-    if (!user) {
-      setManagedProfiles([])
-      setActiveProfileId('self')
-      return
-    }
-    refreshProfiles()
-  }, [user])
-
-  const refreshProfiles = async () => {
+  const refreshProfiles = useCallback(async () => {
     if (!user) return
     setLoadingProfiles(true)
     const { data, error } = await supabase
@@ -56,7 +47,14 @@ export function ManagedProfilesProvider({ children }: { children: React.ReactNod
       setManagedProfiles(data)
     }
     setLoadingProfiles(false)
-  }
+  }, [user])
+
+  useEffect(() => {
+    if (user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void refreshProfiles()
+    }
+  }, [user, refreshProfiles])
 
   const addProfile = async (payload: { displayName: string; relationship?: string }) => {
     if (!user || !payload.displayName.trim()) return
@@ -109,18 +107,16 @@ export function ManagedProfilesProvider({ children }: { children: React.ReactNod
     return [baseProfile, ...managedProfiles]
   }, [managedProfiles, user])
 
-  useEffect(() => {
-    if (!combinedProfiles.find((profile) => profile.id === activeProfileId)) {
-      setActiveProfileId('self')
-    }
-  }, [combinedProfiles, activeProfileId])
+  const validatedActiveProfileId = combinedProfiles.find((profile) => profile.id === activeProfileId)
+    ? activeProfileId
+    : 'self'
 
   const activeProfile =
-    combinedProfiles.find((profile) => profile.id === activeProfileId) || null
+    combinedProfiles.find((profile) => profile.id === validatedActiveProfileId) || null
 
   const value: ManagedProfilesContextValue = {
     profiles: combinedProfiles,
-    activeProfileId,
+    activeProfileId: validatedActiveProfileId,
     activeProfile,
     loadingProfiles,
     addProfile,

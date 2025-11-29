@@ -13,7 +13,7 @@ interface StatCardProps {
   icon?: React.ReactNode
 }
 
-export default function StatCard({ title, value, subtitle, trend, icon }: StatCardProps) {
+export default function StatCard({ title, value, subtitle, icon }: StatCardProps) {
   const isMobile = useMediaQuery('(max-width: 767px)')
   
   return (
@@ -21,10 +21,10 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
       background: '#252c2c',
       border: 'none',
       borderRadius: '0',
-      padding: isMobile ? '16px' : '20px',
+      padding: isMobile ? '12px' : '16px',
       display: 'flex',
       flexDirection: 'column',
-      gap: isMobile ? '10px' : '12px',
+      gap: isMobile ? '8px' : '10px',
       transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
       cursor: 'default',
     }}
@@ -36,7 +36,7 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
         justifyContent: 'space-between'
       }}>
         <span style={{
-          fontSize: isMobile ? '10px' : '11px',
+          fontSize: isMobile ? '9px' : '10px',
           color: '#a39d96',
           fontFamily: 'var(--font-family-satoshi)',
           fontWeight: '400',
@@ -47,8 +47,8 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
         </span>
         {icon && (
           <div style={{
-            width: '16px',
-            height: '16px',
+            width: '14px',
+            height: '14px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -61,7 +61,7 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
 
       {/* Value */}
       <div style={{
-        fontSize: isMobile ? '28px' : '32px',
+        fontSize: isMobile ? '24px' : '28px',
         fontWeight: '600',
         color: '#e4ddd3',
         fontFamily: 'var(--font-family-satoshi)',
@@ -75,11 +75,11 @@ export default function StatCard({ title, value, subtitle, trend, icon }: StatCa
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '8px'
+        gap: '6px'
       }}>
         {subtitle && (
           <span style={{
-            fontSize: '10px',
+            fontSize: '9px',
             color: '#a39d96',
             fontFamily: 'var(--font-family-satoshi)',
             fontWeight: '400'

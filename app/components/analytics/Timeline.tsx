@@ -13,39 +13,45 @@ interface TimelineProps {
   subtitle?: string
 }
 
-export default function Timeline({
-  milestones,
-  title = 'Recent Activity',
-  subtitle = 'Your latest milestones',
-}: TimelineProps) {
-  const sampleMilestones: Milestone[] = milestones || [
+// Generate sample milestones at module level
+const generateSampleMilestones = (): Milestone[] => {
+  const now = Date.now();
+  return [
     {
-      date: new Date(Date.now() - 2 * 60 * 60 * 1000),
+      date: new Date(now - 2 * 60 * 60 * 1000),
       title: 'Completed daily reflection',
       description: 'Wrote 450 words about work-life balance',
       type: 'journal',
     },
     {
-      date: new Date(Date.now() - 5 * 60 * 60 * 1000),
+      date: new Date(now - 5 * 60 * 60 * 1000),
       title: 'Goal milestone reached',
       description: 'Read 10 books this quarter',
       type: 'goal',
     },
     {
-      date: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      date: new Date(now - 24 * 60 * 60 * 1000),
       title: 'Habit streak: 15 days',
       description: 'Morning meditation streak',
       type: 'habit',
     },
     {
-      date: new Date(Date.now() - 48 * 60 * 60 * 1000),
+      date: new Date(now - 48 * 60 * 60 * 1000),
       title: 'Weekly review completed',
       description: 'Reflected on 7 days of progress',
       type: 'journal',
     },
-  ]
+  ];
+};
 
-  const displayMilestones = milestones || sampleMilestones
+const defaultSampleMilestones = generateSampleMilestones();
+
+export default function Timeline({
+  milestones,
+  title = 'Recent Activity',
+  subtitle = 'Your latest milestones',
+}: TimelineProps) {
+  const displayMilestones = milestones || defaultSampleMilestones
 
   const getTypeColor = (type: Milestone['type']) => {
     switch (type) {

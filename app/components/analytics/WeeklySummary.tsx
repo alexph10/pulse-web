@@ -12,16 +12,21 @@ interface WeeklySummaryProps {
   data?: DayData[]
 }
 
-export default function WeeklySummary({ data }: WeeklySummaryProps) {
-  // Generate last 7 days
-  const days = data || Array.from({ length: 7 }, (_, i) => {
-    const date = subDays(new Date(), 6 - i)
+// Generate sample week data at module level
+const generateWeekData = (): DayData[] => 
+  Array.from({ length: 7 }, (_, i) => {
+    const date = subDays(new Date(), 6 - i);
     return {
       date,
       completed: Math.random() > 0.3,
       count: Math.floor(Math.random() * 5)
-    }
-  })
+    };
+  });
+
+const defaultWeekData = generateWeekData();
+
+export default function WeeklySummary({ data }: WeeklySummaryProps) {
+  const days = data || defaultWeekData
 
   return (
     <div style={{

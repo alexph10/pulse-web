@@ -1,9 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Inter+Tight:wght@100..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url("./fonts.css");
 @import url("./generated-tokens.css");
 @import url("tailwindcss");
 
 @custom-variant dark (&:is(.dark *));
+
+/* Hide dashboard layout elements when blank dashboard is active */
+body.blank-dashboard-active nav[class*="submodule"],
+body.blank-dashboard-active nav[class*="SubmoduleNav"],
+body.blank-dashboard-active div[class*="mobileNav"],
+body.blank-dashboard-active div[class*="MobileNav"] {
+  display: none !important;
+}
+
+body.blank-dashboard-active .main-content {
+  padding: 0 !important;
+}
 
 :root {
   /* UI Scale - Fixed to 100% for accessibility (WCAG AA compliance) */
@@ -20,13 +32,13 @@
   --brand-subtle: rgba(17, 24, 39, 0.06);
   --brand-subtle-dark: rgba(17, 24, 39, 0.4);
 
-  /* Dark Theme - Backgrounds */
-  --background: #FFFFFF;
-  --background-elevated: #F9FAFB;
-  --surface: #F3F4F6;
-  --surface-elevated: #E5E7EB;
-  --surface-hover: #D1D5DB;
-  --background-secondary: #F9FAFB;
+  /* Light Theme - Light Green Backgrounds */
+  --background: #fdfdef; /* Light green background */
+  --background-elevated: #E8F5ED;
+  --surface: #E0F1E6;
+  --surface-elevated: #D8EDDF;
+  --surface-hover: #D0E9D8;
+  --background-secondary: #F5FBF7;
 
   /* Dark Theme - Text */
   --text-primary: #111827;
@@ -154,7 +166,7 @@
 
 /* Dark mode via data attribute (manual toggle) */
 [data-theme='dark'] {
-  /* Purple/Magenta Dark Theme */
+  /* Dark theme background (keep the rich plum base) */
   --background: #3c0f33;
   --background-secondary: #4a1a42;
   --surface: #4a1a42;
@@ -171,14 +183,14 @@
   --border-emphasis: #5A3B7B;
   --border-strong: #6B4A88;
 
-  /* Accent Colors - Bright magenta accents */
-  --accent-primary: #E844E8;
-  --accent-primary-hover: #F060F0;
-  --accent-primary-active: #D030D8;
-  --accent-secondary: #B87FCE;
-  --accent-tertiary: #9865B8;
-  --accent-muted: #9865B8;
-  --accent-subtle: #6B4A88;
+  /* Accent Colors - Dark orange accents (replaces magenta) */
+  --accent-primary: #D97706;
+  --accent-primary-hover: #F59E0B;
+  --accent-primary-active: #B45309;
+  --accent-secondary: #F59E0B;
+  --accent-tertiary: #92400E;
+  --accent-muted: rgba(217, 119, 6, 0.4);
+  --accent-subtle: rgba(217, 119, 6, 0.16);
 
   /* Semantic Colors */
   --success: #4ade80;
@@ -213,6 +225,72 @@ body {
   background: var(--background);
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Blank page styling */
+body.blank-page-active {
+  background: #fdfdef !important; /* Light green background */
+  overflow: hidden;
+}
+
+/* Hide global components on blank page */
+body.blank-page-active [data-command-palette],
+body.blank-page-active [data-activity-heatmap] {
+  display: none !important;
+}
+
+/* Blank dashboard page styling */
+body.blank-dashboard-active {
+  background: #fdfdef !important; /* Light green background */
+  overflow: hidden;
+}
+
+/* Hide dashboard navigation on blank dashboard page */
+body.blank-dashboard-active .main-content > nav,
+body.blank-dashboard-active .main-content > nav ~ *:not(.blankContainer),
+body.blank-dashboard-active [data-mobile-nav],
+body.blank-dashboard-active nav[class*="submodule"],
+body.blank-dashboard-active nav[class*="Submodule"],
+body.blank-dashboard-active main > nav:first-child {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body.blank-dashboard-active .main-content {
+  padding: 0 !important;
+  padding-bottom: 0 !important;
+  position: relative;
+}
+
+body.blank-dashboard-active .main-content > div {
+  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  position: relative;
+}
+
+body.blank-dashboard-active .main-content > div > div {
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Optimize for 2560x1440 resolution */
+@media (min-width: 2560px) {
+  html {
+    font-size: 100%;
+  }
+  
+  body {
+    min-width: 2560px;
+    min-height: 1440px;
+  }
 }
 
 @theme inline {

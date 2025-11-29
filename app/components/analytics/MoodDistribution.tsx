@@ -10,6 +10,18 @@ interface MoodDistributionProps {
   }[]
 }
 
+interface TooltipProps {
+  active?: boolean
+  payload?: Array<{
+    value: number
+    payload: {
+      mood: string
+      count: number
+      percentage: number
+    }
+  }>
+}
+
 const MOOD_COLORS: Record<string, string> = {
   joyful: '#10B981',
   content: '#6EE7B7',
@@ -25,13 +37,7 @@ const MOOD_COLORS: Record<string, string> = {
   hopeful: '#3B82F6'
 }
 
-export default function MoodDistribution({ data }: MoodDistributionProps) {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  
-  // Sort by count descending
-  const sortedData = [...data].sort((a, b) => b.count - a.count)
-
-  const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload }: TooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div style={{
@@ -64,6 +70,12 @@ export default function MoodDistribution({ data }: MoodDistributionProps) {
     return null
   }
 
+export default function MoodDistribution({ data }: MoodDistributionProps) {
+  const isMobile = useMediaQuery('(max-width: 767px)')
+  
+  // Sort by count descending
+  const sortedData = [...data].sort((a, b) => b.count - a.count)
+
   // Calculate percentages
   const total = sortedData.reduce((sum, item) => sum + item.count, 0)
   const dataWithPercentage = sortedData.map(item => ({
@@ -75,7 +87,7 @@ export default function MoodDistribution({ data }: MoodDistributionProps) {
     <div style={{
       width: '100%',
       height: '100%',
-      minHeight: isMobile ? '250px' : '300px'
+      minHeight: isMobile ? '200px' : '240px'
     }}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart 

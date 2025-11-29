@@ -55,6 +55,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
 
   /**
+   * Hide a specific toast
+   */
+  const hideToast = useCallback((id: string) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id))
+  }, [])
+
+  /**
    * Show a new toast notification
    * 
    * @param message - Text to display
@@ -86,14 +93,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         hideToast(id)
       }, duration)
     }
-  }, [])
-
-  /**
-   * Hide a specific toast
-   */
-  const hideToast = useCallback((id: string) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id))
-  }, [])
+  }, [hideToast])
 
   /**
    * Clear all toasts

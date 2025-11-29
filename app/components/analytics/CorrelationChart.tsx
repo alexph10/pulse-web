@@ -1,5 +1,7 @@
 'use client'
 
+import { useMemo } from 'react'
+
 interface CorrelationData {
   x: number
   y: number
@@ -15,6 +17,12 @@ interface CorrelationChartProps {
   showTrendline?: boolean
 }
 
+const DEFAULT_SAMPLE_DATA: CorrelationData[] = Array.from({ length: 30 }, (_, index) => {
+  const x = (index + 1) * 0.35 + 2
+  const y = x * 0.7 + ((index % 5) - 2) * 0.4 + 2
+  return { x, y }
+})
+
 export default function CorrelationChart({
   data,
   title = 'Mood vs Activity',
@@ -23,14 +31,32 @@ export default function CorrelationChart({
   yLabel = 'Mood Score',
   showTrendline = true,
 }: CorrelationChartProps) {
-  // Generate sample data showing correlation
-  const sampleData: CorrelationData[] = data || Array.from({ length: 30 }, (_, i) => {
-    const x = Math.random() * 10
-    const y = x * 0.7 + Math.random() * 2 + 2 // Positive correlation with noise
-    return { x, y }
-  })
+  const displayData = useMemo<CorrelationData[]>(() => {
+    if (data && data.length > 0) {
+      return data
+    }
 
-  const displayData = data || sampleData
+    return DEFAULT_SAMPLE_DATA
+  }, [data])
+
+  if (displayData.length === 0) {
+    return (
+      <div
+        style={{
+          padding: '24px',
+          borderRadius: '16px',
+          background: 'var(--surface-muted)',
+          border: '1px solid var(--border-subtle)',
+          textAlign: 'center',
+          color: 'var(--text-secondary)',
+        }}
+        role="status"
+        aria-live="polite"
+      >
+        No correlation data available yet.
+      </div>
+    )
+  }
 
   // Calculate correlation coefficient
   const n = displayData.length
@@ -40,15 +66,23 @@ export default function CorrelationChart({
   const sumX2 = displayData.reduce((sum, d) => sum + d.x * d.x, 0)
   const sumY2 = displayData.reduce((sum, d) => sum + d.y * d.y, 0)
   
-  const correlation = (n * sumXY - sumX * sumY) / 
-    Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY))
+  const denominatorX = n * sumX2 - sumX * sumX
+  const denominatorY = n * sumY2 - sumY * sumY
+  const denominatorProduct = denominatorX * denominatorY
+  const safeDenominator = denominatorProduct <= 0 ? 0 : Math.sqrt(denominatorProduct)
+  const correlation = safeDenominator === 0
+    ? 0
+    : (n * sumXY - sumX * sumY) / safeDenominator
 
   // Calculate trendline
   const meanX = sumX / n
   const meanY = sumY / n
-  const slope = displayData.reduce((sum, d) => sum + (d.x - meanX) * (d.y - meanY), 0) /
-    displayData.reduce((sum, d) => sum + (d.x - meanX) ** 2, 0)
-  const intercept = meanY - slope * meanX
+  const slopeNumerator = displayData.reduce((sum, d) => sum + (d.x - meanX) * (d.y - meanY), 0)
+  const slopeDenominator = displayData.reduce((sum, d) => sum + (d.x - meanX) ** 2, 0)
+  const rawSlope = slopeDenominator === 0 ? 0 : slopeNumerator / slopeDenominator
+  const slope = Number.isFinite(rawSlope) ? rawSlope : 0
+  const rawIntercept = meanY - slope * meanX
+  const intercept = Number.isFinite(rawIntercept) ? rawIntercept : 0
 
   // Chart dimensions
   const width = 100
@@ -60,6 +94,12 @@ export default function CorrelationChart({
 
   const scaleX = (x: number) => (x / maxX) * (width - padding * 2) + padding
   const scaleY = (y: number) => height - ((y / maxY) * (height - padding * 2) + padding)
+  const clampToRange = (value: number) => {
+    if (!Number.isFinite(value)) return 0
+    if (value < 0) return 0
+    if (value > maxY) return maxY
+    return value
+  }
 
   const getCorrelationStrength = (r: number) => {
     const abs = Math.abs(r)
@@ -163,9 +203,9 @@ export default function CorrelationChart({
           {showTrendline && (
             <line
               x1={scaleX(0)}
-              y1={scaleY(intercept)}
+              y1={scaleY(clampToRange(intercept))}
               x2={scaleX(maxX)}
-              y2={scaleY(slope * maxX + intercept)}
+              y2={scaleY(clampToRange(slope * maxX + intercept))}
               stroke={getCorrelationColor(correlation)}
               strokeWidth="1.5"
               strokeDasharray="4 2"

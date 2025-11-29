@@ -18,4 +18,5 @@ export { Badge } from './Badge'
 export { Toggle } from './Toggle'
 export { Tooltip } from './Tooltip'
 export { Tabs } from './Tabs'
+export { PulseAIChatPanel } from './PulseAIChatPanel'
 

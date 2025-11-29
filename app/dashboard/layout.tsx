@@ -1,8 +1,5 @@
 'use client'
 
-// import Sidebar from '../components/sidebar/sidebar';
-import SubmoduleNav from '../components/submodule-nav/submodule-nav';
-import { MobileNav } from '../components/mobile/MobileNav';
 import { PageTransition } from '../components/transitions/PageTransition';
 import '../globals.css';
 
@@ -32,19 +29,20 @@ export default function DashboardLayout({
         }}
         className="main-content"
       >
-        <SubmoduleNav />
-        
         <div style={{
           flex: 1,
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          paddingTop: 'var(--spacing-xl)',
+          alignItems: 'center',
+          padding: '0',
         }}>
           <div style={{
             width: '100%',
-            maxWidth: '100%',
             padding: '0',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
             <PageTransition>
               {children}
@@ -52,7 +50,6 @@ export default function DashboardLayout({
           </div>
         </div>
       </main>
-      <MobileNav />
     </div>
   );
 }

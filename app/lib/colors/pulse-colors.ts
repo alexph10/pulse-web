@@ -38,10 +38,10 @@ export const pulseColors = {
       bg: 'rgba(139, 92, 246, 0.1)',
     },
     grateful: {
-      base: '#EC4899',       // Pink
-      light: '#F472B6',
-      dark: '#DB2777',
-      bg: 'rgba(236, 72, 153, 0.1)',
+      base: '#D97706',       // Dark Orange
+      light: '#F59E0B',
+      dark: '#B45309',
+      bg: 'rgba(217, 119, 6, 0.1)',
     },
     reflective: {
       base: '#06B6D4',       // Cyan
@@ -164,7 +164,7 @@ export const pulseColors = {
   // Optimized palette for data visualization
   charts: {
     primary: ['#B91C1C', '#DC2626', '#EF4444', '#F87171', '#FCA5A5'],
-    sequential: ['#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B'],
+    sequential: ['#10B981', '#3B82F6', '#8B5CF6', '#D97706', '#F59E0B'],
     diverging: ['#10B981', '#34D399', '#6B7280', '#FCA5A5', '#EF4444'],
     categorical: [
       '#B91C1C', // Brand red
@@ -172,7 +172,7 @@ export const pulseColors = {
       '#10B981', // Green
       '#F59E0B', // Amber
       '#8B5CF6', // Purple
-      '#EC4899', // Pink
+      '#D97706', // Dark Orange
       '#06B6D4', // Cyan
       '#EF4444', // Red
     ],

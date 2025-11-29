@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
         headers: getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime),
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Save journal error:', error);
     return NextResponse.json(
       { error: 'Failed to save journal entry' },
@@ -157,7 +157,7 @@ export async function GET(request: NextRequest) {
         headers: getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime),
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Fetch journals error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch journal entries' },

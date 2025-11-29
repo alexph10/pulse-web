@@ -33,8 +33,8 @@ export default function AnalyticsPage() {
   const [entries, setEntries] = useState<JournalEntry[]>([])
   const [loading, setLoading] = useState(true)
   const { preset, dateRange, setPreset, setCustomRange } = useDateRange('month')
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 })
+  const isMobile = useMediaQuery('(max-width: 767px)')
+  const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)')
 
   useEffect(() => {
     if (user) {
@@ -237,8 +237,8 @@ export default function AnalyticsPage() {
                 : isTablet 
                 ? 'repeat(2, 1fr)' 
                 : 'repeat(4, 1fr)',
-              gap: isMobile ? '16px' : '20px',
-              marginBottom: '32px'
+              gap: isMobile ? '12px' : '16px',
+              marginBottom: '24px'
             }}>
               <StatCard
                 title="Total Entries"
@@ -266,23 +266,23 @@ export default function AnalyticsPage() {
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr',
-              gap: isMobile ? '20px' : '24px',
-              marginBottom: '32px'
+              gap: isMobile ? '16px' : '20px',
+              marginBottom: '24px'
             }}>
               {/* Mood Trend */}
               <div style={{
                 background: 'var(--surface)',
                 border: '1px solid var(--border-subtle)',
-                borderRadius: '16px',
-                padding: isMobile ? '20px' : '24px',
+                borderRadius: '12px',
+                padding: isMobile ? '16px' : '20px',
                 boxShadow: 'var(--shadow-sm)'
               }}>
                 <h2 style={{
-                  fontSize: isMobile ? '16px' : '18px',
+                  fontSize: isMobile ? '14px' : '16px',
                   fontWeight: '600',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-family-satoshi)',
-                  marginBottom: '20px'
+                  marginBottom: '16px'
                 }}>
                   Mood Trend
                 </h2>
@@ -300,16 +300,16 @@ export default function AnalyticsPage() {
               <div style={{
                 background: 'var(--surface)',
                 border: '1px solid var(--border-subtle)',
-                borderRadius: '16px',
-                padding: isMobile ? '20px' : '24px',
+                borderRadius: '12px',
+                padding: isMobile ? '16px' : '20px',
                 boxShadow: 'var(--shadow-sm)'
               }}>
                 <h2 style={{
-                  fontSize: isMobile ? '16px' : '18px',
+                  fontSize: isMobile ? '14px' : '16px',
                   fontWeight: '600',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-family-satoshi)',
-                  marginBottom: '20px'
+                  marginBottom: '16px'
                 }}>
                   Mood Distribution
                 </h2>
@@ -320,16 +320,16 @@ export default function AnalyticsPage() {
               <div style={{
                 background: 'var(--surface)',
                 border: '1px solid var(--border-subtle)',
-                borderRadius: '16px',
-                padding: isMobile ? '20px' : '24px',
+                borderRadius: '12px',
+                padding: isMobile ? '16px' : '20px',
                 boxShadow: 'var(--shadow-sm)'
               }}>
                 <h2 style={{
-                  fontSize: isMobile ? '16px' : '18px',
+                  fontSize: isMobile ? '14px' : '16px',
                   fontWeight: '600',
                   color: 'var(--text-primary)',
                   fontFamily: 'var(--font-family-satoshi)',
-                  marginBottom: '20px'
+                  marginBottom: '16px'
                 }}>
                   Journaling Activity
                 </h2>

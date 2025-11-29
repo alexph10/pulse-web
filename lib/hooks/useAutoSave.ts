@@ -19,7 +19,7 @@ export function useAutoSave({
   intervalMs = 30000, // 30 seconds
   onSave,
 }: UseAutoSaveOptions) {
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const lastSavedRef = useRef<any>(null)
 
   useEffect(() => {

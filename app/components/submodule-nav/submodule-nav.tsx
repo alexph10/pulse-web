@@ -12,7 +12,7 @@ import {
   Moon,
   Sun
 } from '@phosphor-icons/react';
-import CalendarOverlay from '../calendar-overlay/calendar-overlay';
+import { PulseAIChatPanel } from '../ui';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import styles from './submodule-nav.module.css';
@@ -76,34 +76,31 @@ const mainPages = [
   { label: 'Home', href: '/dashboard' },
   { label: 'Insights', href: '/dashboard/insights' },
   { label: 'Journal', href: '/dashboard/journal' },
+  { label: 'Analytics', href: '/dashboard/analytics' },
 ];
 
-const SubmoduleNav: React.FC<SubmoduleNavProps> = ({ isLoading = false }) => {
+const SubmoduleNav: React.FC<SubmoduleNavProps> = () => {
   const pathname = usePathname();
   const [searchValue, setSearchValue] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [showAiPanel, setShowAiPanel] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (savedTheme) return savedTheme;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  });
   const [goalsCount, setGoalsCount] = useState(0);
   const [habitsCount, setHabitsCount] = useState(0);
   const [goalsLimit] = useState(20); // Free plan limit
   const [habitsLimit] = useState(3); // Free plan limit (packs)
   const { user } = useAuth();
-  
-  const displayUser = user || { email: 'user@example.com' };
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialTheme = prefersDark ? 'dark' : 'light';
-      setTheme(initialTheme);
-      document.documentElement.setAttribute('data-theme', initialTheme);
-    }
-  }, []);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   // Fetch user goals and habits count
   useEffect(() => {
@@ -176,7 +173,12 @@ const SubmoduleNav: React.FC<SubmoduleNavProps> = ({ isLoading = false }) => {
 
         {/* Right Actions */}
         <div className={styles.rightActions}>
-          <button className={styles.askAiButton} aria-label="Ask AI">
+          <button
+            className={styles.askAiButton}
+            aria-label="Ask AI"
+            type="button"
+            onClick={() => setShowAiPanel(true)}
+          >
             <Sparkle size={14} weight="regular" />
             Ask AI
           </button>
@@ -189,20 +191,14 @@ const SubmoduleNav: React.FC<SubmoduleNavProps> = ({ isLoading = false }) => {
             <Plus size={18} weight="regular" />
           </button>
           
-          <div className={styles.calendarButtonWrapper}>
-            <button 
-              className={styles.iconButton} 
-              aria-label="Calendar" 
-              title="Calendar"
-              onClick={() => setShowCalendar(!showCalendar)}
-            >
-              <CalendarBlank size={18} weight="regular" />
-            </button>
-            <CalendarOverlay 
-              isOpen={showCalendar} 
-              onClose={() => setShowCalendar(false)} 
-            />
-          </div>
+          <button 
+            className={styles.iconButton} 
+            aria-label="Calendar" 
+            title="Calendar"
+            onClick={() => setShowCalendar(!showCalendar)}
+          >
+            <CalendarBlank size={18} weight="regular" />
+          </button>
           
           {/* Theme Toggle */}
           <button 
@@ -418,8 +414,8 @@ const SubmoduleNav: React.FC<SubmoduleNavProps> = ({ isLoading = false }) => {
                       <button style={{ 
                         width: '100%', 
                         padding: '10px 0', 
-                        background: 'rgba(219, 39, 119, 0.12)', 
-                        border: '1px solid rgba(219, 39, 119, 0.3)', 
+                        background: 'rgba(217, 119, 6, 0.12)', 
+                        border: '1px solid rgba(217, 119, 6, 0.3)', 
                         color: '#111827', 
                         fontWeight: 600, 
                         cursor: 'pointer',
@@ -451,6 +447,7 @@ const SubmoduleNav: React.FC<SubmoduleNavProps> = ({ isLoading = false }) => {
           );
         })}
       </div>
+      <PulseAIChatPanel isOpen={showAiPanel} onClose={() => setShowAiPanel(false)} />
     </div>
   );
 };

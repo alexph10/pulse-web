@@ -1,2 +1,2 @@
-// Re-export landing page to keep it at root (/) for SEO
-export { default } from './landing/page';
+// Blank starting page - all components remain intact in codebase
+export { default } from './blank/page';

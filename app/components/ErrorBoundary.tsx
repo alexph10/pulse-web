@@ -119,7 +119,7 @@ class ErrorBoundary extends Component<Props, State> {
           </h2>
 
           <p className={styles.message}>
-            We encountered an unexpected error. Don't worry—your data is safe. 
+            We encountered an unexpected error. Don&apos;t worry—your data is safe. 
             Try refreshing the page or clicking the button below.
           </p>
 

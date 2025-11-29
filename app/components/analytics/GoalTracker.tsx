@@ -20,13 +20,13 @@ export default function GoalTracker({
   title = 'Goal Progress',
   subtitle = 'Track your objectives',
 }: GoalTrackerProps) {
-  const sampleGoals: GoalProgress[] = goals || [
+  const sampleGoals: GoalProgress[] = [
     {
       id: '1',
       title: 'Write 50 journal entries',
       target: 50,
       current: 42,
-      deadline: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+      deadline: new Date('2030-01-15T00:00:00Z'),
       category: 'journal',
     },
     {
@@ -34,7 +34,7 @@ export default function GoalTracker({
       title: 'Read 12 books',
       target: 12,
       current: 8,
-      deadline: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000),
+      deadline: new Date('2030-03-01T00:00:00Z'),
       category: 'goal',
     },
     {
@@ -42,7 +42,7 @@ export default function GoalTracker({
       title: 'Meditate 30 days',
       target: 30,
       current: 22,
-      deadline: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
+      deadline: new Date('2030-01-30T00:00:00Z'),
       category: 'habit',
     },
   ]

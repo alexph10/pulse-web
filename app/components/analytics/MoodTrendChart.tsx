@@ -1,6 +1,6 @@
 'use client'
 
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { useMediaQuery } from '@/app/hooks/useMediaQuery'
 
 interface MoodData {
@@ -14,18 +14,18 @@ interface MoodTrendChartProps {
   type?: 'line' | 'area'
 }
 
-export default function MoodTrendChart({ data, type = 'area' }: MoodTrendChartProps) {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 })
-  
-  // Format data for chart
-  const chartData = data.map(entry => ({
-    date: new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    score: entry.mood_score,
-    mood: entry.primary_mood
-  }))
+interface TooltipProps {
+  active?: boolean
+  payload?: Array<{
+    value: number
+    payload: {
+      date: string
+      mood: string
+    }
+  }>
+}
 
-  const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload }: TooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div style={{
@@ -65,11 +65,21 @@ export default function MoodTrendChart({ data, type = 'area' }: MoodTrendChartPr
     return null
   }
 
+export default function MoodTrendChart({ data, type = 'area' }: MoodTrendChartProps) {
+  const isMobile = useMediaQuery('(max-width: 767px)')
+  
+  // Format data for chart
+  const chartData = data.map(entry => ({
+    date: new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    score: entry.mood_score,
+    mood: entry.primary_mood
+  }))
+
   return (
     <div style={{
       width: '100%',
       height: '100%',
-      minHeight: isMobile ? '250px' : '300px'
+      minHeight: isMobile ? '200px' : '240px'
     }}>
       <ResponsiveContainer width="100%" height="100%">
         {type === 'area' ? (

@@ -92,12 +92,12 @@ export const formPatterns = {
     ...componentStyles.input,
   },
   error: {
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     color: tokens.color('error'),
     marginTop: tokens.spacing('xs'),
   },
   helper: {
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     color: tokens.color('text-tertiary'),
     marginTop: tokens.spacing('xs'),
   },
@@ -140,7 +140,7 @@ export const textPatterns = {
   body: typographyStyles.body,
   small: typographyStyles.small,
   caption: {
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     color: tokens.color('text-tertiary'),
   },
   link: {
@@ -161,7 +161,7 @@ export const statusPatterns = {
     color: tokens.color('text-primary'),
     padding: `${tokens.spacing('xs')} ${tokens.spacing('sm')}`,
     borderRadius: tokens.borderRadius('sm'),
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     fontWeight: 'var(--font-weight-medium)',
   },
   error: {
@@ -169,7 +169,7 @@ export const statusPatterns = {
     color: tokens.color('text-primary'),
     padding: `${tokens.spacing('xs')} ${tokens.spacing('sm')}`,
     borderRadius: tokens.borderRadius('sm'),
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     fontWeight: 'var(--font-weight-medium)',
   },
   warning: {
@@ -177,7 +177,7 @@ export const statusPatterns = {
     color: tokens.color('text-primary'),
     padding: `${tokens.spacing('xs')} ${tokens.spacing('sm')}`,
     borderRadius: tokens.borderRadius('sm'),
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     fontWeight: 'var(--font-weight-medium)',
   },
   info: {
@@ -185,7 +185,7 @@ export const statusPatterns = {
     color: tokens.color('text-primary'),
     padding: `${tokens.spacing('xs')} ${tokens.spacing('sm')}`,
     borderRadius: tokens.borderRadius('sm'),
-    ...typographyStyles.tiny,
+    ...typographyStyles.small,
     fontWeight: 'var(--font-weight-medium)',
   },
 } as const;

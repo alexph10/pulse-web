@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAuthenticatedSupabaseClient } from '@/lib/supabase-auth';
-import { validateUserId } from '@/lib/auth';
+import { createAuthenticatedSupabaseClient, validateUserId } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -82,7 +81,7 @@ export async function GET(request: NextRequest) {
       success: true,
       data: activityMap,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Activity fetch error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch activity data' },

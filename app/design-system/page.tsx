@@ -41,7 +41,7 @@ export default function DesignSystemPage() {
               <div key={name} style={{ ...cardPatterns.default, padding: tokens.spacing('md') }}>
                 <div style={{ width: '100%', height: '60px', background: color, borderRadius: tokens.borderRadius('sm'), marginBottom: tokens.spacing('sm') }} />
                 <div style={typographyStyles.small}>{name}</div>
-                <div style={{ ...typographyStyles.tiny, color: tokens.color('text-tertiary'), marginTop: tokens.spacing('xs') }}>
+                <div style={{ ...typographyStyles.small, color: tokens.color('text-tertiary'), marginTop: tokens.spacing('xs') }}>
                   {color}
                 </div>
               </div>
@@ -65,7 +65,7 @@ export default function DesignSystemPage() {
               <div key={name} style={{ display: 'flex', alignItems: 'center', gap: tokens.spacing('md'), marginBottom: tokens.spacing('md') }}>
                 <div style={{ width: '100px', ...typographyStyles.small }}>{name}</div>
                 <div style={{ height: '20px', background: tokens.color('accent-primary'), width: value }} />
-                <div style={{ ...typographyStyles.tiny, color: tokens.color('text-tertiary') }}>{value}</div>
+                <div style={{ ...typographyStyles.small, color: tokens.color('text-tertiary') }}>{value}</div>
               </div>
             ))}
           </div>
@@ -81,7 +81,7 @@ export default function DesignSystemPage() {
             <div style={{ ...typographyStyles.h4, marginBottom: tokens.spacing('lg') }}>Heading 4</div>
             <div style={{ ...typographyStyles.body, marginBottom: tokens.spacing('lg') }}>Body text - The quick brown fox jumps over the lazy dog</div>
             <div style={{ ...typographyStyles.small, marginBottom: tokens.spacing('lg') }}>Small text - The quick brown fox jumps over the lazy dog</div>
-            <div style={{ ...typographyStyles.tiny }}>Tiny text - The quick brown fox jumps over the lazy dog</div>
+            <div style={{ ...typographyStyles.small }}>Small text - The quick brown fox jumps over the lazy dog</div>
           </div>
         </section>
 

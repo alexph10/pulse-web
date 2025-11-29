@@ -1,14 +1,23 @@
 'use client'
 
+import TopBar from '../../components/shared/TopBar'
+import SideNav from '../../components/shared/SideNav'
+
 export default function InsightsPage() {
   return (
     <div
       style={{
-        minHeight: '100vh',
-        background: 'transparent',
+        width: '100vw',
+        height: '100vh',
+        background: '#fdfdef',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      {/* Insights content will go here */}
+      <TopBar />
+      <SideNav />
+      {/* Blank Insights Page */}
     </div>
   )
 }

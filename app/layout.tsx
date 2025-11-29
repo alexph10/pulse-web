@@ -11,6 +11,11 @@ import ActivityHeatmapWidget from './components/activity-heatmap-widget/activity
 export const metadata: Metadata = {
   title: "Pulse - Mental Wellness & Organization",
   description: "Privacy-first mental wellness platform with AI-assisted journaling",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({
