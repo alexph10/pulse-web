@@ -30,47 +30,18 @@ interface SubmoduleConfig {
   [key: string]: Submodule[];
 }
 
-const _submoduleConfig: SubmoduleConfig = {
-  '/dashboard': [
-    { label: 'Overview', href: '/dashboard' },
-    { label: 'Activity', href: '/dashboard/activity' },
-    { label: 'Quick Actions', href: '/dashboard/quick-actions' },
-    { label: 'Insights', href: '/dashboard/insights' },
-  ],
-  '/dashboard/notes': [
-    { label: 'All Notes', href: '/dashboard/notes' },
-    { label: 'Quick Notes', href: '/dashboard/notes/quick' },
-    { label: 'Tagged', href: '/dashboard/notes/tagged' },
-    { label: 'Archived', href: '/dashboard/notes/archived' },
-  ],
-  '/dashboard/journal': [
-    { label: 'New Entry', href: '/dashboard/journal' },
-    { label: 'Timeline', href: '/dashboard/journal/timeline' },
-    { label: 'Mood Tracker', href: '/dashboard/journal/mood' },
-    { label: 'Memories', href: '/dashboard/journal/memories' },
-  ],
-  '/dashboard/goals': [
-    { label: 'Active', href: '/dashboard/goals' },
-    { label: 'Completed', href: '/dashboard/goals/completed' },
-    { label: 'Templates', href: '/dashboard/goals/templates' },
-    { label: 'Milestones', href: '/dashboard/goals/milestones' },
-  ],
-  '/dashboard/habits': [
-    { label: 'Tracker', href: '/dashboard/habits' },
-    { label: 'Calendar', href: '/dashboard/habits/calendar' },
-    { label: 'Statistics', href: '/dashboard/habits/statistics' },
-    { label: 'Streaks', href: '/dashboard/habits/streaks' },
-  ],
-  '/dashboard/reflections': [
-    { label: 'Today', href: '/dashboard/reflections' },
-    { label: 'History', href: '/dashboard/reflections/history' },
-    { label: 'Patterns', href: '/dashboard/reflections/patterns' },
-  ],
-  '/dashboard/progress': [
-    { label: 'Overview', href: '/dashboard/progress' },
-    { label: 'Reports', href: '/dashboard/progress/reports' },
-  ],
+// Unused configuration - kept for reference
+/*
+const submoduleConfig: SubmoduleConfig = {
+  '/dashboard': [...],
+  '/dashboard/notes': [...],
+  '/dashboard/journal': [...],
+  '/dashboard/goals': [...],
+  '/dashboard/habits': [...],
+  '/dashboard/reflections': [...],
+  '/dashboard/progress': [...],
 };
+*/
 
 const mainPages = [
   { label: 'Home', href: '/dashboard' },

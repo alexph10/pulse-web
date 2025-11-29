@@ -3,10 +3,10 @@ import { saveDraft, clearDraft } from '@/lib/storage/draftStorage'
 
 interface UseAutoSaveOptions {
   key: string
-  data: any
+  data: unknown
   enabled?: boolean
   intervalMs?: number
-  onSave?: (data: any) => void
+  onSave?: (data: unknown) => void
 }
 
 /**
@@ -20,7 +20,7 @@ export function useAutoSave({
   onSave,
 }: UseAutoSaveOptions) {
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
-  const lastSavedRef = useRef<any>(null)
+  const lastSavedRef = useRef<unknown>(null)
 
   useEffect(() => {
     if (!enabled || !data) return

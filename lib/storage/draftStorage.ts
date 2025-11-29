@@ -8,13 +8,13 @@ const DRAFT_PREFIX = 'pulse_draft_'
 export interface DraftData {
   content: string
   timestamp: number
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 }
 
 /**
  * Save draft to localStorage
  */
-export function saveDraft(key: string, content: string, metadata?: Record<string, any>): void {
+export function saveDraft(key: string, content: string, metadata?: Record<string, unknown>): void {
   try {
     const draft: DraftData = {
       content,

@@ -49,7 +49,7 @@ router.post('/', authenticateJWT, rateLimitMiddleware(RATE_LIMITS.AI_ENDPOINTS),
     if (Array.isArray(recentEntries) && recentEntries.length > 0) {
       const limitedEntries = recentEntries.slice(0, 5);
       journalContext = '\n\nRecent journal entries from this user:\n' + 
-        limitedEntries.map((entry: any, idx: number) => {
+        limitedEntries.map((entry: { created_at?: string; transcript?: string }, idx: number) => {
           const date = entry.created_at ? new Date(entry.created_at).toLocaleDateString() : 'Unknown date';
           const transcript = sanitizeString(entry.transcript || '', 500);
           return `${idx + 1}. ${date}: "${transcript}"`;
@@ -115,9 +115,10 @@ MEDICAL & PSYCHOLOGICAL ACCURACY:
 
 TONE: Empathetic, curious, grounded, never preachy. Match their energy level - if they're low, be gentle; if they're processing, be thoughtful.${journalContext}`,
       });
-    } catch (apiError: any) {
+    } catch (apiError: unknown) {
+      const error = apiError as { status?: number }
       // Handle Anthropic API specific errors
-      if (apiError.status === 429) {
+      if (error.status === 429) {
         return res.status(429).json({
           error: 'AI service is currently busy. Please wait a moment and try again.',
           errorCode: 'RATE_LIMIT_AI_SERVICE',
@@ -155,11 +156,12 @@ TONE: Empathetic, curious, grounded, never preachy. Match their energy level - i
       message: assistantMessage,
       usage: response.usage,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as { name?: string; message?: string }
     console.error('Error calling Claude API:', error);
     
     // Handle network/timeout errors
-    if (error.name === 'AbortError' || error.message?.includes('timeout')) {
+    if (err.name === 'AbortError' || err.message?.includes('timeout')) {
       return res.status(504).json({
         error: 'Request timed out. The AI service is taking longer than expected. Please try again.',
         errorCode: 'TIMEOUT',

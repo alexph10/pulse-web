@@ -77,7 +77,7 @@ router.post('/', authenticateJWT, rateLimitMiddleware(RATE_LIMITS.AI_ENDPOINTS),
       ...analysis,
       success: true,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Mood analysis error:', error);
     res.status(500).json({ error: 'Mood analysis failed' });
   }

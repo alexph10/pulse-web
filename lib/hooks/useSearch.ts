@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
 interface SearchFilters {
@@ -19,7 +19,7 @@ interface UseSearchOptions {
 export function useSearch({ userId, table, searchFields }: UseSearchOptions) {
   const [query, setQuery] = useState('')
   const [filters, setFilters] = useState<SearchFilters>({})
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<Record<string, unknown>[]>([])
   const [isSearching, setIsSearching] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -49,19 +49,7 @@ export function useSearch({ userId, table, searchFields }: UseSearchOptions) {
           `${field}.ilike.%${query}%`
         )
 
-        // Build filter with OR conditions
-        let textFilter = supabase.from(table).select('*').eq('user_id', userId)
-        
-        // Apply OR filter for text search
-        const textQueries = searchFields.map(field => {
-          return supabase
-            .from(table)
-            .select('*')
-            .eq('user_id', userId)
-            .ilike(field, `%${query}%`)
-        })
-
-        // For now, use the first field for search (Supabase doesn't support OR easily)
+        // Apply text search to first field
         queryBuilder = queryBuilder.ilike(searchFields[0], `%${query}%`)
       }
 
@@ -85,9 +73,10 @@ export function useSearch({ userId, table, searchFields }: UseSearchOptions) {
       if (searchError) throw searchError
 
       setResults(data || [])
-    } catch (err: any) {
-      console.error('Search error:', err)
-      setError(err.message || 'Search failed')
+    } catch (err: unknown) {
+      const error = err as Error
+      console.error('Search error:', error)
+      setError(error.message || 'Search failed')
       setResults([])
     } finally {
       setIsSearching(false)

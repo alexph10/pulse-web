@@ -42,7 +42,7 @@ app.use('/api/transcribe', transcribeRouter);
 app.use('/api/tts', ttsRouter);
 
 // Error handling middleware
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error & { status?: number }, req: express.Request, res: express.Response) => {
   console.error('Error:', err);
   res.status(err.status || 500).json({
     error: err.message || 'Internal server error',

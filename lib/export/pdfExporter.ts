@@ -26,7 +26,7 @@ export function exportToPDF(
   return Promise.resolve(blob)
 }
 
-function generatePDFHTML(entries: any[], options: ExportOptions): string {
+function generatePDFHTML(entries: JournalEntry[], options: ExportOptions): string {
   const styles = `
     <style>
       body {

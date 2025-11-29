@@ -81,7 +81,7 @@ export default function OnboardingPage() {
       // Note: We can't directly query auth.users, so we'll rely on the sign-up attempt
       // For now, if not in profiles, assume available
       setEmailAvailable(true)
-    } catch (_err) {
+    } catch {
       // If no profile found, email is available
       setEmailAvailable(true)
     } finally {
@@ -135,7 +135,7 @@ export default function OnboardingPage() {
 
       // If email doesn't exist, proceed to next step
       setStep('details')
-    } catch (_err) {
+    } catch {
       // If no profile found, that's good - proceed to next step
       setStep('details')
     } finally {
@@ -163,7 +163,7 @@ export default function OnboardingPage() {
         setError(signInError.message)
         setLoading(false)
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to connect to Google. Please try again.')
       setLoading(false)
     }
@@ -187,7 +187,7 @@ export default function OnboardingPage() {
       }
 
       window.location.href = '/dashboard'
-    } catch (_err) {
+    } catch {
       setError('An error occurred. Please try again.')
       setLoading(false)
     }

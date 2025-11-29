@@ -44,7 +44,7 @@ router.post('/', authenticateJWT, rateLimitMiddleware(RATE_LIMITS.TRANSCRIBE), u
     };
 
     const transcription = await openai.audio.transcriptions.create({
-      file: fileData as any, // FileData type
+      file: fileData as any, // eslint-disable-line @typescript-eslint/no-explicit-any -- OpenAI SDK requires this cast
       model: 'whisper-1',
       language: 'en',
       response_format: 'json',
@@ -54,7 +54,7 @@ router.post('/', authenticateJWT, rateLimitMiddleware(RATE_LIMITS.TRANSCRIBE), u
       text: transcription.text || '',
       success: true,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Transcription error:', error);
     res.status(500).json({ error: 'Transcription failed' });
   }

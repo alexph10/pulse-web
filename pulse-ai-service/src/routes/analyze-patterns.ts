@@ -141,7 +141,7 @@ Requirements:
       },
       generatedAt: new Date().toISOString(),
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error analyzing patterns:', error);
     res.status(500).json({ error: 'Failed to analyze patterns' });
   }

@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 
 export interface AuthRequest extends Request {
   userId?: string;
-  user?: any;
+  user?: { userId: string; [key: string]: unknown };
   file?: Express.Multer.File;
-  body: any; // Explicitly include body property
+  body: Record<string, unknown>;
 }
 
 /**
@@ -28,11 +28,11 @@ export function authenticateJWT(req: AuthRequest, res: Response, next: NextFunct
   }
 
   try {
-    const decoded = jwt.verify(token, jwtSecret) as { userId: string; [key: string]: any };
+    const decoded = jwt.verify(token, jwtSecret) as { userId: string; [key: string]: unknown };
     req.userId = decoded.userId;
     req.user = decoded;
     next();
-  } catch (error) {
+  } catch {
     return res.status(401).json({ error: 'Invalid or expired token' });
   }
 }

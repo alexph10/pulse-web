@@ -29,8 +29,8 @@ export interface JournalEntry {
 export function formatEntryForExport(
   entry: JournalEntry,
   options: ExportOptions
-): Record<string, any> {
-  const formatted: Record<string, any> = {
+): Record<string, string | number | string[] | undefined> {
+  const formatted: Record<string, string | number | string[] | undefined> = {
     id: entry.id,
     content: entry.transcript,
   }
