@@ -80,11 +80,11 @@ export default function StackedAreaChart({
       y: seriesIndex === 0 ? height : scaleY(stackedData[idx][seriesIndex - 1]),
     }))
 
-    const topPath = points.map((p, i) => 
-      `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`
+    const topPath = points.map((p, idx) => 
+      `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`
     ).join(' ')
 
-    const bottomPath = basePoints.reverse().map((p, i) => 
+    const bottomPath = basePoints.reverse().map((p) => 
       `L ${p.x} ${p.y}`
     ).join(' ')
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useMediaQuery } from '@/app/hooks/useMediaQuery'
-import { House, BookOpen, ChartLine, User, Target, Lightbulb } from '@phosphor-icons/react'
+import { House, BookOpen, ChartLine, Target, Lightbulb } from '@phosphor-icons/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styles from './MobileNav.module.css'

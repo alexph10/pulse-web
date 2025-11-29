@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import StatCard from '@/app/components/analytics/StatCard'
 import ProgressRing from '@/app/components/ui/ProgressRing'
 import MetricGrid from '@/app/components/ui/MetricGrid'
@@ -8,23 +9,24 @@ import { Calendar, Flame, TrendUp, Heart } from '@phosphor-icons/react'
 
 export default function ComponentsPreview() {
   // Sample mood data for heatmap
-  const generateMoodData = () => {
+  const moodData = useMemo(() => {
     const data = []
     const today = new Date()
+    const randomSeed = 0.7823 // Fixed seed for consistent data
     for (let i = 0; i < 84; i++) {
       const date = new Date(today)
       date.setDate(date.getDate() - i)
       // Random mood data with some patterns
-      if (Math.random() > 0.3) {
+      if ((randomSeed + i * 0.1) % 1 > 0.3) {
         data.push({
           date: date.toISOString().split('T')[0],
-          score: Math.floor(Math.random() * 5) + 5, // 5-10
-          mood: ['joyful', 'calm', 'energized'][Math.floor(Math.random() * 3)]
+          score: Math.floor((randomSeed + i * 0.123) % 1 * 5) + 5, // 5-10
+          mood: ['joyful', 'calm', 'energized'][Math.floor((randomSeed + i * 0.456) % 1 * 3)]
         })
       }
     }
     return data
-  }
+  }, [])
 
   const sampleMetrics = [
     { label: 'Total Entries', value: '142', sublabel: 'this month' },
@@ -171,7 +173,7 @@ export default function ComponentsPreview() {
             boxShadow: 'var(--shadow-sm)',
           }}>
             <MoodHeatmap
-              data={generateMoodData()}
+              data={moodData}
               weeks={12}
               onCellClick={(data) => console.log('Clicked:', data)}
             />
@@ -226,7 +228,7 @@ export default function ComponentsPreview() {
             </div>
             
             <MoodHeatmap
-              data={generateMoodData()}
+              data={moodData}
               weeks={12}
             />
           </div>
