@@ -17,7 +17,7 @@ function getSupabaseCredentials() {
  * Get authenticated user from request
  * Returns user ID if authenticated, null otherwise
  */
-export async function getAuthenticatedUser(request: NextRequest): Promise<{ userId: string; user: any } | null> {
+export async function getAuthenticatedUser(request: NextRequest): Promise<{ userId: string; user: { id: string; email?: string } } | null> {
   const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
 
   const supabase = createServerClient(
@@ -28,11 +28,11 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<{ user
         get(name: string) {
           return request.cookies.get(name)?.value;
         },
-        set(name: string, value: string, options: CookieOptions) {
+        set(_name: string, _value: string, _options: CookieOptions) {
           // In API routes, we can't set cookies directly
           // This is handled by the client
         },
-        remove(name: string, options: CookieOptions) {
+        remove(_name: string, _options: CookieOptions) {
           // In API routes, we can't remove cookies directly
           // This is handled by the client
         },
@@ -55,7 +55,7 @@ export async function getAuthenticatedUser(request: NextRequest): Promise<{ user
 /**
  * Validate that userId from request matches authenticated user
  */
-export async function validateUserId(request: NextRequest, providedUserId: string | null | undefined): Promise<{ userId: string; user: any } | null> {
+export async function validateUserId(request: NextRequest, providedUserId: string | null | undefined): Promise<{ userId: string; user: { id: string; email?: string } } | null> {
   const auth = await getAuthenticatedUser(request);
   
   if (!auth) {

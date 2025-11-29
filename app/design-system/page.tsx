@@ -6,8 +6,8 @@
 
 'use client'
 
-import { tokens, componentStyles, typographyStyles } from '@/lib/design-tokens/helpers';
-import { cardPatterns, buttonPatterns, formPatterns, textPatterns, statusPatterns } from '@/lib/design-system/component-patterns';
+import { tokens, typographyStyles } from '@/lib/design-tokens/helpers';
+import { cardPatterns, statusPatterns } from '@/lib/design-system/component-patterns';
 import { Card } from '@/app/components/ui/Card';
 import { Button } from '@/app/components/ui/Button';
 import { Input } from '@/app/components/ui/Input';

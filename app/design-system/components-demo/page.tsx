@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Divider, Table, Button } from '@/app/components/ui'
+import { Divider, Table } from '@/app/components/ui'
 import styles from './demo.module.css'
 
 // Sample data for table

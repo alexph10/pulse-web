@@ -812,6 +812,7 @@ export const LiveMicrophoneWaveform = ({
     }
   }
 
+  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     if (!active) {
       if (
@@ -834,7 +835,6 @@ export const LiveMicrophoneWaveform = ({
     }
 
     setDragOffset?.(0)
-    // eslint-disable-next-line react-hooks/immutability
     historyRef.current = []
     audioChunksRef.current = []
     audioBufferRef.current = null

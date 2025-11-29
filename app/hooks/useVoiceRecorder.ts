@@ -38,7 +38,7 @@ export function useVoiceRecorder(): UseVoiceRecorderReturn {
       if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
         try {
           mediaRecorderRef.current.stop();
-        } catch (error) {
+        } catch (_error) {
           // Ignore errors if already stopped
         }
         mediaRecorderRef.current = null;

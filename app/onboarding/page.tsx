@@ -81,7 +81,7 @@ export default function OnboardingPage() {
       // Note: We can't directly query auth.users, so we'll rely on the sign-up attempt
       // For now, if not in profiles, assume available
       setEmailAvailable(true)
-    } catch (err) {
+    } catch (_err) {
       // If no profile found, email is available
       setEmailAvailable(true)
     } finally {
@@ -120,7 +120,7 @@ export default function OnboardingPage() {
 
     try {
       // Double-check email availability before proceeding
-      const { data, error: checkError } = await supabase
+      const { data } = await supabase
         .from('profiles')
         .select('email')
         .eq('email', email)
@@ -135,7 +135,7 @@ export default function OnboardingPage() {
 
       // If email doesn't exist, proceed to next step
       setStep('details')
-    } catch (err) {
+    } catch (_err) {
       // If no profile found, that's good - proceed to next step
       setStep('details')
     } finally {
@@ -148,7 +148,7 @@ export default function OnboardingPage() {
     setLoading(true)
 
     try {
-      const { data, error: signInError } = await supabase.auth.signInWithOAuth({
+      const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
@@ -163,7 +163,7 @@ export default function OnboardingPage() {
         setError(signInError.message)
         setLoading(false)
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to connect to Google. Please try again.')
       setLoading(false)
     }
@@ -175,7 +175,7 @@ export default function OnboardingPage() {
     setLoading(true)
 
     try {
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password
       })
@@ -187,7 +187,7 @@ export default function OnboardingPage() {
       }
 
       window.location.href = '/dashboard'
-    } catch (err) {
+    } catch (_err) {
       setError('An error occurred. Please try again.')
       setLoading(false)
     }
@@ -229,7 +229,7 @@ export default function OnboardingPage() {
         // If no confirmation needed (or already confirmed), go to dashboard
         window.location.href = '/dashboard'
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An error occurred. Please try again.')
       setLoading(false)
     }

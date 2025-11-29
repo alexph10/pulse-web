@@ -5,7 +5,7 @@
 
 'use client'
 
-import { pulseColors, getMoodColor, getMoodBgColor } from '@/app/lib/colors/pulse-colors'
+import { pulseColors } from '@/app/lib/colors/pulse-colors'
 import { Card } from '@/app/components/ui/Card'
 import styles from './colors.module.css'
 

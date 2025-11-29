@@ -65,7 +65,7 @@ export default function MatrixGrid() {
       }
 
       // Draw animated dots
-      dots.forEach((dot, index) => {
+      dots.forEach((dot) => {
         // Randomly activate/deactivate dots
         if (Math.random() > 0.998) {
           dot.active = !dot.active

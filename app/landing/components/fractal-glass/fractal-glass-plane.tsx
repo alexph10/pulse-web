@@ -114,9 +114,9 @@ export default function FractalGlassPlane({
   // Update texture in material
   useEffect(() => {
     if (material && texture) {
-      // eslint-disable-next-line react-hooks/immutability
+      // eslint-disable-next-line react-hooks/immutability -- Required for Three.js shader uniforms
       material.uniforms.uTexture.value = texture;
-      // eslint-disable-next-line react-hooks/immutability
+      // eslint-disable-next-line react-hooks/immutability -- Required for Three.js shader uniforms
       material.uniforms.uTextureSize.value.set(textureSize.x, textureSize.y);
     }
   }, [material, texture, textureSize]);

@@ -13,7 +13,7 @@ interface TokenCache {
 }
 
 let tokenCache: TokenCache | null = null;
-const TOKEN_EXPIRY_BUFFER_MS = 5 * 60 * 1000; // Refresh 5 minutes before expiry
+const _TOKEN_EXPIRY_BUFFER_MS = 5 * 60 * 1000; // Refresh 5 minutes before expiry
 
 /**
  * Get JWT token for AI service authentication
@@ -63,7 +63,7 @@ export function clearTokenCache(): void {
 /**
  * Response type with rate limit information
  */
-export interface AIResponse<T = any> {
+export interface AIResponse<T = unknown> {
   data: T;
   rateLimit?: {
     remaining: number;
@@ -133,15 +133,16 @@ async function fetchWithRetry(
       }
 
       return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
       clearTimeout(timeoutId);
+      const err = error as Error & { name?: string }
       
       // Don't retry on abort (timeout) or network errors after max retries
-      if (error.name === 'AbortError' || attempt >= maxRetries) {
-        throw error;
+      if (err.name === 'AbortError' || attempt >= maxRetries) {
+        throw err;
       }
 
-      lastError = error;
+      lastError = err;
     }
   }
 
@@ -237,7 +238,7 @@ export async function analyzePatterns(userId: string, days: number = 30): Promis
 export async function sendChatMessage(
   message: string,
   conversationHistory: Array<{ role: string; content: string }> = [],
-  recentEntries: Array<any> = []
+  recentEntries: Array<{ date: string; content: string; mood?: string }> = []
 ): Promise<AIResponse> {
   const token = await getAuthToken();
   if (!token) {
@@ -291,9 +292,10 @@ export async function sendChatMessage(
     const rateLimit = extractRateLimitHeaders(response);
 
     return { data, rateLimit };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as Error & { name?: string; message?: string }
     // Re-throw with better context if it's a network error
-    if (error.name === 'AbortError' || error.message?.includes('timeout')) {
+    if (err.name === 'AbortError' || err.message?.includes('timeout')) {
       throw new Error('Request timed out. Please check your connection and try again.');
     }
     

@@ -8,7 +8,8 @@ import * as THREE from 'three';
 import { AsciiEffect } from 'three-stdlib';
 import FractalGlassPlane from '../fractal-glass/fractal-glass-plane';
 
-// ASCII Effect Component
+// ASCII Effect Component (unused, kept for reference)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function AsciiRenderer({ 
   characters = ' .:-+*=%@#',
   invert = false,

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/app/contexts/AuthContext'
-import { subDays, format, differenceInDays, parseISO } from 'date-fns'
+import { subDays, format } from 'date-fns'
 
 interface ActivityData {
   journalCount: number

@@ -42,8 +42,9 @@ function VerifyEmailContent() {
 
       // Success - redirect to dashboard
       router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Invalid verification code');
+    } catch (err: unknown) {
+      const error = err as Error
+      setError(error.message || 'Invalid verification code');
       setLoading(false);
     }
   };
@@ -66,8 +67,9 @@ function VerifyEmailContent() {
       }
 
       setResendSuccess(true);
-    } catch (err: any) {
-      setError(err.message || 'Failed to resend code');
+    } catch (err: unknown) {
+      const error = err as Error
+      setError(error.message || 'Failed to resend code');
     } finally {
       setResendLoading(false);
     }
@@ -217,7 +219,7 @@ function VerifyEmailContent() {
               color: '#A0AEC0',
               marginBottom: '8px'
             }}>
-              Didn't receive the code?
+              Didn&apos;t receive the code?
             </p>
             <button
               type="button"

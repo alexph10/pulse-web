@@ -30,7 +30,7 @@ interface SubmoduleConfig {
   [key: string]: Submodule[];
 }
 
-const submoduleConfig: SubmoduleConfig = {
+const _submoduleConfig: SubmoduleConfig = {
   '/dashboard': [
     { label: 'Overview', href: '/dashboard' },
     { label: 'Activity', href: '/dashboard/activity' },
