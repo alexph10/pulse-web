@@ -62,10 +62,20 @@
   transform: translateY(20px) scale(0.995);
   opacity: 0;
   cursor: pointer;
-  transition: transform 420ms cubic-bezier(.2,.9,.3,1), opacity 260ms ease;
+  transition: transform 280ms cubic-bezier(.2,.9,.3,1), opacity 260ms ease, box-shadow 220ms ease;
   animation: card-in 480ms cubic-bezier(.2,.9,.3,1) forwards;
   position: relative;
   overflow: hidden;
+}
+
+/* Hover / focus: raise slightly and increase shadow */
+.card:hover,
+.card:focus,
+.card:focus-visible {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 22px 44px rgba(0,0,0,0.6);
+  z-index: 6;
+  outline: none;
 }
 
 .cardAccent {
