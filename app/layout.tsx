@@ -5,7 +5,6 @@ import { ManagedProfilesProvider } from './contexts/ManagedProfilesContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './contexts/ToastContext';
 import { CommandPalette } from './components/ui/CommandPalette';
-import ActivityHeatmapWidget from './components/activity-heatmap-widget/activity-heatmap-widget';
 
 
 export const metadata: Metadata = {
@@ -32,7 +31,6 @@ export default function RootLayout({
               <ManagedProfilesProvider>
                 {children}
                 <CommandPalette />
-                <ActivityHeatmapWidget />
               </ManagedProfilesProvider>
             </AuthProvider>
           </ToastProvider>

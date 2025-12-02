@@ -3,27 +3,30 @@
 import { Canvas } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
 import { EffectComposer, Pixelation } from '@react-three/postprocessing'
-import { Suspense, useState, FormEvent } from 'react'
+import { Suspense, useState, FormEvent, useRef, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
+import * as THREE from 'three'
 
 function PointCloud() {
   const { scene } = useGLTF('/recovering_oak_-_point_cloud_version.glb')
   
   // Increase saturation of materials
-  scene.traverse((child: { isMesh?: boolean; material?: { color?: { getHSL: (hsl: { h: number; s: number; l: number }) => void; setHSL: (h: number, s: number, l: number) => void } } }) => {
-    if (child.isMesh && child.material) {
-      // Increase color saturation
-      if (child.material.color) {
-        const color = child.material.color
+  scene.traverse((child) => {
+    if ((child as THREE.Mesh).isMesh) {
+      const mesh = child as THREE.Mesh
+      const material = mesh.material as THREE.MeshStandardMaterial
+      
+      if (material.color) {
         const hsl = { h: 0, s: 0, l: 0 }
-        color.getHSL(hsl)
+        material.color.getHSL(hsl)
         // Boost saturation by 50%
         hsl.s = Math.min(hsl.s * 1.5, 1)
-        color.setHSL(hsl.h, hsl.s, hsl.l)
+        material.color.setHSL(hsl.h, hsl.s, hsl.l)
       }
+      
       // Increase emissive for more vibrant look
-      if (child.material.emissive) {
-        child.material.emissiveIntensity = 0.3
+      if (material.emissive) {
+        material.emissiveIntensity = 0.3
       }
     }
   })
@@ -90,19 +93,33 @@ export default function OnboardingPage() {
   }
 
   // Handle email input change with debouncing
+  const emailCheckTimeout = useRef<number | null>(null)
+
+  useEffect(() => {
+    // cleanup on unmount
+    return () => {
+      if (emailCheckTimeout.current) {
+        clearTimeout(emailCheckTimeout.current)
+      }
+    }
+  }, [])
+
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = e.target.value
     setEmail(emailValue)
     setError('')
     setEmailAvailable(false)
 
+    // Clear any pending timeout
+    if (emailCheckTimeout.current) {
+      clearTimeout(emailCheckTimeout.current)
+    }
+
     // Check email availability after user stops typing
     if (emailValue.trim()) {
-      const timeoutId = setTimeout(() => {
+      emailCheckTimeout.current = window.setTimeout(() => {
         checkEmailAvailability(emailValue)
       }, 500)
-
-      return () => clearTimeout(timeoutId)
     }
   }
 
@@ -151,7 +168,7 @@ export default function OnboardingPage() {
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+          redirectTo: `${window.location.origin}/auth/callback?next=/`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -186,7 +203,7 @@ export default function OnboardingPage() {
         return
       }
 
-      window.location.href = '/dashboard'
+      window.location.href = '/'
     } catch {
       setError('An error occurred. Please try again.')
       setLoading(false)
@@ -206,7 +223,7 @@ export default function OnboardingPage() {
           data: {
             username: username
           },
-          emailRedirectTo: `${window.location.origin}/dashboard`
+          emailRedirectTo: `${window.location.origin}/`
         }
       })
 
@@ -226,8 +243,8 @@ export default function OnboardingPage() {
         // Note: Email will only be sent if email confirmation is enabled in Supabase
         window.location.href = `/verify-email?email=${encodeURIComponent(email)}`
       } else {
-        // If no confirmation needed (or already confirmed), go to dashboard
-        window.location.href = '/dashboard'
+        // If no confirmation needed (or already confirmed), go to home
+        window.location.href = '/'
       }
     } catch {
       setError('An error occurred. Please try again.')

@@ -8,16 +8,15 @@ import type { NextRequest } from 'next/server'
  * What does this do?
  * - Runs BEFORE every page loads
  * - Checks if user is authenticated
- * - Protects dashboard routes from unauthorized access
  * - Protects API routes from unauthorized access
- * - Automatically redirects to login if not authenticated
+ * - Automatically handles auth redirects
  * 
  * Why do we need this?
- * Without it: We'd need auth checks on every single dashboard page and API route
- * With it: One file protects entire dashboard section and API routes
+ * Without it: We'd need auth checks on every single protected page and API route
+ * With it: One file protects entire sections and API routes
  * 
  * How it works:
- * 1. User tries to visit /dashboard/* or /api/*
+ * 1. User tries to visit protected routes
  * 2. Middleware checks authentication
  * 3. If logged in → Allow access
  * 4. If not logged in → Redirect to /login (for pages) or return 401 (for API)
@@ -40,16 +39,7 @@ export async function middleware(req: NextRequest) {
           return req.cookies.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
-          req.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: req.headers,
-            },
-          })
+          // Do not mutate the incoming request's cookies. Set cookie on the response instead.
           response.cookies.set({
             name,
             value,
@@ -57,16 +47,7 @@ export async function middleware(req: NextRequest) {
           })
         },
         remove(name: string, options: CookieOptions) {
-          req.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: req.headers,
-            },
-          })
+          // Remove by setting an empty value (middleware context) on the response
           response.cookies.set({
             name,
             value: '',
@@ -80,31 +61,11 @@ export async function middleware(req: NextRequest) {
   // Get current user session
   const { data: { session } } = await supabase.auth.getSession()
   
-  // Get the pathname (e.g., /dashboard/journal)
+  // Get the pathname (e.g., /app/journal)
   const { pathname } = req.nextUrl
   
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 1: Protect all /dashboard routes
-  // ═══════════════════════════════════════════════════════════════════════════
-  // TEMPORARILY BYPASSED FOR TESTING - Remove this bypass in production
-  if (pathname.startsWith('/dashboard')) {
-    // Bypass authentication check - allow access to dashboard
-    return response
-    
-    // Original code (commented out for now):
-    // if (!session) {
-    //   // Not logged in -> Redirect to login
-    //   const loginUrl = new URL('/login', req.url)
-    //   // Add 'redirect' parameter so we can send them back after login
-    //   loginUrl.searchParams.set('redirect', pathname)
-    //   return NextResponse.redirect(loginUrl)
-    // }
-    // // Logged in -> Allow access
-    // return response
-  }
-  
-  // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 2: Allow OAuth callback route (needs to run before session check)
+  // RULE 1: Allow OAuth callback route (needs to run before session check)
   // ═══════════════════════════════════════════════════════════════════════════
   if (pathname === '/auth/callback') {
     // OAuth callback route - allow it to process the callback
@@ -113,7 +74,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 3: Protect API routes (except public ones)
+  // RULE 2: Protect API routes (except public ones)
   // ═══════════════════════════════════════════════════════════════════════════
   if (pathname.startsWith('/api/')) {
     // Public API routes that don't require authentication
@@ -136,16 +97,16 @@ export async function middleware(req: NextRequest) {
   }
   
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 4: Redirect logged-in users away from auth pages
+  // RULE 3: Redirect logged-in users away from auth pages
   // ═══════════════════════════════════════════════════════════════════════════
   if (session && (pathname === '/login' || pathname === '/signup' || pathname === '/onboarding')) {
     // Already logged in but trying to access login/signup
-    // → Redirect to dashboard
-    return NextResponse.redirect(new URL('/dashboard', req.url))
+    // → Redirect to home
+    return NextResponse.redirect(new URL('/', req.url))
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // RULE 5: Allow public routes
+  // RULE 4: Allow public routes
   // ═══════════════════════════════════════════════════════════════════════════
   // Routes like /, /about, /pricing are public
   return response

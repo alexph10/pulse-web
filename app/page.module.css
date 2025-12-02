@@ -1,0 +1,339 @@
+.mainContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Fallback solid color; gradient and blur are rendered in ::before so we can blur independently */
+  background: #331233;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  z-index: 9999;
+}
+
+/* Soft radial blur overlay to add depth without overpowering animated lights */
+.mainContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Combined vertical gradient + radial highlights. We blur this pseudo-element so the page background softens without blurring the UI chrome. */
+  background:
+    linear-gradient(to bottom, #331233 0%, #692746 20%, #E45E32 65%, #FBCA69 100%),
+    radial-gradient(circle at 50% 20%, rgba(251,202,105,0.12) 0%, rgba(228,94,50,0.06) 18%, rgba(105,39,70,0.06) 50%, transparent 80%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(18px);
+  transform: scale(1.02);
+  pointer-events: none;
+  z-index: -1; /* push behind content */
+}
+
+
+.mainContainer::after {
+  content: '';
+  position: absolute;
+  /* extend slightly beyond the viewport so vertical lines visually "fill" the app */
+  top: -20px;
+  left: 12.5%;
+  right: 12.5%;
+  bottom: -20px;
+  border-left: 1px solid rgba(255,255,255,0.36);
+  border-right: 1px solid rgba(255,255,255,0.36);
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+.navBorder {
+  position: absolute;
+  top: 60px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Top navigation centered above the horizontal outline */
+.topNav {
+  position: absolute;
+  /* Absolute from the top of the main container so the nav sits above the border at 60px */
+  top: -7px; /* places nav above the 60px horizontal outline */
+  left: 50%;
+  transform: translateX(-50%);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* tighter spacing for smaller links */
+  font-size: 0.9rem; /* slightly smaller */
+  font-weight: 200; /* lighter weight */
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.03em;
+  z-index: 11;
+  pointer-events: auto; /* enable clicks even though navBorder disables pointer events */
+  font-family: 'Supreme-Regular', sans-serif;
+}
+
+.topNav a {
+  text-decoration: none;
+  color: inherit;
+  /* Even smaller/thinner pill-style button; wider horizontally */
+  padding: 4px 18px; /* increased horizontal padding for longer buttons */
+  font-weight: 500;
+  font-size: 0.9rem; /* slightly increased for better readability */
+  line-height: 1;
+  min-height: 26px;
+  min-width: 64px; /* ensure a minimum horizontal length */
+  position: relative;
+  transition: color 120ms ease, background 120ms ease;
+  border-radius: 10px; /* reduced from pill to small rounded rectangle */
+  display: inline-flex;
+  align-items: center;
+  gap: 0; /* remove gap so single-line text is perfectly centered */
+  justify-content: center; /* center text horizontally */
+  text-align: center;
+}
+
+/* Hover/focus: subtle dark pill with white text (matches first attachment) */
+.topNav a:hover,
+.topNav a:focus {
+  background: rgba(16,18,20,0.72);
+  color: #ffffff;
+  /* remove shadows and outlines for a flatter look */
+  box-shadow: none;
+  outline: none;
+  transform: none;
+}
+
+/* Active/selected state: bright yellow pill with dark text (matches second attachment) */
+.topNav a.active {
+  background: #f5f93a; /* bright yellow */
+  color: #111111;
+  box-shadow: 0 8px 30px rgba(245,249,58,0.12);
+}
+
+.topNav a.active {
+  /* Toggle/active state: white background with black text (no shadow) */
+  background: #ffffff;
+  color: #111111;
+  box-shadow: none;
+}
+
+/* Left-aligned brand / logo text — uses the local Satoshi font */
+.brand {
+  position: absolute;
+  top: 18px; /* pulled down from -7px to sit a bit lower */
+  left: 16%; /* align with the page's left content inset */
+  transform: none;
+  font-family: 'Satoshi', sans-serif; /* prefer Satoshi */
+  font-weight: 500;
+  font-size: 1.005rem;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.05em;
+  z-index: 11;
+  pointer-events: auto;
+}
+
+/* Profile avatar circle positioned on the right inset */
+.profileCircle {
+  position: absolute;
+  top: 10px; /* match brand vertical alignment */
+  right: 15%; /* align with the page's right content inset */
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex; /* inline-flex for consistent baseline behavior */
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* remove filled background */
+  color: rgba(255,255,255,0.92); /* visible letter color */
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1; /* ensure vertical centering of text */
+  box-shadow: none; /* remove drop shadow */
+  border: 2px solid rgba(255,255,255,0.18); /* visible outline only */
+  z-index: 11;
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  padding: 0; /* remove possible padding interference */
+  box-sizing: border-box; /* ensure borders included in sizing */
+  text-align: center;
+}
+
+/* Compact plus/create button next to the profile avatar */
+.plusButton {
+  position: absolute;
+  top: 14px; /* slightly lower to align visually */
+  right: 17.5%; /* move further left so it's immediately next to profile circle */
+  width: 44px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent; /* outlined only */
+  color: rgba(255,255,255,0.95);
+  border: 2px solid rgba(255,255,255,0.16); /* visible outline */
+  border-radius: 16px; /* pill-like outline */
+  font-size: 1.05rem;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.plusButton:hover,
+.plusButton:focus {
+  background: rgba(255,255,255,0.02); /* subtle fill on hover */
+  outline: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Backdrop that covers the viewport but respects left/right insets visually */
+.profileOverlayBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30; /* above nav and floating elements */
+  display: flex;
+  align-items: start;
+  justify-content: flex-end; /* anchor panel to the right */
+  padding-right: 12.5%; /* respect the page right inset */
+  background: rgba(0,0,0,0.08); /* subtle dimmer */
+}
+
+/* The right-hand profile panel — yellow-tinted white and empty for now */
+.profileOverlay {
+  position: absolute;
+  top: 72px; /* sit below the horizontal outline/nav */
+  right: 13%; /* align with page inset; nudge a hair left */
+  width: 220px; /* restore original width */
+  max-height: 0; /* animate from 0 to full height */
+  height: 0; /* collapsed height when closed */
+  background: #fff8ea; /* solid yellow-tinted white (not transparent) */
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  border-radius: 0; /* square corners per request */
+  pointer-events: none; /* disabled when closed */
+  transition: max-height 320ms cubic-bezier(.2,.9,.2,1), height 320ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease, transform 220ms ease;
+  transform: translateY(-6px);
+  opacity: 0;
+  overflow: hidden;
+  z-index: 30;
+}
+
+/* Open state: expand downward */
+.profileOverlay.open {
+  max-height: 36vh; /* expand to original panel height */
+  height: 36vh; /* explicit height so final size matches original */
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  overflow: auto; /* allow scrolling if content exceeds panel */
+}
+
+/* exported class used by JSX: styles.open */
+.open {
+  max-height: 36vh; /* match .profileOverlay.open */
+  height: 36vh;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  overflow: auto;
+}
+
+/* Menu inside the profile overlay */
+.profileMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  align-items: center; /* center inner content horizontally */
+}
+
+.profileMenuItem {
+  appearance: none;
+  border: none;
+  background: transparent;
+  text-align: center;
+  padding: 8px 10px; /* slightly smaller buttons */
+  font-size: 1rem; /* match header */
+  font-weight: 700; /* match header */
+  color: #2b2b2b;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.profileMenuItem:hover,
+.profileMenuItem:focus {
+  background: rgba(255,255,255,0.02);
+  outline: none;
+}
+
+.profileMenuItem:active {
+  transform: translateY(1px);
+}
+
+.profileMenuSeparator {
+  height: 1px;
+  background: rgba(0,0,0,0.04);
+  margin: 6px 0;
+}
+
+/* Header / primary action styling (top item) */
+.profileMenuHeader {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.06); /* subtle darker pill within the panel */
+  color: #111111;
+  font-weight: 700;
+  text-align: center; /* center header text */
+  font-size: 1rem;
+}
+
+/* Grouping inside the panel */
+.profileMenuGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+/* Footer area with a CTA button */
+.profileFooter {
+  margin-top: auto;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upgradeButton {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #111318; /* dark CTA */
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.mutedText {
+  color: rgba(0,0,0,0.55);
+}
+
+
+

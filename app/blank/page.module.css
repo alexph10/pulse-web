@@ -6,7 +6,16 @@
   height: 100vh;
   min-width: 2560px;
   min-height: 1440px;
-  background: #fdfdef; /* Light green background */
+  background: linear-gradient(
+    to bottom,
+    rgb(223, 208, 187) 0%,      /* #DFD0BB */
+    rgb(229, 189, 119) 16.67%,  /* #E5BD77 */
+    rgb(204, 121, 81) 33.33%,   /* #CC7951 */
+    rgb(148, 61, 44) 50%,       /* #943D2C */
+    rgb(89, 45, 41) 66.67%,     /* #592D29 */
+    rgb(52, 33, 36) 83.33%,     /* #342124 */
+    rgb(52, 33, 36) 100%        /* #342124 */
+  );
   display: flex;
   align-items: center;
   justify-content: center;

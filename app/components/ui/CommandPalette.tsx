@@ -33,76 +33,13 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
   // Default commands
   const defaultCommands: Command[] = [
     {
-      id: 'journal',
-      label: 'New Journal Entry',
-      description: 'Record your thoughts and feelings',
-      shortcut: 'J',
-      action: () => router.push('/dashboard/journal'),
-      category: 'Create',
-      keywords: ['journal', 'entry', 'record', 'voice'],
-    },
-    {
-      id: 'notes',
-      label: 'Quick Note',
-      description: 'Jot down a quick thought',
-      shortcut: 'N',
-      action: () => router.push('/dashboard/notes'),
-      category: 'Create',
-      keywords: ['note', 'quick', 'thought'],
-    },
-    {
-      id: 'goals',
-      label: 'Set New Goal',
-      description: 'Define what you want to achieve',
-      shortcut: 'G',
-      action: () => router.push('/dashboard/goals'),
-      category: 'Create',
-      keywords: ['goal', 'target', 'achieve'],
-    },
-    {
-      id: 'reflections',
-      label: 'Deep Reflection',
-      description: 'Analyze your patterns and growth',
-      shortcut: 'R',
-      action: () => router.push('/dashboard/reflections'),
-      category: 'Create',
-      keywords: ['reflection', 'analyze', 'pattern'],
-    },
-    {
-      id: 'activity',
-      label: 'View Activity',
-      description: 'See your journaling timeline',
-      shortcut: 'A',
-      action: () => router.push('/dashboard/activity'),
-      category: 'View',
-      keywords: ['activity', 'timeline', 'history'],
-    },
-    {
-      id: 'insights',
-      label: 'Insights',
-      description: 'Discover patterns in your entries',
-      shortcut: 'I',
-      action: () => router.push('/dashboard/insights'),
-      category: 'View',
-      keywords: ['insight', 'pattern', 'analysis'],
-    },
-    {
-      id: 'analytics',
-      label: 'Analytics',
-      description: 'View detailed analytics',
-      shortcut: 'Y',
-      action: () => router.push('/dashboard/analytics'),
-      category: 'View',
-      keywords: ['analytics', 'stats', 'data'],
-    },
-    {
-      id: 'dashboard',
-      label: 'Dashboard',
-      description: 'Go to main dashboard',
-      shortcut: 'D',
-      action: () => router.push('/dashboard'),
+      id: 'home',
+      label: 'Go Home',
+      description: 'Return to home page',
+      shortcut: 'H',
+      action: () => router.push('/'),
       category: 'Navigate',
-      keywords: ['dashboard', 'home', 'main'],
+      keywords: ['home', 'main', 'landing'],
     },
   ]
 
@@ -188,9 +125,11 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
   // Scroll selected item into view
   useEffect(() => {
     if (listRef.current) {
-      const selectedElement = listRef.current.children[selectedIndex] as HTMLElement
+      // We render category wrappers, so find the actual command button by data-index
+      const selector = `[data-index="${selectedIndex}"]`
+      const selectedElement = listRef.current.querySelector(selector) as HTMLElement | null
       if (selectedElement) {
-        selectedElement.scrollIntoView({ block: 'nearest' })
+        selectedElement.scrollIntoView({ block: 'nearest', inline: 'nearest' })
       }
     }
   }, [selectedIndex])
@@ -242,6 +181,7 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
                   return (
                     <button
                       key={cmd.id}
+                      data-index={globalIndex}
                       className={cn(styles.command, isSelected && styles.selected)}
                       onClick={() => {
                         cmd.action()

@@ -29,9 +29,9 @@ export default function LoginPage() {
           const { data: { session } } = await supabase.auth.getSession();
 
           if (session) {
-            // Success! Clear the hash and redirect to dashboard
-            window.history.replaceState(null, '', '/dashboard');
-            router.push('/dashboard');
+            // Success! Clear the hash and redirect to home
+            window.history.replaceState(null, '', '/');
+            router.push('/');
           }
         }
       }
@@ -69,11 +69,11 @@ export default function LoginPage() {
         }
 
         await signUp(formData.email, formData.password);
-        // After signup, redirect to verify email page or dashboard
+        // After signup, redirect to verify email page
         router.push('/verify-email?email=' + encodeURIComponent(formData.email));
       } else {
         await signIn(formData.email, formData.password);
-        router.push('/dashboard');
+        router.push('/');
       }
     } catch (err: unknown) {
       const error = err as Error

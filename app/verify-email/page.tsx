@@ -40,8 +40,8 @@ function VerifyEmailContent() {
         return;
       }
 
-      // Success - redirect to dashboard
-      router.push('/dashboard');
+      // Success - redirect to home
+      router.push('/');
     } catch (err: unknown) {
       const error = err as Error
       setError(error.message || 'Invalid verification code');

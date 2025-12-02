@@ -1,0 +1,47 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* behind floating lights (z-index:2) and nav (z-index:11) */
+  pointer-events: none; /* decorative by default; remove if you want interaction */
+  overflow: hidden;
+}
+
+.iframe {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  left: -10%;
+  top: -10%;
+  border: none;
+  background: transparent;
+  transform-origin: center;
+  opacity: 0.98;
+}
+
+.tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Use the site palette as a subtle overlay to integrate the Framer scene */
+  background: linear-gradient(
+    to bottom,
+    rgba(51,18,51,0.06) 0%,    /* #331233 - subtle top darkening */
+    rgba(105,39,70,0.08) 20%,  /* #692746 - deep berry wash */
+    rgba(228,94,50,0.07) 65%,  /* #E45E32 - warm clay highlight */
+    rgba(251,202,105,0.06) 100% /* #FBCA69 - warm yellow lift */
+  );
+  mix-blend-mode: overlay;
+}
+
+.fallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 20%,
+    rgba(251,202,105,0.08) 0%,
+    rgba(228,94,50,0.06) 18%,
+    rgba(105,39,70,0.04) 50%,
+    rgba(51,18,51,0.04) 80%
+  );
+  /* subtle grain / texture fallback (use pseudo-element if desired) */
+}
