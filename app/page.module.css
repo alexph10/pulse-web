@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   /* Fallback solid color; gradient and blur are rendered in ::before so we can blur independently */
-  background: #331233;
+  background: #310b1e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,19 +15,25 @@
   z-index: 9999;
 }
 
+/* when panel is open, blur the nav and page content for stronger focus */
+.panelOpen .topNav,
+.panelOpen .brand,
+.panelOpen .navBorder,
+.panelOpen .profileCircle,
+.panelOpen .plusButton,
+.panelOpen .pageContent {
+  filter: blur(6px) saturate(0.95);
+  transition: filter 220ms ease, opacity 220ms ease;
+  opacity: 0.95;
+}
+
 /* Soft radial blur overlay to add depth without overpowering animated lights */
 .mainContainer::before {
   content: '';
   position: absolute;
   inset: 0;
-  /* Combined vertical gradient + radial highlights. We blur this pseudo-element so the page background softens without blurring the UI chrome. */
-  background:
-    linear-gradient(to bottom, #331233 0%, #692746 20%, #E45E32 65%, #FBCA69 100%),
-    radial-gradient(circle at 50% 20%, rgba(251,202,105,0.12) 0%, rgba(228,94,50,0.06) 18%, rgba(105,39,70,0.06) 50%, transparent 80%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: blur(18px);
-  transform: scale(1.02);
+  /* Solid background color */
+  background: #310b1e;
   pointer-events: none;
   z-index: -1; /* push behind content */
 }
@@ -41,10 +47,22 @@
   left: 12.5%;
   right: 12.5%;
   bottom: -20px;
-  border-left: 1px solid rgba(255,255,255,0.36);
-  border-right: 1px solid rgba(255,255,255,0.36);
   pointer-events: none;
   z-index: 10;
+}
+
+/* Frosting layer — translucent backdrop over nav and body, excluding left/right insets */
+.frostingLayer {
+  position: absolute;
+  top: 0;
+  left: 12.5%;
+  right: 12.5%;
+  bottom: 0;
+  background: rgba(255,255,255,0.03); /* reduced opacity */
+  backdrop-filter: blur(24px) saturate(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  pointer-events: none;
+  z-index: 3; /* above floating background (2), below nav chrome (10) */
 }
 
 
@@ -63,15 +81,16 @@
 .topNav {
   position: absolute;
   /* Absolute from the top of the main container so the nav sits above the border at 60px */
-  top: -7px; /* places nav above the 60px horizontal outline */
+  top: 8px; /* slightly lower for a subtler vertical position */
   left: 50%;
   transform: translateX(-50%);
-  height: 80px;
+  height: 64px; /* reduced height so links can anchor to the top */
   display: flex;
-  align-items: center;
-  gap: 1.5rem; /* tighter spacing for smaller links */
-  font-size: 0.9rem; /* slightly smaller */
-  font-weight: 200; /* lighter weight */
+  align-items: flex-start; /* align link row to the top */
+  padding-top: 8px; /* small inset so links don't touch the very top */
+  gap: 0.5rem; /* much tighter spacing between links */
+  font-size: 0.9rem; /* slightly smaller for a thinner look */
+  font-weight: 400; /* lighter weight for a thinner appearance */
   color: rgba(255,255,255,0.85);
   letter-spacing: 0.03em;
   z-index: 11;
@@ -83,53 +102,45 @@
   text-decoration: none;
   color: inherit;
   /* Even smaller/thinner pill-style button; wider horizontally */
-  padding: 4px 18px; /* increased horizontal padding for longer buttons */
-  font-weight: 500;
-  font-size: 0.9rem; /* slightly increased for better readability */
+  padding: 6px 8px; /* compact padding so links sit closely */
+  font-weight: 400;
   line-height: 1;
-  min-height: 26px;
-  min-width: 64px; /* ensure a minimum horizontal length */
+  min-height: 22px;
+  min-width: 0; /* allow compact sizing */
   position: relative;
-  transition: color 120ms ease, background 120ms ease;
-  border-radius: 10px; /* reduced from pill to small rounded rectangle */
+  transition: color 120ms ease, background 120ms ease, border-color 120ms ease, transform 120ms ease;
+  border-radius: 6px; /* subtle rounding */
   display: inline-flex;
   align-items: center;
-  gap: 0; /* remove gap so single-line text is perfectly centered */
-  justify-content: center; /* center text horizontally */
+  gap: 0;
+  justify-content: center;
   text-align: center;
 }
 
 /* Hover/focus: subtle dark pill with white text (matches first attachment) */
 .topNav a:hover,
 .topNav a:focus {
-  background: rgba(16,18,20,0.72);
+  background: transparent; /* keep background transparent for compact look */
   color: #ffffff;
-  /* remove shadows and outlines for a flatter look */
   box-shadow: none;
   outline: none;
   transform: none;
 }
 
-/* Active/selected state: bright yellow pill with dark text (matches second attachment) */
-.topNav a.active {
-  background: #f5f93a; /* bright yellow */
-  color: #111111;
-  box-shadow: 0 8px 30px rgba(245,249,58,0.12);
-}
-
-.topNav a.active {
-  /* Toggle/active state: white background with black text (no shadow) */
-  background: #ffffff;
-  color: #111111;
+/* Active/selected state */
+.topNav a.active,
+.activeNavLink {
+  background: transparent;
+  color: #ffffff;
   box-shadow: none;
 }
 
 /* Left-aligned brand / logo text — uses the local Satoshi font */
 .brand {
   position: absolute;
-  top: 18px; /* pulled down from -7px to sit a bit lower */
+  /* align to the nav link row height */
+  top: 16px; /* nudged down to match link row after tweak */
   left: 16%; /* align with the page's left content inset */
-  transform: none;
   font-family: 'Satoshi', sans-serif; /* prefer Satoshi */
   font-weight: 500;
   font-size: 1.005rem;
@@ -142,7 +153,7 @@
 /* Profile avatar circle positioned on the right inset */
 .profileCircle {
   position: absolute;
-  top: 10px; /* match brand vertical alignment */
+  top: 16px; /* nudged down to match link row after tweak */
   right: 15%; /* align with the page's right content inset */
   width: 36px;
   height: 36px;
@@ -170,7 +181,8 @@
 /* Compact plus/create button next to the profile avatar */
 .plusButton {
   position: absolute;
-  top: 14px; /* slightly lower to align visually */
+  /* align to the nav link row height */
+  top: 16px; /* nudged down to match link row after tweak */
   right: 17.5%; /* move further left so it's immediately next to profile circle */
   width: 44px;
   height: 32px;
@@ -210,63 +222,270 @@
 
 /* The right-hand profile panel — yellow-tinted white and empty for now */
 .profileOverlay {
-  position: absolute;
-  top: 72px; /* sit below the horizontal outline/nav */
-  right: 13%; /* align with page inset; nudge a hair left */
-  width: 220px; /* restore original width */
-  max-height: 0; /* animate from 0 to full height */
-  height: 0; /* collapsed height when closed */
-  background: #fff8ea; /* solid yellow-tinted white (not transparent) */
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
-  border-radius: 0; /* square corners per request */
-  pointer-events: none; /* disabled when closed */
-  transition: max-height 320ms cubic-bezier(.2,.9,.2,1), height 320ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease, transform 220ms ease;
-  transform: translateY(-6px);
-  opacity: 0;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  /* keep ideal width but never exceed the vertical insets (12.5% left/right -> 75vw available) */
+  width: min(520px, 75vw);
+  background: #f6f6f4; /* light neutral background */
+  color: #0b0b0b;
+  border-radius: 14px;
+  /* shadow removed */
   overflow: hidden;
-  z-index: 30;
-}
-
-/* Open state: expand downward */
-.profileOverlay.open {
-  max-height: 36vh; /* expand to original panel height */
-  height: 36vh; /* explicit height so final size matches original */
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  overflow: auto; /* allow scrolling if content exceeds panel */
-}
-
-/* exported class used by JSX: styles.open */
-.open {
-  max-height: 36vh; /* match .profileOverlay.open */
-  height: 36vh;
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  overflow: auto;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  /* Framer Motion handles all transforms and opacity */
+  transform-origin: center center;
+  -webkit-overflow-scrolling: touch; /* smooth momentum scrolling on touch devices */
+  overscroll-behavior: contain; /* prevent body scroll from propagating */
 }
 
 /* Menu inside the profile overlay */
 .profileMenu {
+  display: block;
+  padding: 20px; /* generous internal padding like the reference */
+  box-sizing: border-box;
+  /* constrain inner content so the panel header/footer remain visible and allow internal scrolling */
+  max-height: calc(84vh - 140px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.profileContent {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 12px;
-  align-items: center; /* center inner content horizontally */
+  gap: 18px;
 }
+
+.panelTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0;
+  color: #0b0b0b;
+}
+
+.panelSubtitle {
+  font-size: 1rem;
+  color: rgba(11,11,11,0.7);
+  margin: 0;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.profileAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: #9b8be0;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.profileCardMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCardSubtitle {
+  font-size: 0.9rem;
+  color: rgba(11,11,11,0.6);
+}
+
+.profileName {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.chevronRight {
+  margin-left: auto;
+  color: rgba(11,11,11,0.5);
+}
+
+.upgradeCard {
+  background: #cfe9e4;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.upgradeTitle {
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.upgradeText {
+  color: rgba(0,0,0,0.7);
+  margin-bottom: 12px;
+}
+
+.upgradeCTA {
+  display: inline-block;
+  background: rgba(11,11,11,0.06);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.sectionTitle {
+  font-weight: 700;
+  margin: 6px 0;
+}
+
+.savedBox {
+  background: #efefef;
+  border-radius: 10px;
+  padding: 26px;
+  text-align: center;
+  color: rgba(11,11,11,0.5);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoCard {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.infoLabel {
+  font-size: 0.85rem;
+  color: rgba(11,11,11,0.6);
+}
+
+.infoValue {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+/* scrollbar styling for the overlay */
+.profileOverlay::-webkit-scrollbar {
+  width: 12px;
+}
+.profileOverlay::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 999px;
+}
+
+/* Full-screen blurred backdrop shown behind the profile panel */
+.panelBackdrop {
+  position: fixed;
+  inset: 0;
+  /* slightly lighter dim so the overlay doesn't feel too dark behind the panel */
+  background: rgba(11,11,11,0.12);
+  backdrop-filter: blur(30px) saturate(1.08);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+  z-index: 34; /* behind profileOverlay (40) */
+}
+
+.panelBackdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 640px) {
+  .profileOverlay {
+    left: 50%;
+    top: 12%;
+    width: calc(100% - 40px);
+    transform: translate(-50%, 0%);
+    border-radius: 10px;
+  }
+  .profileOverlay.open {
+    transform: translate(-50%, 0%);
+  }
+}
+
+/* Compact grid inside profile overlay */
+.profileGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  padding: 6px 4px;
+  box-sizing: border-box;
+  /* limit size so footer/header remain visible */
+  max-height: calc(36vh - 140px);
+  overflow-y: auto;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 6px;
+  border-radius: 10px;
+  background: transparent;
+  color: #111111;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 140ms ease, box-shadow 160ms ease, background 120ms ease;
+}
+
+.tile:hover,
+.tile:focus {
+  transform: translateY(-4px);
+  background: rgba(0,0,0,0.02);
+  outline: none;
+}
+
+.tile:active {
+  transform: translateY(-1px);
+}
+
+.tileIcon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: inherit;
+}
+
+.tileLabel {
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+
 
 .profileMenuItem {
   appearance: none;
   border: none;
   background: transparent;
-  text-align: center;
-  padding: 8px 10px; /* slightly smaller buttons */
-  font-size: 1rem; /* match header */
-  font-weight: 700; /* match header */
-  color: #2b2b2b;
-  border-radius: 8px;
+  text-align: left;
+  padding: 14px 18px; /* larger vertical padding to match reference */
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: rgba(230,230,230,0.92);
+  border-radius: 0; /* square items stacked */
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
@@ -284,8 +503,8 @@
 
 .profileMenuSeparator {
   height: 1px;
-  background: rgba(0,0,0,0.04);
-  margin: 6px 0;
+  background: rgba(255,255,255,0.06);
+  margin: 8px 0;
 }
 
 /* Header / primary action styling (top item) */
@@ -309,30 +528,359 @@
   padding-top: 6px;
 }
 
+/* Switch row for dark mode */
+.switchRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: 46px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.switchTrack {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  transition: background 160ms ease;
+}
+
+.switch[data-checked="true"] .switchTrack {
+  background: linear-gradient(90deg, #ff6a00 0%, #ff3b3b 100%);
+}
+
+.switchThumb {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+  transform: translateX(0);
+  transition: transform 160ms cubic-bezier(.2,.9,.2,1), background 160ms ease;
+}
+
+.switch[data-checked="true"] .switchThumb {
+  transform: translateX(20px);
+  background: #0b0b0b;
+}
+
 /* Footer area with a CTA button */
 .profileFooter {
-  margin-top: auto;
-  padding-top: 8px;
+  margin-top: 8px;
+  padding-top: 6px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .upgradeButton {
   display: inline-block;
-  width: 100%;
-  text-align: center;
   padding: 8px 12px;
-  border-radius: 12px;
-  background: #111318; /* dark CTA */
-  color: #ffffff;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #242629 0%, #111214 100%);
+  color: #f7f7f8;
   font-weight: 600;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.04);
   cursor: pointer;
 }
 
 .mutedText {
   color: rgba(0,0,0,0.55);
+}
+
+/* Empty state styles (added) */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 28px;
+  color: rgba(11,11,11,0.65);
+  text-align: center;
+  width: 100%;
+  max-width: 860px;
+  margin: 180px auto 0; /* pushed lower into body content */
+}
+
+.emptyIllustration {
+  width: 84px;
+  height: 84px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 30%, rgba(245,249,58,0.10), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0));
+  box-shadow: 0 6px 18px rgba(11,11,11,0.06);
+}
+
+.emptyTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  color: rgba(11,11,11,0.92);
+  font-weight: 700;
+}
+
+.emptyHint {
+  margin: 0;
+  max-width: 620px;
+  color: rgba(11,11,11,0.62);
+  font-size: 0.95rem;
+}
+
+.emptyExamples {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.exampleChip {
+  background: rgba(0,0,0,0.02);
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.04);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 140ms ease, background 120ms ease;
+}
+
+.exampleChip:hover,
+.exampleChip:focus { transform: translateY(-3px); background: rgba(0,0,0,0.04); outline: none; }
+
+.emptyActions { display: flex; gap: 12px; align-items: center; margin-top: 12px; }
+
+.primaryCTA {
+  background: linear-gradient(180deg, #242629 0%, #111214 100%);
+  color: #f7f7f8;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(11,11,11,0.08);
+}
+
+.primaryCTA:focus { outline: 3px solid rgba(245,249,58,0.18); outline-offset: 2px; }
+
+.secondaryLink { background: transparent; border: none; color: rgba(11,11,11,0.65); cursor: pointer; font-weight: 600; }
+
+/* White button with black text for Start a chat */
+.startChatBtn {
+  background: #ffffff;
+  color: #0b0b0b;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.startChatBtn:focus {
+  outline: 2px solid rgba(255,255,255,0.2);
+  outline-offset: 2px;
+}
+
+/* Empty state label text */
+.emptyLabel {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 320px;
+}
+
+/* ========== Chat Panel Styles ========== */
+
+.chatPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 720px;
+  max-width: 100vw;
+  height: 100vh;
+  background: #181818;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+}
+
+.chatPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.chatPanelHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #0b0b0b;
+}
+
+.chatIcon {
+  font-size: 1rem;
+}
+
+.chatLabel {
+  font-weight: 500;
+}
+
+.chatCloseBtn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #0b0b0b;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.chatPanelTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0b0b0b;
+  margin: 0;
+  padding: 0 20px 16px;
+}
+
+.messageLimitBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #d4d9a3;
+  padding: 10px 16px;
+  margin: 0 0;
+  font-size: 0.85rem;
+  color: #0b0b0b;
+}
+
+.messageLimitLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diamondIcon {
+  font-size: 0.9rem;
+}
+
+.upgradeBtn {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.chatArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.suggestionCards {
+  display: flex;
+  gap: 12px;
+  padding: 0 20px 16px;
+}
+
+.suggestionCard {
+  flex: 1;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.suggestionCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #0b0b0b;
+  margin-bottom: 8px;
+}
+
+.chatIconSmall {
+  font-size: 0.85rem;
+}
+
+.suggestionCardText {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #0b0b0b;
+  line-height: 1.4;
+}
+
+.chatInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px 24px;
+  background: #f5f5f3;
+}
+
+.chatInput {
+  flex: 1;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 0.9rem;
+  color: #0b0b0b;
+  outline: none;
+}
+
+.chatInput::placeholder {
+  color: rgba(11,11,11,0.4);
+}
+
+.chatInput:focus {
+  border-color: rgba(0,0,0,0.2);
+}
+
+.chatSendBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0ee;
+  border: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #0b0b0b;
+  cursor: pointer;
+}
+
+/* Chat panel backdrop */
+.chatBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 99;
 }
 
 

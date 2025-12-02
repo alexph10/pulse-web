@@ -1,37 +1,31 @@
 /**
- * Main page with floating background
+ * Chat page — displays the empty-chat state when there's no activity.
+ * Reuses the main layout chrome (nav, profile, etc.) via the shared layout.
  */
 
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { supabase } from '@/lib/supabase'
-import styles from './page.module.css'
-import FloatingBackground from './components/ui/FloatingBackground'
-import PeekNav from './components/ui/PeekNav'
-import EmptyChats from './components/ui/EmptyChats'
-import ChatPanel from './components/ui/ChatPanel'
+import styles from '../page.module.css'
+import FloatingBackground from '../components/ui/FloatingBackground'
+import PeekNav from '../components/ui/PeekNav'
+import EmptyChats from '../components/ui/EmptyChats'
 
-export default function MainPage() {
+export default function ChatPage() {
   const [overlayOpen, setOverlayOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
-  const [chatOpen, setChatOpen] = useState(false)
-  const [activePage, setActivePage] = useState<'home' | 'chat' | 'insights'>('home')
   const profileButtonRef = useRef<HTMLDivElement | null>(null)
   const plusButtonRef = useRef<HTMLButtonElement | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter()
 
   useEffect(() => {
-    // Hide global components on main page
     document.body.classList.add('blank-page-active')
     return () => {
       document.body.classList.remove('blank-page-active')
     }
   }, [])
-
 
   // Close when clicking outside or pressing Escape
   useEffect(() => {
@@ -56,39 +50,25 @@ export default function MainPage() {
 
   return (
     <div className={`${styles.mainContainer} ${overlayOpen ? styles.panelOpen : ''}`}>
-      {/* Framer scene removed for now (local gradient + floating background remain) */}
-      {/* Floating lights background, z-index 2 (above blur overlay) */}
+      {/* Floating lights background */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
         <FloatingBackground />
       </div>
-      {/* Frame outlines and nav border, z-index 10 */}
+
+      {/* Nav border */}
       <div className={styles.navBorder} style={{ zIndex: 10 }} />
-      {/* Left-brand using Satoshi font */}
+
+      {/* Brand */}
       <div className={styles.brand}>(pulse)</div>
+
+      {/* Top navigation */}
       <nav className={styles.topNav}>
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); setActivePage('home'); setChatOpen(false); }}
-          className={activePage === 'home' ? styles.activeNavLink : ''}
-        >
-          Home
-        </a>
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); setActivePage('chat'); }}
-          className={activePage === 'chat' ? styles.activeNavLink : ''}
-        >
-          Chat
-        </a>
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); setActivePage('insights'); setChatOpen(false); }}
-          className={activePage === 'insights' ? styles.activeNavLink : ''}
-        >
-          Insights
-        </a>
+        <a href="/">Home</a>
+        <a href="/chat" className={styles.active}>Chat</a>
+        <a href="/insights">Insights</a>
       </nav>
-      {/* Profile circle on the right side of the nav */}
+
+      {/* Profile circle */}
       <div
         className={styles.profileCircle}
         title="Profile"
@@ -100,80 +80,40 @@ export default function MainPage() {
         N
       </div>
 
-      {/* Small create/plus button next to profile */}
+      {/* Plus button */}
       <button
         className={styles.plusButton}
         title="Create"
         aria-label="Create new"
         ref={plusButtonRef}
-        onClick={() => {
-          // always open from this control; closing is handled by UnusualNav when clicking outside
-          setNavOpen(true)
-        }}
+        onClick={() => setNavOpen(true)}
       >
         <span aria-hidden="true">+</span>
       </button>
 
-      {/* Framer-like peek navigation overlay (opened by plus button) */}
+      {/* Peek navigation overlay */}
       <PeekNav open={navOpen} onClose={() => setNavOpen(false)} outsideRefs={[profileButtonRef, plusButtonRef]} />
 
-      {/* Blurred backdrop shown when profile overlay is open */}
-      <AnimatePresence>
-        {overlayOpen && (
-          <motion.div
-            className={styles.panelBackdrop}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            onClick={() => setOverlayOpen(false)}
-            aria-hidden={!overlayOpen}
-          />
-        )}
-      </AnimatePresence>
+      {/* Blurred backdrop when profile overlay is open */}
+      <div
+        className={`${styles.panelBackdrop} ${overlayOpen ? styles.visible : ''}`}
+        onClick={() => setOverlayOpen(false)}
+        aria-hidden={!overlayOpen}
+      />
 
-      {/* Profile overlay panel with smooth Framer Motion animation */}
-      <AnimatePresence>
-        {overlayOpen && (
-          <motion.div
-            className={styles.profileOverlay}
-            ref={panelRef}
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-label="Profile panel"
-            initial={{ 
-              opacity: 0, 
-              y: 200
-            }}
-            animate={{ 
-              opacity: 1, 
-              y: 0
-            }}
-            exit={{ 
-              opacity: 0, 
-              y: 200
-            }}
-            transition={{ 
-              type: 'spring',
-              damping: 28,
-              stiffness: 260,
-              mass: 0.9
-            }}
-            style={{
-              position: 'fixed',
-              left: '50%',
-              top: '70%',
-              x: '-50%',
-              width: '75vw',
-              height: '85vh',
-              pointerEvents: 'auto',
-              overflow: 'auto'
-            }}
-          >
+      {/* Profile overlay panel */}
+      <div
+        className={`${styles.profileOverlay} ${overlayOpen ? styles.open : ''}`}
+        ref={panelRef}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-label="Profile panel"
+        aria-hidden={!overlayOpen}
+      >
         <div className={styles.profileMenu} role="menu" aria-label="Profile menu">
           <div className={styles.profileContent}>
             <div>
-              <h2 className={styles.panelTitle}>Here’s everything we know about you so far</h2>
+              <h2 className={styles.panelTitle}>Here's everything we know about you so far</h2>
               <p className={styles.panelSubtitle}>We use this information to provide you with the most accurate financial advice.</p>
             </div>
 
@@ -220,38 +160,12 @@ export default function MainPage() {
             </div>
           </div>
         </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {/* Content will go here, z-index 5 */}
-      <div className={styles.pageContent} style={{ position: 'relative', zIndex: 5, width: '100%', height: '100%' }}>
-        {/* Add your page content here */}
-        {/* Empty chats placeholder - only show on Chat page */}
-        {activePage === 'chat' && (
-          <EmptyChats onStart={() => setChatOpen(true)} visible={!chatOpen} />
-        )}
       </div>
 
-      {/* Chat panel backdrop */}
-      <AnimatePresence>
-        {chatOpen && (
-          <motion.div
-            className={styles.chatBackdrop}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setChatOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Chat panel */}
-      <AnimatePresence>
-        {chatOpen && (
-          <ChatPanel onClose={() => setChatOpen(false)} />
-        )}
-      </AnimatePresence>
+      {/* Page content — CHAT PAGE shows EmptyChats */}
+      <div className={styles.pageContent} style={{ position: 'relative', zIndex: 5, width: '100%', height: '100%' }}>
+        <EmptyChats onStart={() => setNavOpen(true)} />
+      </div>
     </div>
   )
 }

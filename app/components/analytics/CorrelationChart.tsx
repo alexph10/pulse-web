@@ -216,8 +216,8 @@ export default function CorrelationChart({
           {/* Data points with glow */}
           <defs>
             <radialGradient id="dotGradient">
-              <stop offset="0%" stopColor="#2d5a3d" stopOpacity="1" />
-              <stop offset="100%" stopColor="#2d5a3d" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#310b1e" stopOpacity="1" />
+              <stop offset="100%" stopColor="#310b1e" stopOpacity="0.5" />
             </radialGradient>
           </defs>
           {displayData.map((point, idx) => (
@@ -226,7 +226,7 @@ export default function CorrelationChart({
                 cx={scaleX(point.x)}
                 cy={scaleY(point.y)}
                 r="4"
-                fill="#2d5a3d"
+                fill="#310b1e"
                 opacity="0.15"
               />
               <circle

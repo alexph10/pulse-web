@@ -1,0 +1,120 @@
+/* Upcoming dropdown card styles */
+.upcomingCard {
+  width: 100%; /* fluid to the overlay width */
+  background: #0f1113; /* very dark */
+  color: #e6e6e6;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: none; /* remove shadow so overlay is flat */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.headerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: rgba(230,230,230,0.45);
+  font-weight: 400;
+}
+
+.calendarRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  overflow-x: auto;
+}
+
+.datePill {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  position: relative;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.datePill:hover,
+.datePill:focus {
+  transform: translateY(-4px);
+}
+
+.dateLabelSmall {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: rgba(230,230,230,0.45);
+}
+
+.selected {
+  background: radial-gradient(circle at 30% 30%, #ff6a00 0%, #ff3b3b 60%);
+  box-shadow: 0 8px 20px rgba(255,90,40,0.18), inset 0 -6px 18px rgba(0,0,0,0.25);
+  color: #0b0b0b;
+}
+
+.mutedRow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #6ee7b7;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+.avatarTiny {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: #ffffff22;
+  display: inline-block;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.viewMore {
+  background: transparent;
+  color: rgba(230,230,230,0.65);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 420px) {
+  .upcomingCard {
+    width: 280px;
+    padding: 12px;
+  }
+}
