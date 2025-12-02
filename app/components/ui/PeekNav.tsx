@@ -16,6 +16,7 @@ const ITEMS = [
 
 export default function PeekNav({ open, onClose, outsideRefs = [] }: Props) {
   const centerRef = useRef<HTMLDivElement | null>(null)
+  const cardRowRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -36,13 +37,16 @@ export default function PeekNav({ open, onClose, outsideRefs = [] }: Props) {
     if (!open) return
     function onDocClick(e: MouseEvent) {
       const target = e.target as Node
-      if (centerRef.current?.contains(target)) return
+      // only consider clicks inside the actual card row as "inside" the nav
+      if (cardRowRef.current?.contains(target)) return
+      // clicks on outside refs (profile / plus) should close
       for (const r of outsideRefs) {
         if (r?.current && r.current.contains(target)) {
           onClose()
           return
         }
       }
+      // otherwise it's the backdrop/void — close
       onClose()
     }
     document.addEventListener('click', onDocClick)
@@ -58,7 +62,7 @@ export default function PeekNav({ open, onClose, outsideRefs = [] }: Props) {
       }}
     >
       <div ref={centerRef} className={styles.center} role="dialog" aria-label="Primary navigation">
-        <div className={styles.cardRow}>
+        <div className={styles.cardRow} ref={cardRowRef}>
           {ITEMS.map((it, i) => (
             <div
               key={it.id}
