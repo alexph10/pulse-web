@@ -1,4 +1,3 @@
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -34,21 +33,12 @@
   /* anchor content toward the bottom, centered horizontally */
   align-items: flex-end; /* place row near bottom */
   justify-content: center; /* center horizontally */
-    /* distance from bottom of viewport; smaller values place cards closer to the bottom.
-      Use the CSS variable to make tweaking easier. Set to a small positive value to keep
-      cards mostly inside the viewport, or negative to push them further off-screen. */
-    /* negative offset pushes cards partially off-screen so only top halves are visible
-       set to -(card-height/2) to show roughly the top 50% of 200px cards => -100px */
-    --card-bottom-offset: -100px;
-    padding-bottom: var(--card-bottom-offset);
+  /* distance from bottom of viewport; smaller values place cards closer to the bottom.
+     Use the CSS variable to make tweaking easier. Set to a small positive value to keep
+     cards mostly inside the viewport, or negative to push them further off-screen. */
+  --card-bottom-offset: -100px;
+  padding-bottom: var(--card-bottom-offset);
 }
-
-  /* On short viewports, don't push too far offscreen — show slightly more of the card */
-  @media (max-height: 640px) {
-    .center {
-      --card-bottom-offset: -60px;
-    }
-  }
 
 .cardRow {
   display: flex;
@@ -84,17 +74,6 @@
   border: 1px solid rgba(0,0,0,0.06);
 }
 
-.cardAccent .icon {
-  background: rgba(255,255,255,0.92);
-  color: var(--accent-orange);
-}
-
-
-
-.card:active {
-  transform: translateY(2px) scale(0.995);
-}
-
 .cardInner {
   display: flex;
   flex-direction: column;
@@ -128,8 +107,6 @@
   letter-spacing: -0.4px;
 }
 
-/* internal close removed — overlay closes on backdrop click / Escape */
-
 @keyframes card-in {
   from {
     opacity: 0;
@@ -144,3 +121,9 @@
   }
 }
 
+/* On short viewports, don't push too far offscreen — show slightly more of the card */
+@media (max-height: 640px) {
+  .center {
+    --card-bottom-offset: -60px;
+  }
+}

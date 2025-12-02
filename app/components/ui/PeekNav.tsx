@@ -1,12 +1,11 @@
 "use client"
 
 import React, { useEffect, useRef } from 'react'
-import styles from './unusualNav.module.css'
+import styles from './peekNav.module.css'
 
 type Props = {
   open: boolean
   onClose: () => void
-  // allow HTMLElement or null so refs from useRef<HTMLDivElement | null> are compatible
   outsideRefs?: React.RefObject<HTMLElement | null>[]
 }
 
@@ -15,9 +14,8 @@ const ITEMS = [
   { id: 'upgrade', label: 'Upgrade to Pro', variant: 'accent' },
 ]
 
-export default function UnusualNav({ open, onClose, outsideRefs = [] }: Props) {
+export default function PeekNav({ open, onClose, outsideRefs = [] }: Props) {
   const centerRef = useRef<HTMLDivElement | null>(null)
-  // toggles removed per design; cards keep a simple click action
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -34,21 +32,17 @@ export default function UnusualNav({ open, onClose, outsideRefs = [] }: Props) {
     return () => document.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
-  // Close when clicking any of the provided outside refs (attached outside regions)
   useEffect(() => {
     if (!open) return
     function onDocClick(e: MouseEvent) {
       const target = e.target as Node
-      // If clicking inside the center (nav) do nothing
       if (centerRef.current?.contains(target)) return
-      // If clicking any of the outsideRefs, close the nav
       for (const r of outsideRefs) {
         if (r?.current && r.current.contains(target)) {
           onClose()
           return
         }
       }
-      // clicking elsewhere (backdrop) should also close
       onClose()
     }
     document.addEventListener('click', onDocClick)
@@ -60,12 +54,10 @@ export default function UnusualNav({ open, onClose, outsideRefs = [] }: Props) {
       className={`${styles.overlay} ${open ? styles.open : ''}`}
       aria-hidden={!open}
       onMouseDown={(e) => {
-        // Clicking the backdrop closes the nav
         if (e.target === e.currentTarget) onClose()
       }}
     >
       <div ref={centerRef} className={styles.center} role="dialog" aria-label="Primary navigation">
-        {/* Cards row anchored near bottom-center to match screenshot */}
         <div className={styles.cardRow}>
           {ITEMS.map((it, i) => (
             <div
@@ -75,7 +67,6 @@ export default function UnusualNav({ open, onClose, outsideRefs = [] }: Props) {
               className={`${styles.card} ${it.variant === 'accent' ? styles.cardAccent : ''}`}
               style={{ animationDelay: `${i * 140}ms` }}
               onClick={() => {
-                // primary card activation closes the nav (action could be hooked here)
                 onClose()
               }}
               onKeyDown={(e) => {
@@ -99,7 +90,6 @@ export default function UnusualNav({ open, onClose, outsideRefs = [] }: Props) {
                   )}
                 </div>
 
-                
                 <div className={styles.cardLabel}>
                   {it.label.split(' ').map((part, idx) => (
                     <div key={idx} className={styles.labelLine}>
@@ -111,8 +101,6 @@ export default function UnusualNav({ open, onClose, outsideRefs = [] }: Props) {
             </div>
           ))}
         </div>
-
-        {/* No internal close control — overlay closes by clicking outside or pressing Escape */}
       </div>
     </div>
   )

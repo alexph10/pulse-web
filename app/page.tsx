@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import styles from './page.module.css'
 import FloatingBackground from './components/ui/FloatingBackground'
-import UnusualNav from './components/ui/UnusualNav'
+import PeekNav from './components/ui/PeekNav'
 
 export default function MainPage() {
   const [overlayOpen, setOverlayOpen] = useState(false)
@@ -90,8 +90,8 @@ export default function MainPage() {
         <span aria-hidden="true">+</span>
       </button>
 
-      {/* Framer-like unusual navigation overlay (opened by plus button) */}
-      <UnusualNav open={navOpen} onClose={() => setNavOpen(false)} outsideRefs={[profileButtonRef, plusButtonRef]} />
+      {/* Framer-like peek navigation overlay (opened by plus button) */}
+      <PeekNav open={navOpen} onClose={() => setNavOpen(false)} outsideRefs={[profileButtonRef, plusButtonRef]} />
 
       {/* Profile overlay panel (empty by design) */}
       {/* Profile overlay panel (kept in DOM so open/close can animate) */}
