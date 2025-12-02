@@ -48,6 +48,20 @@
   transform: translateY(var(--card-bottom-offset));
 }
 
+/* subtle row lift when overlay opens: move the row up a few px so card tops peek in */
+@keyframes peek-row-up {
+  from {
+    transform: translateY(var(--card-bottom-offset));
+  }
+  to {
+    transform: translateY(calc(var(--card-bottom-offset) - 12px));
+  }
+}
+
+.open .cardRow {
+  animation: peek-row-up 360ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+
 .card {
   /* slimmer, more delicate */
   width: 200px;
