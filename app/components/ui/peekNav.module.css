@@ -33,11 +33,9 @@
   /* anchor content toward the bottom, centered horizontally */
   align-items: flex-end; /* place row near bottom */
   justify-content: center; /* center horizontally */
-  /* distance from bottom of viewport; smaller values place cards closer to the bottom.
-     Use the CSS variable to make tweaking easier. Set to a small positive value to keep
-     cards mostly inside the viewport, or negative to push them further off-screen. */
-  --card-bottom-offset: -100px;
-  padding-bottom: var(--card-bottom-offset);
+  /* Use a positive translate offset to push the row downward so card tops peek in.
+     This is implemented on `.cardRow` via `transform: translateY(...)`. */
+  --card-bottom-offset: 100px; /* default: show roughly top 50% of a 200px card */
 }
 
 .cardRow {
@@ -46,6 +44,8 @@
   align-items: center;
   justify-content: center;
   padding: 0 20px;
+  /* push the whole row down by the offset so cards are partially offscreen */
+  transform: translateY(var(--card-bottom-offset));
 }
 
 .card {
@@ -124,6 +124,6 @@
 /* On short viewports, don't push too far offscreen — show slightly more of the card */
 @media (max-height: 640px) {
   .center {
-    --card-bottom-offset: -60px;
+    --card-bottom-offset: 60px;
   }
 }
