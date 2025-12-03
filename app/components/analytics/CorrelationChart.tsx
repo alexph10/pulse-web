@@ -199,7 +199,6 @@ export default function CorrelationChart({
             />
           ))}
 
-          {/* Trendline */}
           {showTrendline && (
             <line
               x1={scaleX(0)}
@@ -213,7 +212,6 @@ export default function CorrelationChart({
             />
           )}
 
-          {/* Data points with glow */}
           <defs>
             <radialGradient id="dotGradient">
               <stop offset="0%" stopColor="#310b1e" stopOpacity="1" />
@@ -252,7 +250,6 @@ export default function CorrelationChart({
         </div>
       </div>
 
-      {/* Correlation stats */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-around',

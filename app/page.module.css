@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   /* Fallback solid color; gradient and blur are rendered in ::before so we can blur independently */
-  background: #310b1e;
+  background: #111113;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,7 @@
   position: absolute;
   inset: 0;
   /* Solid background color */
-  background: #310b1e;
+  background: #111113;
   pointer-events: none;
   z-index: -1; /* push behind content */
 }
@@ -58,9 +58,9 @@
   left: 12.5%;
   right: 12.5%;
   bottom: 0;
-  background: rgba(255,255,255,0.03); /* reduced opacity */
-  backdrop-filter: blur(24px) saturate(1.1);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  background: transparent; /* no background */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   pointer-events: none;
   z-index: 3; /* above floating background (2), below nav chrome (10) */
 }
@@ -68,78 +68,76 @@
 
 .navBorder {
   position: absolute;
-  top: 60px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #111113;
+  border-bottom: 1px solid #1E1919;
   pointer-events: none;
   z-index: 10;
 }
+
+/* Left vertical outline - now handled by a separate animated div in JSX */
+
+/* Right vertical outline - now handled by a separate animated div in JSX */
 
 /* Top navigation centered above the horizontal outline */
 .topNav {
   position: absolute;
   /* Absolute from the top of the main container so the nav sits above the border at 60px */
-  top: 8px; /* slightly lower for a subtler vertical position */
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  height: 64px; /* reduced height so links can anchor to the top */
+  height: auto;
   display: flex;
-  align-items: flex-start; /* align link row to the top */
-  padding-top: 8px; /* small inset so links don't touch the very top */
-  gap: 0.5rem; /* much tighter spacing between links */
-  font-size: 0.9rem; /* slightly smaller for a thinner look */
-  font-weight: 400; /* lighter weight for a thinner appearance */
-  color: rgba(255,255,255,0.85);
-  letter-spacing: 0.03em;
+  align-items: center;
+  padding: 0;
+  gap: 24px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.01em;
   z-index: 11;
-  pointer-events: auto; /* enable clicks even though navBorder disables pointer events */
+  pointer-events: auto;
   font-family: 'Supreme-Regular', sans-serif;
+  background: transparent;
+  border-radius: 0;
 }
 
 .topNav a {
   text-decoration: none;
-  color: inherit;
-  /* Even smaller/thinner pill-style button; wider horizontally */
-  padding: 6px 8px; /* compact padding so links sit closely */
-  font-weight: 400;
+  color: rgba(255,255,255,0.65);
+  padding: 8px 20px;
+  font-weight: 500;
   line-height: 1;
-  min-height: 22px;
-  min-width: 0; /* allow compact sizing */
   position: relative;
-  transition: color 120ms ease, background 120ms ease, border-color 120ms ease, transform 120ms ease;
-  border-radius: 6px; /* subtle rounding */
+  transition: color 150ms ease, background 150ms ease;
+  border-radius: 20px;
   display: inline-flex;
   align-items: center;
-  gap: 0;
   justify-content: center;
   text-align: center;
+  background: transparent;
 }
 
-/* Hover/focus: subtle dark pill with white text (matches first attachment) */
-.topNav a:hover,
-.topNav a:focus {
-  background: transparent; /* keep background transparent for compact look */
-  color: #ffffff;
-  box-shadow: none;
-  outline: none;
-  transform: none;
+/* Hover state */
+.topNav a:hover {
+  color: rgba(255,255,255,0.9);
 }
 
-/* Active/selected state */
+/* Active/selected state - cream/white pill background */
 .topNav a.active,
 .activeNavLink {
-  background: transparent;
-  color: #ffffff;
-  box-shadow: none;
+  background: #f5f5f0;
+  color: #1a1a1a;
 }
 
 /* Left-aligned brand / logo text — uses the local Satoshi font */
 .brand {
   position: absolute;
   /* align to the nav link row height */
-  top: 16px; /* nudged down to match link row after tweak */
+  top: 20px; /* nudged down a bit more */
   left: 16%; /* align with the page's left content inset */
   font-family: 'Satoshi', sans-serif; /* prefer Satoshi */
   font-weight: 500;
@@ -150,32 +148,124 @@
   pointer-events: auto;
 }
 
-/* Profile avatar circle positioned on the right inset */
+/* Profile icon - circular button on top right */
 .profileCircle {
   position: absolute;
-  top: 16px; /* nudged down to match link row after tweak */
-  right: 15%; /* align with the page's right content inset */
-  width: 36px;
-  height: 36px;
+  top: 14px;
+  right: 2%;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  display: inline-flex; /* inline-flex for consistent baseline behavior */
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent; /* remove filled background */
-  color: rgba(255,255,255,0.92); /* visible letter color */
-  font-family: 'Satoshi', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  line-height: 1; /* ensure vertical centering of text */
-  box-shadow: none; /* remove drop shadow */
-  border: 2px solid rgba(255,255,255,0.18); /* visible outline only */
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  outline: none;
+  box-shadow: none;
   z-index: 11;
   pointer-events: auto;
   cursor: pointer;
   user-select: none;
-  padding: 0; /* remove possible padding interference */
-  box-sizing: border-box; /* ensure borders included in sizing */
-  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+  color: rgba(255,255,255,0.7);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.profileCircle:hover {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+}
+
+/* Profile dropdown - fits right side panel */
+.profileDropdown {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: 15%;
+  height: calc(100vh - 60px);
+  background: #111113;
+  border-left: 1px solid #1E1919;
+  z-index: 200;
+  overflow-y: auto;
+}
+
+.profileDropdownContent {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profileDropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.profileDropdownAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+
+.profileDropdownInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profileDropdownName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+}
+
+.profileDropdownEmail {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.profileDropdownDivider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 8px 0;
+}
+
+.profileDropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  text-align: left;
+  width: 100%;
+}
+
+.profileDropdownItem:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+}
+
+.profileDropdownItem svg {
+  flex-shrink: 0;
 }
 
 /* Compact plus/create button next to the profile avatar */
@@ -223,10 +313,12 @@
 /* The right-hand profile panel — yellow-tinted white and empty for now */
 .profileOverlay {
   position: fixed;
-  left: 50%;
+  left: calc(16% + (85% - 16%) / 2); /* center between left (16%) and right (85%) outlines */
   top: 50%;
-  /* keep ideal width but never exceed the vertical insets (12.5% left/right -> 75vw available) */
-  width: min(520px, 75vw);
+  transform: translateX(-50%);
+  /* extend to near the edges of vertical outlines with small padding */
+  width: calc(85% - 16% - 20px);
+  max-width: 900px;
   background: #f6f6f4; /* light neutral background */
   color: #0b0b0b;
   border-radius: 14px;
@@ -686,6 +778,11 @@
   border: none;
   cursor: pointer;
   margin-top: 16px;
+  /* Center between vertical outlines (16% left, 15% right = 85% right edge) */
+  position: absolute;
+  left: calc(16% + (85% - 16%) / 2);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .startChatBtn:focus {
@@ -699,23 +796,103 @@
   font-size: 0.85rem;
   font-weight: 500;
   margin: 0;
-  margin-top: 320px;
+  /* Center between vertical outlines, positioned above the button */
+  position: absolute;
+  left: calc(16% + (85% - 16%) / 2);
+  top: calc(50% + 60px);
+  transform: translateX(-50%);
+  text-align: center;
 }
 
 /* ========== Chat Panel Styles ========== */
 
+/* Animated right vertical outline */
+.rightOutline {
+  position: fixed;
+  top: 60px;
+  width: 1px;
+  height: calc(100vh - 60px);
+  background: #1E1919;
+  z-index: 101;
+  pointer-events: none;
+}
+
+/* Animated left vertical outline */
+.leftOutline {
+  position: fixed;
+  top: 60px;
+  width: 1px;
+  height: calc(100vh - 60px);
+  background: #1E1919;
+  z-index: 10;
+  pointer-events: none;
+}
+
 .chatPanel {
   position: fixed;
-  top: 0;
+  top: 60px;
   right: 0;
-  width: 720px;
-  max-width: 100vw;
-  height: 100vh;
-  background: #181818;
+  height: calc(100vh - 60px);
+  background: #111113;
   z-index: 100;
   display: flex;
   flex-direction: column;
-  box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+  box-shadow: none;
+  border-top: 1px solid #1E1919;
+}
+
+/* Toggle icons container in top left of chat panel */
+.chatPanelToggle {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 10;
+}
+
+.toggleIconBtn {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease;
+  border-radius: 4px;
+}
+
+.toggleIconBtn:hover {
+  color: rgba(255,255,255,0.7);
+}
+
+.toggleIconBtn:active,
+.toggleIconBtn.active {
+  color: rgba(255,255,255,0.9);
+}
+
+/* Expand button shown when chat is closed - positioned top left of the right section */
+.chatExpandBtn {
+  position: fixed;
+  top: 76px;
+  right: calc(15% + 16px);
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease;
+  z-index: 50;
+}
+
+.chatExpandBtn:hover {
+  color: rgba(255,255,255,0.7);
 }
 
 .chatPanelHeader {

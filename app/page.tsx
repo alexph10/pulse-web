@@ -7,6 +7,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { PersonIcon, GearIcon, ExitIcon } from '@radix-ui/react-icons'
 import { supabase } from '@/lib/supabase'
 import styles from './page.module.css'
 import FloatingBackground from './components/ui/FloatingBackground'
@@ -16,10 +17,12 @@ import ChatPanel from './components/ui/ChatPanel'
 
 export default function MainPage() {
   const [overlayOpen, setOverlayOpen] = useState(false)
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
   const [activePage, setActivePage] = useState<'home' | 'chat' | 'insights'>('home')
   const profileButtonRef = useRef<HTMLDivElement | null>(null)
+  const profileDropdownRef = useRef<HTMLDivElement | null>(null)
   const plusButtonRef = useRef<HTMLButtonElement | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter()
@@ -54,15 +57,62 @@ export default function MainPage() {
     }
   }, [overlayOpen])
 
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!profileDropdownOpen) return
+      const target = e.target as Node
+      if (profileDropdownRef.current?.contains(target) || profileButtonRef.current?.contains(target)) return
+      setProfileDropdownOpen(false)
+    }
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setProfileDropdownOpen(false)
+    }
+
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [profileDropdownOpen])
+
   return (
     <div className={`${styles.mainContainer} ${overlayOpen ? styles.panelOpen : ''}`}>
-      {/* Framer scene removed for now (local gradient + floating background remain) */}
-      {/* Floating lights background, z-index 2 (above blur overlay) */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 2 }}>
-        <FloatingBackground />
-      </div>
+      {/* Floating lights background removed */}
+      
       {/* Frame outlines and nav border, z-index 10 */}
       <div className={styles.navBorder} style={{ zIndex: 10 }} />
+      
+      {/* Animated left vertical outline - minimizes on Chat page */}
+      <motion.div
+        className={styles.leftOutline}
+        animate={{ 
+          left: activePage === 'chat' ? '2%' : '16%'
+        }}
+        transition={{
+          type: 'spring',
+          damping: 28,
+          stiffness: 260,
+          mass: 0.9
+        }}
+      />
+      
+      {/* Animated right vertical outline - slides left when chat opens */}
+      <motion.div
+        className={styles.rightOutline}
+        animate={{ 
+          right: chatOpen ? '35%' : '15%'
+        }}
+        transition={{
+          type: 'spring',
+          damping: 28,
+          stiffness: 260,
+          mass: 0.9
+        }}
+      />
+      
       {/* Left-brand using Satoshi font */}
       <div className={styles.brand}>(pulse)</div>
       <nav className={styles.topNav}>
@@ -88,16 +138,15 @@ export default function MainPage() {
           Insights
         </a>
       </nav>
-      {/* Profile circle on the right side of the nav */}
+      {/* Profile icon on the right side of the nav */}
       <div
         className={styles.profileCircle}
-        title="Profile"
         role="button"
-        aria-expanded={overlayOpen}
-        onClick={() => setOverlayOpen((s) => !s)}
+        aria-expanded={profileDropdownOpen}
+        onClick={() => setProfileDropdownOpen((s) => !s)}
         ref={profileButtonRef}
       >
-        N
+        <PersonIcon />
       </div>
 
       {/* Small create/plus button next to profile */}
@@ -116,6 +165,50 @@ export default function MainPage() {
 
       {/* Framer-like peek navigation overlay (opened by plus button) */}
       <PeekNav open={navOpen} onClose={() => setNavOpen(false)} outsideRefs={[profileButtonRef, plusButtonRef]} />
+
+      {/* Profile dropdown - fits the right side panel dimensions */}
+      <AnimatePresence>
+        {profileDropdownOpen && (
+          <motion.div
+            className={styles.profileDropdown}
+            ref={profileDropdownRef}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.profileDropdownContent}>
+              <div className={styles.profileDropdownHeader}>
+                <div className={styles.profileDropdownAvatar}>C</div>
+                <div className={styles.profileDropdownInfo}>
+                  <div className={styles.profileDropdownName}>Can Pham</div>
+                  <div className={styles.profileDropdownEmail}>can@example.com</div>
+                </div>
+              </div>
+              
+              <div className={styles.profileDropdownDivider} />
+              
+              <button className={styles.profileDropdownItem} onClick={() => { setProfileDropdownOpen(false); setOverlayOpen(true); }}>
+                <PersonIcon />
+                Profile
+              </button>
+              
+              <button className={styles.profileDropdownItem} onClick={() => { setProfileDropdownOpen(false); router.push('/settings'); }}>
+                <GearIcon />
+                Settings
+              </button>
+              
+              <div className={styles.profileDropdownDivider} />
+              
+              <button className={styles.profileDropdownItem}>
+                <ExitIcon />
+                Sign out
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Blurred backdrop shown when profile overlay is open */}
       <AnimatePresence>
@@ -164,7 +257,8 @@ export default function MainPage() {
               left: '50%',
               top: '70%',
               x: '-50%',
-              width: '75vw',
+              width: 'calc(85% - 16% - 20px)',
+              maxWidth: '900px',
               height: '85vh',
               pointerEvents: 'auto',
               overflow: 'auto'
@@ -245,6 +339,19 @@ export default function MainPage() {
           />
         )}
       </AnimatePresence>
+
+      {/* Expand button when chat is closed (on Chat page) */}
+      {activePage === 'chat' && !chatOpen && (
+        <button 
+          className={styles.chatExpandBtn}
+          onClick={() => setChatOpen(true)}
+          aria-label="Expand chat panel"
+        >
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.05005 13.5C2.05005 13.7485 2.25152 13.95 2.50005 13.95C2.74858 13.95 2.95005 13.7485 2.95005 13.5L2.95005 1.49995C2.95005 1.25142 2.74858 1.04995 2.50005 1.04995C2.25152 1.04995 2.05005 1.25142 2.05005 1.49995L2.05005 13.5ZM8.4317 11.0681C8.60743 11.2439 8.89236 11.2439 9.06809 11.0681C9.24383 10.8924 9.24383 10.6075 9.06809 10.4317L6.58629 7.94993L14.5 7.94993C14.7485 7.94993 14.95 7.74846 14.95 7.49993C14.95 7.2514 14.7485 7.04993 14.5 7.04993L6.58629 7.04993L9.06809 4.56813C9.24383 4.39239 9.24383 4.10746 9.06809 3.93173C8.89236 3.75599 8.60743 3.75599 8.4317 3.93173L5.1817 7.18173C5.00596 7.35746 5.00596 7.64239 5.1817 7.81812L8.4317 11.0681Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+          </svg>
+        </button>
+      )}
 
       {/* Chat panel */}
       <AnimatePresence>

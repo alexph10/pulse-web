@@ -18,13 +18,6 @@ export default function EmptyChats({ onStart, visible = true }: Props) {
       aria-label="Chat history empty"
     >
       <p className={styles.emptyLabel}>Chat History Empty</p>
-      <button 
-        className={styles.startChatBtn} 
-        onClick={() => onStart?.()}
-        aria-label="Start a chat"
-      >
-        Start a chat
-      </button>
     </section>
   )
 }
