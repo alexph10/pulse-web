@@ -319,7 +319,19 @@ export default function MainPage() {
       </AnimatePresence>
       {/* Content will go here, z-index 5 */}
       <div className={styles.pageContent} style={{ position: 'relative', zIndex: 5, width: '100%', height: '100%' }}>
-        {/* Add your page content here */}
+        {/* Home page content */}
+        {activePage === 'home' && (
+          <div className={styles.homeContent}>
+            <div className={styles.dateDisplay}>
+              {new Date().toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </div>
+          </div>
+        )}
+        
         {/* Empty chats placeholder - only show on Chat page */}
         {activePage === 'chat' && (
           <EmptyChats onStart={() => setChatOpen(true)} visible={!chatOpen} />
