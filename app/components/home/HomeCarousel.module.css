@@ -1,0 +1,234 @@
+/* Carousel wrapper with dots */
+.carouselWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1248px;
+}
+
+.carouselContent {
+  width: 100%;
+  position: relative;
+}
+
+.carouselSlide {
+  display: none;
+}
+
+.carouselSlideActive {
+  display: block;
+}
+
+/* Carousel dot navigation */
+.carouselDots {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.carouselDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(224, 222, 236, 0.3);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.carouselDot:hover {
+  background: rgba(224, 222, 236, 0.5);
+  transform: scale(1.1);
+}
+
+.carouselDotActive {
+  background: #E0DEEC;
+}
+
+/* Cards carousel container */
+.cardsCarousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 0;
+  width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  min-height: auto;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.cardsCarousel::-webkit-scrollbar {
+  display: none;
+}
+
+.cardsCarousel > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Insight card */
+.insightCard {
+  background: #E8E0F0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  width: 300px;
+  min-width: 300px;
+  min-height: 320px;
+  height: auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* Secondary/Large card */
+.secondaryCard {
+  background: #E0DEEC;
+  border-radius: 14px;
+  padding: 20px 22px;
+  flex: 1;
+  min-width: 300px;
+  min-height: 320px;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Medium cards row */
+.mediumCardsRow {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 0;
+  width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  min-height: auto;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.mediumCardsRow::-webkit-scrollbar {
+  display: none;
+}
+
+.mediumCardsRow > * {
+  scroll-snap-align: start;
+}
+
+/* Medium card */
+.mediumCard {
+  background: #add2d1;
+  border-radius: 14px;
+  padding: 20px 22px;
+  flex: 1;
+  min-width: 300px;
+  min-height: 280px;
+  height: auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Recommendations paragraph */
+.recommendationsParagraph {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+  margin-top: auto;
+  padding-right: 24px;
+}
+
+.recommendationsParagraph .textLight {
+  color: #839d9b;
+  font-weight: 500;
+}
+
+.recommendationsParagraph .textMedium {
+  color: #4c5957;
+  font-weight: 500;
+}
+
+.recommendationsParagraph .textDark {
+  color: #232521;
+  font-weight: 500;
+}
+
+/* Wellness Trend Card */
+.wellnessTrendCard {
+  background: #E8E0F0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  width: 280px;
+  min-width: 280px;
+  height: 280px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Habit Streak Card */
+.habitStreakCard {
+  background: #E8E0F0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  width: 280px;
+  min-width: 280px;
+  height: 280px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Correlation Card */
+.correlationCard {
+  background: #E0DEEC;
+  border-radius: 14px;
+  padding: 20px 22px;
+  height: 280px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.correlationCardLarge {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .insightCard,
+  .wellnessTrendCard,
+  .habitStreakCard {
+    width: 240px;
+    min-width: 240px;
+    height: 260px;
+  }
+
+  .secondaryCard {
+    min-width: 300px;
+    height: 260px;
+  }
+
+  .mediumCard {
+    min-width: 260px;
+    height: 260px;
+  }
+}

@@ -1,10 +1,16 @@
+/**
+ * Main Page Layout Styles
+ * Contains only the core layout, containers, and global page styles.
+ * Component-specific styles are in their respective module files.
+ */
+
+/* ========== Main Container ========== */
 .mainContainer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Fallback solid color; gradient and blur are rendered in ::before so we can blur independently */
   background: #111113;
   display: flex;
   align-items: center;
@@ -15,883 +21,338 @@
   z-index: 9999;
 }
 
-/* when panel is open, blur the nav and page content for stronger focus */
-.panelOpen .topNav,
-.panelOpen .brand,
-.panelOpen .navBorder,
-.panelOpen .profileCircle,
-.panelOpen .plusButton,
+.mainContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #111113;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Light mode */
+.mainContainer[data-theme="light"] {
+  background: #f3f3f1;
+}
+
+.mainContainer[data-theme="light"]::before {
+  background: #f3f3f1;
+}
+
+/* Panel open blur effect */
 .panelOpen .pageContent {
   filter: blur(6px) saturate(0.95);
   transition: filter 220ms ease, opacity 220ms ease;
   opacity: 0.95;
 }
 
-/* Home page content */
-.homeContent {
-  position: absolute;
-  top: 80px;
-  left: calc(16% + 24px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+/* ========== Page Content Area ========== */
+.pageContent {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
 }
 
+/* ========== Home Content ========== */
+.homeContent {
+  position: absolute;
+  top: 50px;
+  left: 16%;
+  right: 15%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  padding-bottom: 100px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ========== Date Display ========== */
 .dateDisplay {
-  font-size: 0.95rem;
+  position: fixed;
+  top: 85px;
+  left: 0;
+  width: 16%;
+  text-align: center;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.02em;
 }
 
-/* Soft radial blur overlay to add depth without overpowering animated lights */
-.mainContainer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  /* Solid background color */
-  background: #111113;
-  pointer-events: none;
-  z-index: -1; /* push behind content */
+.mainContainer[data-theme="light"] .dateDisplay {
+  color: #666666;
 }
 
-
-.mainContainer::after {
-  content: '';
+/* ========== Chat Content Area ========== */
+.chatContentArea {
   position: absolute;
-  /* extend slightly beyond the viewport so vertical lines visually "fill" the app */
-  top: -20px;
-  left: 12.5%;
-  right: 12.5%;
-  bottom: -20px;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Frosting layer — translucent backdrop over nav and body, excluding left/right insets */
-.frostingLayer {
-  position: absolute;
-  top: 0;
-  left: 12.5%;
-  right: 12.5%;
+  top: 50px;
+  left: 2%;
+  right: 15%;
   bottom: 0;
-  background: transparent; /* no background */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  pointer-events: none;
-  z-index: 3; /* above floating background (2), below nav chrome (10) */
-}
-
-
-.navBorder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: #111113;
-  border-bottom: 1px solid #1E1919;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Left vertical outline - now handled by a separate animated div in JSX */
-
-/* Right vertical outline - now handled by a separate animated div in JSX */
-
-/* Top navigation centered above the horizontal outline */
-.topNav {
-  position: absolute;
-  /* Absolute from the top of the main container so the nav sits above the border at 60px */
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  height: auto;
   display: flex;
-  align-items: center;
-  padding: 0;
-  gap: 24px;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: rgba(255,255,255,0.6);
-  letter-spacing: 0.01em;
-  z-index: 11;
-  pointer-events: auto;
-  font-family: 'Supreme-Regular', sans-serif;
-  background: transparent;
-  border-radius: 0;
-}
-
-.topNav a {
-  text-decoration: none;
-  color: rgba(255,255,255,0.65);
-  padding: 8px 20px;
-  font-weight: 500;
-  line-height: 1;
-  position: relative;
-  transition: color 150ms ease, background 150ms ease;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: transparent;
-}
-
-/* Hover state */
-.topNav a:hover {
-  color: rgba(255,255,255,0.9);
-}
-
-/* Active/selected state - cream/white pill background */
-.topNav a.active,
-.activeNavLink {
-  background: #f5f5f0;
-  color: #1a1a1a;
-}
-
-/* Left-aligned brand / logo text — uses the local Satoshi font */
-.brand {
-  position: absolute;
-  /* align to the nav link row height */
-  top: 20px; /* nudged down a bit more */
-  left: 16%; /* align with the page's left content inset */
-  font-family: 'Satoshi', sans-serif; /* prefer Satoshi */
-  font-weight: 500;
-  font-size: 1.005rem;
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0.05em;
-  z-index: 11;
-  pointer-events: auto;
-}
-
-/* Profile icon - circular button on top right */
-.profileCircle {
-  position: absolute;
-  top: 14px;
-  right: 2%;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  outline: none;
-  box-shadow: none;
-  z-index: 11;
-  pointer-events: auto;
-  cursor: pointer;
-  user-select: none;
-  padding: 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 40px 40px 100px 40px;
   box-sizing: border-box;
-  color: rgba(255,255,255,0.7);
-  transition: background 150ms ease, color 150ms ease;
-}
-
-.profileCircle:hover {
-  background: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
-}
-
-/* Profile dropdown - fits right side panel */
-.profileDropdown {
-  position: fixed;
-  top: 60px;
-  right: 0;
-  width: 15%;
-  height: calc(100vh - 60px);
-  background: #111113;
-  border-left: 1px solid #1E1919;
-  z-index: 200;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.profileDropdownContent {
-  padding: 20px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.profileDropdownHeader {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  margin-bottom: 8px;
-}
-
-.profileDropdownAvatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
-}
-
-.profileDropdownInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.profileDropdownName {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.9);
-}
-
-.profileDropdownEmail {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.5);
-}
-
-.profileDropdownDivider {
-  height: 1px;
-  background: rgba(255,255,255,0.08);
-  margin: 8px 0;
-}
-
-.profileDropdownItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: transparent;
-  border: none;
-  border-radius: 6px;
-  color: rgba(255,255,255,0.7);
-  font-size: 0.85rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: background 150ms ease, color 150ms ease;
-  text-align: left;
-  width: 100%;
-}
-
-.profileDropdownItem:hover {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.9);
-}
-
-.profileDropdownItem svg {
-  flex-shrink: 0;
-}
-
-/* Compact plus/create button next to the profile avatar */
-.plusButton {
+/* ========== Insights Content Area ========== */
+.insightsContent {
   position: absolute;
-  /* align to the nav link row height */
-  top: 16px; /* nudged down to match link row after tweak */
-  right: 17.5%; /* move further left so it's immediately next to profile circle */
-  width: 44px;
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  background: transparent; /* outlined only */
-  color: rgba(255,255,255,0.95);
-  border: 2px solid rgba(255,255,255,0.16); /* visible outline */
-  border-radius: 16px; /* pill-like outline */
-  font-size: 1.05rem;
-  line-height: 1;
-  font-weight: 700;
-  cursor: pointer;
-  z-index: 12;
-}
-
-.plusButton:hover,
-.plusButton:focus {
-  background: rgba(255,255,255,0.02); /* subtle fill on hover */
-  outline: none;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-/* Backdrop that covers the viewport but respects left/right insets visually */
-.profileOverlayBackdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 30; /* above nav and floating elements */
-  display: flex;
-  align-items: start;
-  justify-content: flex-end; /* anchor panel to the right */
-  padding-right: 12.5%; /* respect the page right inset */
-  background: rgba(0,0,0,0.08); /* subtle dimmer */
-}
-
-/* The right-hand profile panel — yellow-tinted white and empty for now */
-.profileOverlay {
-  position: fixed;
-  left: calc(16% + (85% - 16%) / 2); /* center between left (16%) and right (85%) outlines */
-  top: 50%;
-  transform: translateX(-50%);
-  /* extend to near the edges of vertical outlines with small padding */
-  width: calc(85% - 16% - 20px);
-  max-width: 900px;
-  background: #f6f6f4; /* light neutral background */
-  color: #0b0b0b;
-  border-radius: 14px;
-  /* shadow removed */
-  overflow: hidden;
-  z-index: 40;
+  top: 50px;
+  left: 16%;
+  right: 15%;
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  /* Framer Motion handles all transforms and opacity */
-  transform-origin: center center;
-  -webkit-overflow-scrolling: touch; /* smooth momentum scrolling on touch devices */
-  overscroll-behavior: contain; /* prevent body scroll from propagating */
-}
-
-/* Menu inside the profile overlay */
-.profileMenu {
-  display: block;
-  padding: 20px; /* generous internal padding like the reference */
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  padding-bottom: 100px;
   box-sizing: border-box;
-  /* constrain inner content so the panel header/footer remain visible and allow internal scrolling */
-  max-height: calc(84vh - 140px);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-}
-
-.profileContent {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.panelTitle {
-  font-size: 1.6rem;
-  font-weight: 800;
-  margin: 0;
-  color: #0b0b0b;
-}
-
-.panelSubtitle {
-  font-size: 1rem;
-  color: rgba(11,11,11,0.7);
-  margin: 0;
-}
-
-.profileCard {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: #ffffff;
-  padding: 14px;
-  border-radius: 12px;
-}
-
-.profileAvatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  background: #9b8be0;
-  color: white;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-}
-
-.profileCardMeta {
-  display: flex;
-  flex-direction: column;
-}
-
-.profileCardSubtitle {
-  font-size: 0.9rem;
-  color: rgba(11,11,11,0.6);
-}
-
-.profileName {
-  font-size: 1.2rem;
-  font-weight: 800;
-}
-
-.chevronRight {
-  margin-left: auto;
-  color: rgba(11,11,11,0.5);
-}
-
-.upgradeCard {
-  background: #cfe9e4;
-  padding: 16px;
-  border-radius: 12px;
-}
-
-.upgradeTitle {
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.upgradeText {
-  color: rgba(0,0,0,0.7);
-  margin-bottom: 12px;
-}
-
-.upgradeCTA {
-  display: inline-block;
-  background: rgba(11,11,11,0.06);
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-weight: 700;
-}
-
-.sectionTitle {
-  font-weight: 700;
-  margin: 6px 0;
-}
-
-.savedBox {
-  background: #efefef;
-  border-radius: 10px;
-  padding: 26px;
-  text-align: center;
-  color: rgba(11,11,11,0.5);
-}
-
-.infoList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.infoCard {
-  background: #ffffff;
-  padding: 14px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.infoLabel {
-  font-size: 0.85rem;
-  color: rgba(11,11,11,0.6);
-}
-
-.infoValue {
-  font-size: 1.15rem;
-  font-weight: 800;
-}
-
-/* scrollbar styling for the overlay */
-.profileOverlay::-webkit-scrollbar {
-  width: 12px;
-}
-.profileOverlay::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.12);
-  border-radius: 999px;
-}
-
-/* Full-screen blurred backdrop shown behind the profile panel */
-.panelBackdrop {
-  position: fixed;
-  inset: 0;
-  /* slightly lighter dim so the overlay doesn't feel too dark behind the panel */
-  background: rgba(11,11,11,0.12);
-  backdrop-filter: blur(30px) saturate(1.08);
-  -webkit-backdrop-filter: blur(14px) saturate(1.08);
-  opacity: 0;
-  transition: opacity 220ms ease;
-  pointer-events: none;
-  z-index: 34; /* behind profileOverlay (40) */
-}
-
-.panelBackdrop.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-@media (max-width: 640px) {
-  .profileOverlay {
-    left: 50%;
-    top: 12%;
-    width: calc(100% - 40px);
-    transform: translate(-50%, 0%);
-    border-radius: 10px;
-  }
-  .profileOverlay.open {
-    transform: translate(-50%, 0%);
-  }
-}
-
-/* Compact grid inside profile overlay */
-.profileGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  width: 100%;
-  padding: 6px 4px;
-  box-sizing: border-box;
-  /* limit size so footer/header remain visible */
-  max-height: calc(36vh - 140px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.tile {
+.insightsEmptyState {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 10px 6px;
-  border-radius: 10px;
-  background: transparent;
-  color: #111111;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 140ms ease, box-shadow 160ms ease, background 120ms ease;
-}
-
-.tile:hover,
-.tile:focus {
-  transform: translateY(-4px);
-  background: rgba(0,0,0,0.02);
-  outline: none;
-}
-
-.tile:active {
-  transform: translateY(-1px);
-}
-
-.tileIcon {
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  color: inherit;
-}
-
-.tileLabel {
-  font-size: 0.86rem;
-  font-weight: 700;
+  flex: 1;
   text-align: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 100%;
-}
-
-
-
-.profileMenuItem {
-  appearance: none;
-  border: none;
-  background: transparent;
-  text-align: left;
-  padding: 14px 18px; /* larger vertical padding to match reference */
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: rgba(230,230,230,0.92);
-  border-radius: 0; /* square items stacked */
-  width: 100%;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.profileMenuItem:hover,
-.profileMenuItem:focus {
-  background: rgba(255,255,255,0.02);
-  outline: none;
-}
-
-.profileMenuItem:active {
-  transform: translateY(1px);
-}
-
-.profileMenuSeparator {
-  height: 1px;
-  background: rgba(255,255,255,0.06);
-  margin: 8px 0;
-}
-
-/* Header / primary action styling (top item) */
-.profileMenuHeader {
-  display: block;
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  background: rgba(0,0,0,0.06); /* subtle darker pill within the panel */
-  color: #111111;
-  font-weight: 700;
-  text-align: center; /* center header text */
-  font-size: 1rem;
-}
-
-/* Grouping inside the panel */
-.profileMenuGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 6px;
-}
-
-/* Switch row for dark mode */
-.switchRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 12px;
-}
-
-.switch {
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-  width: 46px;
-  height: 26px;
-  cursor: pointer;
-}
-
-.switchTrack {
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  transition: background 160ms ease;
-}
-
-.switch[data-checked="true"] .switchTrack {
-  background: linear-gradient(90deg, #ff6a00 0%, #ff3b3b 100%);
-}
-
-.switchThumb {
-  position: absolute;
-  left: 4px;
-  top: 4px;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: #fff;
-  transform: translateX(0);
-  transition: transform 160ms cubic-bezier(.2,.9,.2,1), background 160ms ease;
-}
-
-.switch[data-checked="true"] .switchThumb {
-  transform: translateX(20px);
-  background: #0b0b0b;
-}
-
-/* Footer area with a CTA button */
-.profileFooter {
-  margin-top: 8px;
-  padding-top: 6px;
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.upgradeButton {
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #242629 0%, #111214 100%);
-  color: #f7f7f8;
-  font-weight: 600;
-  border: 1px solid rgba(255,255,255,0.04);
-  cursor: pointer;
-}
-
-.mutedText {
-  color: rgba(0,0,0,0.55);
-}
-
-/* Empty state styles (added) */
-.emptyState {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  padding: 28px;
-  color: rgba(11,11,11,0.65);
-  text-align: center;
-  width: 100%;
-  max-width: 860px;
-  margin: 180px auto 0; /* pushed lower into body content */
-}
-
-.emptyIllustration {
-  width: 84px;
-  height: 84px;
-  border-radius: 14px;
-  background: radial-gradient(circle at 30% 30%, rgba(245,249,58,0.10), transparent 30%), linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0));
-  box-shadow: 0 6px 18px rgba(11,11,11,0.06);
-}
-
-.emptyTitle {
-  margin: 0;
-  font-size: 1.25rem;
-  color: rgba(11,11,11,0.92);
-  font-weight: 700;
-}
-
-.emptyHint {
-  margin: 0;
-  max-width: 620px;
-  color: rgba(11,11,11,0.62);
-  font-size: 0.95rem;
-}
-
-.emptyExamples {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 8px;
-}
-
-.exampleChip {
-  background: rgba(0,0,0,0.02);
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.04);
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 140ms ease, background 120ms ease;
-}
-
-.exampleChip:hover,
-.exampleChip:focus { transform: translateY(-3px); background: rgba(0,0,0,0.04); outline: none; }
-
-.emptyActions { display: flex; gap: 12px; align-items: center; margin-top: 12px; }
-
-.primaryCTA {
-  background: linear-gradient(180deg, #242629 0%, #111214 100%);
-  color: #f7f7f8;
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-weight: 700;
-  border: 1px solid rgba(255,255,255,0.04);
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(11,11,11,0.08);
-}
-
-.primaryCTA:focus { outline: 3px solid rgba(245,249,58,0.18); outline-offset: 2px; }
-
-.secondaryLink { background: transparent; border: none; color: rgba(11,11,11,0.65); cursor: pointer; font-weight: 600; }
-
-/* White button with black text for Start a chat */
-.startChatBtn {
-  background: #ffffff;
-  color: #0b0b0b;
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.75rem;
-  border: none;
-  cursor: pointer;
-  margin-top: 16px;
-  /* Center between vertical outlines (16% left, 15% right = 85% right edge) */
-  position: absolute;
-  left: calc(16% + (85% - 16%) / 2);
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.startChatBtn:focus {
-  outline: 2px solid rgba(255,255,255,0.2);
-  outline-offset: 2px;
-}
-
-/* Empty state label text */
-.emptyLabel {
-  color: rgba(255,255,255,0.7);
-  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.1rem;
   font-weight: 500;
-  margin: 0;
-  /* Center between vertical outlines, positioned above the button */
-  position: absolute;
-  left: calc(16% + (85% - 16%) / 2);
-  top: calc(50% + 60px);
-  transform: translateX(-50%);
-  text-align: center;
 }
 
-/* ========== Chat Panel Styles ========== */
-
-/* Animated right vertical outline */
-.rightOutline {
-  position: fixed;
-  top: 60px;
-  width: 1px;
-  height: calc(100vh - 60px);
-  background: #1E1919;
-  z-index: 101;
-  pointer-events: none;
+.mainContainer[data-theme="light"] .insightsEmptyState {
+  color: rgba(0, 0, 0, 0.4);
 }
 
-/* Animated left vertical outline */
-.leftOutline {
-  position: fixed;
-  top: 60px;
-  width: 1px;
-  height: calc(100vh - 60px);
-  background: #1E1919;
-  z-index: 10;
-  pointer-events: none;
-}
-
+/* ========== Chat Panel ========== */
 .chatPanel {
   position: fixed;
   top: 60px;
   right: 0;
   height: calc(100vh - 60px);
   background: #111113;
-  z-index: 100;
+  z-index: 150;
   display: flex;
   flex-direction: column;
   box-shadow: none;
-  border-top: 1px solid #1E1919;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 20px 20px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-/* Toggle icons container in top left of chat panel */
-.chatPanelToggle {
-  position: absolute;
-  top: 16px;
-  left: 16px;
+.mainContainer[data-theme="light"] .chatPanel {
+  background: #f3f3f1;
+  border-left-color: rgba(0, 0, 0, 0.1);
+}
+
+.chatPanelTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #adf0dd;
+  margin: 0 0 16px 0;
+  padding: 0;
+  text-align: left;
+}
+
+.mainContainer[data-theme="light"] .chatPanelTitle {
+  color: #0f2d2c;
+}
+
+/* Chat Messages Area */
+.chatArea {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+
+.chatArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatArea::-webkit-scrollbar-thumb {
+  background: rgba(173, 240, 221, 0.2);
+  border-radius: 3px;
+}
+
+.chatArea::-webkit-scrollbar-thumb:hover {
+  background: rgba(173, 240, 221, 0.3);
+}
+
+.userMessage {
+  align-self: flex-end;
+  max-width: 85%;
+  background: rgba(173, 240, 221, 0.15);
+  border: 1px solid rgba(173, 240, 221, 0.2);
+  border-radius: 16px 16px 4px 16px;
+  padding: 12px 16px;
+}
+
+.assistantMessage {
+  align-self: flex-start;
+  max-width: 85%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px 16px 16px 4px;
+  padding: 12px 16px;
+}
+
+.messageText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.userMessage .messageText {
+  color: #adf0dd;
+}
+
+.mainContainer[data-theme="light"] .userMessage {
+  background: rgba(15, 45, 44, 0.1);
+  border-color: rgba(15, 45, 44, 0.15);
+}
+
+.mainContainer[data-theme="light"] .assistantMessage {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.mainContainer[data-theme="light"] .messageText {
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .userMessage .messageText {
+  color: #0f2d2c;
+}
+
+/* Chat Input */
+.chatInputWrapper {
+  margin-top: auto;
+  padding-top: 12px;
+  padding-bottom: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.chatInputInner {
   display: flex;
   align-items: center;
-  gap: 4px;
-  z-index: 10;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(173, 240, 221, 0.2);
+  border-radius: 20px;
+  padding: 6px 6px 6px 16px;
+  transition: border-color 200ms ease, background 200ms ease;
 }
 
-.toggleIconBtn {
-  background: none;
+.chatInputInner:focus-within {
+  border-color: rgba(173, 240, 221, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.chatInput {
+  flex: 1;
+  background: transparent;
   border: none;
-  padding: 6px;
+  outline: none;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 0;
+}
+
+.chatInput::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.chatSendBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #adf0dd 0%, #86b8aa 100%);
+  color: #0f2d2c;
   cursor: pointer;
-  color: rgba(255,255,255,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 150ms ease;
-  border-radius: 4px;
+  transition: transform 150ms ease, opacity 150ms ease;
+  flex-shrink: 0;
 }
 
-.toggleIconBtn:hover {
-  color: rgba(255,255,255,0.7);
+.chatSendBtn:hover:not(:disabled) {
+  transform: scale(1.05);
 }
 
-.toggleIconBtn:active,
-.toggleIconBtn.active {
-  color: rgba(255,255,255,0.9);
+.chatSendBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-/* Expand button shown when chat is closed - positioned top left of the right section */
+.mainContainer[data-theme="light"] .chatInputWrapper {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+.mainContainer[data-theme="light"] .chatInputInner {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(15, 45, 44, 0.2);
+}
+
+.mainContainer[data-theme="light"] .chatInputInner:focus-within {
+  border-color: rgba(15, 45, 44, 0.4);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mainContainer[data-theme="light"] .chatInput {
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .chatInput::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.mainContainer[data-theme="light"] .chatSendBtn {
+  background: linear-gradient(135deg, #0f2d2c 0%, #1a3a38 100%);
+  color: #adf0dd;
+}
+
+/* ========== Chat Backdrop ========== */
+.chatBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99;
+}
+
+.mainContainer[data-theme="light"] .chatBackdrop {
+  background: rgba(243, 243, 241, 0.5);
+}
+
+/* ========== Chat Expand Button ========== */
 .chatExpandBtn {
   position: fixed;
   top: 76px;
@@ -900,7 +361,7 @@
   border: none;
   padding: 6px;
   cursor: pointer;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -909,173 +370,742 @@
 }
 
 .chatExpandBtn:hover {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.chatPanelHeader {
+.mainContainer[data-theme="light"] .chatExpandBtn {
+  color: rgba(15, 45, 44, 0.4);
+}
+
+.mainContainer[data-theme="light"] .chatExpandBtn:hover {
+  color: rgba(15, 45, 44, 0.7);
+}
+
+/* ========== Panel Backdrop ========== */
+.panelBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 11, 11, 0.12);
+  backdrop-filter: blur(30px) saturate(1.08);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+  z-index: 34;
+}
+
+.panelBackdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========== Profile Overlay ========== */
+.profileOverlay {
+  position: fixed;
+  left: calc(16% + (85% - 16%) / 2);
+  top: 50%;
+  transform: translateX(-50%);
+  width: calc(85% - 16% - 20px);
+  max-width: 900px;
+  background: #F7F6F3;
+  color: #1A1A1A;
+  border-radius: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  transform-origin: center center;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.profileOverlay::-webkit-scrollbar {
+  width: 12px;
+}
+
+.profileOverlay::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+}
+
+.mainContainer[data-theme="light"] .profileOverlay {
+  background: #111113;
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ========== Profile Menu & Content ========== */
+.profileMenu {
+  display: block;
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 1;
+  min-height: 0;
+}
+
+.profileContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panelTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1A1A1A;
+}
+
+.panelSubtitle {
+  font-size: 0.85rem;
+  color: #666666;
+  margin: 4px 0 0 0;
+}
+
+.mainContainer[data-theme="light"] .panelTitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mainContainer[data-theme="light"] .panelSubtitle {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ========== Profile Card ========== */
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #EEEEEE;
+  padding: 12px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.profileCard:hover {
+  background: #E8E8E8;
+}
+
+.profileAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #9b8be0;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.profileCardMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCardSubtitle {
+  font-size: 0.75rem;
+  color: #888888;
+}
+
+.profileName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.chevronRight {
+  margin-left: auto;
+  color: #888888;
+}
+
+.mainContainer[data-theme="light"] .profileCard {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mainContainer[data-theme="light"] .profileCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mainContainer[data-theme="light"] .profileAvatar {
+  background: #0f2d2c;
+  color: #b3f9e5;
+}
+
+.mainContainer[data-theme="light"] .profileCardSubtitle {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mainContainer[data-theme="light"] .profileName {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mainContainer[data-theme="light"] .chevronRight {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ========== Sections ========== */
+.sectionTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 4px 0;
+  color: #1A1A1A;
+}
+
+.savedBox {
+  background: #EEEEEE;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888888;
+}
+
+.mainContainer[data-theme="light"] .sectionTitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mainContainer[data-theme="light"] .savedBox {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ========== Info List & Cards ========== */
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.infoCard {
+  background: #EEEEEE;
+  padding: 12px 14px;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+  transition: background 150ms ease;
+  position: relative;
+}
+
+.infoCard:hover {
+  background: #E8E8E8;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  color: #888888;
+}
+
+.infoValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .infoCard {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mainContainer[data-theme="light"] .infoCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mainContainer[data-theme="light"] .infoLabel {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mainContainer[data-theme="light"] .infoValue {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ========== Ranked Preview ========== */
+.rankedPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 4px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rankedPreviewItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #1A1A1A;
 }
 
-.chatPanelHeaderLeft {
+.rankedPreviewItem:nth-child(1) {
+  background: #B8E0E3;
+}
+
+.rankedPreviewItem:nth-child(2) {
+  background: #D8D0E8;
+}
+
+.rankedPreviewItem:nth-child(3) {
+  background: #F5E6C8;
+}
+
+.rankedPreviewLabel {
+  flex: 1;
+}
+
+.rankedPreviewNumber {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* ========== Profile Edit Page ========== */
+.profileEditPage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #F7F6F3;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.profileEditHeader {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #0b0b0b;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
 }
 
-.chatIcon {
-  font-size: 1rem;
-}
-
-.chatLabel {
-  font-weight: 500;
-}
-
-.chatCloseBtn {
+.profileEditBackBtn {
   background: none;
   border: none;
-  font-size: 1.1rem;
-  color: #0b0b0b;
+  padding: 6px;
   cursor: pointer;
-  padding: 4px;
-  line-height: 1;
-}
-
-.chatPanelTitle {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #0b0b0b;
-  margin: 0;
-  padding: 0 20px 16px;
-}
-
-.messageLimitBanner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #d4d9a3;
-  padding: 10px 16px;
-  margin: 0 0;
-  font-size: 0.85rem;
-  color: #0b0b0b;
-}
-
-.messageLimitLeft {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.diamondIcon {
-  font-size: 0.9rem;
-}
-
-.upgradeBtn {
-  background: #1a1a1a;
-  color: #fff;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.chatArea {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.suggestionCards {
-  display: flex;
-  gap: 12px;
-  padding: 0 20px 16px;
-}
-
-.suggestionCard {
-  flex: 1;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 12px;
-  padding: 14px;
-  cursor: pointer;
-}
-
-.suggestionCardHeader {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #0b0b0b;
-  margin-bottom: 8px;
-}
-
-.chatIconSmall {
-  font-size: 0.85rem;
-}
-
-.suggestionCardText {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #0b0b0b;
-  line-height: 1.4;
-}
-
-.chatInputWrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 20px 24px;
-  background: #f5f5f3;
-}
-
-.chatInput {
-  flex: 1;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 999px;
-  padding: 12px 18px;
-  font-size: 0.9rem;
-  color: #0b0b0b;
-  outline: none;
-}
-
-.chatInput::placeholder {
-  color: rgba(11,11,11,0.4);
-}
-
-.chatInput:focus {
-  border-color: rgba(0,0,0,0.2);
-}
-
-.chatSendBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #f0f0ee;
-  border: 1px solid rgba(0,0,0,0.08);
+  color: #1A1A1A;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
-  color: #0b0b0b;
+  transition: opacity 150ms ease;
+}
+
+.profileEditBackBtn:hover {
+  opacity: 0.7;
+}
+
+.profileEditTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1A1A1A;
+}
+
+.profileEditBody {
+  flex: 1;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.profileEditDescription {
+  color: #4A4A4A;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 32px 0;
+}
+
+.profileEditFooter {
+  padding: 20px 0 0 0;
+  margin-top: auto;
+  background: #F7F6F3;
+}
+
+.profileEditSaveBtn {
+  width: 100%;
+  background: #1A1A1A;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  padding: 18px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.profileEditSaveBtn:hover {
+  opacity: 0.9;
+}
+
+/* ========== Settings Form ========== */
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #1A1A1A;
+}
+
+.formInput {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #1A1A1A;
+  outline: none;
+  transition: border-color 150ms ease;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  border-color: #1A1A1A;
+}
+
+.formInput::placeholder {
+  color: #AAAAAA;
+}
+
+.formInputDisabled {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  border: 1px solid #E8E8E8;
+  border-radius: 8px;
+  background: #F5F5F5;
+  color: #888888;
+  outline: none;
+  box-sizing: border-box;
+  cursor: not-allowed;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #1A1A1A;
+  outline: none;
+  transition: border-color 150ms ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 44px;
+}
+
+.formSelect:focus {
+  border-color: #1A1A1A;
+}
+
+.deleteAccountLink {
+  background: none;
+  border: none;
+  color: #D97706;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.deleteAccountLink:hover {
+  text-decoration: underline;
+}
+
+.settingsFooterLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: #AAAAAA;
+}
+
+.settingsFooterLinks span {
   cursor: pointer;
 }
 
-/* Chat panel backdrop */
-.chatBackdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  z-index: 99;
+.settingsFooterLinks span:hover {
+  color: #666666;
 }
 
+.footerDivider {
+  cursor: default !important;
+}
 
+.footerDivider:hover {
+  color: #AAAAAA !important;
+}
 
+/* ========== Avatar Fallback ========== */
+.avatarFallbackLarge {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+  background: transparent;
+}
+
+/* ========== Alert Dialog ========== */
+.alertDialogOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alertDialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 420px;
+  background: #111113;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  z-index: 101;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alertDialogTitle {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.alertDialogDescription {
+  margin: 0 0 24px 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.alertDialogActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.alertDialogCancel {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.alertDialogCancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.alertDialogDelete {
+  padding: 10px 16px;
+  background: #943D2C;
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.alertDialogDelete:hover {
+  background: #7a3224;
+}
+
+@keyframes overlayShow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.mainContainer[data-theme="light"] .alertDialogOverlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.mainContainer[data-theme="light"] .alertDialogContent {
+  background: #f3f3f1;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.mainContainer[data-theme="light"] .alertDialogTitle {
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .alertDialogDescription {
+  color: #666666;
+}
+
+.mainContainer[data-theme="light"] .alertDialogCancel {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .alertDialogCancel:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ========== Chat History & Thread Cards ========== */
+.chatHistoryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  max-width: 100%;
+  padding: 20px 0;
+  margin: 0;
+  align-self: stretch;
+}
+
+.threadCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  padding: 20px 24px;
+  border-radius: 8px;
+  background: transparent;
+  transition: background 150ms ease, transform 150ms ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.threadCard:hover {
+  background: rgba(173, 240, 221, 0.05);
+}
+
+.threadCardTimestamp {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #adf0dd;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.threadCardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.threadCardPreview {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Light mode thread cards */
+.mainContainer[data-theme="light"] .threadCard:hover {
+  background: rgba(15, 45, 44, 0.05);
+}
+
+.mainContainer[data-theme="light"] .threadCardTimestamp {
+  color: #0f2d2c;
+}
+
+.mainContainer[data-theme="light"] .threadCardTitle {
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .threadCardPreview {
+  color: #666666;
+}
+
+/* ========== Empty State ========== */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.emptyLabel {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.mainContainer[data-theme="light"] .emptyLabel {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 640px) {
+  .profileOverlay {
+    left: 50%;
+    top: 12%;
+    width: calc(100% - 40px);
+    transform: translate(-50%, 0%);
+    border-radius: 10px;
+  }
+
+  .chatHistoryContainer {
+    padding: 16px;
+    gap: 24px;
+  }
+
+  .threadCard {
+    padding: 12px 16px;
+  }
+
+  .threadCardTitle {
+    font-size: 1.1rem;
+  }
+}

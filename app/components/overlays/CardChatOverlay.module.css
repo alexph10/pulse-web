@@ -1,0 +1,181 @@
+.cardOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.cardOverlayPanel {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 8px 40px rgba(0,0,0,0.12);
+}
+
+.cardOverlayPanel.reflection { background: #E8F5E4; }
+.cardOverlayPanel.task { background: #FFF3E0; }
+.cardOverlayPanel.question { background: #F8F4FA; }
+
+.cardOverlayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+}
+
+.cardOverlayHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardOverlayIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0,0.7);
+}
+
+.cardOverlayLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(0,0,0,0.65);
+}
+
+.cardOverlayClose {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0,0.4);
+}
+
+.cardOverlayContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 24px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardOverlayTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.cardOverlayDescription {
+  font-size: 1rem;
+  color: rgba(0,0,0,0.7);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.cardOverlayActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.actionButtonPrimary,
+.actionButtonSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 100px;
+  border: none;
+  background: rgba(0,0,0,0.08);
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.actionButtonTertiary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 100px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: transparent;
+  color: rgba(0,0,0,0.7);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cardOverlayInputContainer { padding: 0 24px 24px; }
+
+.cardOverlayInput {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 100px;
+  padding: 8px 10px 8px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.cardOverlayInput input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  outline: none;
+}
+
+.cardOverlayInput input::placeholder { color: rgba(0,0,0,0.4); }
+
+.cardOverlaySendButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.06);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0,0.5);
+  flex-shrink: 0;
+}
+
+.cardOverlayPanel.reflection .cardOverlaySendButton {
+  background: rgba(76,175,80,0.15);
+  color: #2e7d32;
+}
+
+.cardOverlayPanel.question .cardOverlaySendButton {
+  background: rgba(174,153,203,0.2);
+  color: #6b5b95;
+}
+
+.cardOverlaySendButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

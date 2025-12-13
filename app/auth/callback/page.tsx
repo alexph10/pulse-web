@@ -1,17 +1,14 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
 /**
- * OAuth Callback Page (Client Component)
- * 
- * This handles OAuth callbacks that come with tokens in the URL hash.
- * Supabase redirects with tokens in the hash fragment, and the Supabase
- * client automatically processes them when getSession() is called.
+ * OAuth Callback Content Component
+ * Uses useSearchParams which requires Suspense boundary
  */
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
   const searchParams = useSearchParams()
   const code = searchParams.get('code')
   const next = searchParams.get('next') || '/dashboard'
@@ -162,6 +159,43 @@ export default function AuthCallbackPage() {
         }
       `}</style>
     </div>
+  )
+}
+
+/**
+ * OAuth Callback Page (Client Component)
+ * 
+ * This handles OAuth callbacks that come with tokens in the URL hash.
+ * Supabase redirects with tokens in the hash fragment, and the Supabase
+ * client automatically processes them when getSession() is called.
+ */
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        fontFamily: 'Satoshi, sans-serif',
+        backgroundColor: '#ffffff'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '40px',
+            height: '40px',
+            border: '3px solid #f3f3f3',
+            borderTop: '3px solid #8B4513',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 1rem'
+          }} />
+          <p style={{ color: '#666', fontSize: '0.875rem' }}>Loading...</p>
+        </div>
+      </div>
+    }>
+      <AuthCallbackContent />
+    </Suspense>
   )
 }
 

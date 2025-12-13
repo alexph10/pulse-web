@@ -1,0 +1,47 @@
+.mediumCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.mediumCardToggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #4c5957;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 150ms ease;
+  z-index: 2;
+}
+
+.mediumCardToggle:hover {
+  opacity: 1;
+}
+
+.mediumCardContent {
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mediumCardContentHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mediumCardTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #4c5957;
+  margin: 0;
+}
+

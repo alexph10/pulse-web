@@ -1,216 +1,160 @@
-/**
- * Main page with floating background
- */
-
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PersonIcon, GearIcon, ExitIcon } from '@radix-ui/react-icons'
-import { supabase } from '@/lib/supabase'
-import styles from './page.module.css'
-import FloatingBackground from './components/ui/FloatingBackground'
+import { AlertDialog, Avatar } from 'radix-ui'
+
+// Constants
+import {
+  lifeStageOptions,
+  stressLevelOptions,
+  wellnessFocusOptions,
+  currentSupportOptions,
+  confidenceLabels,
+  workLifeBalanceOptions,
+  socialConnectionOptions,
+} from './constants'
+
+// Hooks
+import { useClickOutside } from './hooks/useClickOutside'
+
+// Layout Components
+import { TopNav, ThemeToggle, FrameOutlines, Brand, ActivePage } from './components/layout'
+
+// Profile Components
+import { ProfileButton, ProfileDropdown, CreateButton } from './components/profile'
+
+// Home Components
+import { HomeCarousel, WellnessFocus } from './components/home'
+
+// Overlay Components
+import { CardChatOverlay } from './components/overlays'
+
+// UI Components
 import PeekNav from './components/ui/PeekNav'
 import EmptyChats from './components/ui/EmptyChats'
 import ChatPanel from './components/ui/ChatPanel'
+import { SelectionGrid, ScrollPicker, RankedList, HexagonGauge } from './components/onboarding'
+
+// Styles
+import styles from './page.module.css'
 
 export default function MainPage() {
+  // UI State
   const [overlayOpen, setOverlayOpen] = useState(false)
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
-  const [activePage, setActivePage] = useState<'home' | 'chat' | 'insights'>('home')
+  const [activePage, setActivePage] = useState<ActivePage>('home')
+  const [editingField, setEditingField] = useState<string | null>(null)
+  const [cardOverlayOpen, setCardOverlayOpen] = useState(false)
+  const [selectedWellnessItem, setSelectedWellnessItem] = useState<{ type: string; text?: string; description?: string } | null>(null)
+  const [isDarkMode, setIsDarkMode] = useState(true)
+
+  // Wellness Profile State
+  const [lifeStage, setLifeStage] = useState<string | null>(null)
+  const [sleepAverage, setSleepAverage] = useState(7)
+  const [stressLevel, setStressLevel] = useState<string | null>(null)
+  const [wellnessFocus, setWellnessFocus] = useState<{ id: string; priority: number }[]>([])
+  const [currentSupport, setCurrentSupport] = useState<string | null>(null)
+  const [wellnessConfidence, setWellnessConfidence] = useState(3)
+  const [workLifeBalance, setWorkLifeBalance] = useState<string | null>(null)
+  const [socialConnection, setSocialConnection] = useState<string | null>(null)
+
+  // User Settings State
+  const [firstName, setFirstName] = useState('Can')
+  const [lastName, setLastName] = useState('Pham')
+  const [email, setEmail] = useState('alexyeu25@gmail.com')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [country, setCountry] = useState('United States')
+  const [language, setLanguage] = useState('')
+  const [timezone, setTimezone] = useState('')
+
+  // Refs
   const profileButtonRef = useRef<HTMLDivElement | null>(null)
   const profileDropdownRef = useRef<HTMLDivElement | null>(null)
   const plusButtonRef = useRef<HTMLButtonElement | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
-  const router = useRouter()
 
+  // Hide global components on main page
   useEffect(() => {
-    // Hide global components on main page
     document.body.classList.add('blank-page-active')
-    return () => {
-      document.body.classList.remove('blank-page-active')
-    }
+    return () => document.body.classList.remove('blank-page-active')
+  }, [])
+
+  // Click outside handlers
+  const closeOverlay = useCallback(() => setOverlayOpen(false), [])
+  const closeProfileDropdown = useCallback(() => setProfileDropdownOpen(false), [])
+
+  useClickOutside([panelRef, profileButtonRef], closeOverlay, overlayOpen)
+  useClickOutside([profileDropdownRef, profileButtonRef], closeProfileDropdown, profileDropdownOpen)
+
+  // Navigation handlers
+  const handleNavigate = useCallback((page: ActivePage) => {
+    setActivePage(page)
+    if (page !== 'chat') setChatOpen(false)
   }, [])
 
 
-  // Close when clicking outside or pressing Escape
-  useEffect(() => {
-    function onDocClick(e: MouseEvent) {
-      if (!overlayOpen) return
-      const target = e.target as Node
-      if (panelRef.current?.contains(target) || profileButtonRef.current?.contains(target)) return
-      setOverlayOpen(false)
-    }
-
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setOverlayOpen(false)
-    }
-
-    document.addEventListener('mousedown', onDocClick)
-    document.addEventListener('keydown', onKey)
-    return () => {
-      document.removeEventListener('mousedown', onDocClick)
-      document.removeEventListener('keydown', onKey)
-    }
-  }, [overlayOpen])
-
-  // Close profile dropdown when clicking outside
-  useEffect(() => {
-    function onDocClick(e: MouseEvent) {
-      if (!profileDropdownOpen) return
-      const target = e.target as Node
-      if (profileDropdownRef.current?.contains(target) || profileButtonRef.current?.contains(target)) return
-      setProfileDropdownOpen(false)
-    }
-
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') setProfileDropdownOpen(false)
-    }
-
-    document.addEventListener('mousedown', onDocClick)
-    document.addEventListener('keydown', onKey)
-    return () => {
-      document.removeEventListener('mousedown', onDocClick)
-      document.removeEventListener('keydown', onKey)
-    }
-  }, [profileDropdownOpen])
-
   return (
-    <div className={`${styles.mainContainer} ${overlayOpen ? styles.panelOpen : ''}`}>
-      {/* Floating lights background removed */}
-      
-      {/* Frame outlines and nav border, z-index 10 */}
-      <div className={styles.navBorder} style={{ zIndex: 10 }} />
-      
-      {/* Animated left vertical outline - minimizes on Chat page */}
-      <motion.div
-        className={styles.leftOutline}
-        animate={{ 
-          left: activePage === 'chat' ? '2%' : '16%'
-        }}
-        transition={{
-          type: 'spring',
-          damping: 28,
-          stiffness: 260,
-          mass: 0.9
-        }}
-      />
-      
-      {/* Animated right vertical outline - slides left when chat opens */}
-      <motion.div
-        className={styles.rightOutline}
-        animate={{ 
-          right: chatOpen ? '35%' : '15%'
-        }}
-        transition={{
-          type: 'spring',
-          damping: 28,
-          stiffness: 260,
-          mass: 0.9
-        }}
-      />
-      
-      {/* Left-brand using Satoshi font */}
-      <div className={styles.brand}>(pulse)</div>
-      <nav className={styles.topNav}>
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); setActivePage('home'); setChatOpen(false); }}
-          className={activePage === 'home' ? styles.activeNavLink : ''}
-        >
-          Home
-        </a>
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); setActivePage('chat'); }}
-          className={activePage === 'chat' ? styles.activeNavLink : ''}
-        >
-          Chat
-        </a>
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); setActivePage('insights'); setChatOpen(false); }}
-          className={activePage === 'insights' ? styles.activeNavLink : ''}
-        >
-          Insights
-        </a>
-      </nav>
-      {/* Profile icon on the right side of the nav */}
-      <div
-        className={styles.profileCircle}
-        role="button"
-        aria-expanded={profileDropdownOpen}
-        onClick={() => setProfileDropdownOpen((s) => !s)}
+    <div
+      className={`${styles.mainContainer} ${overlayOpen ? styles.panelOpen : ''}`}
+      data-theme={isDarkMode ? 'dark' : 'light'}
+    >
+      {/* Layout Components */}
+      <FrameOutlines activePage={activePage} chatOpen={chatOpen} />
+      <ThemeToggle isDarkMode={isDarkMode} onToggle={() => setIsDarkMode(!isDarkMode)} />
+      <Brand />
+      <TopNav activePage={activePage} onNavigate={handleNavigate} />
+
+      {/* Profile Components */}
+      <ProfileButton
         ref={profileButtonRef}
-      >
-        <PersonIcon />
-      </div>
+        firstName={firstName}
+        isOpen={profileDropdownOpen}
+        onClick={() => setProfileDropdownOpen((s) => !s)}
+      />
 
-      {/* Small create/plus button next to profile */}
-      <button
-        className={styles.plusButton}
-        title="Create"
-        aria-label="Create new"
-        ref={plusButtonRef}
-        onClick={() => {
-          // always open from this control; closing is handled by UnusualNav when clicking outside
-          setNavOpen(true)
+      <CreateButton ref={plusButtonRef} onClick={() => setNavOpen(true)} />
+
+      {/* Peek Navigation */}
+      <PeekNav
+        open={navOpen}
+        onClose={() => setNavOpen(false)}
+        outsideRefs={[profileButtonRef, plusButtonRef]}
+        onAddJournal={() => setChatOpen(true)}
+        onManagePlan={() => {
+          setOverlayOpen(true)
+          setEditingField('managePlan')
         }}
-      >
-        <span aria-hidden="true">+</span>
-      </button>
+      />
 
-      {/* Framer-like peek navigation overlay (opened by plus button) */}
-      <PeekNav open={navOpen} onClose={() => setNavOpen(false)} outsideRefs={[profileButtonRef, plusButtonRef]} />
-
-      {/* Profile dropdown - fits the right side panel dimensions */}
+      {/* Profile Dropdown */}
       <AnimatePresence>
         {profileDropdownOpen && (
-          <motion.div
-            className={styles.profileDropdown}
+          <ProfileDropdown
             ref={profileDropdownRef}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.profileDropdownContent}>
-              <div className={styles.profileDropdownHeader}>
-                <div className={styles.profileDropdownAvatar}>C</div>
-                <div className={styles.profileDropdownInfo}>
-                  <div className={styles.profileDropdownName}>Can Pham</div>
-                  <div className={styles.profileDropdownEmail}>can@example.com</div>
-                </div>
-              </div>
-              
-              <div className={styles.profileDropdownDivider} />
-              
-              <button className={styles.profileDropdownItem} onClick={() => { setProfileDropdownOpen(false); setOverlayOpen(true); }}>
-                <PersonIcon />
-                Profile
-              </button>
-              
-              <button className={styles.profileDropdownItem} onClick={() => { setProfileDropdownOpen(false); router.push('/settings'); }}>
-                <GearIcon />
-                Settings
-              </button>
-              
-              <div className={styles.profileDropdownDivider} />
-              
-              <button className={styles.profileDropdownItem}>
-                <ExitIcon />
-                Sign out
-              </button>
-            </div>
-          </motion.div>
+            isOpen={profileDropdownOpen}
+            firstName={firstName}
+            lastName={lastName}
+            email={email}
+            onProfile={() => {
+              setProfileDropdownOpen(false)
+              setOverlayOpen(true)
+            }}
+            onSettings={() => {
+              setProfileDropdownOpen(false)
+              setOverlayOpen(true)
+              setEditingField('settings')
+            }}
+            onSignOut={() => {
+              // TODO: Implement sign out
+            }}
+          />
         )}
       </AnimatePresence>
 
-      {/* Blurred backdrop shown when profile overlay is open */}
+      {/* Panel Backdrop */}
       <AnimatePresence>
         {overlayOpen && (
           <motion.div
@@ -225,7 +169,7 @@ export default function MainPage() {
         )}
       </AnimatePresence>
 
-      {/* Profile overlay panel with smooth Framer Motion animation */}
+      {/* Profile Overlay Panel */}
       <AnimatePresence>
         {overlayOpen && (
           <motion.div
@@ -234,111 +178,365 @@ export default function MainPage() {
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-label="Profile panel"
-            initial={{ 
-              opacity: 0, 
-              y: 200
-            }}
-            animate={{ 
-              opacity: 1, 
-              y: 0
-            }}
-            exit={{ 
-              opacity: 0, 
-              y: 200
-            }}
-            transition={{ 
-              type: 'spring',
-              damping: 28,
-              stiffness: 260,
-              mass: 0.9
-            }}
+            initial={{ opacity: 0, y: 200 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 200 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 260, mass: 0.9 }}
             style={{
               position: 'fixed',
               left: '50%',
-              top: '70%',
+              top: '3%',
               x: '-50%',
               width: 'calc(85% - 16% - 20px)',
               maxWidth: '900px',
-              height: '85vh',
+              height: '94vh',
               pointerEvents: 'auto',
-              overflow: 'auto'
+              overflowY: 'auto',
+              overflowX: 'hidden',
             }}
           >
-        <div className={styles.profileMenu} role="menu" aria-label="Profile menu">
-          <div className={styles.profileContent}>
-            <div>
-              <h2 className={styles.panelTitle}>Here’s everything we know about you so far</h2>
-              <p className={styles.panelSubtitle}>We use this information to provide you with the most accurate financial advice.</p>
+            <div className={styles.profileMenu} role="menu" aria-label="Profile menu">
+              <AnimatePresence mode="wait">
+                {!editingField ? (
+                  <motion.div
+                    key="main"
+                    className={styles.profileContent}
+                    initial={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div>
+                      <h2 className={styles.panelTitle}>Here&apos;s everything we know about you so far</h2>
+                      <p className={styles.panelSubtitle}>
+                        We use this information to provide you with the most personalized wellness guidance.
+                      </p>
+                    </div>
+
+                    <div
+                      className={styles.profileCard}
+                      role="button"
+                      onClick={() => setEditingField('settings')}
+                    >
+                      <Avatar.Root className={styles.profileAvatar}>
+                        <Avatar.Fallback className={styles.avatarFallbackLarge}>
+                          {firstName.charAt(0).toUpperCase()}
+                        </Avatar.Fallback>
+                      </Avatar.Root>
+                      <div className={styles.profileCardMeta}>
+                        <div className={styles.profileCardSubtitle}>Settings, personal info, and more</div>
+                        <div className={styles.profileName}>
+                          {firstName} {lastName}
+                        </div>
+                      </div>
+                      <div className={styles.chevronRight}>▸</div>
+                    </div>
+
+                    <div>
+                      <div className={styles.sectionTitle}>Saved memories</div>
+                      <div className={styles.savedBox}>No saved memories yet</div>
+                    </div>
+
+                    <div>
+                      <div className={styles.sectionTitle}>Wellness information</div>
+                      <div className={styles.infoList}>
+                        <InfoCard
+                          label="Life stage"
+                          value={lifeStageOptions.find((o) => o.id === lifeStage)?.label || 'Not set'}
+                          onClick={() => setEditingField('lifeStage')}
+                        />
+                        <InfoCard
+                          label="Sleep average"
+                          value={`${sleepAverage} hrs/night`}
+                          onClick={() => setEditingField('sleepAverage')}
+                        />
+                        <InfoCard
+                          label="Current stress"
+                          value={stressLevelOptions.find((o) => o.id === stressLevel)?.label || 'Not set'}
+                          onClick={() => setEditingField('stressLevel')}
+                        />
+
+                        <div
+                          className={styles.infoCard}
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => setEditingField('wellnessFocus')}
+                        >
+                          <div className={styles.infoLabel}>Wellness focus</div>
+                          <div className={styles.rankedPreview}>
+                            {wellnessFocus
+                              .sort((a, b) => a.priority - b.priority)
+                              .map((item) => (
+                                <div key={item.id} className={styles.rankedPreviewItem}>
+                                  <span className={styles.rankedPreviewLabel}>
+                                    {wellnessFocusOptions.find((o) => o.id === item.id)?.label}
+                                  </span>
+                                  <span className={styles.rankedPreviewNumber}>{item.priority}</span>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+
+                        <InfoCard
+                          label="Current support"
+                          value={currentSupportOptions.find((o) => o.id === currentSupport)?.label || 'Not set'}
+                          onClick={() => setEditingField('currentSupport')}
+                        />
+                        <InfoCard
+                          label="Wellness confidence"
+                          value={confidenceLabels[wellnessConfidence - 1]}
+                          onClick={() => setEditingField('wellnessConfidence')}
+                        />
+                        <InfoCard
+                          label="Work-life balance"
+                          value={workLifeBalanceOptions.find((o) => o.id === workLifeBalance)?.label || 'Not set'}
+                          onClick={() => setEditingField('workLifeBalance')}
+                        />
+                        <InfoCard
+                          label="Social connection"
+                          value={socialConnectionOptions.find((o) => o.id === socialConnection)?.label || 'Not set'}
+                          onClick={() => setEditingField('socialConnection')}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="edit"
+                    className={styles.profileEditPage}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 40 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className={styles.profileEditHeader}>
+                      <button
+                        className={styles.profileEditBackBtn}
+                        onClick={() => setEditingField(null)}
+                        aria-label="Go back"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M19 12H5M5 12L12 19M5 12L12 5"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      <h2 className={styles.profileEditTitle}>
+                        {editingField === 'lifeStage' && 'What is your life stage?'}
+                        {editingField === 'sleepAverage' && 'How much do you sleep?'}
+                        {editingField === 'stressLevel' && 'What is your stress level?'}
+                        {editingField === 'wellnessFocus' && 'What is your wellness focus?'}
+                        {editingField === 'currentSupport' && 'What support do you have?'}
+                        {editingField === 'wellnessConfidence' && 'How confident are you?'}
+                        {editingField === 'workLifeBalance' && 'How is your work-life balance?'}
+                        {editingField === 'socialConnection' && 'How connected do you feel?'}
+                        {editingField === 'settings' && 'Settings'}
+                      </h2>
+                    </div>
+
+                    <div className={styles.profileEditBody}>
+                      {editingField === 'lifeStage' && (
+                        <>
+                          <p className={styles.profileEditDescription}>Select your current life stage</p>
+                          <SelectionGrid options={lifeStageOptions} selected={lifeStage} onChange={setLifeStage} />
+                        </>
+                      )}
+
+                      {editingField === 'sleepAverage' && (
+                        <>
+                          <p className={styles.profileEditDescription}>How many hours do you sleep on average?</p>
+                          <ScrollPicker
+                            value={sleepAverage}
+                            onChange={setSleepAverage}
+                            min={4}
+                            max={12}
+                            unit="hrs/night"
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'stressLevel' && (
+                        <>
+                          <p className={styles.profileEditDescription}>What is your current stress level?</p>
+                          <SelectionGrid
+                            options={stressLevelOptions}
+                            selected={stressLevel}
+                            onChange={setStressLevel}
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'wellnessFocus' && (
+                        <>
+                          <p className={styles.profileEditDescription}>
+                            Choose up to 3 focus areas. Your goals help us prioritize recommendations and create a
+                            plan that aligns with what matters most.
+                          </p>
+                          <RankedList
+                            options={wellnessFocusOptions}
+                            selected={wellnessFocus}
+                            onChange={setWellnessFocus}
+                            maxSelections={3}
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'currentSupport' && (
+                        <>
+                          <p className={styles.profileEditDescription}>What support do you currently have?</p>
+                          <SelectionGrid
+                            options={currentSupportOptions}
+                            selected={currentSupport}
+                            onChange={setCurrentSupport}
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'wellnessConfidence' && (
+                        <>
+                          <p className={styles.profileEditDescription}>
+                            How confident are you in managing your wellness?
+                          </p>
+                          <HexagonGauge
+                            value={wellnessConfidence}
+                            onChange={setWellnessConfidence}
+                            labels={confidenceLabels}
+                            min={1}
+                            max={5}
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'workLifeBalance' && (
+                        <>
+                          <p className={styles.profileEditDescription}>
+                            Your work-life balance affects stress levels, energy, and overall wellbeing.
+                          </p>
+                          <SelectionGrid
+                            options={workLifeBalanceOptions}
+                            selected={workLifeBalance}
+                            onChange={setWorkLifeBalance}
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'socialConnection' && (
+                        <>
+                          <p className={styles.profileEditDescription}>
+                            Social connections are vital for mental health and emotional support.
+                          </p>
+                          <SelectionGrid
+                            options={socialConnectionOptions}
+                            selected={socialConnection}
+                            onChange={setSocialConnection}
+                          />
+                        </>
+                      )}
+
+                      {editingField === 'settings' && (
+                        <SettingsForm
+                          firstName={firstName}
+                          lastName={lastName}
+                          email={email}
+                          phoneNumber={phoneNumber}
+                          country={country}
+                          language={language}
+                          timezone={timezone}
+                          onFirstNameChange={setFirstName}
+                          onLastNameChange={setLastName}
+                          onPhoneNumberChange={setPhoneNumber}
+                          onCountryChange={setCountry}
+                          onLanguageChange={setLanguage}
+                          onTimezoneChange={setTimezone}
+                        />
+                      )}
+                    </div>
+
+                    <div className={styles.profileEditFooter}>
+                      <button className={styles.profileEditSaveBtn} onClick={() => setEditingField(null)}>
+                        Save
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-
-            <div className={styles.profileCard} role="button" onClick={() => { setOverlayOpen(false); router.push('/profile') }}>
-              <div className={styles.profileAvatar}>C</div>
-              <div className={styles.profileCardMeta}>
-                <div className={styles.profileCardSubtitle}>Settings, personal info, and more</div>
-                <div className={styles.profileName}>Can Pham</div>
-              </div>
-              <div className={styles.chevronRight}>▸</div>
-            </div>
-
-            <div className={styles.upgradeCard}>
-              <div className={styles.upgradeTitle}>Upgrade to your wealth era</div>
-              <div className={styles.upgradeText}>With Era Plus you get access to our most advanced AI model, additional money transfers, and unlimited automations, connections, and chat messages.</div>
-              <div>
-                <button className={styles.upgradeCTA} onClick={() => { setOverlayOpen(false); router.push('/upgrade') }}>Upgrade to Plus</button>
-              </div>
-            </div>
-
-            <div>
-              <div className={styles.sectionTitle}>Saved memories</div>
-              <div className={styles.savedBox}>No saved memories yet</div>
-            </div>
-
-            <div>
-              <div className={styles.sectionTitle}>Wellness information</div>
-              <div className={styles.infoList}>
-                <div className={styles.infoCard}>
-                  <div className={styles.infoLabel}>Sleep</div>
-                  <div className={styles.infoValue}>7 hrs / night</div>
-                </div>
-
-                <div className={styles.infoCard}>
-                  <div className={styles.infoLabel}>Activity</div>
-                  <div className={styles.infoValue}>5,200 steps / day</div>
-                </div>
-
-                <div className={styles.infoCard}>
-                  <div className={styles.infoLabel}>Mood</div>
-                  <div className={styles.infoValue}>Stable</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
           </motion.div>
         )}
       </AnimatePresence>
-      {/* Content will go here, z-index 5 */}
-      <div className={styles.pageContent} style={{ position: 'relative', zIndex: 5, width: '100%', height: '100%' }}>
-        {/* Home page content */}
-        {activePage === 'home' && (
-          <div className={styles.homeContent}>
-            <div className={styles.dateDisplay}>
-              {new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
+
+      {/* Page Content */}
+      <div className={styles.pageContent}>
+        {/* Home Page */}
+        <AnimatePresence>
+          {activePage === 'home' && (
+            <motion.div
+              className={styles.homeContent}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <motion.div
+                className={styles.dateDisplay}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+              >
+                {new Date().toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </motion.div>
+
+              <HomeCarousel
+                firstName={firstName}
+                onAskQuestion={() => {
+                  setActivePage('chat')
+                  setChatOpen(true)
+                }}
+                onSeeInsights={() => setActivePage('insights')}
+              />
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+              >
+                <WellnessFocus />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Chat Page */}
+        {activePage === 'chat' && (
+          <div className={styles.chatContentArea}>
+            <EmptyChats onStart={() => setChatOpen(true)} visible={!chatOpen} />
+          </div>
+        )}
+
+        {/* Insights Page */}
+        {activePage === 'insights' && (
+          <div className={styles.insightsContent}>
+            <div className={styles.insightsEmptyState}>
+              Insights coming soon
             </div>
           </div>
         )}
-        
-        {/* Empty chats placeholder - only show on Chat page */}
-        {activePage === 'chat' && (
-          <EmptyChats onStart={() => setChatOpen(true)} visible={!chatOpen} />
-        )}
       </div>
 
-      {/* Chat panel backdrop */}
+      {/* Chat Panel Backdrop */}
       <AnimatePresence>
         {chatOpen && (
           <motion.div
@@ -352,25 +550,198 @@ export default function MainPage() {
         )}
       </AnimatePresence>
 
-      {/* Expand button when chat is closed (on Chat page) */}
+      {/* Chat Expand Button */}
       {activePage === 'chat' && !chatOpen && (
-        <button 
+        <button
           className={styles.chatExpandBtn}
           onClick={() => setChatOpen(true)}
           aria-label="Expand chat panel"
         >
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.05005 13.5C2.05005 13.7485 2.25152 13.95 2.50005 13.95C2.74858 13.95 2.95005 13.7485 2.95005 13.5L2.95005 1.49995C2.95005 1.25142 2.74858 1.04995 2.50005 1.04995C2.25152 1.04995 2.05005 1.25142 2.05005 1.49995L2.05005 13.5ZM8.4317 11.0681C8.60743 11.2439 8.89236 11.2439 9.06809 11.0681C9.24383 10.8924 9.24383 10.6075 9.06809 10.4317L6.58629 7.94993L14.5 7.94993C14.7485 7.94993 14.95 7.74846 14.95 7.49993C14.95 7.2514 14.7485 7.04993 14.5 7.04993L6.58629 7.04993L9.06809 4.56813C9.24383 4.39239 9.24383 4.10746 9.06809 3.93173C8.89236 3.75599 8.60743 3.75599 8.4317 3.93173L5.1817 7.18173C5.00596 7.35746 5.00596 7.64239 5.1817 7.81812L8.4317 11.0681Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path>
+            <path
+              d="M2.05005 13.5C2.05005 13.7485 2.25152 13.95 2.50005 13.95C2.74858 13.95 2.95005 13.7485 2.95005 13.5L2.95005 1.49995C2.95005 1.25142 2.74858 1.04995 2.50005 1.04995C2.25152 1.04995 2.05005 1.25142 2.05005 1.49995L2.05005 13.5ZM8.4317 11.0681C8.60743 11.2439 8.89236 11.2439 9.06809 11.0681C9.24383 10.8924 9.24383 10.6075 9.06809 10.4317L6.58629 7.94993L14.5 7.94993C14.7485 7.94993 14.95 7.74846 14.95 7.49993C14.95 7.2514 14.7485 7.04993 14.5 7.04993L6.58629 7.04993L9.06809 4.56813C9.24383 4.39239 9.24383 4.10746 9.06809 3.93173C8.89236 3.75599 8.60743 3.75599 8.4317 3.93173L5.1817 7.18173C5.00596 7.35746 5.00596 7.64239 5.1817 7.81812L8.4317 11.0681Z"
+              fill="currentColor"
+              fillRule="evenodd"
+              clipRule="evenodd"
+            />
           </svg>
         </button>
       )}
 
-      {/* Chat panel */}
-      <AnimatePresence>
-        {chatOpen && (
-          <ChatPanel onClose={() => setChatOpen(false)} />
-        )}
-      </AnimatePresence>
+      {/* Chat Panel */}
+      <AnimatePresence>{chatOpen && <ChatPanel onClose={() => setChatOpen(false)} />}</AnimatePresence>
+
+      {/* Card Chat Overlay */}
+      <CardChatOverlay
+        isOpen={cardOverlayOpen}
+        onClose={() => {
+          setCardOverlayOpen(false)
+          setSelectedWellnessItem(null)
+        }}
+        type={selectedWellnessItem?.type === 'task' ? 'task' : 'reflection'}
+        title={selectedWellnessItem?.text}
+        description={selectedWellnessItem?.description}
+      />
+    </div>
+  )
+}
+
+// ========== Helper Components ==========
+
+interface InfoCardProps {
+  label: string
+  value: string
+  onClick: () => void
+}
+
+function InfoCard({ label, value, onClick }: InfoCardProps) {
+  return (
+    <div className={styles.infoCard} role="button" tabIndex={0} onClick={onClick}>
+      <div className={styles.infoLabel}>{label}</div>
+      <div className={styles.infoValue}>{value}</div>
+    </div>
+  )
+}
+
+interface SettingsFormProps {
+  firstName: string
+  lastName: string
+  email: string
+  phoneNumber: string
+  country: string
+  language: string
+  timezone: string
+  onFirstNameChange: (value: string) => void
+  onLastNameChange: (value: string) => void
+  onPhoneNumberChange: (value: string) => void
+  onCountryChange: (value: string) => void
+  onLanguageChange: (value: string) => void
+  onTimezoneChange: (value: string) => void
+}
+
+function SettingsForm({
+  firstName,
+  lastName,
+  email,
+  phoneNumber,
+  country,
+  language,
+  timezone,
+  onFirstNameChange,
+  onLastNameChange,
+  onPhoneNumberChange,
+  onCountryChange,
+  onLanguageChange,
+  onTimezoneChange,
+}: SettingsFormProps) {
+  return (
+    <div className={styles.settingsForm}>
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>First name</label>
+        <input
+          type="text"
+          className={styles.formInput}
+          value={firstName}
+          onChange={(e) => onFirstNameChange(e.target.value)}
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>Last name</label>
+        <input
+          type="text"
+          className={styles.formInput}
+          value={lastName}
+          onChange={(e) => onLastNameChange(e.target.value)}
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>Email</label>
+        <input type="email" className={styles.formInputDisabled} value={email} disabled />
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>Phone Number</label>
+        <input
+          type="tel"
+          className={styles.formInput}
+          value={phoneNumber}
+          onChange={(e) => onPhoneNumberChange(e.target.value)}
+          placeholder="+1 (555) 555-5555"
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>Country</label>
+        <select className={styles.formSelect} value={country} onChange={(e) => onCountryChange(e.target.value)}>
+          <option value="United States">United States</option>
+          <option value="Canada">Canada</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Australia">Australia</option>
+          <option value="Germany">Germany</option>
+          <option value="France">France</option>
+          <option value="Japan">Japan</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>Language</label>
+        <select className={styles.formSelect} value={language} onChange={(e) => onLanguageChange(e.target.value)}>
+          <option value="">Select language</option>
+          <option value="English">English</option>
+          <option value="Spanish">Spanish</option>
+          <option value="French">French</option>
+          <option value="German">German</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Chinese">Chinese</option>
+        </select>
+      </div>
+
+      <div className={styles.formGroup}>
+        <label className={styles.formLabel}>Timezone</label>
+        <select className={styles.formSelect} value={timezone} onChange={(e) => onTimezoneChange(e.target.value)}>
+          <option value="">Select timezone</option>
+          <option value="America/New_York">Eastern Time (ET)</option>
+          <option value="America/Chicago">Central Time (CT)</option>
+          <option value="America/Denver">Mountain Time (MT)</option>
+          <option value="America/Los_Angeles">Pacific Time (PT)</option>
+          <option value="Europe/London">London (GMT)</option>
+          <option value="Europe/Paris">Paris (CET)</option>
+          <option value="Asia/Tokyo">Tokyo (JST)</option>
+        </select>
+      </div>
+
+      <AlertDialog.Root>
+        <AlertDialog.Trigger asChild>
+          <button className={styles.deleteAccountLink}>Delete account</button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Portal>
+          <AlertDialog.Overlay className={styles.alertDialogOverlay} />
+          <AlertDialog.Content className={styles.alertDialogContent}>
+            <AlertDialog.Title className={styles.alertDialogTitle}>Delete Account</AlertDialog.Title>
+            <AlertDialog.Description className={styles.alertDialogDescription}>
+              Are you sure you want to delete your account? This action cannot be undone. All your data, including
+              journal entries and wellness information, will be permanently removed.
+            </AlertDialog.Description>
+            <div className={styles.alertDialogActions}>
+              <AlertDialog.Cancel asChild>
+                <button className={styles.alertDialogCancel}>Cancel</button>
+              </AlertDialog.Cancel>
+              <AlertDialog.Action asChild>
+                <button className={styles.alertDialogDelete}>Yes, delete my account</button>
+              </AlertDialog.Action>
+            </div>
+          </AlertDialog.Content>
+        </AlertDialog.Portal>
+      </AlertDialog.Root>
+
+      <div className={styles.settingsFooterLinks}>
+        <span>Sign out</span>
+        <span className={styles.footerDivider}>|</span>
+        <span>support@pulse.app</span>
+      </div>
     </div>
   )
 }

@@ -1,0 +1,109 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Toggle button - positioned top right */
+.moreButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #6B4E9B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 150ms ease;
+  z-index: 2;
+}
+
+.moreButton:hover {
+  opacity: 1;
+}
+
+/* Content wrapper with fade transition */
+.content {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+}
+
+.contentHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header section with stats */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.monthLabel {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.1;
+}
+
+.comparison {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #2D8A6E;
+  font-weight: 500;
+}
+
+.comparisonArrow {
+  font-size: 0.9rem;
+}
+
+/* Calendar grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 32px;
+  gap: 2px;
+}
+
+.week {
+  display: contents;
+}
+
+.day {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: default;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.day.empty {
+  background: transparent !important;
+}
+
+.dayNumber {
+  font-size: 0.8rem;
+  font-weight: 500;
+  user-select: none;
+  line-height: 1;
+}

@@ -1,0 +1,31 @@
+.themeToggle {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #adf0dd;
+  cursor: pointer;
+  transition: color 150ms ease;
+  z-index: 11;
+}
+
+.themeToggle:hover {
+  color: #0f2d2c;
+}
+
+/* Light mode */
+:global([data-theme="light"]) .themeToggle {
+  color: #0f2d2c;
+}
+
+:global([data-theme="light"]) .themeToggle:hover {
+  color: #1a3a38;
+}
+

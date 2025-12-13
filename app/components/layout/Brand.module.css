@@ -1,0 +1,26 @@
+.brand {
+  position: absolute;
+  top: 20px;
+  left: 16%;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 500;
+  font-size: 1.005rem;
+  letter-spacing: 0.05em;
+  z-index: 11;
+  pointer-events: auto;
+  background: linear-gradient(90deg, #86b8aa 0%, #adf0dd 35%, #b3f9e5 50%, #adf0dd 65%, #86b8aa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #b3f9e5;
+}
+
+/* Light mode */
+:global([data-theme="light"]) .brand {
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #0f2d2c;
+  color: #0f2d2c;
+}
+

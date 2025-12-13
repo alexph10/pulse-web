@@ -6,6 +6,26 @@
 
 :root {
   /* ========================================
+     THEME TOKENS - Profile Overlay
+     These are used for profile overlay subpages
+     ======================================== */
+  
+  /* Profile Overlay - Dark Theme (default for overlays) */
+  --overlay-bg: #111113;
+  --overlay-surface: rgba(255, 255, 255, 0.05);
+  --overlay-surface-hover: rgba(255, 255, 255, 0.08);
+  --overlay-surface-selected: rgba(179, 249, 229, 0.15);
+  --overlay-border: rgba(255, 255, 255, 0.1);
+  --overlay-text-primary: rgba(255, 255, 255, 0.9);
+  --overlay-text-secondary: rgba(255, 255, 255, 0.6);
+  --overlay-text-tertiary: rgba(255, 255, 255, 0.4);
+  --overlay-accent: #b3f9e5;
+  --overlay-accent-dark: #0f2d2c;
+  --overlay-button-bg: #0f2d2c;
+  --overlay-button-text: #b3f9e5;
+  --overlay-button-hover: #1a3a38;
+
+  /* ========================================
      COLORS
      ======================================== */
   

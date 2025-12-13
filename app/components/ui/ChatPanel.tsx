@@ -1,10 +1,16 @@
 "use client"
-import React from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import { ArrowUpIcon } from '@radix-ui/react-icons'
 import styles from '@/app/page.module.css'
 
 type Props = {
   onClose: () => void
+}
+
+interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
 }
 
 // Collapse icon (arrow pointing right with bar on right)
@@ -21,12 +27,79 @@ const ExpandIcon = () => (
   </svg>
 )
 
+
 export default function ChatPanel({ onClose }: Props) {
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [input, setInput] = useState('')
+  const [isSending, setIsSending] = useState(false)
+    const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  // Focus input on mount
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  const handleSend = useCallback(async (messageText?: string) => {
+    const text = messageText || input.trim()
+    if (!text || isSending) return
+
+    const userMessage: ChatMessage = { role: 'user', content: text }
+    setMessages(prev => [...prev, userMessage])
+    setInput('')
+    setIsSending(true)
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map(m => ({
+            role: m.role,
+            content: m.content,
+          })),
+          mode: 'general',
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to get response')
+      }
+
+      const data = await response.json()
+      
+      if (data.reply) {
+        setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
+      }
+    } catch (error) {
+      console.error('Chat error:', error)
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: "I'm having trouble connecting right now. Please try again in a moment." 
+      }])
+    } finally {
+      setIsSending(false)
+    }
+  }, [input, isSending, messages])
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
+  }
+
+  
   return (
     <motion.div
       className={styles.chatPanel}
       initial={{ width: 0, opacity: 0 }}
-      animate={{ width: '35%', opacity: 1 }}
+      animate={{ width: '33%', opacity: 1 }}
       exit={{ width: 0, opacity: 0 }}
       transition={{
         type: 'spring',
@@ -37,16 +110,66 @@ export default function ChatPanel({ onClose }: Props) {
       style={{ overflow: 'hidden' }}
       onClick={(e) => e.stopPropagation()}
     >
-      {/* Toggle icons in top left */}
-      <div className={styles.chatPanelToggle}>
-        <button 
-          className={styles.toggleIconBtn}
-          onClick={onClose}
-          aria-label="Collapse panel"
-        >
-          <CollapseIcon />
-        </button>
+      {/* Title */}
+      <motion.h2 
+        className={styles.chatPanelTitle}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.3, ease: 'easeOut' }}
+      >
+        Chat with Pulse AI
+      </motion.h2>
+
+      {/* Chat messages area */}
+      <div className={styles.chatArea}>
+        {messages.map((msg, idx) => (
+          <div 
+            key={idx} 
+            className={msg.role === 'user' ? styles.userMessage : styles.assistantMessage}
+          >
+            <p className={styles.messageText}>{msg.content}</p>
+          </div>
+        ))}
+        {isSending && (
+          <div className={styles.assistantMessage}>
+            <p className={styles.messageText}>Thinking...</p>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
+
+
+      {/* Input bar */}
+      <motion.div 
+        className={styles.chatInputWrapper}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.3, ease: 'easeOut' }}
+      >
+        <div className={styles.chatInputInner}>
+          <input
+            ref={inputRef}
+            type="text"
+            className={styles.chatInput}
+            placeholder="Ask a question..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={isSending}
+          />
+          <motion.button 
+            className={styles.chatSendBtn}
+            onClick={() => handleSend()}
+            disabled={isSending || !input.trim()}
+            aria-label="Send message"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.25, duration: 0.25, ease: 'easeOut' }}
+          >
+            <ArrowUpIcon />
+          </motion.button>
+        </div>
+      </motion.div>
     </motion.div>
   )
 }

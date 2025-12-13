@@ -1,0 +1,93 @@
+.secondaryCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.secondaryMoreButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #8172b9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 150ms ease;
+  z-index: 2;
+}
+
+.secondaryMoreButton:hover {
+  opacity: 1;
+}
+
+.secondaryContent {
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.secondaryContentVisible {
+  opacity: 1;
+}
+
+.secondaryContentHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.welcomeMessage {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0;
+  padding-right: 30px;
+  background: linear-gradient(90deg, #6a5aad 0%, #8172b9 35%, #9683c7 50%, #8172b9 65%, #6a5aad 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #8172b9;
+}
+
+.actionButtonsRow {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.actionButton {
+  background: #AE99CB;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 100ms ease;
+}
+
+.actionButton span {
+  background: linear-gradient(90deg, #2a1a5e 0%, #31226D 50%, #3d2b7a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #31226D;
+}
+
+.actionButton:hover {
+  opacity: 0.85;
+}
+
+.actionButton:active {
+  transform: scale(0.98);
+}
+

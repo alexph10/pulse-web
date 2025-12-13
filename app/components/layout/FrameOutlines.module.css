@@ -1,0 +1,43 @@
+.navBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #111113;
+  border-bottom: 1px solid #1E1919;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.leftOutline {
+  position: fixed;
+  top: 60px;
+  width: 1px;
+  height: calc(100vh - 60px);
+  background: #1E1919;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.rightOutline {
+  position: fixed;
+  top: 60px;
+  width: 1px;
+  height: calc(100vh - 60px);
+  background: #1E1919;
+  z-index: 101;
+  pointer-events: none;
+}
+
+/* Light mode */
+:global([data-theme="light"]) .navBorder {
+  background: #f3f3f1;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .leftOutline,
+:global([data-theme="light"]) .rightOutline {
+  background: rgba(0, 0, 0, 0.08);
+}
+

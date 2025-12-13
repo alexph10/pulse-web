@@ -1,0 +1,87 @@
+.topNav {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  gap: 24px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.01em;
+  z-index: 11;
+  pointer-events: auto;
+  font-family: 'Supreme-Regular', sans-serif;
+  background: transparent;
+  border-radius: 0;
+}
+
+.topNav a {
+  text-decoration: none;
+  color: #b3f9e5;
+  padding: 10px 18px;
+  font-weight: 600;
+  line-height: 1;
+  position: relative;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(90deg, #86b8aa 0%, #adf0dd 35%, #b3f9e5 50%, #adf0dd 65%, #86b8aa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: color 200ms ease, -webkit-text-fill-color 200ms ease, background 200ms ease;
+}
+
+.topNav a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background-color: transparent;
+  transition: background-color 150ms ease;
+  z-index: -1;
+}
+
+.topNav a:hover::before {
+  background-color: transparent;
+}
+
+.activeNavLink {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #0f2d2c !important;
+  color: #0f2d2c !important;
+  transition: color 200ms ease, -webkit-text-fill-color 200ms ease, background 200ms ease;
+}
+
+.activeNavLink::before {
+  background-color: transparent;
+}
+
+/* Light mode */
+:global([data-theme="light"]) .topNav {
+  background: #f3f3f1;
+}
+
+:global([data-theme="light"]) .topNav a {
+  background: linear-gradient(90deg, #1a3a38 0%, #0f2d2c 35%, #0a2322 50%, #0f2d2c 65%, #1a3a38 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .activeNavLink {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #b3f9e5 !important;
+  color: #b3f9e5 !important;
+}
+

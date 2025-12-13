@@ -298,7 +298,7 @@ export async function sendChatMessage(
       throw new Error('Request timed out. Please check your connection and try again.');
     }
     
-    if (error.message) {
+    if (err.message) {
       throw error; // Already has a good message
     }
     

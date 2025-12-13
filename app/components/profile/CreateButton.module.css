@@ -1,0 +1,43 @@
+.plusButton {
+  position: absolute;
+  top: 16px;
+  right: 17.5%;
+  width: 44px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  color: #adf0dd;
+  border: 2px solid rgba(134, 184, 170, 0.3);
+  border-radius: 16px;
+  font-size: 1.05rem;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 12;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.plusButton:hover,
+.plusButton:focus {
+  background: rgba(15, 45, 44, 0.5);
+  color: #b3f9e5;
+  border-color: rgba(173, 240, 221, 0.5);
+  outline: none;
+}
+
+/* Light mode */
+:global([data-theme="light"]) .plusButton {
+  background: transparent;
+  border: 2px solid rgba(15, 45, 44, 0.3);
+  color: #0f2d2c;
+}
+
+:global([data-theme="light"]) .plusButton:hover {
+  background: rgba(15, 45, 44, 0.1);
+  border-color: rgba(15, 45, 44, 0.5);
+  color: #0f2d2c;
+}
+

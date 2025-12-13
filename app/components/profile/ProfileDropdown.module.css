@@ -1,0 +1,136 @@
+.profileDropdown {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: 15%;
+  height: calc(100vh - 60px);
+  background: #111113;
+  border-left: 1px solid #1E1919;
+  z-index: 200;
+  overflow-y: auto;
+}
+
+.profileDropdownContent {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profileDropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.profileDropdownAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(15, 45, 44, 0.5);
+  border: 1px solid rgba(134, 184, 170, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #adf0dd;
+}
+
+.avatarFallbackLarge {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+  background: transparent;
+}
+
+.profileDropdownInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profileDropdownName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #b3f9e5;
+}
+
+.profileDropdownEmail {
+  font-size: 0.75rem;
+  color: #86b8aa;
+}
+
+.profileDropdownDivider {
+  height: 1px;
+  background: rgba(134, 184, 170, 0.15);
+  margin: 8px 0;
+}
+
+.profileDropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #adf0dd;
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  text-align: left;
+  width: 100%;
+}
+
+.profileDropdownItem:hover {
+  background: rgba(15, 45, 44, 0.5);
+  color: #b3f9e5;
+}
+
+.profileDropdownItem svg {
+  flex-shrink: 0;
+  width: 15px;
+  text-align: center;
+}
+
+/* Light mode */
+:global([data-theme="light"]) .profileDropdown {
+  background: #f3f3f1;
+  border-left-color: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .profileDropdownAvatar {
+  background: #0f2d2c;
+  color: #b3f9e5;
+}
+
+:global([data-theme="light"]) .profileDropdownName {
+  color: #1A1A1A;
+}
+
+:global([data-theme="light"]) .profileDropdownEmail {
+  color: #666666;
+}
+
+:global([data-theme="light"]) .profileDropdownDivider {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .profileDropdownItem {
+  color: #1A1A1A;
+}
+
+:global([data-theme="light"]) .profileDropdownItem:hover {
+  background: rgba(179, 249, 229, 0.2);
+  color: #0f2d2c;
+}
+
