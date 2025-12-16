@@ -1,0 +1,52 @@
+.scrollPicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+}
+
+.scrollPickerValue {
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.scrollPickerUnit {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-left: 8px;
+}
+
+.scrollPickerControls {
+  display: flex;
+  gap: 16px;
+}
+
+.scrollPickerBtn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.scrollPickerBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.scrollPickerBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
