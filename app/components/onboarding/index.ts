@@ -1,7 +1,4 @@
-export { default as OnboardingLayout } from './OnboardingLayout'
 export { default as SelectionGrid } from './SelectionGrid'
 export { default as RankedList } from './RankedList'
 export { default as ScrollPicker } from '../shared/ScrollPicker'
 export { default as HexagonGauge } from './HexagonGauge'
-export { default as WellnessProfileEditor } from './WellnessProfileEditor'
-export type { WellnessProfile } from './WellnessProfileEditor'

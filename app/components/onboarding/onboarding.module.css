@@ -1,283 +1,140 @@
-/* Onboarding Design System */
-/* Colors: #6C5AA6 (dark), #AE99CB (medium), #E0DEEC (light) */
-/* No border-radius anywhere */
-
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  background: #F8F8F8;
-  color: #1A1A1A;
-}
-
-/* Header */
-.header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.backButton {
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  color: #1A1A1A;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 150ms ease;
-}
-
-.backButton:hover {
-  opacity: 0.7;
-}
-
-.title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-  color: #1A1A1A;
-}
-
-/* Helper text */
-.helperText {
-  padding: 16px 20px 0;
-  font-size: 0.95rem;
-  color: #666666;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* Content area */
-.content {
-  flex: 1;
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* Footer */
-.footer {
-  padding: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.continueButton {
-  width: 100%;
-  padding: 16px;
-  background: #6C5AA6;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 150ms ease;
-}
-
-.continueButton:hover:not(:disabled) {
-  background: #5a4a8a;
-}
-
-.continueButton:disabled {
-  background: #CCCCCC;
-  cursor: not-allowed;
-}
-
-/* Selection Grid Component */
+/* Selection Grid */
 .selectionGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  max-width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  width: 100%;
 }
 
 .gridCard {
-  aspect-ratio: 1.2;
-  background: #EEEEEE;
-  border: none;
-  border-radius: 0;
-  padding: 12px;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: flex-start;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 150ms ease;
   text-align: left;
   position: relative;
-  transition: background 150ms ease;
 }
 
 .gridCard:hover {
-  background: #E8E8E8;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .gridCardSelected {
-  background: #D4CCE6;
-}
-
-.gridCardSelected:hover {
-  background: #D4CCE6;
+  background: rgba(173, 240, 221, 0.1);
+  border-color: rgba(173, 240, 221, 0.3);
 }
 
 .gridCardCheck {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #1A1A1A;
+  top: 12px;
+  right: 12px;
+  color: #adf0dd;
 }
 
 .gridCardLabel {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #1A1A1A;
+  font-size: 0.95rem;
+  color: var(--text-primary);
 }
 
-/* Ranked List Component */
+/* Ranked List */
 .rankedList {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 8px;
+  width: 100%;
 }
 
 .rankedItem {
-  padding: 18px 20px;
-  background: #EEEEEE;
-  border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
   transition: all 150ms ease;
+  text-align: left;
+  width: 100%;
 }
 
 .rankedItem:hover {
-  background: #E8E8E8;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .rankedItemSelected1 {
-  background: #B8E0E3;
-}
-
-.rankedItemSelected1:hover {
-  background: #B8E0E3;
+  background: rgba(173, 240, 221, 0.15);
+  border-color: rgba(173, 240, 221, 0.4);
 }
 
 .rankedItemSelected2 {
-  background: #D8D0E8;
-}
-
-.rankedItemSelected2:hover {
-  background: #D8D0E8;
+  background: rgba(173, 240, 221, 0.1);
+  border-color: rgba(173, 240, 221, 0.3);
 }
 
 .rankedItemSelected3 {
-  background: #F5E6C8;
-}
-
-.rankedItemSelected3:hover {
-  background: #F5E6C8;
+  background: rgba(173, 240, 221, 0.06);
+  border-color: rgba(173, 240, 221, 0.2);
 }
 
 .rankedItemLabel {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #1A1A1A;
-  text-align: left;
+  font-size: 0.95rem;
+  color: var(--text-primary);
 }
 
 .rankedItemPriority {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #1A1A1A;
-}
-
-/* Scroll Picker Component */
-.scrollPicker {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 0;
-}
-
-.scrollPickerValue {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #1A1A1A;
-  line-height: 1;
-}
-
-.scrollPickerUnit {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #666666;
-}
-
-.scrollPickerControls {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  margin-top: 24px;
-}
-
-.scrollPickerBtn {
-  width: 48px;
-  height: 48px;
-  background: #EEEEEE;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: #1A1A1A;
-  transition: background 150ms ease;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111113;
+  background: #adf0dd;
+  border-radius: 50%;
 }
 
-.scrollPickerBtn:hover {
-  background: #E0E0E0;
-}
-
-/* Hexagon Gauge Component */
+/* Hexagon Gauge */
 .hexagonGauge {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px 0;
+  padding: 24px;
 }
 
 .hexagonContainer {
   position: relative;
   width: 200px;
   height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.hexagonBg {
+.hexagonBg,
+.hexagonFill {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
 
 .hexagonFill {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  transition: height 300ms ease;
+  transition: clip-path 300ms ease;
 }
 
 .hexagonContent {
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -287,30 +144,43 @@
 .hexagonControls {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 .hexagonBtn {
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: #1A1A1A;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.hexagonBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hexagonBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .hexagonValue {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #1A1A1A;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .hexagonLabel {
-  font-size: 1rem;
-  color: #666666;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
   text-align: center;
 }
+

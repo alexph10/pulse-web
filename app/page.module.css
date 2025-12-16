@@ -140,6 +140,47 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
+/* Insights Profile Content - embedded version */
+.insightsProfileContent {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.insightsTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.insightsSubtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.insightsEditPage {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Light mode overrides for insights */
+.mainContainer[data-theme="light"] .insightsTitle {
+  color: #1A1A1A;
+}
+
+.mainContainer[data-theme="light"] .insightsSubtitle {
+  color: rgba(0, 0, 0, 0.6);
+}
+
 /* ========== Chat Panel ========== */
 .chatPanel {
   position: fixed;
@@ -1015,7 +1056,7 @@
   padding: 20px 24px;
   border-radius: 8px;
   background: transparent;
-  transition: background 150ms ease, transform 150ms ease;
+  transition: background 150ms ease;
   width: 100%;
   box-sizing: border-box;
 }

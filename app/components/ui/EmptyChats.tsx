@@ -144,10 +144,6 @@ export default function EmptyChats({ onStart, visible = true, threads = sampleTh
             className={styles.threadCard}
             onClick={onStart}
             variants={cardVariants}
-            whileHover={{ 
-              x: 3,
-              transition: { duration: 0.12 }
-            }}
           >
             <p className={styles.threadCardTimestamp}>{thread.timestamp}</p>
             <h3 className={styles.threadCardTitle}>{thread.title}</h3>

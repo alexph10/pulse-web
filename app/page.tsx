@@ -512,6 +512,7 @@ export default function MainPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
+                style={{ width: '100%', maxWidth: '1248px' }}
               >
                 <WellnessFocus />
               </motion.div>
@@ -529,9 +530,7 @@ export default function MainPage() {
         {/* Insights Page */}
         {activePage === 'insights' && (
           <div className={styles.insightsContent}>
-            <div className={styles.insightsEmptyState}>
-              Insights coming soon
-            </div>
+            {/* Insights content coming soon */}
           </div>
         )}
       </div>

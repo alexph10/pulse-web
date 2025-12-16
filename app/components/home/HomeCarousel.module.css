@@ -74,7 +74,7 @@
   flex-shrink: 0;
 }
 
-/* Insight card */
+/* Insight card - heatmap container (original size) */
 .insightCard {
   background: #E8E0F0;
   border-radius: 14px;
@@ -88,7 +88,7 @@
   overflow: visible;
 }
 
-/* Secondary/Large card */
+/* Secondary/Large card - title/welcome card (original size) */
 .secondaryCard {
   background: #E0DEEC;
   border-radius: 14px;
@@ -131,11 +131,11 @@
 /* Medium card */
 .mediumCard {
   background: #add2d1;
-  border-radius: 14px;
-  padding: 20px 22px;
+  border-radius: 12px;
+  padding: 16px 18px;
   flex: 1;
-  min-width: 300px;
-  min-height: 280px;
+  min-width: 220px;
+  min-height: 160px;
   height: auto;
   box-sizing: border-box;
   position: relative;
@@ -169,11 +169,11 @@
 /* Wellness Trend Card */
 .wellnessTrendCard {
   background: #E8E0F0;
-  border-radius: 14px;
-  padding: 20px 22px;
-  width: 280px;
-  min-width: 280px;
-  height: 280px;
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 200px;
+  min-width: 200px;
+  height: 160px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -183,11 +183,11 @@
 /* Habit Streak Card */
 .habitStreakCard {
   background: #E8E0F0;
-  border-radius: 14px;
-  padding: 20px 22px;
-  width: 280px;
-  min-width: 280px;
-  height: 280px;
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 200px;
+  min-width: 200px;
+  height: 160px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -197,9 +197,9 @@
 /* Correlation Card */
 .correlationCard {
   background: #E0DEEC;
-  border-radius: 14px;
-  padding: 20px 22px;
-  height: 280px;
+  border-radius: 12px;
+  padding: 16px 18px;
+  height: 160px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -208,27 +208,32 @@
 
 .correlationCardLarge {
   flex: 1;
-  min-width: 300px;
-  max-width: 600px;
+  min-width: 220px;
+  max-width: 420px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-  .insightCard,
-  .wellnessTrendCard,
-  .habitStreakCard {
-    width: 240px;
-    min-width: 240px;
-    height: 260px;
+  .insightCard {
+    width: 260px;
+    min-width: 260px;
+    min-height: 280px;
   }
 
   .secondaryCard {
-    min-width: 300px;
-    height: 260px;
+    min-width: 260px;
+    min-height: 280px;
+  }
+
+  .wellnessTrendCard,
+  .habitStreakCard {
+    width: 180px;
+    min-width: 180px;
+    height: 140px;
   }
 
   .mediumCard {
-    min-width: 260px;
-    height: 260px;
+    min-width: 180px;
+    height: 140px;
   }
 }

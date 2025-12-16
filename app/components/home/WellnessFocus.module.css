@@ -5,6 +5,7 @@
   margin-bottom: 16px;
   position: relative;
   overflow: visible;
+  align-self: stretch;
 }
 
 .wellnessFocusHeader {
@@ -39,34 +40,45 @@
   line-height: 1.5;
 }
 
+/* Cards container - horizontal layout */
 .wellnessFocusItems {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
   width: 100%;
-  max-width: 1248px;
   position: relative;
+  align-self: stretch;
 }
 
-/* Card base - matches carousel width (1248px total) */
+/* Card base - taller card design matching reference */
 .wellnessFocusItem {
-  display: block;
+  flex: 1 1 calc(50% - 8px);
+  min-width: 240px;
+  min-height: 160px;
   padding: 20px 24px;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
   overflow: hidden;
-  width: 100%;
-  max-width: 1248px;
   box-sizing: border-box;
-  min-height: 70px;
+  background: #031b1d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-/* All cards - sage green with dark teal text */
+/* Override type-specific backgrounds - all cards same color now */
 .wellnessFocusItem.reflection,
 .wellnessFocusItem.task {
-  background: #c5c8b4;
+  background: #031b1d;
 }
 
+/* All text in white */
+.wellnessFocusItem .cardIcon,
+.wellnessFocusItem .cardLabel,
+.wellnessFocusItem .cardText,
+.wellnessFocusItem .cardDescription,
 .wellnessFocusItem.reflection .cardIcon,
 .wellnessFocusItem.reflection .cardLabel,
 .wellnessFocusItem.reflection .cardText,
@@ -75,38 +87,62 @@
 .wellnessFocusItem.task .cardLabel,
 .wellnessFocusItem.task .cardText,
 .wellnessFocusItem.task .cardDescription {
-  color: #0f2d2c;
+  color: #ffffff;
 }
 
-/* Card header - horizontal layout */
+/* Card header - horizontal layout with arrow on right */
 .cardHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
 }
 
 .cardHeaderLeft {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  gap: 12px;
+  flex: 1;
 }
 
 .cardIcon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
 }
 
 .cardLabel {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .cardText {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
   flex: 1;
+  line-height: 1.4;
+}
+
+/* Arrow icon on the right */
+.cardArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  opacity: 0.6;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.wellnessFocusItem:hover .cardArrow {
+  opacity: 1;
+  transform: translateX(2px);
 }
 
 /* Expanded content - wrapper handles height animation */
@@ -118,40 +154,55 @@
 
 /* Inner content with padding */
 .cardExpandedInner {
-  padding-top: 16px;
+  padding-top: 20px;
+  padding-bottom: 8px;
   width: 100%;
   box-sizing: border-box;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cardDescription {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  margin: 0 0 16px 0;
-  opacity: 0.9;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  opacity: 0.8;
+  flex: 1;
 }
 
-/* Input wrapper */
+/* Input wrapper - updated for dark theme */
 .cardInputWrapper {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(15, 45, 44, 0.1);
-  border: 1px solid rgba(15, 45, 44, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
   border-radius: 100px;
-  padding: 6px 8px 6px 16px;
+  padding: 8px 10px 8px 18px;
+  margin-top: 8px;
+  max-width: 100%;
 }
 
 .cardInput {
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 0.9rem;
-  color: #0f2d2c;
+  font-size: 0.95rem;
+  color: #ffffff;
   outline: none;
+  padding: 4px 0;
+  text-decoration: none;
+}
+
+.cardInput:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .cardInput::placeholder {
-  color: rgba(15, 45, 44, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .cardSendButton {
@@ -159,13 +210,18 @@
   height: 32px;
   border-radius: 50%;
   border: none;
-  background: rgba(15, 45, 44, 0.15);
-  color: #0f2d2c;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: background 150ms ease;
+}
+
+.cardSendButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .cardSendButton:disabled {
@@ -173,41 +229,69 @@
   cursor: not-allowed;
 }
 
-/* Action buttons */
+/* Action buttons - updated for dark theme */
 .cardActions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 10px;
-  justify-content: center;
+  margin-top: auto;
   width: 100%;
-  max-width: 100%;
   box-sizing: border-box;
 }
 
 .actionButton {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
   border-radius: 100px;
   border: none;
-  background: rgba(15, 45, 44, 0.15);
-  color: #0f2d2c;
+  background: #ebebeb;
+  color: #163232;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
+  min-width: 160px;
+  transition: background 150ms ease;
+}
+
+.actionButton:hover {
+  background: #e0e0e0;
 }
 
 .actionButtonOutline {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
   border-radius: 100px;
-  border: 1px solid rgba(15, 45, 44, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background: transparent;
-  color: #0f2d2c;
+  color: #ffffff;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
+  min-width: 160px;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.actionButtonOutline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive - stack on smaller screens */
+@media (max-width: 768px) {
+  .wellnessFocusItems {
+    flex-direction: column;
+  }
+  
+  .wellnessFocusItem {
+    flex: 1 1 100%;
+    min-width: 100%;
+    min-height: 140px;
+  }
 }

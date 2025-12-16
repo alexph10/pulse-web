@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import styles from '../onboarding/onboarding.module.css'
+import styles from './ScrollPicker.module.css'
 
 interface ScrollPickerProps {
   value: number

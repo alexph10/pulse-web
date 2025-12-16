@@ -3,107 +3,109 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 400px; /* Fixed min-height - not using spacing token */
-  padding: var(--spacing-3xl);
-  margin: var(--spacing-lg);
+  min-height: 100vh;
+  padding: 48px 24px;
   text-align: center;
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: 0;
+  background: #111113;
 }
 
 .iconContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px; /* Fixed icon container size - not using spacing token */
-  height: 80px; /* Fixed icon container size - not using spacing token */
-  margin-bottom: var(--spacing-xl);
-  background: var(--overlay-backdrop-subtle);
-  border-radius: 0;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 32px;
+  background: rgba(173, 240, 221, 0.1);
+  border-radius: 50%;
 }
 
 .icon {
-  width: 40px; /* Fixed icon size - not using spacing token */
-  height: 40px; /* Fixed icon size - not using spacing token */
-  color: var(--error);
-}
-
-.iconContainer {
-  background: var(--overlay-backdrop-subtle);
+  width: 32px;
+  height: 32px;
+  color: #adf0dd;
 }
 
 .title {
-  margin-bottom: var(--spacing-sm);
-  font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  margin: 0 0 12px 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
 .message {
-  max-width: 500px; /* Fixed max-width - not using spacing token */
-  margin-bottom: var(--spacing-xl);
-  font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-relaxed);
-  color: var(--text-secondary);
+  max-width: 440px;
+  margin: 0 0 32px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .details {
   width: 100%;
-  max-width: 600px; /* Fixed max-width - not using spacing token */
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
+  max-width: 560px;
+  padding: 16px 20px;
+  margin-bottom: 32px;
   text-align: left;
-  background: var(--background);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
 }
 
 .detailsSummary {
-  margin-bottom: var(--spacing-sm);
-  font-family: var(--font-family-satoshi);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
 
 .detailsPre {
   overflow: auto;
-  font-family: monospace;
-  font-size: var(--font-size-small);
-  color: var(--error);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: #ff6b6b;
   word-break: break-word;
   white-space: pre-wrap;
+  max-height: 200px;
 }
 
 .buttonContainer {
   display: flex;
-  gap: var(--spacing-md);
+  gap: 12px;
 }
 
 .buttonPrimary {
-  padding: var(--spacing-md) var(--spacing-xl);
-  font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-semibold);
-  color: var(--brand-white);
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111113;
   cursor: pointer;
-  background: var(--accent-primary);
+  background: #adf0dd;
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.buttonPrimary:hover {
+  background: #c5f5e8;
+  transform: translateY(-1px);
 }
 
 .buttonSecondary {
-  padding: var(--spacing-md) var(--spacing-xl);
-  font-family: var(--font-family-satoshi);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  background: var(--surface);
-  border: var(--border-width-thin) solid var(--border-subtle);
-  border-radius: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  transition: background 150ms ease, border-color 150ms ease;
 }
 
+.buttonSecondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}

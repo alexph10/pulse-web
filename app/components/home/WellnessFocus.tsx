@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { QuestionMarkCircledIcon, CheckCircledIcon, ArrowUpIcon, CheckIcon, CrossCircledIcon } from '@radix-ui/react-icons'
+import { QuestionMarkCircledIcon, CheckCircledIcon, ArrowUpIcon, CheckIcon, CrossCircledIcon, ArrowRightIcon } from '@radix-ui/react-icons'
 import { wellnessFocusItems } from '@/app/constants'
 import styles from './WellnessFocus.module.css'
 
@@ -73,16 +73,11 @@ export default function WellnessFocus() {
               {/* Header */}
               <div className={styles.cardHeader}>
                 <div className={styles.cardHeaderLeft}>
-                  <div className={styles.cardIcon}>
-                    {item.type === 'reflection' ? (
-                      <QuestionMarkCircledIcon width={18} height={18} />
-                    ) : (
-                      <CheckCircledIcon width={18} height={18} />
-                    )}
-                  </div>
-                  <span className={styles.cardLabel}>{item.label}</span>
+                  <span className={styles.cardText}>{item.text}</span>
                 </div>
-                <span className={styles.cardText}>{item.text}</span>
+                <div className={styles.cardArrow}>
+                  <ArrowRightIcon width={24} height={24} />
+                </div>
               </div>
 
               {/* Expanded content with smooth spring animation */}

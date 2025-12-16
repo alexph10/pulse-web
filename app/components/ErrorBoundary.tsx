@@ -147,11 +147,11 @@ class ErrorBoundary extends Component<Props, State> {
             </button>
 
             <button
-              onClick={() => window.location.href = '/dashboard'}
+              onClick={() => window.location.href = '/'}
               className={styles.buttonSecondary}
-              aria-label="Navigate to dashboard"
+              aria-label="Navigate to home"
             >
-              Go to Dashboard
+              Go to Home
             </button>
           </div>
         </div>
