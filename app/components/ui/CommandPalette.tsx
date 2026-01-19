@@ -216,8 +216,8 @@ export function CommandPalette({ commands: customCommands }: CommandPaletteProps
         {/* Footer */}
         <div className={styles.footer}>
           <div className={styles.footerHint}>
-            <kbd>↑</kbd>
-            <kbd>↓</kbd>
+            <kbd>Up</kbd>
+            <kbd>Down</kbd>
             <span>Navigate</span>
           </div>
           <div className={styles.footerHint}>

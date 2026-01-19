@@ -33,16 +33,16 @@
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 50%;
   cursor: pointer;
   transition: all 150ms ease;
 }
 
 .scrollPickerBtn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--border-emphasis);
+  border-color: var(--border-strong);
 }
 
 .scrollPickerBtn:disabled {

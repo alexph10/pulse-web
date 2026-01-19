@@ -1,7 +1,8 @@
 "use client"
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import styles from '@/app/page.module.css'
+import chatStyles from '@/app/styles/chat.module.css'
+import uiStyles from '@/app/styles/ui.module.css'
 
 type Thread = {
   id: string
@@ -114,7 +115,7 @@ export default function EmptyChats({ onStart, visible = true, threads = sampleTh
   if (threads.length === 0) {
     return (
       <motion.section
-        className={styles.emptyState}
+        className={uiStyles.emptyState}
         role="status"
         aria-live="polite"
         aria-label="Chat history empty"
@@ -123,7 +124,7 @@ export default function EmptyChats({ onStart, visible = true, threads = sampleTh
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <p className={styles.emptyLabel}>Chat History Empty</p>
+        <p className={uiStyles.emptyLabel}>Chat History Empty</p>
       </motion.section>
     )
   }
@@ -132,7 +133,7 @@ export default function EmptyChats({ onStart, visible = true, threads = sampleTh
   return (
     <AnimatePresence mode="wait">
       <motion.div 
-        className={styles.chatHistoryContainer}
+        className={chatStyles.chatHistoryContainer}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -141,13 +142,13 @@ export default function EmptyChats({ onStart, visible = true, threads = sampleTh
         {threads.map((thread) => (
           <motion.div 
             key={thread.id} 
-            className={styles.threadCard}
+            className={chatStyles.threadCard}
             onClick={onStart}
             variants={cardVariants}
           >
-            <p className={styles.threadCardTimestamp}>{thread.timestamp}</p>
-            <h3 className={styles.threadCardTitle}>{thread.title}</h3>
-            <p className={styles.threadCardPreview}>
+            <p className={chatStyles.threadCardTimestamp}>{thread.timestamp}</p>
+            <h3 className={chatStyles.threadCardTitle}>{thread.title}</h3>
+            <p className={chatStyles.threadCardPreview}>
               {thread.preview.map((segment, i) => (
                 <span key={i}>{segment}{i < thread.preview.length - 1 ? ' ' : ''}</span>
               ))}

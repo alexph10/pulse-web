@@ -1,4 +1,4 @@
-import { Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { AuthRequest } from './auth.js';
 
 interface RateLimitStore {
@@ -75,9 +75,11 @@ export function checkRateLimit(
 
 export function getRateLimitHeaders(
   remaining: number,
-  resetTime: number
+  resetTime: number,
+  limit: number
 ): Record<string, string> {
   return {
+    'X-RateLimit-Limit': limit.toString(),
     'X-RateLimit-Remaining': remaining.toString(),
     'X-RateLimit-Reset': Math.floor(resetTime / 1000).toString(),
   };
@@ -88,7 +90,7 @@ export function getRateLimitHeaders(
  */
 export function rateLimitMiddleware(limit: { requests: number; windowMs: number }) {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
-    const identifier = req.userId || req.ip || 'unknown';
+    const identifier = req.userId || (req as Request).ip || 'unknown';
     const rateLimit = checkRateLimit(identifier, limit);
     
     if (!rateLimit.allowed) {
@@ -98,7 +100,7 @@ export function rateLimitMiddleware(limit: { requests: number; windowMs: number 
     }
     
     // Add rate limit headers to response
-    res.set(getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime));
+    res.set(getRateLimitHeaders(rateLimit.remaining, rateLimit.resetTime, limit.requests));
     next();
   };
 }

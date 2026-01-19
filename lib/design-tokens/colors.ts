@@ -25,26 +25,6 @@ export const colors = {
     borderEmphasis: '#d4c9bb', // emphasis border
     borderStrong: '#b8a895', // strong border
   },
-  // Purple Theme (from reference images)
-  purple: {
-    background: '#3A1F5C', // dark purple
-    backgroundSecondary: '#2D1A47',
-    surface: '#4A2B6B',
-    surfaceElevated: '#5A3B7B',
-    textPrimary: '#C8BFE7', // light lavender
-    textSecondary: '#B8A8D8',
-    textTertiary: '#9A8BC8',
-    textDisabled: '#6B5A8B',
-    accentPrimary: '#C8BFE7', // light lavender
-    accentPrimaryHover: '#D8CFE7',
-    accentPrimaryActive: '#B8A8D8',
-    accentSecondary: '#9A8BC8',
-    accentMuted: '#7A6BA8',
-    accentSubtle: '#6B5A8B',
-    borderSubtle: '#4A2B6B',
-    borderEmphasis: '#5A3B7B',
-    borderStrong: '#6A4B8B',
-  },
   // Red Theme (from reference images)
   red: {
     background: '#4A0000', // dark maroon
@@ -65,25 +45,26 @@ export const colors = {
     borderEmphasis: '#6A0000',
     borderStrong: '#7A0000',
   },
-  // Light mode - Sandstone theme
+  // Light mode - Clean light theme with dark teal text
   light: {
-    background: '#f5f2eb',
-    backgroundSecondary: '#faf8f4',
-    surface: '#ffffff',
-    surfaceElevated: '#fefefe',
-    textPrimary: '#385f52',
-    textSecondary: '#4a7364',
-    textTertiary: '#5c8776',
-    textDisabled: '#9eb5ad',
-    accentPrimary: '#385f52',
-    accentPrimaryHover: '#4a7364',
-    accentPrimaryActive: '#2d4d42',
-    accentSecondary: '#f6b562',
-    accentMuted: '#e4a855',
-    accentSubtle: '#f9d8a8',
-    borderSubtle: '#e4ddd3',
-    borderEmphasis: '#d4c9bb',
-    borderStrong: '#b8a895',
+    background: '#f3f3f1',           // Soft warm gray
+    backgroundSecondary: '#f8f8f6',  // Lighter variant
+    surface: '#ffffff',              // Pure white
+    surfaceElevated: '#fefefe',      // Elevated white
+    textPrimary: '#0f2d2c',          // Dark teal - primary text
+    textSecondary: '#1a3a38',        // Medium teal - secondary text
+    textTertiary: '#245450',         // Lighter teal - tertiary text
+    textDisabled: '#3d8a84',         // Muted teal - disabled text
+    textInverse: '#f3f3f1',          // Inverted text (for buttons on dark bg)
+    accentPrimary: '#0f2d2c',        // Dark teal - accent
+    accentPrimaryHover: '#1a3a38',   // Hover state
+    accentPrimaryActive: '#0a1f1e',  // Active/pressed state
+    accentSecondary: '#adf0dd',      // Mint accent (matches dark mode)
+    accentMuted: '#7de8c8',          // Muted mint
+    accentSubtle: 'rgba(15, 45, 44, 0.08)', // Subtle teal overlay
+    borderSubtle: 'rgba(15, 45, 44, 0.1)',  // Subtle border
+    borderEmphasis: 'rgba(15, 45, 44, 0.15)', // Emphasis border
+    borderStrong: 'rgba(15, 45, 44, 0.25)',   // Strong border
   },
   // Dark mode - True Black theme with dramatic depth
   dark: {
@@ -163,6 +144,6 @@ export const colors = {
   },
 } as const
 
-export type ColorTheme = 'light' | 'dark' | 'visionary' | 'purple' | 'red'
+export type ColorTheme = 'light' | 'dark' | 'visionary' | 'red'
 export type SemanticColor = keyof typeof colors.semantic
 

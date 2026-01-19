@@ -14,24 +14,25 @@
   --font-family-cormorant: 'Cormorant Garamond', serif;
   --font-family-antonia: 'Antonia H1', serif;
 
-  /* Colors - Visionary Earth Tone Theme (Primary) */
-  --background: #f5f2eb;
-  --background-secondary: #faf8f4;
+  /* Colors - Light Mode with Dark Teal Text */
+  --background: #f3f3f1;
+  --background-secondary: #f8f8f6;
   --surface: #ffffff;
   --surface-elevated: #fefefe;
-  --text-primary: #385f52;
-  --text-secondary: #4a7364;
-  --text-tertiary: #5c8776;
-  --text-disabled: #9eb5ad;
-  --accent-primary: #385f52;
-  --accent-primary-hover: #4a7364;
-  --accent-primary-active: #2d4d42;
-  --accent-secondary: #f6b562;
-  --accent-muted: #e4a855;
-  --accent-subtle: #f9d8a8;
-  --border-subtle: #e4ddd3;
-  --border-emphasis: #d4c9bb;
-  --border-strong: #b8a895;
+  --text-primary: #0f2d2c;
+  --text-secondary: #1a3a38;
+  --text-tertiary: #245450;
+  --text-disabled: #3d8a84;
+  --text-inverse: #f3f3f1;
+  --accent-primary: #0f2d2c;
+  --accent-primary-hover: #1a3a38;
+  --accent-primary-active: #0a1f1e;
+  --accent-secondary: #adf0dd;
+  --accent-muted: #7de8c8;
+  --accent-subtle: rgba(15, 45, 44, 0.08);
+  --border-subtle: rgba(15, 45, 44, 0.1);
+  --border-emphasis: rgba(15, 45, 44, 0.15);
+  --border-strong: rgba(15, 45, 44, 0.25);
 
   /* Chart Accent Palette */
   --chart-saffron: #f5ce58;
@@ -172,32 +173,61 @@
 
 }
 
+/* Light mode via data attribute */
+[data-theme='light'] {
+  --background: #f3f3f1;
+  --background-secondary: #f8f8f6;
+  --surface: #ffffff;
+  --surface-elevated: #fefefe;
+  --text-primary: #0f2d2c;
+  --text-secondary: #1a3a38;
+  --text-tertiary: #245450;
+  --text-disabled: #3d8a84;
+  --text-inverse: #f3f3f1;
+  --accent-primary: #0f2d2c;
+  --accent-primary-hover: #1a3a38;
+  --accent-primary-active: #0a1f1e;
+  --accent-secondary: #adf0dd;
+  --accent-muted: #7de8c8;
+  --accent-subtle: rgba(15, 45, 44, 0.08);
+  --border-subtle: rgba(15, 45, 44, 0.1);
+  --border-emphasis: rgba(15, 45, 44, 0.15);
+  --border-strong: rgba(15, 45, 44, 0.25);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(15, 45, 44, 0.08);
+  --shadow-md: 0 4px 12px rgba(15, 45, 44, 0.12);
+  --shadow-lg: 0 8px 24px rgba(15, 45, 44, 0.16);
+  --shadow-xl: 0 16px 48px rgba(15, 45, 44, 0.2);
+}
+
 /* Dark mode via data attribute */
 [data-theme='dark'] {
-  /* Visionary Theme - Even Darker */
-  --background: #3c0f33;
-  --background-secondary: #4a1a42;
-  --surface: #4a1a42;
-  --surface-elevated: #5a2a52;
-  --text-primary: #F5E6FF;
-  --text-secondary: #D4B8E8;
-  --text-tertiary: #B89DD8;
-  --text-disabled: #7A5FA8;
-  --accent-primary: #E844E8;
-  --accent-primary-hover: #F060F0;
-  --accent-primary-active: #D030D8;
-  --accent-secondary: #B87FCE;
-  --accent-muted: #9865B8;
-  --accent-subtle: #6B4A88;
-  --border-subtle: #5a2a52;
-  --border-emphasis: #6B4A88;
-  --border-strong: #7A5FA8;
+  /* Dark theme */
+  --background: #111113;
+  --background-secondary: #161618;
+  --surface: #1e1e20;
+  --surface-elevated: #252527;
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-disabled: rgba(255, 255, 255, 0.3);
+  --text-inverse: #111113;
+  --accent-primary: #b3f9e5;
+  --accent-primary-hover: #9df0d8;
+  --accent-primary-active: #7de8c8;
+  --accent-secondary: #0f2d2c;
+  --accent-muted: rgba(179, 249, 229, 0.25);
+  --accent-subtle: rgba(179, 249, 229, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-emphasis: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.25);
 
-  /* Shadows - Darker */
-  --shadow-sm: 0 1px 3px rgba(93, 62, 57, 0.15000000000000002);
-  --shadow-md: 0 4px 12px rgba(93, 62, 57, 0.2);
-  --shadow-lg: 0 8px 24px rgba(93, 62, 57, 0.25);
-  --shadow-xl: 0 16px 48px rgba(93, 62, 57, 0.3);
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
 }
 
 /* Fallback to system preference if no manual selection */

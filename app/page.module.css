@@ -33,6 +33,12 @@
 /* Light mode */
 .mainContainer[data-theme="light"] {
   background: #f3f3f1;
+  color: #0f2d2c;
+  --text-primary: #0f2d2c;
+  --text-secondary: rgba(15, 45, 44, 0.7);
+  --text-tertiary: rgba(15, 45, 44, 0.5);
+  --text-disabled: rgba(15, 45, 44, 0.3);
+  --text-inverse: #f3f3f1;
 }
 
 .mainContainer[data-theme="light"]::before {
@@ -86,7 +92,7 @@
 }
 
 .mainContainer[data-theme="light"] .dateDisplay {
-  color: #666666;
+  color: #0f2d2c;
 }
 
 /* ========== Chat Content Area ========== */
@@ -187,33 +193,24 @@
   top: 60px;
   right: 0;
   height: calc(100vh - 60px);
-  background: #111113;
+  background: var(--background);
   z-index: 150;
   display: flex;
   flex-direction: column;
   box-shadow: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid var(--border-subtle);
   padding: 16px 20px 20px 20px;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.mainContainer[data-theme="light"] .chatPanel {
-  background: #f3f3f1;
-  border-left-color: rgba(0, 0, 0, 0.1);
-}
-
 .chatPanelTitle {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #adf0dd;
+  color: var(--text-primary);
   margin: 0 0 16px 0;
   padding: 0;
   text-align: left;
-}
-
-.mainContainer[data-theme="light"] .chatPanelTitle {
-  color: #0f2d2c;
 }
 
 /* Chat Messages Area */
@@ -236,19 +233,19 @@
 }
 
 .chatArea::-webkit-scrollbar-thumb {
-  background: rgba(173, 240, 221, 0.2);
+  background: var(--accent-subtle);
   border-radius: 3px;
 }
 
 .chatArea::-webkit-scrollbar-thumb:hover {
-  background: rgba(173, 240, 221, 0.3);
+  background: var(--border-emphasis);
 }
 
 .userMessage {
   align-self: flex-end;
   max-width: 85%;
-  background: rgba(173, 240, 221, 0.15);
-  border: 1px solid rgba(173, 240, 221, 0.2);
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 16px 16px 4px 16px;
   padding: 12px 16px;
 }
@@ -256,8 +253,8 @@
 .assistantMessage {
   align-self: flex-start;
   max-width: 85%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 16px 16px 16px 4px;
   padding: 12px 16px;
 }
@@ -266,29 +263,11 @@
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
 }
 
 .userMessage .messageText {
-  color: #adf0dd;
-}
-
-.mainContainer[data-theme="light"] .userMessage {
-  background: rgba(15, 45, 44, 0.1);
-  border-color: rgba(15, 45, 44, 0.15);
-}
-
-.mainContainer[data-theme="light"] .assistantMessage {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-.mainContainer[data-theme="light"] .messageText {
-  color: #1A1A1A;
-}
-
-.mainContainer[data-theme="light"] .userMessage .messageText {
-  color: #0f2d2c;
+  color: var(--text-primary);
 }
 
 /* Chat Input */
@@ -296,7 +275,7 @@
   margin-top: auto;
   padding-top: 12px;
   padding-bottom: 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--border-subtle);
   flex-shrink: 0;
 }
 
@@ -304,16 +283,16 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(173, 240, 221, 0.2);
+  background: var(--surface);
+  border: 1px solid var(--border-emphasis);
   border-radius: 20px;
   padding: 6px 6px 6px 16px;
   transition: border-color 200ms ease, background 200ms ease;
 }
 
 .chatInputInner:focus-within {
-  border-color: rgba(173, 240, 221, 0.4);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
+  background: var(--surface-elevated);
 }
 
 .chatInput {
@@ -322,12 +301,12 @@
   border: none;
   outline: none;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
   padding: 6px 0;
 }
 
 .chatInput::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-tertiary);
 }
 
 .chatSendBtn {
@@ -335,8 +314,8 @@
   height: 32px;
   border-radius: 50%;
   border: none;
-  background: linear-gradient(135deg, #adf0dd 0%, #86b8aa 100%);
-  color: #0f2d2c;
+  background: var(--accent-primary);
+  color: var(--accent-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -347,38 +326,12 @@
 
 .chatSendBtn:hover:not(:disabled) {
   transform: scale(1.05);
+  background: var(--accent-primary-hover);
 }
 
 .chatSendBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-}
-
-.mainContainer[data-theme="light"] .chatInputWrapper {
-  border-top-color: rgba(0, 0, 0, 0.08);
-}
-
-.mainContainer[data-theme="light"] .chatInputInner {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(15, 45, 44, 0.2);
-}
-
-.mainContainer[data-theme="light"] .chatInputInner:focus-within {
-  border-color: rgba(15, 45, 44, 0.4);
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.mainContainer[data-theme="light"] .chatInput {
-  color: #1A1A1A;
-}
-
-.mainContainer[data-theme="light"] .chatInput::placeholder {
-  color: rgba(0, 0, 0, 0.4);
-}
-
-.mainContainer[data-theme="light"] .chatSendBtn {
-  background: linear-gradient(135deg, #0f2d2c 0%, #1a3a38 100%);
-  color: #adf0dd;
 }
 
 /* ========== Chat Backdrop ========== */
@@ -387,10 +340,6 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.3);
   z-index: 99;
-}
-
-.mainContainer[data-theme="light"] .chatBackdrop {
-  background: rgba(243, 243, 241, 0.5);
 }
 
 /* ========== Chat Expand Button ========== */
@@ -402,7 +351,7 @@
   border: none;
   padding: 6px;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -411,15 +360,7 @@
 }
 
 .chatExpandBtn:hover {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.mainContainer[data-theme="light"] .chatExpandBtn {
-  color: rgba(15, 45, 44, 0.4);
-}
-
-.mainContainer[data-theme="light"] .chatExpandBtn:hover {
-  color: rgba(15, 45, 44, 0.7);
+  color: var(--text-secondary);
 }
 
 /* ========== Panel Backdrop ========== */
@@ -439,136 +380,139 @@
   opacity: 1;
   pointer-events: auto;
 }
-
-/* ========== Profile Overlay ========== */
+/* ========== Profile Panel (Sliding) ========== */
 .profileOverlay {
   position: fixed;
-  left: calc(16% + (85% - 16%) / 2);
-  top: 50%;
-  transform: translateX(-50%);
-  width: calc(85% - 16% - 20px);
-  max-width: 900px;
-  background: #F7F6F3;
-  color: #1A1A1A;
-  border-radius: 0;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 40;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  background: #111113;
+  z-index: 150;
   display: flex;
   flex-direction: column;
-  transform-origin: center center;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  box-shadow: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  overflow: hidden;
+  will-change: width;
 }
 
-.profileOverlay::-webkit-scrollbar {
-  width: 12px;
+.profileMenu {
+  padding: 20px 32px 24px 40px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.profileOverlay::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 999px;
+.profileMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profileMenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.profileMenu::-webkit-scrollbar-thumb {
+  background: rgba(173, 240, 221, 0.2);
+  border-radius: 3px;
+}
+
+.profileMenu::-webkit-scrollbar-thumb:hover {
+  background: rgba(173, 240, 221, 0.3);
 }
 
 .mainContainer[data-theme="light"] .profileOverlay {
   background: #111113;
-  color: rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.1);
+  border-right-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ========== Profile Menu & Content ========== */
-.profileMenu {
-  display: block;
-  padding: 20px;
-  box-sizing: border-box;
-  flex: 1;
-  min-height: 0;
-}
 
 .profileContent {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .panelTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 600;
   margin: 0;
-  color: #1A1A1A;
+  color: #adf0dd;
 }
 
 .panelSubtitle {
   font-size: 0.85rem;
-  color: #666666;
+  color: rgba(255, 255, 255, 0.5);
   margin: 4px 0 0 0;
 }
 
 .mainContainer[data-theme="light"] .panelTitle {
-  color: rgba(255, 255, 255, 0.9);
+  color: #adf0dd;
 }
 
 .mainContainer[data-theme="light"] .panelSubtitle {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ========== Profile Card ========== */
 .profileCard {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: #EEEEEE;
-  padding: 12px;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  padding: 12px 14px;
   border-radius: 0;
   cursor: pointer;
   transition: background 150ms ease;
 }
 
 .profileCard:hover {
-  background: #E8E8E8;
+  background: rgba(173, 240, 221, 0.12);
 }
 
 .profileAvatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
-  background: #9b8be0;
-  color: white;
+  background: #0f2d2c;
+  color: #b3f9e5;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .profileCardMeta {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
 .profileCardSubtitle {
   font-size: 0.75rem;
-  color: #888888;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .profileName {
   font-size: 1rem;
   font-weight: 600;
-  color: #1A1A1A;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .chevronRight {
   margin-left: auto;
-  color: #888888;
+  color: rgba(173, 240, 221, 0.6);
 }
 
 .mainContainer[data-theme="light"] .profileCard {
-  background: rgba(255, 255, 255, 0.05);
+  background: transparent;
 }
 
 .mainContainer[data-theme="light"] .profileCard:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(173, 240, 221, 0.12);
 }
 
 .mainContainer[data-theme="light"] .profileAvatar {
@@ -585,47 +529,49 @@
 }
 
 .mainContainer[data-theme="light"] .chevronRight {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(173, 240, 221, 0.6);
 }
 
 /* ========== Sections ========== */
 .sectionTitle {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  margin: 4px 0;
-  color: #1A1A1A;
+  margin: 6px 0;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .savedBox {
-  background: #EEEEEE;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: transparent;
+  border: none;
   border-radius: 0;
-  padding: 20px;
+  padding: 16px;
   text-align: center;
   font-size: 0.8rem;
-  color: #888888;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .mainContainer[data-theme="light"] .sectionTitle {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .mainContainer[data-theme="light"] .savedBox {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* ========== Info List & Cards ========== */
 .infoList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .infoCard {
-  background: #EEEEEE;
-  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -636,30 +582,30 @@
 }
 
 .infoCard:hover {
-  background: #E8E8E8;
-}
-
-.infoLabel {
-  font-size: 0.75rem;
-  color: #888888;
-}
-
-.infoValue {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #1A1A1A;
-}
-
-.mainContainer[data-theme="light"] .infoCard {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.infoLabel {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.infoValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mainContainer[data-theme="light"] .infoCard {
+  background: transparent;
+}
+
 .mainContainer[data-theme="light"] .infoCard:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .mainContainer[data-theme="light"] .infoLabel {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .mainContainer[data-theme="light"] .infoValue {
@@ -671,8 +617,8 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-top: 4px;
-  border-radius: 6px;
+  margin-top: 6px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -683,19 +629,24 @@
   padding: 10px 14px;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #1A1A1A;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rankedPreviewItem:last-child {
+  border-bottom: none;
 }
 
 .rankedPreviewItem:nth-child(1) {
-  background: #B8E0E3;
+  background: rgba(173, 240, 221, 0.15);
 }
 
 .rankedPreviewItem:nth-child(2) {
-  background: #D8D0E8;
+  background: rgba(173, 240, 221, 0.1);
 }
 
 .rankedPreviewItem:nth-child(3) {
-  background: #F5E6C8;
+  background: rgba(173, 240, 221, 0.06);
 }
 
 .rankedPreviewLabel {
@@ -703,8 +654,9 @@
 }
 
 .rankedPreviewNumber {
-  font-weight: 500;
-  opacity: 0.7;
+  font-weight: 600;
+  color: #adf0dd;
+  opacity: 0.8;
 }
 
 /* ========== Profile Edit Page ========== */
@@ -713,26 +665,26 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  background: #F7F6F3;
-  padding: 20px;
+  background: #111113;
+  padding: 20px 32px 24px 40px;
   overflow: hidden;
 }
 
 .profileEditHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   margin-bottom: 0;
 }
 
 .profileEditBackBtn {
   background: none;
   border: none;
-  padding: 6px;
+  padding: 4px;
   cursor: pointer;
-  color: #1A1A1A;
+  color: #adf0dd;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -744,98 +696,103 @@
 }
 
 .profileEditTitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
-  color: #1A1A1A;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.3;
 }
 
 .profileEditBody {
   flex: 1;
-  padding-top: 24px;
+  padding-top: 16px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 
 .profileEditDescription {
-  color: #4A4A4A;
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
   line-height: 1.5;
-  margin: 0 0 32px 0;
+  margin: 0 0 16px 0;
 }
 
 .profileEditFooter {
-  padding: 20px 0 0 0;
+  padding: 16px 0 0 0;
   margin-top: auto;
-  background: #F7F6F3;
+  background: #111113;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profileEditSaveBtn {
-  width: 100%;
-  background: #1A1A1A;
-  color: #ffffff;
+  width: 85%;
+  background: #adf0dd;
+  color: #0f2d2c;
   border: none;
-  border-radius: 30px;
-  padding: 18px 24px;
-  font-size: 0.95rem;
+  border-radius: 28px;
+  padding: 14px 18px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition: background 150ms ease;
 }
 
 .profileEditSaveBtn:hover {
-  opacity: 0.9;
+  background: #9de8d2;
 }
 
 /* ========== Settings Form ========== */
 .settingsForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .formLabel {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: #1A1A1A;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .formInput {
   width: 100%;
-  padding: 14px 16px;
-  font-size: 0.95rem;
-  border: 1px solid #E0E0E0;
-  border-radius: 8px;
-  background: #FFFFFF;
-  color: #1A1A1A;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
   outline: none;
-  transition: border-color 150ms ease;
+  transition: background 150ms ease;
   box-sizing: border-box;
 }
 
+.formInput:hover,
 .formInput:focus {
-  border-color: #1A1A1A;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .formInput::placeholder {
-  color: #AAAAAA;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .formInputDisabled {
   width: 100%;
-  padding: 14px 16px;
-  font-size: 0.95rem;
-  border: 1px solid #E8E8E8;
-  border-radius: 8px;
-  background: #F5F5F5;
-  color: #888888;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
   outline: none;
   box-sizing: border-box;
   cursor: not-allowed;
@@ -843,31 +800,32 @@
 
 .formSelect {
   width: 100%;
-  padding: 14px 16px;
-  font-size: 0.95rem;
-  border: 1px solid #E0E0E0;
-  border-radius: 8px;
-  background: #FFFFFF;
-  color: #1A1A1A;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
   outline: none;
-  transition: border-color 150ms ease;
+  transition: background 150ms ease;
   box-sizing: border-box;
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23adf0dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 44px;
+  background-position: right 10px center;
+  padding-right: 36px;
 }
 
+.formSelect:hover,
 .formSelect:focus {
-  border-color: #1A1A1A;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .deleteAccountLink {
   background: none;
   border: none;
-  color: #D97706;
+  color: #f87171;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
@@ -1040,7 +998,7 @@
 .chatHistoryContainer {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 28px;
   width: 100%;
   max-width: 100%;
   padding: 20px 0;
@@ -1051,9 +1009,9 @@
 .threadCard {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
-  padding: 20px 24px;
+  padding: 16px 20px;
   border-radius: 8px;
   background: transparent;
   transition: background 150ms ease;
@@ -1062,48 +1020,31 @@
 }
 
 .threadCard:hover {
-  background: rgba(173, 240, 221, 0.05);
+  background: var(--accent-subtle);
 }
 
 .threadCardTimestamp {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: #adf0dd;
+  color: var(--accent-primary);
   margin: 0;
   letter-spacing: 0.01em;
 }
 
 .threadCardTitle {
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
   margin: 0;
   line-height: 1.4;
 }
 
 .threadCardPreview {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   margin: 0;
-  line-height: 1.6;
-}
-
-/* Light mode thread cards */
-.mainContainer[data-theme="light"] .threadCard:hover {
-  background: rgba(15, 45, 44, 0.05);
-}
-
-.mainContainer[data-theme="light"] .threadCardTimestamp {
-  color: #0f2d2c;
-}
-
-.mainContainer[data-theme="light"] .threadCardTitle {
-  color: #1A1A1A;
-}
-
-.mainContainer[data-theme="light"] .threadCardPreview {
-  color: #666666;
+  line-height: 1.5;
 }
 
 /* ========== Empty State ========== */
@@ -1119,34 +1060,34 @@
 .emptyLabel {
   font-size: 1.1rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-disabled);
   margin: 0;
 }
 
-.mainContainer[data-theme="light"] .emptyLabel {
-  color: rgba(0, 0, 0, 0.4);
+/* ========== Responsive ========== */
+@media (max-width: 900px) {
+  .profileOverlay {
+    width: 50% !important;
+  }
 }
 
-/* ========== Responsive ========== */
 @media (max-width: 640px) {
   .profileOverlay {
-    left: 50%;
-    top: 12%;
-    width: calc(100% - 40px);
-    transform: translate(-50%, 0%);
-    border-radius: 10px;
+    width: 100% !important;
+    border-right: none;
   }
 
   .chatHistoryContainer {
     padding: 16px;
-    gap: 24px;
+    gap: 20px;
   }
 
   .threadCard {
-    padding: 12px 16px;
+    padding: 10px 14px;
   }
 
   .threadCardTitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 }
+

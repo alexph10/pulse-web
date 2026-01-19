@@ -164,7 +164,11 @@ export default function CalendarHeatmap({
           <span className={styles.monthLabel}>{monthName} check-ins</span>
           <div className={styles.statValue}>{totalChats}</div>
           <div className={styles.comparison}>
-            <span className={styles.comparisonArrow}>↗</span>
+            <span className={styles.comparisonArrow}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
             {comparisonText}
           </div>
         </div>

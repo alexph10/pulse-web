@@ -38,6 +38,9 @@ import { SelectionGrid, ScrollPicker, RankedList, HexagonGauge } from './compone
 
 // Styles
 import styles from './page.module.css'
+import chatStyles from './styles/chat.module.css'
+import profileStyles from './styles/profile.module.css'
+import uiStyles from './styles/ui.module.css'
 
 export default function MainPage() {
   // UI State
@@ -169,38 +172,40 @@ export default function MainPage() {
         )}
       </AnimatePresence>
 
-      {/* Profile Overlay Panel */}
+      {/* Profile Panel (Sliding) */}
       <AnimatePresence>
         {overlayOpen && (
           <motion.div
-            className={styles.profileOverlay}
+            className={profileStyles.profileOverlay}
             ref={panelRef}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-label="Profile panel"
-            initial={{ opacity: 0, y: 200 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 200 }}
+            initial={{ width: 0 }}
+            animate={{ width: '33%' }}
+            exit={{ width: 0 }}
             transition={{ type: 'spring', damping: 28, stiffness: 260, mass: 0.9 }}
-            style={{
-              position: 'fixed',
-              left: '50%',
-              top: '3%',
-              x: '-50%',
-              width: 'calc(85% - 16% - 20px)',
-              maxWidth: '900px',
-              height: '94vh',
-              pointerEvents: 'auto',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-            }}
+            style={{ overflow: 'hidden' }}
           >
-            <div className={styles.profileMenu} role="menu" aria-label="Profile menu">
+            <motion.div 
+              className={profileStyles.profileMenu} 
+              role="menu" 
+              aria-label="Profile menu"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: 1,
+                transition: { delay: 0.1, duration: 0.25, ease: 'easeOut' }
+              }}
+              exit={{ 
+                opacity: 0,
+                transition: { duration: 0.12, ease: 'easeIn' }
+              }}
+            >
               <AnimatePresence mode="wait">
                 {!editingField ? (
                   <motion.div
                     key="main"
-                    className={styles.profileContent}
+                    className={profileStyles.profileContent}
                     initial={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -40 }}
                     transition={{ duration: 0.2 }}
@@ -213,22 +218,26 @@ export default function MainPage() {
                     </div>
 
                     <div
-                      className={styles.profileCard}
+                      className={profileStyles.profileCard}
                       role="button"
                       onClick={() => setEditingField('settings')}
                     >
-                      <Avatar.Root className={styles.profileAvatar}>
-                        <Avatar.Fallback className={styles.avatarFallbackLarge}>
+                      <Avatar.Root className={profileStyles.profileAvatar}>
+                        <Avatar.Fallback className={uiStyles.avatarFallbackLarge}>
                           {firstName.charAt(0).toUpperCase()}
                         </Avatar.Fallback>
                       </Avatar.Root>
-                      <div className={styles.profileCardMeta}>
-                        <div className={styles.profileCardSubtitle}>Settings, personal info, and more</div>
-                        <div className={styles.profileName}>
+                      <div className={profileStyles.profileCardMeta}>
+                        <div className={profileStyles.profileCardSubtitle}>Settings, personal info, and more</div>
+                        <div className={profileStyles.profileName}>
                           {firstName} {lastName}
                         </div>
                       </div>
-                      <div className={styles.chevronRight}>▸</div>
+                      <div className={styles.chevronRight}>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4.5 2.25L8.25 6L4.5 9.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
                     </div>
 
                     <div>
@@ -302,15 +311,15 @@ export default function MainPage() {
                 ) : (
                   <motion.div
                     key="edit"
-                    className={styles.profileEditPage}
+                    className={profileStyles.profileEditPage}
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 40 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className={styles.profileEditHeader}>
+                    <div className={profileStyles.profileEditHeader}>
                       <button
-                        className={styles.profileEditBackBtn}
+                        className={profileStyles.profileEditBackBtn}
                         onClick={() => setEditingField(null)}
                         aria-label="Go back"
                       >
@@ -330,7 +339,7 @@ export default function MainPage() {
                           />
                         </svg>
                       </button>
-                      <h2 className={styles.profileEditTitle}>
+                      <h2 className={profileStyles.profileEditTitle}>
                         {editingField === 'lifeStage' && 'What is your life stage?'}
                         {editingField === 'sleepAverage' && 'How much do you sleep?'}
                         {editingField === 'stressLevel' && 'What is your stress level?'}
@@ -343,17 +352,17 @@ export default function MainPage() {
                       </h2>
                     </div>
 
-                    <div className={styles.profileEditBody}>
+                    <div className={profileStyles.profileEditBody}>
                       {editingField === 'lifeStage' && (
                         <>
-                          <p className={styles.profileEditDescription}>Select your current life stage</p>
+                          <p className={profileStyles.profileEditDescription}>Select your current life stage</p>
                           <SelectionGrid options={lifeStageOptions} selected={lifeStage} onChange={setLifeStage} />
                         </>
                       )}
 
                       {editingField === 'sleepAverage' && (
                         <>
-                          <p className={styles.profileEditDescription}>How many hours do you sleep on average?</p>
+                          <p className={profileStyles.profileEditDescription}>How many hours do you sleep on average?</p>
                           <ScrollPicker
                             value={sleepAverage}
                             onChange={setSleepAverage}
@@ -366,7 +375,7 @@ export default function MainPage() {
 
                       {editingField === 'stressLevel' && (
                         <>
-                          <p className={styles.profileEditDescription}>What is your current stress level?</p>
+                          <p className={profileStyles.profileEditDescription}>What is your current stress level?</p>
                           <SelectionGrid
                             options={stressLevelOptions}
                             selected={stressLevel}
@@ -377,7 +386,7 @@ export default function MainPage() {
 
                       {editingField === 'wellnessFocus' && (
                         <>
-                          <p className={styles.profileEditDescription}>
+                          <p className={profileStyles.profileEditDescription}>
                             Choose up to 3 focus areas. Your goals help us prioritize recommendations and create a
                             plan that aligns with what matters most.
                           </p>
@@ -392,7 +401,7 @@ export default function MainPage() {
 
                       {editingField === 'currentSupport' && (
                         <>
-                          <p className={styles.profileEditDescription}>What support do you currently have?</p>
+                          <p className={profileStyles.profileEditDescription}>What support do you currently have?</p>
                           <SelectionGrid
                             options={currentSupportOptions}
                             selected={currentSupport}
@@ -403,7 +412,7 @@ export default function MainPage() {
 
                       {editingField === 'wellnessConfidence' && (
                         <>
-                          <p className={styles.profileEditDescription}>
+                          <p className={profileStyles.profileEditDescription}>
                             How confident are you in managing your wellness?
                           </p>
                           <HexagonGauge
@@ -418,7 +427,7 @@ export default function MainPage() {
 
                       {editingField === 'workLifeBalance' && (
                         <>
-                          <p className={styles.profileEditDescription}>
+                          <p className={profileStyles.profileEditDescription}>
                             Your work-life balance affects stress levels, energy, and overall wellbeing.
                           </p>
                           <SelectionGrid
@@ -431,7 +440,7 @@ export default function MainPage() {
 
                       {editingField === 'socialConnection' && (
                         <>
-                          <p className={styles.profileEditDescription}>
+                          <p className={profileStyles.profileEditDescription}>
                             Social connections are vital for mental health and emotional support.
                           </p>
                           <SelectionGrid
@@ -461,15 +470,15 @@ export default function MainPage() {
                       )}
                     </div>
 
-                    <div className={styles.profileEditFooter}>
-                      <button className={styles.profileEditSaveBtn} onClick={() => setEditingField(null)}>
+                    <div className={profileStyles.profileEditFooter}>
+                      <button className={profileStyles.profileEditSaveBtn} onClick={() => setEditingField(null)}>
                         Save
                       </button>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -539,7 +548,7 @@ export default function MainPage() {
       <AnimatePresence>
         {chatOpen && (
           <motion.div
-            className={styles.chatBackdrop}
+            className={chatStyles.chatBackdrop}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -552,7 +561,7 @@ export default function MainPage() {
       {/* Chat Expand Button */}
       {activePage === 'chat' && !chatOpen && (
         <button
-          className={styles.chatExpandBtn}
+          className={chatStyles.chatExpandBtn}
           onClick={() => setChatOpen(true)}
           aria-label="Expand chat panel"
         >
@@ -717,19 +726,19 @@ function SettingsForm({
           <button className={styles.deleteAccountLink}>Delete account</button>
         </AlertDialog.Trigger>
         <AlertDialog.Portal>
-          <AlertDialog.Overlay className={styles.alertDialogOverlay} />
-          <AlertDialog.Content className={styles.alertDialogContent}>
-            <AlertDialog.Title className={styles.alertDialogTitle}>Delete Account</AlertDialog.Title>
-            <AlertDialog.Description className={styles.alertDialogDescription}>
+          <AlertDialog.Overlay className={uiStyles.alertDialogOverlay} />
+          <AlertDialog.Content className={uiStyles.alertDialogContent}>
+            <AlertDialog.Title className={uiStyles.alertDialogTitle}>Delete Account</AlertDialog.Title>
+            <AlertDialog.Description className={uiStyles.alertDialogDescription}>
               Are you sure you want to delete your account? This action cannot be undone. All your data, including
               journal entries and wellness information, will be permanently removed.
             </AlertDialog.Description>
-            <div className={styles.alertDialogActions}>
+            <div className={uiStyles.alertDialogActions}>
               <AlertDialog.Cancel asChild>
-                <button className={styles.alertDialogCancel}>Cancel</button>
+                <button className={uiStyles.alertDialogCancel}>Cancel</button>
               </AlertDialog.Cancel>
               <AlertDialog.Action asChild>
-                <button className={styles.alertDialogDelete}>Yes, delete my account</button>
+                <button className={uiStyles.alertDialogDelete}>Yes, delete my account</button>
               </AlertDialog.Action>
             </div>
           </AlertDialog.Content>

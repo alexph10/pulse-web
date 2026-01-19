@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpIcon } from '@radix-ui/react-icons'
-import styles from '@/app/page.module.css'
+import styles from '@/app/styles/chat.module.css'
 
 type Props = {
   onClose: () => void

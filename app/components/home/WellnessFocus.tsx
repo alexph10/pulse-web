@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { QuestionMarkCircledIcon, CheckCircledIcon, ArrowUpIcon, CheckIcon, CrossCircledIcon, ArrowRightIcon } from '@radix-ui/react-icons'
+import { CheckCircledIcon, ArrowUpIcon, CheckIcon, CrossCircledIcon, ArrowRightIcon } from '@radix-ui/react-icons'
 import { wellnessFocusItems } from '@/app/constants'
 import styles from './WellnessFocus.module.css'
 

@@ -1,0 +1,254 @@
+/**
+ * Chat Components Styles
+ * Includes: Chat Panel, Chat History, Thread Cards, Chat Backdrop, Expand Button
+ * 
+ * Uses CSS variables from design tokens for systematic theming.
+ * Variables automatically switch based on [data-theme] on :root
+ */
+
+/* ========== Chat Panel ========== */
+.chatPanel {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  height: calc(100vh - 60px);
+  background: var(--background);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+  border-left: 1px solid var(--border-subtle);
+  padding: 16px 20px 20px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.chatPanelTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Chat Messages Area */
+.chatArea {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+
+.chatArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatArea::-webkit-scrollbar-thumb {
+  background: var(--accent-subtle);
+  border-radius: 3px;
+}
+
+.chatArea::-webkit-scrollbar-thumb:hover {
+  background: var(--border-emphasis);
+}
+
+.userMessage {
+  align-self: flex-end;
+  max-width: 85%;
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px 16px 4px 16px;
+  padding: 12px 16px;
+}
+
+.assistantMessage {
+  align-self: flex-start;
+  max-width: 85%;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px 16px 16px 4px;
+  padding: 12px 16px;
+}
+
+.messageText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.userMessage .messageText {
+  color: var(--text-primary);
+}
+
+/* Chat Input */
+.chatInputWrapper {
+  margin-top: auto;
+  padding-top: 12px;
+  padding-bottom: 4px;
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.chatInputInner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-emphasis);
+  border-radius: 20px;
+  padding: 6px 6px 6px 16px;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.chatInputInner:focus-within {
+  border-color: var(--border-strong);
+  background: var(--surface-elevated);
+}
+
+.chatInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  padding: 6px 0;
+}
+
+.chatInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.chatSendBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent-primary);
+  color: var(--accent-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease, opacity 150ms ease;
+  flex-shrink: 0;
+}
+
+.chatSendBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: var(--accent-primary-hover);
+}
+
+.chatSendBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ========== Chat Backdrop ========== */
+.chatBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99;
+}
+
+/* ========== Chat Expand Button ========== */
+.chatExpandBtn {
+  position: fixed;
+  top: 76px;
+  right: calc(15% + 16px);
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease;
+  z-index: 50;
+}
+
+.chatExpandBtn:hover {
+  color: var(--text-secondary);
+}
+
+/* ========== Chat History & Thread Cards ========== */
+.chatHistoryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: 100%;
+  padding: 20px 0;
+  margin: 0;
+  align-self: stretch;
+}
+
+.threadCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  padding: 16px 20px;
+  border-radius: 8px;
+  background: transparent;
+  transition: background 150ms ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.threadCard:hover {
+  background: var(--accent-subtle);
+}
+
+.threadCardTimestamp {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.threadCardTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.threadCardPreview {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .chatHistoryContainer {
+    padding: 16px;
+    gap: 20px;
+  }
+
+  .threadCard {
+    padding: 10px 14px;
+  }
+
+  .threadCardTitle {
+    font-size: 0.95rem;
+  }
+}
+
+

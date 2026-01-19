@@ -1,88 +1,92 @@
 /* Selection Grid */
 .selectionGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .gridCard {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: flex-start;
-  gap: 8px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  aspect-ratio: 1 / 0.6;
+  padding: 10px;
+  background: #E8E4E0;
+  border: none;
+  border-radius: 2px;
   cursor: pointer;
   transition: all 150ms ease;
   text-align: left;
   position: relative;
+  box-sizing: border-box;
 }
 
 .gridCard:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: #DED9D5;
 }
 
 .gridCardSelected {
-  background: rgba(173, 240, 221, 0.1);
-  border-color: rgba(173, 240, 221, 0.3);
+  background: #9DC8C0;
+}
+
+.gridCardSelected:hover {
+  background: #8FBFB7;
 }
 
 .gridCardCheck {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  color: #adf0dd;
+  top: 10px;
+  right: 10px;
+  color: #1A1A1A;
 }
 
 .gridCardLabel {
-  font-size: 0.95rem;
-  color: var(--text-primary);
+  font-size: 1.075rem;
+  font-weight: 500;
+  color: #1A1A1A;
 }
 
 /* Ranked List */
 .rankedList {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(6, 52px);
+  gap: 12px;
+  width: 560px;
 }
 
 .rankedItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   cursor: pointer;
   transition: all 150ms ease;
   text-align: left;
   width: 100%;
+  height: 52px;
 }
 
 .rankedItem:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: transparent;
 }
 
 .rankedItemSelected1 {
-  background: rgba(173, 240, 221, 0.15);
-  border-color: rgba(173, 240, 221, 0.4);
+  background: transparent;
 }
 
 .rankedItemSelected2 {
-  background: rgba(173, 240, 221, 0.1);
-  border-color: rgba(173, 240, 221, 0.3);
+  background: transparent;
 }
 
 .rankedItemSelected3 {
-  background: rgba(173, 240, 221, 0.06);
-  border-color: rgba(173, 240, 221, 0.2);
+  background: transparent;
 }
 
 .rankedItemLabel {
@@ -91,16 +95,26 @@
 }
 
 .rankedItemPriority {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #111113;
-  background: #adf0dd;
-  border-radius: 50%;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--accent-primary);
+  background: transparent;
+  border-radius: 0;
+  animation: rankedPriorityFade 220ms ease-in-out;
+}
+
+@keyframes rankedPriorityFade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hexagon Gauge */
@@ -156,15 +170,15 @@
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 50%;
   cursor: pointer;
   transition: all 150ms ease;
 }
 
 .hexagonBtn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--border-emphasis);
 }
 
 .hexagonBtn:disabled {
@@ -182,5 +196,58 @@
   font-size: 0.9rem;
   color: var(--text-secondary);
   text-align: center;
+}
+
+/* Simple Gauge */
+.simpleGauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+}
+
+.simpleGaugeControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.simpleGaugeBtn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.simpleGaugeBtn:hover:not(:disabled) {
+  background: var(--border-emphasis);
+  border-color: var(--border-strong);
+}
+
+.simpleGaugeBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.simpleGaugeValue {
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.simpleGaugeLabel {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
 }
 

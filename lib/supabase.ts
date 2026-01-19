@@ -19,4 +19,4 @@ export const supabaseAdmin = process.env.SUPABASE_SERVICE_ROLE_KEY
         }
       }
     )
-  : null; // Return null if service role key not available (e.g., in browser)
+  : null; 
