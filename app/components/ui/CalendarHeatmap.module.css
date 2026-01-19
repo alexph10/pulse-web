@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 /* Toggle button - positioned top right */
@@ -13,11 +14,11 @@
   border: none;
   padding: 4px;
   cursor: pointer;
-  color: #6B4E9B;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.6;
+  opacity: 0.5;
   transition: opacity 150ms ease;
   z-index: 2;
 }
@@ -41,42 +42,44 @@
 .header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 16px;
+  gap: 2px;
+  margin-bottom: 14px;
 }
 
 .monthLabel {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4c5957;
 }
 
 .statValue {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #1a1a1a;
-  line-height: 1.1;
+  color: #4c5957;
+  line-height: 1.2;
 }
 
 .comparison {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #2D8A6E;
   font-weight: 500;
+  margin-top: 2px;
 }
 
 .comparisonArrow {
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
 }
 
 /* Calendar grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: 32px;
-  gap: 2px;
+  gap: 0;
+  width: 100%;
 }
 
 .week {
@@ -84,8 +87,8 @@
 }
 
 .day {
+  aspect-ratio: 1 / 1;
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,6 +98,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  border-radius: 0;
 }
 
 .day.empty {
@@ -102,7 +106,7 @@
 }
 
 .dayNumber {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
   user-select: none;
   line-height: 1;

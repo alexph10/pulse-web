@@ -114,8 +114,8 @@ export default function WellnessFocus() {
                         {item.description}
                       </motion.p>
 
-                      {/* Reflection: Input bar */}
-                      {item.type === 'reflection' && (
+                      {/* Input bar for items that require written response */}
+                      {item.inputRequired && (
                         <motion.div 
                           className={styles.cardInputWrapper}
                           variants={contentVariants}
@@ -138,8 +138,8 @@ export default function WellnessFocus() {
                         </motion.div>
                       )}
 
-                      {/* Task: Action buttons */}
-                      {item.type === 'task' && (
+                      {/* Action buttons for tasks that don't require input */}
+                      {!item.inputRequired && (
                         <motion.div 
                           className={styles.cardActions}
                           variants={contentVariants}

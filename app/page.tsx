@@ -27,6 +27,9 @@ import { ProfileButton, ProfileDropdown, CreateButton } from './components/profi
 // Home Components
 import { HomeCarousel, WellnessFocus } from './components/home'
 
+// Insights Components
+import { MoodTrendsCard, ReflectionCard, PatternInsightsCard, WeeklyPulseCard } from './components/insights'
+
 // Overlay Components
 import { CardChatOverlay } from './components/overlays'
 
@@ -538,9 +541,38 @@ export default function MainPage() {
 
         {/* Insights Page */}
         {activePage === 'insights' && (
-          <div className={styles.insightsContent}>
-            {/* Insights content coming soon */}
-          </div>
+          <motion.div
+            className={styles.insightsContent}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <MoodTrendsCard 
+              onAskClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <ReflectionCard 
+              onJournalClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <PatternInsightsCard 
+              onExploreClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <WeeklyPulseCard 
+              onDetailsClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+          </motion.div>
         )}
       </div>
 
