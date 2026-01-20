@@ -77,11 +77,11 @@
 /* Insight card - heatmap container (original size) */
 .insightCard {
   background: #E8E0F0;
-  border-radius: 14px;
-  padding: 20px 22px;
+  border-radius: 16px;
+  padding: 24px 28px;
   width: 300px;
   min-width: 300px;
-  min-height: 320px;
+  min-height: 300px;
   height: auto;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -91,11 +91,11 @@
 /* Secondary/Large card - title/welcome card (original size) */
 .secondaryCard {
   background: #E0DEEC;
-  border-radius: 14px;
-  padding: 20px 22px;
+  border-radius: 16px;
+  padding: 24px 28px;
   flex: 1;
   min-width: 300px;
-  min-height: 320px;
+  min-height: 300px;
   height: auto;
   box-sizing: border-box;
   display: flex;
@@ -132,10 +132,10 @@
 .mediumCard {
   background: #add2d1;
   border-radius: 12px;
-  padding: 16px 18px;
+  padding: 16px 20px;
   flex: 1;
-  min-width: 220px;
-  min-height: 160px;
+  min-width: 200px;
+  min-height: 140px;
   height: auto;
   box-sizing: border-box;
   position: relative;
@@ -143,9 +143,9 @@
 
 /* Recommendations paragraph */
 .recommendationsParagraph {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
   margin: 0;
   margin-top: auto;
   padding-right: 24px;
@@ -153,7 +153,7 @@
 
 .recommendationsParagraph .textLight {
   color: #839d9b;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .recommendationsParagraph .textMedium {
@@ -163,17 +163,17 @@
 
 .recommendationsParagraph .textDark {
   color: #232521;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Wellness Trend Card */
 .wellnessTrendCard {
   background: #E8E0F0;
   border-radius: 12px;
-  padding: 16px 18px;
+  padding: 16px 20px;
   width: 200px;
   min-width: 200px;
-  height: 160px;
+  height: 140px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -184,10 +184,10 @@
 .habitStreakCard {
   background: #E8E0F0;
   border-radius: 12px;
-  padding: 16px 18px;
+  padding: 16px 20px;
   width: 200px;
   min-width: 200px;
-  height: 160px;
+  height: 140px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -198,8 +198,8 @@
 .correlationCard {
   background: #E0DEEC;
   border-radius: 12px;
-  padding: 16px 18px;
-  height: 160px;
+  padding: 16px 20px;
+  height: 140px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -210,6 +210,145 @@
   flex: 1;
   min-width: 220px;
   max-width: 420px;
+}
+
+/* ========== Slide 2 Cards ========== */
+
+/* Weekly Mood Ring Card */
+.weeklyMoodCard {
+  background: #E8E0F0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  width: 160px;
+  min-width: 160px;
+  height: 160px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.miniCardLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(129, 114, 185, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  align-self: flex-start;
+}
+
+.moodRingContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+}
+
+.moodRingValue {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #6a5aad;
+}
+
+.moodRingChange {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(129, 114, 185, 0.6);
+}
+
+/* Streak Mini Card */
+.streakMiniCard {
+  background: #E8E0F0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  width: 160px;
+  min-width: 160px;
+  height: 160px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.streakMiniHero {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: auto 0;
+}
+
+.streakMiniNumber {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #6a5aad;
+  line-height: 1;
+}
+
+.streakMiniUnit {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(129, 114, 185, 0.6);
+}
+
+.streakMiniWeek {
+  display: flex;
+  gap: 6px;
+}
+
+.streakMiniDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(129, 114, 185, 0.2);
+}
+
+.streakMiniDot.streakMiniDotActive {
+  background: #8172b9;
+}
+
+/* Top Insight Card */
+.topInsightCard {
+  background: #E0DEEC;
+  border-radius: 12px;
+  padding: 16px 20px;
+  flex: 1;
+  min-width: 220px;
+  height: 160px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.topInsightText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a4168;
+  line-height: 1.5;
+  margin: 12px 0;
+  flex: 1;
+}
+
+.topInsightButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 100px;
+  border: none;
+  background: #8172b9;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 150ms ease;
+}
+
+.topInsightButton:hover {
+  background: #6a5aad;
 }
 
 /* Responsive adjustments */

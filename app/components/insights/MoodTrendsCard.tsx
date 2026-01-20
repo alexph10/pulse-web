@@ -46,11 +46,11 @@ export default function MoodTrendsCard({ onAskClick }: MoodTrendsCardProps) {
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>A moment</span>
         <button className={styles.cardAction} onClick={onAskClick}>
-          <span className={styles.menuDots}>
-            <span className={styles.menuDot} />
-            <span className={styles.menuDot} />
-            <span className={styles.menuDot} />
-          </span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="5" r="1.5" fill="currentColor" />
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+            <circle cx="12" cy="19" r="1.5" fill="currentColor" />
+          </svg>
         </button>
       </div>
 

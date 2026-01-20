@@ -16,17 +16,17 @@
 }
 
 .wellnessFocusLabel {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: var(--text-primary);
 }
 
 .wellnessFocusLabel span {
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
 }
 
 .wellnessFocusTitle {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 8px 0;
@@ -34,7 +34,7 @@
 }
 
 .wellnessFocusSubtitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
   margin: 0 0 20px 0;
   line-height: 1.5;
@@ -55,7 +55,7 @@
 .wellnessFocusItem {
   flex: 1 1 calc(50% - 8px);
   min-width: 240px;
-  min-height: 160px;
+  min-height: 140px;
   padding: 20px 24px;
   border-radius: 14px;
   cursor: pointer;
@@ -116,11 +116,11 @@
 }
 
 .cardLabel {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   font-weight: 500;
   opacity: 0.7;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 .cardText {
@@ -164,8 +164,8 @@
 }
 
 .cardDescription {
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
   margin: 0 0 20px 0;
   opacity: 0.8;
   flex: 1;
@@ -175,11 +175,11 @@
 .cardInputWrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(179, 249, 229, 0.08);
   border: none;
   border-radius: 100px;
-  padding: 8px 10px 8px 18px;
+  padding: 8px 12px 8px 16px;
   margin-top: 8px;
   max-width: 100%;
 }
@@ -188,7 +188,7 @@
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #b3f9e5;
   outline: none;
   padding: 4px 0;
@@ -234,7 +234,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 8px;
   margin-top: auto;
   width: 100%;
   box-sizing: border-box;
@@ -245,7 +245,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 100px;
   border: none;
   background: #b3f9e5;
@@ -253,7 +253,7 @@
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  min-width: 160px;
+  min-width: 120px;
   transition: background 150ms ease;
 }
 
@@ -266,7 +266,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 100px;
   border: 1px solid rgba(179, 249, 229, 0.4);
   background: transparent;
@@ -274,7 +274,7 @@
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  min-width: 160px;
+  min-width: 120px;
   transition: background 150ms ease, border-color 150ms ease;
 }
 

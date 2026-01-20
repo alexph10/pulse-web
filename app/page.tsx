@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AlertDialog, Avatar } from 'radix-ui'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 // Constants
 import {
@@ -34,7 +36,10 @@ import {
   PatternInsightsCard, 
   WeeklyPulseCard,
   SentimentHeatmapCard,
-  EmotionalVocabularyCard
+  EmotionalVocabularyCard,
+  ChartsCard,
+  StreakCard,
+  WhatHelpsYouCard
 } from './components/insights'
 
 // Overlay Components
@@ -107,6 +112,25 @@ export default function MainPage() {
     setActivePage(page)
     if (page !== 'chat') setChatOpen(false)
   }, [])
+
+  // GSAP animation for insights cards
+  const insightsRef = useRef<HTMLDivElement>(null)
+  useGSAP(() => {
+    if (activePage === 'insights' && insightsRef.current) {
+      const cards = insightsRef.current.children
+      gsap.fromTo(cards, 
+        { opacity: 0, y: 20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.4, 
+          stagger: 0.08, 
+          ease: 'power2.out',
+          clearProps: 'all'
+        }
+      )
+    }
+  }, [activePage])
 
 
   return (
@@ -548,12 +572,9 @@ export default function MainPage() {
 
         {/* Insights Page */}
         {activePage === 'insights' && (
-          <motion.div
+          <div
+            ref={insightsRef}
             className={styles.insightsContent}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <MoodTrendsCard 
               onAskClick={() => {
@@ -591,7 +612,25 @@ export default function MainPage() {
                 setChatOpen(true)
               }} 
             />
-          </motion.div>
+            <ChartsCard 
+              onExploreClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <StreakCard 
+              onExploreClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <WhatHelpsYouCard 
+              onExploreClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+          </div>
         )}
       </div>
 
