@@ -2,13 +2,15 @@
 .insightCard {
   background: #0f2d2c;
   border-radius: 14px;
-  padding: 20px 24px 20px;
-  width: 100%;
-  max-width: 967px;
+  padding: 20px 22px;
+  width: 300px;
+  min-width: 300px;
+  min-height: 320px;
+  height: auto;
+  flex-shrink: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-self: stretch;
 }
 
 /* Card Header Row - contains left content + right action */
@@ -252,13 +254,14 @@
 .reflectionCard {
   background: #0f2d2c;
   border-radius: 14px;
-  padding: 20px 24px 20px;
-  width: 100%;
-  max-width: 360px;
+  padding: 20px 22px;
+  flex: 1;
+  min-width: 300px;
+  min-height: 320px;
+  height: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-self: stretch;
 }
 
 .reflectionSubtitle {
@@ -310,14 +313,14 @@
 .patternCard {
   background: #0f2d2c;
   border-radius: 14px;
-  padding: 20px 24px 24px;
-  width: 100%;
-  max-width: 967px;
-  min-height: 320px;
+  padding: 20px 22px;
+  flex: 1;
+  min-width: 300px;
+  min-height: 160px;
+  height: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-self: stretch;
 }
 
 .patternSubtitle {
@@ -392,14 +395,14 @@
 .pulseCard {
   background: #0f2d2c;
   border-radius: 14px;
-  padding: 20px 24px 24px;
-  width: 100%;
-  max-width: 360px;
-  min-height: 320px;
+  padding: 20px 22px;
+  flex: 1;
+  min-width: 300px;
+  min-height: 160px;
+  height: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-self: stretch;
   justify-content: space-between;
 }
 
@@ -477,15 +480,39 @@
 }
 
 /* ========== Responsive ========== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .insightCard {
-    padding: 16px 14px 18px;
-    border-radius: 12px;
-    max-width: 100%;
+    width: 260px;
+    min-width: 260px;
+    min-height: 280px;
   }
   
   .reflectionCard {
-    max-width: 100%;
+    min-width: 260px;
+    min-height: 280px;
+  }
+  
+  .patternCard,
+  .pulseCard {
+    min-width: 220px;
+    min-height: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .insightCard,
+  .reflectionCard {
+    width: 100%;
+    min-width: 100%;
+    min-height: auto;
+    padding: 16px 18px;
+    border-radius: 12px;
+  }
+  
+  .patternCard,
+  .pulseCard {
+    width: 100%;
+    min-width: 100%;
     min-height: auto;
   }
   
