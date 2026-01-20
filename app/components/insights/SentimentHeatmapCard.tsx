@@ -1,13 +1,13 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 import styles from './insights.module.css'
 
 type EmotionType = 'joy' | 'calm' | 'anxiety' | 'sadness' | 'anger' | 'neutral'
 
 interface SentimentDay {
   date: string
+  dayOfMonth: number
   dominantEmotion: EmotionType
   intensity: number
 }
@@ -50,6 +50,7 @@ function generateMockData(): SentimentDay[] {
     
     data.push({
       date: date.toISOString().split('T')[0],
+      dayOfMonth: date.getDate(),
       dominantEmotion: selectedEmotion,
       intensity: 0.6 + Math.random() * 0.4,
     })
@@ -102,11 +103,15 @@ export default function SentimentHeatmapCard({ data, onExploreClick }: Sentiment
   
   return (
     <div className={styles.sentimentCard}>
-      {/* Header */}
+      {/* Header with three-dot menu */}
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>Sentiment</span>
         <button className={styles.cardAction} onClick={onExploreClick}>
-          <ArrowRightIcon width={18} height={18} />
+          <span className={styles.menuDots}>
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+          </span>
         </button>
       </div>
       
@@ -120,7 +125,7 @@ export default function SentimentHeatmapCard({ data, onExploreClick }: Sentiment
         ))}
       </div>
       
-      {/* Heatmap */}
+      {/* Heatmap with date numbers */}
       <div className={styles.sentimentGrid}>
         {weeks.map((week, weekIndex) => (
           <div key={weekIndex} className={styles.sentimentWeek}>
@@ -132,7 +137,9 @@ export default function SentimentHeatmapCard({ data, onExploreClick }: Sentiment
                   backgroundColor: EMOTION_COLORS[day.dominantEmotion],
                   opacity: day.intensity,
                 } : undefined}
-              />
+              >
+                {day && <span className={styles.cellDate}>{day.dayOfMonth}</span>}
+              </div>
             ))}
           </div>
         ))}

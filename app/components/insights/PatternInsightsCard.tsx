@@ -1,6 +1,5 @@
 'use client'
 
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 import styles from './insights.module.css'
 
 interface Pattern {
@@ -55,11 +54,15 @@ const CategoryIcon = ({ category }: { category: Pattern['category'] }) => {
 export default function PatternInsightsCard({ onExploreClick }: PatternInsightsCardProps) {
   return (
     <div className={styles.patternCard}>
-      {/* Header */}
+      {/* Header with three-dot menu */}
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>Patterns</span>
         <button className={styles.cardAction} onClick={onExploreClick}>
-          <ArrowRightIcon width={18} height={18} />
+          <span className={styles.menuDots}>
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+          </span>
         </button>
       </div>
 
@@ -69,7 +72,7 @@ export default function PatternInsightsCard({ onExploreClick }: PatternInsightsC
         <span className={styles.heroLabel}>detected</span>
       </div>
 
-      {/* Pattern list - simplified */}
+      {/* Pattern list */}
       <div className={styles.patternList}>
         {mockPatterns.map((pattern) => (
           <div key={pattern.id} className={styles.patternItem}>

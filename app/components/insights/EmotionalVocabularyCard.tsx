@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 import styles from './insights.module.css'
 
 interface VocabularyWord {
@@ -56,11 +55,15 @@ export default function EmotionalVocabularyCard({
   
   return (
     <div className={styles.vocabularyCard}>
-      {/* Header */}
+      {/* Header with three-dot menu */}
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>Vocabulary</span>
         <button className={styles.cardAction} onClick={onExploreClick}>
-          <ArrowRightIcon width={18} height={18} />
+          <span className={styles.menuDots}>
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+          </span>
         </button>
       </div>
       
@@ -70,7 +73,7 @@ export default function EmotionalVocabularyCard({
         <span className={styles.heroLabel}>words</span>
       </div>
       
-      {/* Grid - 3 categories, 3 words each */}
+      {/* Grid */}
       <div className={styles.vocabularyGrid}>
         {data.slice(0, 3).map(category => (
           <div key={category.id} className={styles.vocabCategory}>

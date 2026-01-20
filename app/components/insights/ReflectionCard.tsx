@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 import styles from './insights.module.css'
 
 interface ReflectionPrompt {
@@ -45,11 +44,15 @@ export default function ReflectionCard({ onJournalClick }: ReflectionCardProps) 
 
   return (
     <div className={styles.reflectionCard}>
-      {/* Header */}
+      {/* Header with three-dot menu */}
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>Reflect</span>
         <button className={styles.cardAction} onClick={onJournalClick}>
-          <ArrowRightIcon width={18} height={18} />
+          <span className={styles.menuDots}>
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+          </span>
         </button>
       </div>
 

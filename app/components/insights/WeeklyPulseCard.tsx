@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 import styles from './insights.module.css'
 
 interface DayData {
@@ -32,11 +31,15 @@ export default function WeeklyPulseCard({ onDetailsClick }: WeeklyPulseCardProps
 
   return (
     <div className={styles.pulseCard}>
-      {/* Header */}
+      {/* Header with three-dot menu */}
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>This week</span>
         <button className={styles.cardAction} onClick={onDetailsClick}>
-          <ArrowRightIcon width={18} height={18} />
+          <span className={styles.menuDots}>
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+          </span>
         </button>
       </div>
 

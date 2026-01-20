@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 import MoodAreaChart, { MoodDataPoint, formatChartDate } from './MoodAreaChart'
 import styles from './insights.module.css'
 
@@ -16,7 +15,6 @@ interface MoodTrendsCardProps {
   onAskClick?: () => void
 }
 
-// Mock data for demonstration
 const mockMoodData: MoodDataPoint[] = [
   { date: '2025-01-05', score: 5 },
   { date: '2025-01-06', score: 6 },
@@ -75,21 +73,30 @@ export default function MoodTrendsCard({ data = mockMoodData, onAskClick }: Mood
   
   return (
     <div className={styles.insightCard}>
-      {/* Header */}
+      {/* Header with three-dot menu */}
       <div className={styles.cardHeaderRow}>
         <span className={styles.cardLabel}>Mood</span>
         <button className={styles.cardAction} onClick={onAskClick}>
-          <ArrowRightIcon width={18} height={18} />
+          <span className={styles.menuDots}>
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+            <span className={styles.menuDot} />
+          </span>
         </button>
       </div>
       
-      {/* Hero Metric with inline trend */}
+      {/* Hero Metric with trend below */}
       <div className={styles.heroMetric}>
         <span className={styles.heroNumber}>{insight.average}</span>
         <span className={`${styles.heroTrend} ${styles[insight.direction]}`}>
+          <span className={styles.trendArrow}>
+            {insight.direction === 'up' && '↗'}
+            {insight.direction === 'down' && '↘'}
+            {insight.direction === 'stable' && '→'}
+          </span>
           {insight.direction === 'up' && '+'}
           {insight.direction === 'down' && '-'}
-          {insight.percentChange}%
+          {insight.percentChange}% this week
         </span>
       </div>
       
