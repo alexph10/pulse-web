@@ -389,6 +389,12 @@
   font-weight: 500;
 }
 
+.pulseHighlight {
+  font-size: 0.75rem;
+  color: rgba(179, 249, 229, 0.5);
+  margin-bottom: 16px;
+}
+
 /* ========== Sentiment Heatmap Card (Compact) ========== */
 .sentimentCard {
   background: #0f2d2c;
