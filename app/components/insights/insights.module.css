@@ -1,6 +1,6 @@
 /* ========== Insight Card ========== */
 .insightCard {
-  background: #22201f;
+  background: #0f2d2c;
   border-radius: 14px;
   padding: 20px 24px 20px;
   width: 100%;
@@ -250,7 +250,7 @@
 
 /* ========== Reflection Card ========== */
 .reflectionCard {
-  background: #22201f;
+  background: #0f2d2c;
   border-radius: 14px;
   padding: 20px 24px 20px;
   width: 100%;
@@ -308,7 +308,7 @@
 
 /* ========== Pattern Insights Card ========== */
 .patternCard {
-  background: #22201f;
+  background: #0f2d2c;
   border-radius: 14px;
   padding: 20px 24px 24px;
   width: 100%;
@@ -390,7 +390,7 @@
 
 /* ========== Weekly Pulse Card ========== */
 .pulseCard {
-  background: #22201f;
+  background: #0f2d2c;
   border-radius: 14px;
   padding: 20px 24px 24px;
   width: 100%;
