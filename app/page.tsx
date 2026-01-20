@@ -28,7 +28,14 @@ import { ProfileButton, ProfileDropdown, CreateButton } from './components/profi
 import { HomeCarousel, WellnessFocus } from './components/home'
 
 // Insights Components
-import { MoodTrendsCard, ReflectionCard, PatternInsightsCard, WeeklyPulseCard } from './components/insights'
+import { 
+  MoodTrendsCard, 
+  ReflectionCard, 
+  PatternInsightsCard, 
+  WeeklyPulseCard,
+  SentimentHeatmapCard,
+  EmotionalVocabularyCard
+} from './components/insights'
 
 // Overlay Components
 import { CardChatOverlay } from './components/overlays'
@@ -568,6 +575,18 @@ export default function MainPage() {
             />
             <WeeklyPulseCard 
               onDetailsClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <SentimentHeatmapCard 
+              onExploreClick={() => {
+                setActivePage('chat')
+                setChatOpen(true)
+              }} 
+            />
+            <EmotionalVocabularyCard 
+              onExploreClick={() => {
                 setActivePage('chat')
                 setChatOpen(true)
               }} 
