@@ -23,32 +23,46 @@ const mockWeekData: DayData[] = [
   { day: 'Sunday', shortDay: 'S', score: 6.5 },
 ]
 
-// Mock last week's average for comparison
-const lastWeekAvg = 6.9
+// Generate narrative summary from data
+function generateNarrative(data: DayData[]): { summary: string; standoutDay: string } {
+  const scores = data.map(d => d.score)
+  const avg = scores.reduce((a, b) => a + b, 0) / scores.length
+  const maxScore = Math.max(...scores)
+  const minScore = Math.min(...scores)
+  const variance = maxScore - minScore
+  const standoutDay = data.find(d => d.score === maxScore)?.day || ''
+  
+  // Determine the narrative based on patterns
+  let summary: string
+  
+  if (variance < 1.5) {
+    summary = 'A steady week'
+  } else if (variance > 3) {
+    summary = 'An up-and-down week'
+  } else if (scores[scores.length - 1] > scores[0] + 1) {
+    summary = 'Building momentum'
+  } else if (scores[scores.length - 1] < scores[0] - 1) {
+    summary = 'A gradual wind-down'
+  } else if (avg > 7.5) {
+    summary = 'A bright week'
+  } else if (avg < 5) {
+    summary = 'A heavier week'
+  } else {
+    summary = 'A gentle week'
+  }
+  
+  return { summary, standoutDay }
+}
 
 export default function WeeklyPulseCard({ onDetailsClick }: WeeklyPulseCardProps) {
-  const stats = useMemo(() => {
-    const avg = mockWeekData.reduce((sum, d) => sum + d.score, 0) / mockWeekData.length
-    const maxScore = Math.max(...mockWeekData.map(d => d.score))
-    const bestDay = mockWeekData.find(d => d.score === maxScore)
-    const change = avg - lastWeekAvg
-    const changePercent = ((change / lastWeekAvg) * 100).toFixed(0)
-    
-    return { 
-      avg: avg.toFixed(1), 
-      maxScore, 
-      bestDay: bestDay?.day || 'Friday',
-      change: change.toFixed(1),
-      changePercent,
-      direction: change > 0.1 ? 'up' : change < -0.1 ? 'down' : 'stable'
-    }
-  }, [])
+  const { summary, standoutDay } = useMemo(() => generateNarrative(mockWeekData), [])
+  const maxScore = Math.max(...mockWeekData.map(d => d.score))
 
   return (
     <div className={styles.pulseCard}>
       {/* Header */}
       <div className={styles.cardHeaderRow}>
-        <span className={styles.cardLabel}>Weekly mood</span>
+        <span className={styles.cardLabel}>Your week</span>
         <button className={styles.cardAction} onClick={onDetailsClick}>
           <span className={styles.menuDots}>
             <span className={styles.menuDot} />
@@ -58,43 +72,24 @@ export default function WeeklyPulseCard({ onDetailsClick }: WeeklyPulseCardProps
         </button>
       </div>
 
-      {/* Hero metric with comparison */}
-      <div className={styles.heroMetric}>
-        <span className={styles.heroNumber}>{stats.avg}</span>
-        <span className={`${styles.heroTrend} ${styles[stats.direction]}`}>
-          <span className={styles.trendArrow}>
-            {stats.direction === 'up' && '↗'}
-            {stats.direction === 'down' && '↘'}
-            {stats.direction === 'stable' && '→'}
-          </span>
-          {stats.direction === 'up' && '+'}
-          {stats.change} vs last week
-        </span>
+      {/* Narrative summary */}
+      <div className={styles.narrativeBlock}>
+        <p className={styles.narrativePrimary}>{summary}</p>
+        {standoutDay && (
+          <p className={styles.narrativeSecondary}>with {standoutDay} standing out</p>
+        )}
       </div>
 
-      {/* Best day callout */}
-      <div className={styles.pulseHighlight}>
-        Best: {stats.bestDay}
-      </div>
-
-      {/* Bar chart */}
-      <div className={styles.miniBarChart}>
-        {mockWeekData.map((day, index) => {
-          const heightPercent = (day.score / 10) * 100
-          const isHighest = day.score === stats.maxScore
-          
-          return (
-            <div key={index} className={styles.miniBarColumn}>
-              <div className={styles.miniBarWrapper}>
-                <div 
-                  className={`${styles.miniBar} ${isHighest ? styles.miniBarHighlight : ''}`}
-                  style={{ height: `${heightPercent}%` }}
-                />
-              </div>
-              <span className={styles.miniBarLabel}>{day.shortDay}</span>
-            </div>
-          )
-        })}
+      {/* Simple dot rhythm - no numbers, just visual pattern */}
+      <div className={styles.rhythmDots}>
+        {mockWeekData.map((day, index) => (
+          <div key={index} className={styles.rhythmDay}>
+            <div 
+              className={`${styles.rhythmDot} ${day.score === maxScore ? styles.rhythmDotHighlight : ''}`}
+            />
+            <span className={styles.rhythmLabel}>{day.shortDay}</span>
+          </div>
+        ))}
       </div>
     </div>
   )

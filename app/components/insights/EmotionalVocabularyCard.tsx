@@ -1,63 +1,31 @@
 'use client'
 
-import { useMemo } from 'react'
 import styles from './insights.module.css'
 
-interface VocabularyWord {
-  word: string
-  isNew: boolean
-}
-
-interface VocabularyCategory {
-  id: string
-  category: string
-  words: VocabularyWord[]
-}
-
-interface EmotionalVocabularyCardProps {
-  data?: VocabularyCategory[]
+interface WordsCardProps {
   onExploreClick?: () => void
 }
 
-const mockVocabularyData: VocabularyCategory[] = [
-  { id: 'joy', category: 'Joy', words: [
-    { word: 'happy', isNew: false },
-    { word: 'grateful', isNew: false },
-    { word: 'hopeful', isNew: true }
-  ]},
-  { id: 'calm', category: 'Calm', words: [
-    { word: 'peaceful', isNew: false },
-    { word: 'relaxed', isNew: false },
-    { word: 'serene', isNew: true }
-  ]},
-  { id: 'energy', category: 'Energy', words: [
-    { word: 'motivated', isNew: false },
-    { word: 'focused', isNew: false },
-    { word: 'driven', isNew: true }
-  ]}
+// Words extracted from journal entries - no categories, just reflection
+const mockWords = [
+  { word: 'grateful', isNew: false },
+  { word: 'tired', isNew: false },
+  { word: 'hopeful', isNew: true },
+  { word: 'coffee', isNew: false },
+  { word: 'Sam', isNew: false },
+  { word: 'peaceful', isNew: true },
+  { word: 'work', isNew: false },
+  { word: 'morning', isNew: false },
 ]
 
-const CategoryIcon = ({ category }: { category: string }) => {
-  const icons: Record<string, JSX.Element> = {
-    joy: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /></svg>,
-    calm: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>,
-    energy: <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
-  }
-  return icons[category.toLowerCase()] || <circle cx="12" cy="12" r="10" />
-}
-
-export default function EmotionalVocabularyCard({ 
-  data = mockVocabularyData, 
-  onExploreClick 
-}: EmotionalVocabularyCardProps) {
-  const totalWords = useMemo(() => 
-    data.reduce((sum, cat) => sum + cat.words.length, 0), [data])
+export default function EmotionalVocabularyCard({ onExploreClick }: WordsCardProps) {
+  const newWordsCount = mockWords.filter(w => w.isNew).length
   
   return (
-    <div className={styles.vocabularyCard}>
-      {/* Header with three-dot menu */}
+    <div className={styles.wordsCard}>
+      {/* Header */}
       <div className={styles.cardHeaderRow}>
-        <span className={styles.cardLabel}>Vocabulary</span>
+        <span className={styles.cardLabel}>Words</span>
         <button className={styles.cardAction} onClick={onExploreClick}>
           <span className={styles.menuDots}>
             <span className={styles.menuDot} />
@@ -66,36 +34,25 @@ export default function EmotionalVocabularyCard({
           </span>
         </button>
       </div>
-      
-      {/* Hero metric */}
-      <div className={styles.heroMetric}>
-        <span className={styles.heroNumber}>{totalWords}</span>
-        <span className={styles.heroLabel}>words</span>
-      </div>
-      
-      {/* Grid */}
-      <div className={styles.vocabularyGrid}>
-        {data.slice(0, 3).map(category => (
-          <div key={category.id} className={styles.vocabCategory}>
-            <div className={styles.vocabCategoryHeader}>
-              <span className={styles.vocabCategoryIcon}>
-                <CategoryIcon category={category.category} />
-              </span>
-              <span className={styles.vocabCategoryName}>{category.category}</span>
-            </div>
-            <div className={styles.vocabWordList}>
-              {category.words.slice(0, 3).map((word, index) => (
-                <span 
-                  key={index} 
-                  className={`${styles.vocabWord} ${word.isNew ? styles.vocabWordNew : ''}`}
-                >
-                  {word.word}
-                </span>
-              ))}
-            </div>
-          </div>
+
+      {/* Words displayed as a flowing list */}
+      <div className={styles.wordCloud}>
+        {mockWords.map((item, index) => (
+          <span 
+            key={index} 
+            className={`${styles.wordItem} ${item.isNew ? styles.wordItemNew : ''}`}
+          >
+            {item.word}
+          </span>
         ))}
       </div>
+
+      {/* Subtle note about new words */}
+      {newWordsCount > 0 && (
+        <p className={styles.wordsNote}>
+          {newWordsCount} new {newWordsCount === 1 ? 'word' : 'words'} this week
+        </p>
+      )}
     </div>
   )
 }
